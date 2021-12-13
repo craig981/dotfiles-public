@@ -1,0 +1,57 @@
+# -*- mode: sh; sh-shell: sh; -*-
+
+# sourced by both bashrc and zshrc
+
+if [[ "$(uname -s)" = "Darwin" ]]; then
+
+  # macports
+  export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+
+  alias ll='/bin/ls -lrthG'
+  alias ls='/bin/ls -G'
+
+  export CLICOLOR=1
+  export LSCOLORS=GxFxCxDxBxegedabagaced
+
+  if [ "$TERM" = dumb ] && [ "$INSIDE_EMACS" ]; then
+      export TERM=dumb-emacs-ansi COLORTERM=1
+  fi
+
+else
+
+  alias ls='/bin/ls --color=auto'
+  alias ll='/bin/ls -lrth -F --color=auto'
+
+  alias e='emacs -nw'
+  alias ee='emacs'
+  alias ke='killall -s 9 emacs'
+  alias km='killall -s 9 maya.bin'
+
+  if [[ -n "$DISPLAY" && -n "$PS1" && -z "$SSH_TTY" && "$XDG_CURRENT_DESKTOP" != "i3" ]]; then
+      ~/dotfiles-public/bin/keyboard.sh &> /dev/null
+  fi
+fi
+
+function lt() {
+	tree -C -a -I .git "$@" | less -R
+}
+
+export EDITOR=nvim
+alias vim=nvim
+alias vi=nvim
+
+alias m='nvim "+set filetype=mail"'
+alias f='feh'
+alias d='imf_disp'
+alias p='mplayer -really-quiet -loop 0 -fixed-vo'
+alias mu='cmus'
+alias abcll='abcls -almrstv'
+
+alias g='git st'
+alias gd='git di'
+alias gdc='git di --cached'
+alias ga='git add -p'
+alias gc='git commit'
+alias gl='git lo'
+
+alias c='coffee.sh'

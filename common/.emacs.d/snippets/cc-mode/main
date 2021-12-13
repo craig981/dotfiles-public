@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: main 
+# key: main
+# --
+#include <iostream>
+
+using std::cerr;
+
+int main(${1:int argc, const char *argv[]}) {
+	$0
+	return 0;
+}

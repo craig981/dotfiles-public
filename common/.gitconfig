@@ -1,0 +1,25 @@
+[alias]
+	st = status
+	di = diff --color
+	dc = diff --color --cached
+	dp = diff --color --diff-algorithm=patience
+	lo = log --graph --pretty=format:'%C(green)%h%C(yellow)%d%Creset %s %C(magenta)%cr %an <%al>%Creset' --color=auto
+	dt = difftool --tool=vimdiff --no-prompt
+	ch = cherry-pick
+
+[include]
+	path = ~/dotfiles/gitconfig_user
+
+[core]
+	excludesfile = ~/dotfiles-public/gitexcludesfile
+
+[color "diff"]
+	#meta = yellow
+	frag = cyan
+
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+
+[interactive]
+	singleKey = true

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: vec_print
+# key: <<<
+# expand-env: ((yas-indent-line 'fixed))
+# --
+<< ${1:p}[0] << " " <<
+   $1[1] << " " <<
+   $1[2] << " " <<$0

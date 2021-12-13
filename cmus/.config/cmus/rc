@@ -1,0 +1,15 @@
+unbind -f common [
+unbind -f common ]
+unbind -f common {
+unbind -f common }
+
+unbind -f common ,
+unbind -f common .
+unbind -f common H
+unbind -f common L
+bind common H seek -1m
+bind common L seek +1m
+
+unbind -f common s
+
+set wrap_search=false
