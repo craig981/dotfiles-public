@@ -341,6 +341,8 @@ nnoremap K :Man <C-R><C-W><CR>
 
 
 set path=.,**
+set path+=**/.[a-z]*/**
+
 let $MY_DOTFILES_VIMRC = $HOME . "/dotfiles/vimrc"
 if filereadable($MY_DOTFILES_VIMRC)
     source $MY_DOTFILES_VIMRC
