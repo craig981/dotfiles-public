@@ -1132,6 +1132,15 @@ return the project path instead"
   (add-hook 'cmake-mode-hook 'my-cmake-hook))
 
 ;; ----------------------------------------------------------------------------
+;* Yaml
+;; ----------------------------------------------------------------------------
+
+(defun my-yaml-hook ()
+  (setq-local evil-shift-width 2))
+
+(add-hook 'yaml-mode-hook 'my-yaml-hook)
+
+;; ----------------------------------------------------------------------------
 ;* Shell
 ;; ----------------------------------------------------------------------------
 
@@ -1831,6 +1840,7 @@ return nil if the point is in the middle of a word"
      soft-morning-theme
      undo-tree
      which-key
+     yaml-mode
      yasnippet))
  '(safe-local-variable-values
    '((tab-always-indent)
