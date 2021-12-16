@@ -1085,7 +1085,7 @@ return the project path instead"
 
 (defun my-compilation-mode-hook ()
   (visual-line-mode)
-  (evil-local-mode -1)
+  (evil-local-mode)
   (setq-local split-width-threshold 1000))
 
 (add-hook 'compilation-mode-hook 'my-compilation-mode-hook)
@@ -1113,6 +1113,9 @@ return the project path instead"
 (global-set-key (kbd "C-c g") #'my-jump-compilation)
 (define-key compilation-mode-map (kbd "SPC") evil-leader--default-map)
 (define-key compilation-mode-map (kbd "C-w") 'evil-window-map)
+(define-key compilation-mode-map (kbd "?") nil)
+(define-key compilation-mode-map (kbd "h") nil)
+(define-key compilation-mode-map (kbd "g") nil)
 
 ;; ----------------------------------------------------------------------------
 ;* Makefile
