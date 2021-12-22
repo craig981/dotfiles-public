@@ -459,10 +459,14 @@
 ;* Text
 ;; ----------------------------------------------------------------------------
 
-(defun my-after-evil-window-new (&rest args)
-  (text-mode))
+(defun my-after-evil-buffer-new (&rest args)
+  (let ((buffer (window-buffer)))
+    (when buffer
+      (with-current-buffer buffer
+	(text-mode)))))
 
-(advice-add 'evil-window-new :after #'my-after-evil-window-new)
+;;; make :enew edit in text-mode
+(advice-add 'evil-buffer-new :after #'my-after-evil-buffer-new)
 
 (defun my-text-mode-hook ()
   (turn-on-auto-fill)
