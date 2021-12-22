@@ -60,6 +60,9 @@ update-upgrade:
 	# install newer version of packages
 	sudo apt-get upgrade
 
+update-gui:
+	update-manager
+
 update-chrome:
 	sudo apt-get install --only-upgrade google-chrome-stable
 
