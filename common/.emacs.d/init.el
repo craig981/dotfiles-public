@@ -452,7 +452,7 @@
 (setq-default scroll-down-aggressively 0.0)
 
 (setq-default auto-hscroll-mode 't
-	      hscroll-margin 0
+	      hscroll-margin 5
 	      hscroll-step 5)
 
 ;; ----------------------------------------------------------------------------
