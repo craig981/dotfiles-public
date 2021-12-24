@@ -1385,6 +1385,8 @@ return nil if the point is in the middle of a word"
 
 (defun my-python-mode-hook ()
   (my-syntax-entry)
+  (anaconda-mode)
+  (anaconda-eldoc-mode)
   (setq-local tab-width 4)
   (setq-local evil-shift-width 4))
 
@@ -1828,7 +1830,8 @@ return nil if the point is in the middle of a word"
  '(magit-status-headers-hook
    '(magit-insert-error-header magit-insert-diff-filter-header magit-insert-repo-header magit-insert-head-branch-header magit-insert-upstream-branch-header magit-insert-push-branch-header magit-insert-tags-header))
  '(package-selected-packages
-   '(cmake-mode
+   '(anaconda-mode
+     cmake-mode
      company
      company-statistics
      evil
