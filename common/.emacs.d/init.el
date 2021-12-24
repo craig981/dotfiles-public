@@ -408,10 +408,17 @@
   (setq-default mac-right-command-modifier 'control)
   (setq-default mac-option-modifier 'alt)
 
-  (evil-global-set-key 'insert (kbd "[") (lambda () (interactive) (my-char "[" "å")))
-  (evil-global-set-key 'insert (kbd ";") (lambda () (interactive) (my-char ";" "ö")))
-  (evil-global-set-key 'insert (kbd "]") (lambda () (interactive) (my-char "]" "ä")))
+  (dolist (remap '(("[" . "å")
+		   (";" . "ö")
+		   ("]" . "ä")))
+    (let ((en (car remap))
+	  (se (cdr remap)))
+      (evil-global-set-key 'insert (kbd en)
+			   `(lambda () (interactive) (my-char ,en ,se)))
+      (define-key minibuffer-local-map (kbd en)
+	`(lambda () (interactive) (my-char ,en ,se)))))
 
+  ;; shift+alt+space
   (global-set-key (kbd "A-SPC") 'my-toggle-lang))
 
 
