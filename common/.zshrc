@@ -1,8 +1,5 @@
 # -*- mode: sh; sh-shell: zsh; -*-
 
-export PATH=$HOME/tools/bin:$HOME/dotfiles-public/bin:${PATH}
-export PATH="$HOME/.cargo/bin:$PATH"
-
 # emacs keys
 bindkey -e
 zle -A emacs-forward-word forward-word

@@ -4,9 +4,6 @@
 
 if [[ "$(uname -s)" = "Darwin" ]]; then
 
-  # macports
-  export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-
   alias ll='/bin/ls -lrthG'
   alias ls='/bin/ls -G'
 

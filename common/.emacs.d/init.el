@@ -45,12 +45,12 @@
 ;* Paths
 ;; ----------------------------------------------------------------------------
 
-(when (eq system-type 'darwin)
-  (setenv "PATH" (concat "/opt/local/bin:~/bin:/usr/local/bin:/usr/local/texlive/2015basic/bin/x86_64-darwin:" (getenv "PATH")))
-  (add-to-list 'exec-path "/usr/local/texlive/2015basic/bin/x86_64-darwin")  ; for pdflatex
-  (add-to-list 'exec-path "/usr/local/bin")
-  (add-to-list 'exec-path "~/bin")
-  (add-to-list 'exec-path "/opt/local/bin"))
+(when (display-graphic-p)
+  (let ((path-from-shell (replace-regexp-in-string
+			  "[[:space:]\n]*$" ""
+			  (shell-command-to-string "$SHELL -l -c 'printenv PATH'"))))
+    (setenv "PATH" path-from-shell)
+    (setq exec-path (split-string path-from-shell path-separator))))
 
 ;; ----------------------------------------------------------------------------
 ;* Evil mode
