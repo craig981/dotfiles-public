@@ -649,13 +649,6 @@
         (window-height . 10))
       display-buffer-alist)
 
-;; copy current item
-(define-key ido-common-completion-map (kbd "M-w")
-  (lambda ()
-    (interactive)
-    (kill-new (concat ido-current-directory (car ido-matches)))
-    (keyboard-quit)))
-
 (evil-leader/set-key "j" 'ido-switch-buffer)
 (global-set-key (kbd "C-x b") 'ido-switch-buffer)
 (global-set-key (kbd "C-x 4 b") 'ido-switch-buffer-other-window)
@@ -1324,22 +1317,15 @@ in that directory, then visit-tags-table on the file"
 		company-echo-metadata-frontend))
 (setq-default company-format-margin-function nil) ;; no icons
 
-;; (defun my-company-tooltip-blocker (func &rest args)
-;;   "Only allow the popup/tooltip when completion was manually started with C-n/C-p"
-;;   (when (company-explicit-action-p)
-;;     (apply func args)))
-
-;; (advice-add 'company-pseudo-tooltip-unless-just-one-frontend :around #'my-company-tooltip-blocker)
-
-(defun my-company-dabbrev--prefix ()
-  "Modified version of company-dabbrev--prefix that doesn't
-return nil if the point is in the middle of a word"
-  (company-grab-line (format "\\(?:^\\| \\)[^ ]*?\\(\\(?:%s\\)*\\)"
-                             company-dabbrev-char-regexp)
-                     1))
-;;; Make completion work when point is at the beginning or in the
-;;; middle of a word
-(advice-add 'company-dabbrev--prefix :override #'my-company-dabbrev--prefix)
+;; (defun my-company-dabbrev--prefix ()
+;;   "Modified version of company-dabbrev--prefix that doesn't
+;; return nil if the point is in the middle of a word"
+;;   (company-grab-line (format "\\(?:^\\| \\)[^ ]*?\\(\\(?:%s\\)*\\)"
+;;                              company-dabbrev-char-regexp)
+;;                      1))
+;; ;;; Make completion work when point is at the beginning or in the
+;; ;;; middle of a word
+;; (advice-add 'company-dabbrev--prefix :override #'my-company-dabbrev--prefix)
 
 ;; want company mode to work with evil-repeat
 ;; (searching within the candidates then evil-repeat still doesn't work however.)
