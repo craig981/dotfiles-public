@@ -315,15 +315,12 @@
 
 (global-set-key (kbd "C-c %") #'my-copy-filename)
 (global-set-key (kbd "C-c t") #'my-toggle-wrap)
-(global-set-key (kbd "C-c j") 'goto-last-change)
-(global-set-key (kbd "C-c C-j") 'goto-last-change)
 (global-set-key (kbd "C-c b") 'bookmark-jump)
 (evil-leader/set-key ";" (kbd "C-x C-;"))
 
 (global-set-key (kbd "C-c z") #'my-jump-dotfiles-public)
 (global-set-key (kbd "C-c Z") #'my-jump-dotfiles)
 
-(global-set-key (kbd "C-x C-o") (kbd "C-x o"))
 (global-set-key (kbd "C-x C-h") (kbd "C-x h"))
 
 (global-set-key (kbd "M-o") (kbd "C-x o"))
@@ -697,9 +694,7 @@
 
 (define-key helm-map (kbd "C-c C-u") 'kill-whole-line)
 (define-key helm-map (kbd "<escape>") nil)
-
-(when (eq system-type 'gnu/linux)
-  (global-set-key (kbd "M-y") 'helm-show-kill-ring))
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
 
 ;; ----------------------------------------------------------------------------
 ;* Tramp
@@ -789,8 +784,6 @@
       (if remove
 	  (delete-char (- (length end)))
 	(insert end)))))
-
-(define-key helm-do-ag-map (kbd "C-c C-o") (kbd "C-c o"))
 
 (define-key helm-ag-map (kbd "M-w")
   (lambda ()
@@ -1742,7 +1735,6 @@ return nil if the point is in the middle of a word"
     (ido-vertical-mode -1)))
 
 (global-set-key (kbd "<f6>") 'my-color-theme-toggle)
-(global-set-key (kbd "C-c `") 'my-load-theme)
 
 ;; ----------------------------------------------------------------------------
 ;* Font
