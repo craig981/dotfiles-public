@@ -115,13 +115,19 @@
 (define-key evil-normal-state-map (kbd "M-.") nil)
 (define-key evil-normal-state-map (kbd "M-,") nil)
 
+(defun my-delete-or-indent-left ()
+  (interactive)
+  (if (eolp)
+      (evil-shift-left-line 1)
+    (delete-char 1)))
+
 ;; fall through to emacs keys, C/M-f/b and M-d M-m already works in insert mode
 (evil-global-set-key 'motion (kbd "C-a") nil)
 (evil-global-set-key 'insert (kbd "C-a") nil)
 (evil-global-set-key 'insert (kbd "C-e") nil)
 (evil-global-set-key 'insert (kbd "C-k") nil)
 (evil-global-set-key 'insert (kbd "C-y") nil)
-(evil-global-set-key 'insert (kbd "C-d") 'delete-char)
+(evil-global-set-key 'insert (kbd "C-d") 'my-delete-or-indent-left)
 
 (define-key evil-ex-completion-map (kbd "C-a") 'move-beginning-of-line)
 (define-key evil-ex-completion-map (kbd "C-f") 'forward-char)
