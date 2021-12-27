@@ -857,43 +857,50 @@
 
 (global-set-key (kbd "C-c d") #'my-jump-project-dired)
 
+(defvar my-projects)
+(when (eq system-type 'darwin)
+  (setq my-projects '(("~/dev" . 2))))
+(when (eq system-type 'gnu/linux)
+  (setq my-projects '(("~/dev/git" . 3))))
 
-(defun my-choose-project (startdir depth action)
+(defun my-list-repos ()
+  "Return an alist of repos, with the key the string to match
+against, and the value the expanded full path to the repo"
+  (let ((all '())
+	(shell-file-name "/bin/bash")) ; tcsh slow at work
+    (dolist (proj my-projects)
+      (let* ((dir (expand-file-name (car proj)))
+	     (len (length (concat dir "/")))
+	     (depth (cdr proj))
+	     (repos (mapcar
+		     (lambda (x)
+		       (let* ((short (string-remove-suffix "/.git" (substring x len)))
+			      (long (concat dir "/" short)))
+			 `(,short . ,long)))
+		     (split-string
+		      (shell-command-to-string
+		       (format "find \"%s\" -maxdepth %d -type d -name .git" dir depth))
+		      "\n" t))))
+	(setq all (nconc all repos))))
+    all))
+
+(defun my-choose-project (&optional action)
   "Choose a project then invoke action on it. If action is nil,
 return the project path instead"
-  (let* ((dir (expand-file-name startdir))
-	 (len (length (concat dir "/")))
-	 (shell-file-name "/bin/bash")	; tcsh slow at work
-	 (sel (ido-completing-read
-	       "Repo: "
-	       (mapcar
-		(lambda (x)
-		  (string-remove-suffix "/.git" (substring x len)))
-		(split-string
-		 (shell-command-to-string
-		  (format "find \"%s\" -maxdepth %d -type d -name .git" dir depth))
-		 "\n" t)))))
+  (let* ((repos (my-list-repos))
+	 (sel (assoc (ido-completing-read "Repo: " repos) repos)))
     (if sel
-	(let ((path (concat dir "/" sel)))
+	(let ((path (cdr sel)))
 	  (if action
 	      (funcall action path)
 	    path)))))
 
-(defvar my-project-root)
-(defvar my-project-maxdepth)
-(when (eq system-type 'darwin)
-  (setq my-project-root "~/dev"
-	my-project-maxdepth 2))
-(when (eq system-type 'gnu/linux)
-  (setq my-project-root "~/dev/git"
-	my-project-maxdepth 3))
-
 (defun my-choose-project-and-invoke (func &rest args)
   "Set default-directory to the chosen project, then invoke func with args"
-  (my-choose-project my-project-root my-project-maxdepth
-		     (lambda (path)
+  (my-choose-project (lambda (path)
 		       (let ((default-directory path))
-			 (apply func args)))))
+			 (apply func args)
+			 (pwd)))))
 
 (defun my-choose-project-and-find-file ()
   (interactive)
