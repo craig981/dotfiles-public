@@ -23,3 +23,5 @@
 
 [interactive]
 	singleKey = true
+[init]
+	defaultBranch = master
