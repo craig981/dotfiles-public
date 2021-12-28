@@ -7,6 +7,8 @@ if [[ "$(uname -s)" = "Darwin" ]]; then
   alias ll='/bin/ls -lrthG'
   alias ls='/bin/ls -G'
 
+  alias e='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
+
   export CLICOLOR=1
   export LSCOLORS=GxFxCxDxBxegedabagaced
 
