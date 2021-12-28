@@ -1646,6 +1646,7 @@ in that directory, then visit-tags-table on the file"
 	 '(mode-line-inactive ((t (:box (:line-width 1 :color "#112328")))))
 	 '(mode-line ((t (:box (:line-width 1 :color "#243539")))))
 	 '(mode-line-inactive ((t (:foreground "#878787" :box (:line-width 1 :color "#112328")))))
+	 '(orderless-match-face-0 ((t (:foreground "#a3d4e8" :weight bold))))
   	 '(font-lock-comment-face ((t (:foreground "#708080")))))
   	(set-face-attribute 'region nil :foreground "#ffffff" :background "#005f5f"))
     (custom-set-faces
@@ -1674,6 +1675,7 @@ in that directory, then visit-tags-table on the file"
    '(font-lock-comment-face ((t (:foreground  "dark green" :italic t))))
    '(show-paren-match ((t (:weight bold :background nil :foreground "#000000"))))
    '(region ((t (:background "#3399aa" :foreground "#ffffff"))))
+   '(orderless-match-face-0 ((t (:foreground "#0000ff" :weight bold))))
    '(magit-diff-context-highlight ((t ())))
    '(mode-line ((t ())))
    '(mode-line-buffer-id ((t ())))
