@@ -307,7 +307,6 @@
 (evil-leader/set-key "k" #'my-delete-trailing-whitespace)
 (evil-leader/set-key "m" #'my-mirror-buffer)
 (evil-leader/set-key "d" 'pwd)
-(evil-leader/set-key "j" 'switch-to-buffer)
 
 (evil-global-set-key 'insert (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
 (evil-global-set-key 'motion (kbd "K") 'man)
@@ -652,6 +651,22 @@
 (marginalia-mode)
 (setq completion-styles '(orderless))
 
+(define-key vertico-map (kbd "C-j") nil)
+
+;; ----------------------------------------------------------------------------
+;* Consult
+;; ----------------------------------------------------------------------------
+
+(require 'consult)
+
+;; for virtual buffers
+(evil-leader/set-key "j" 'consult-buffer)
+(global-set-key (kbd "C-x b") 'consult-buffer)
+(global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window)
+
+(consult-customize
+ consult-buffer consult-buffer-other-window
+ :preview-key (kbd "C-j"))
 
 ;; ----------------------------------------------------------------------------
 ;* Helm
@@ -1800,6 +1815,7 @@ in that directory, then visit-tags-table on the file"
      cmake-mode
      company
      company-statistics
+     consult
      evil
      evil-leader
      evil-collection
