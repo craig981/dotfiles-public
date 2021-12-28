@@ -307,6 +307,7 @@
 (evil-leader/set-key "k" #'my-delete-trailing-whitespace)
 (evil-leader/set-key "m" #'my-mirror-buffer)
 (evil-leader/set-key "d" 'pwd)
+(evil-leader/set-key "j" 'switch-to-buffer)
 
 (evil-global-set-key 'insert (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
 (evil-global-set-key 'motion (kbd "K") 'man)
@@ -328,6 +329,7 @@
 (global-set-key (kbd "C-c Z") #'my-jump-dotfiles)
 
 (global-set-key (kbd "C-x C-h") (kbd "C-x h"))
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (global-set-key (kbd "M-o") (kbd "C-x o"))
 (global-set-key (kbd "M-j") (lambda () (interactive) (join-line 1)))
@@ -641,9 +643,6 @@
         (display-buffer-reuse-window display-buffer-at-bottom)
         (window-height . 10))
       display-buffer-alist)
-
-(evil-leader/set-key "j" 'switch-to-buffer)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (require 'vertico)
 (require 'orderless)
