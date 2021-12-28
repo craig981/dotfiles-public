@@ -357,6 +357,11 @@
 
 (add-hook #'help-mode-hook #'my-help-mode-hook)
 
+;; don't save context strings
+(setq-default bookmark-make-record-function
+      (lambda (&optional no-file no-context posn)
+	(funcall 'bookmark-make-record-default no-file t posn)))
+
 ;; ----------------------------------------------------------------------------
 ;* Abbreviations
 ;; ----------------------------------------------------------------------------
