@@ -633,56 +633,26 @@
   (setq calc-multiplication-has-precedence nil))
 
 ;; ----------------------------------------------------------------------------
-;* Ido
+;* Vertico, orderless, marginalia
 ;; ----------------------------------------------------------------------------
 
-(require 'ido)
-
-;; this might unfortunately cause dired-do-symlink to match existing
-;; file, so use C-j in that case
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-;; Stop searching and changing directories as I'm typing stuff!
-(setq ido-auto-merge-work-directories-length -1)
-;; list recent files when switching buffers
-(setq ido-use-virtual-buffers t)
-;; don't want kill-buffer replaced by ido-kill-buffer
-(ido-mode 'files)
-
 ;; popup the completion buffer at the bottom
-(push '("\\*Ido Completions\\*"
+(push '("\\*Completions\\*"
         (display-buffer-reuse-window display-buffer-at-bottom)
         (window-height . 10))
       display-buffer-alist)
 
-(evil-leader/set-key "j" 'ido-switch-buffer)
-(global-set-key (kbd "C-x b") 'ido-switch-buffer)
-(global-set-key (kbd "C-x 4 b") 'ido-switch-buffer-other-window)
+(evil-leader/set-key "j" 'switch-to-buffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-(defun my-ido-hook ()
-  (define-key ido-completion-map (kbd "C-p")
-    (lambda (n)
-      (interactive "p")
-      (dotimes (i n)
-	(ido-prev-match))))
-  (define-key ido-completion-map (kbd "C-n")
-    (lambda (n)
-      (interactive "p")
-      (dotimes (i n)
-	(ido-next-match))))
-  (define-key ido-completion-map (kbd "C-c C-t") 'ido-toggle-prefix))
+(require 'vertico)
+(require 'orderless)
+(require 'marginalia)
 
-(add-hook 'ido-setup-hook #'my-ido-hook)
+(vertico-mode)
+(marginalia-mode)
+(setq completion-styles '(orderless))
 
-(defun my-wrap-ido-vertical (func &rest args)
-  (ido-vertical-mode 1)
-  (unwind-protect
-      (apply func args)
-    (ido-vertical-mode -1)))
-
-(advice-add #'ido-find-file :around #'my-wrap-ido-vertical)
-(advice-add #'ido-find-file-other-window :around #'my-wrap-ido-vertical)
 
 ;; ----------------------------------------------------------------------------
 ;* Helm
@@ -830,17 +800,14 @@
     (if (null candlist)
 	(message "No files")
 
-      (ido-vertical-mode 1)
-      (unwind-protect
-	  (let ((file (ido-completing-read
-		       (format "Find in %s/: "
-			       (file-name-nondirectory (directory-file-name dir)))
-		       candlist nil t initial-input)))
-	    (when file
-	      (if open-in-other-window
-		  (find-file-other-window file)
-		(find-file file))))
-	(ido-vertical-mode -1)))))
+      (let ((file (completing-read
+		   (format "Find in %s/: "
+			   (file-name-nondirectory (directory-file-name dir)))
+		   candlist nil t initial-input)))
+	(when file
+	  (if open-in-other-window
+	      (find-file-other-window file)
+	    (find-file file)))))))
 
 (defun my-find-file-in-project-other-window ()
   (interactive)
@@ -888,7 +855,7 @@ against, and the value the expanded full path to the repo"
   "Choose a project then invoke action on it. If action is nil,
 return the project path instead"
   (let* ((repos (my-list-repos))
-	 (sel (assoc (ido-completing-read "Repo: " repos) repos)))
+	 (sel (assoc (completing-read "Repo: " repos) repos)))
     (if sel
 	(let ((path (cdr sel)))
 	  (if action
@@ -1842,11 +1809,14 @@ in that directory, then visit-tags-table on the file"
      helm-ag
      ido-vertical-mode
      magit
+     marginalia
+     orderless
      ox-pandoc
      paredit
      reykjavik-theme
      soft-morning-theme
      undo-tree
+     vertico
      which-key
      yaml-mode
      yasnippet))
