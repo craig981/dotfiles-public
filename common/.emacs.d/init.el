@@ -860,17 +860,15 @@ against, and the value the expanded full path to the repo"
 	(shell-file-name "/bin/bash")) ; tcsh slow at work
     (dolist (proj my-projects)
       (let* ((dir (expand-file-name (car proj)))
-	     (len (length (concat dir "/")))
 	     (depth (cdr proj))
+	     (cmd (format "find \"%s\" -maxdepth %d -type d -name .git" dir depth))
 	     (repos (mapcar
 		     (lambda (x)
-		       (let* ((short (string-remove-suffix "/.git" (substring x len)))
-			      (long (concat dir "/" short)))
+		       (let* ((long (string-remove-suffix "/.git" x))
+			      (short (file-name-nondirectory long)))
 			 `(,short . ,long)))
-		     (split-string
-		      (shell-command-to-string
-		       (format "find \"%s\" -maxdepth %d -type d -name .git" dir depth))
-		      "\n" t))))
+		     (split-string (shell-command-to-string cmd)
+				   "\n" t))))
 	(setq all (nconc all repos))))
     all))
 
