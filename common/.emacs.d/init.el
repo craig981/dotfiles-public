@@ -670,7 +670,7 @@
 (global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window)
 
 (consult-customize
- consult-buffer consult-buffer-other-window
+ consult-buffer consult-buffer-other-window consult-theme
  :preview-key (kbd "C-j"))
 
 ;; ----------------------------------------------------------------------------
