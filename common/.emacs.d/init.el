@@ -1550,6 +1550,17 @@ in that directory, then visit-tags-table on the file"
 					       (indent-tabs-mode . nil)))))
 
 ;; ----------------------------------------------------------------------------
+;* Rust
+;; ----------------------------------------------------------------------------
+
+(defun my-rust-mode-hook ()
+  (auto-fill-mode -1)
+  (setq-local indent-tabs-mode nil)
+  (setq-local evil-shift-width 4))
+
+(add-hook 'rust-mode-hook 'my-rust-mode-hook)
+
+;; ----------------------------------------------------------------------------
 ;* Maya, Houdini, Arnold
 ;; ----------------------------------------------------------------------------
 
@@ -1836,6 +1847,7 @@ in that directory, then visit-tags-table on the file"
      ox-pandoc
      paredit
      reykjavik-theme
+     rust-mode
      soft-morning-theme
      undo-tree
      vertico
