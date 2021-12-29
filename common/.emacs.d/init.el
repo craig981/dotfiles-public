@@ -1049,6 +1049,10 @@ return the project path instead"
 		(lambda ()
 		  (interactive)
 		  (other-window 1)
+		  (setq magit-repository-directories '())
+		  (dolist (proj (my-list-repos))
+		    (let ((dir (cdr proj)))
+		      (push `(,dir . 0) magit-repository-directories)))
 		  (magit-list-repositories)))
 
 ;; ----------------------------------------------------------------------------
