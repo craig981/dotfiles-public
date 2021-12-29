@@ -801,20 +801,24 @@
     (or (and dir (expand-file-name (file-name-as-directory dir)))
 	default-directory)))
 
+(defvar my-ignore-dir-list '("build" "plugged" ".git"))
+
 ;; C-u opens in other window
 (defun my-find-file-in-project (&optional open-in-other-window initial-input)
   (interactive "P")
   (let* ((dir (my-find-project-root))
 	 (default-directory dir)	;; so we can open files with relative names
 	 (shell-file-name "/bin/bash")	;; tcsh slow at work
+	 (ignore-args (string-join (mapcar (lambda (d) (format "-name '%s'" d))
+					   my-ignore-dir-list)
+				   " -o "))
+	 (cmd (format "find \"%s\" -type d \\( %s \\) -prune -false -o \\( -type f -o -type l \\)"
+		      dir ignore-args))
 	 (candlist (mapcar
 		    (lambda (file)
 		      (string-remove-prefix dir (expand-file-name file)))
-		    (split-string
-		     (shell-command-to-string
-		      (format "find \"%s\" -type d \\( -name build -o -name plugged -o -name .git \\) -prune -false -o \\( -type f -o -type l \\)"
-			      dir))
-		     "[\r\n]+" t))))
+		    (split-string (shell-command-to-string cmd)
+				  "[\r\n]+" t))))
 
     (if (null candlist)
 	(message "No files")
