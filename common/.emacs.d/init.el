@@ -235,18 +235,6 @@
 	(deactivate-mark))
     (message "No region active")))
 
-(defun my-jump-to-init-file ()
-  (interactive)
-  (find-file user-init-file))
-
-(defun my-jump-dotfiles-public ()
-  (interactive)
-  (magit "~/dotfiles-public"))
-
-(defun my-jump-dotfiles ()
-  (interactive)
-  (magit "~/dotfiles"))
-
 (defun my-copy-filename ()
   (interactive)
   (let ((x (or (buffer-file-name) default-directory)))
@@ -323,9 +311,6 @@
 (global-set-key (kbd "C-c t") #'my-toggle-wrap)
 (global-set-key (kbd "C-c b") 'bookmark-jump)
 (evil-leader/set-key ";" (kbd "C-x C-;"))
-
-(global-set-key (kbd "C-c z") #'my-jump-dotfiles-public)
-(global-set-key (kbd "C-c Z") #'my-jump-dotfiles)
 
 (global-set-key (kbd "C-x C-h") (kbd "C-x h"))
 (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -852,6 +837,9 @@
   (setq my-projects '(("~/dev" . 2))))
 (when (eq system-type 'gnu/linux)
   (setq my-projects '(("~/dev/git" . 3))))
+(dolist (d '("~/dotfiles-public" "~/dotfiles" "~/notefiles"))
+  (when (file-directory-p d)
+    (push `(,d . 1) my-projects)))
 
 (defun my-list-repos ()
   "Return an alist of repos, with the key the string to match
