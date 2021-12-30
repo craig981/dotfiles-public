@@ -297,7 +297,13 @@
 (evil-leader/set-key "d" 'pwd)
 
 (evil-global-set-key 'insert (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
-(evil-global-set-key 'motion (kbd "K") 'man)
+(evil-global-set-key 'motion (kbd "K")
+		     (if (eq system-type 'darwin)
+			 ;; skip slow vertico minibuffer prompt for man pages
+			 (lambda ()
+			   (interactive)
+			   (man (thing-at-point 'word t)))
+		       'man))
 (add-hook #'Man-mode-hook #'my-man-page-hook)
 
 (evil-global-set-key 'motion (kbd "Q") #'my-close-other-window)
