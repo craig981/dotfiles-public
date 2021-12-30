@@ -649,6 +649,16 @@
 
 (define-key vertico-map (kbd "C-j") nil)
 
+(defun my-disable-marginalia (func &rest args)
+  (marginalia-mode -1)
+  (unwind-protect
+      (apply func args)
+    (marginalia-mode)))
+;; Don't want marginalia in *Completions* buffer when hitting TAB in
+;; shell mode. Completion candidates are in a grid, and some are
+;; pushed off-screen.
+(advice-add #'completion-at-point :around #'my-disable-marginalia)
+
 ;; ----------------------------------------------------------------------------
 ;* Consult
 ;; ----------------------------------------------------------------------------
