@@ -1720,18 +1720,6 @@ in that directory, then visit-tags-table on the file"
 	(my-theme-light)
       (my-theme-dark))))
 
-(defun my-load-theme ()
-  (interactive)
-  (ido-vertical-mode 1)
-  (unwind-protect
-      (let ((x (ido-completing-read
-		"Theme: "
-		(mapcar 'symbol-name (custom-available-themes)))))
-	(when x
-	  (mapc #'disable-theme custom-enabled-themes)
-	  (load-theme (intern x) t)))
-    (ido-vertical-mode -1)))
-
 (global-set-key (kbd "<f6>") 'my-color-theme-toggle)
 
 ;; ----------------------------------------------------------------------------
