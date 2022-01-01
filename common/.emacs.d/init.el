@@ -1037,7 +1037,7 @@ return the project path instead"
 
 (setq-default magit-repolist-column-flag-alist '((magit-unstaged-files . "U")
 						 (magit-staged-files . "S"))
-	      magit-repolist-columns '(("Branch" 8 magit-repolist-column-branch nil)
+	      magit-repolist-columns '(("Branch" 20 magit-repolist-column-branch nil)
 				       ("Flag" 4 magit-repolist-column-flag)
 				       ("Path" 50 magit-repolist-column-path nil)
 				       ;; ("Name" 25 magit-repolist-column-ident nil)
