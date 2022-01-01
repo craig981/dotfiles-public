@@ -1740,7 +1740,7 @@ in that directory, then visit-tags-table on the file"
 (when (and (eq system-type 'gnu/linux)
 	   (string= (getenv "XDG_CURRENT_DESKTOP") "i3"))
 
-  (set-face-attribute 'default nil :font "Ubuntu Mono:pixelsize=14:foundry=DAMA:weight=normal:slant=normal:width=normal:spacing=100:scalable=true")
+  (set-face-attribute 'default nil :font "Menlo:pixelsize=14:weight=normal:slant=normal:width=normal:spacing=100:scalable=true")
 
   (if (string= (string-trim
 		(shell-command-to-string "xrandr | awk '/^HDMI-1/{print $2}'"))
@@ -1748,7 +1748,7 @@ in that directory, then visit-tags-table on the file"
       ;; external monitor
       (set-face-attribute 'default nil :height 105)
     ;; laptop screen
-    (set-face-attribute 'default nil :height 135)))
+    (set-face-attribute 'default nil :height 120)))
 
 (when (eq system-type 'darwin)
   (set-face-attribute 'default nil :height 150))
