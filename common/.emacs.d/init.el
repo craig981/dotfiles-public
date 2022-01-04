@@ -1746,7 +1746,7 @@ in that directory, then visit-tags-table on the file"
 		(shell-command-to-string "xrandr | awk '/^HDMI-1/{print $2}'"))
 	       "connected")
       ;; external monitor
-      (set-face-attribute 'default nil :height 105)
+      (set-face-attribute 'default nil :height 90)
     ;; laptop screen
     (set-face-attribute 'default nil :height 120)))
 
