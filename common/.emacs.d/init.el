@@ -1716,7 +1716,7 @@ in that directory, then visit-tags-table on the file"
    '(font-lock-comment-face ((t (:foreground  "dark green" :italic t))))
    '(show-paren-match ((t (:weight bold :background nil :foreground "#000000"))))
    '(region ((t (:background "#3399aa" :foreground "#ffffff"))))
-   '(orderless-match-face-0 ((t (:foreground "#0000ff" :weight bold))))
+   '(orderless-match-face-0 ((t (:foreground "#5555ff" :weight bold))))
    '(magit-diff-context-highlight ((t ())))
    '(mode-line ((t ())))
    '(mode-line-buffer-id ((t ())))
