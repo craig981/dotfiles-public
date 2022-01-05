@@ -1145,6 +1145,7 @@ return the project path instead"
 ;; ----------------------------------------------------------------------------
 
 (defun my-yaml-hook ()
+  (auto-fill-mode -1)
   (setq-local evil-shift-width 2))
 
 (add-hook 'yaml-mode-hook 'my-yaml-hook)
