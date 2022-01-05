@@ -1140,6 +1140,11 @@ return the project path instead"
 (with-eval-after-load "cmake-mode"
   (add-hook 'cmake-mode-hook 'my-cmake-hook))
 
+(defun my-log-settings ()
+  (my-syntax-entry)
+  (toggle-truncate-lines 0))
+(add-to-list 'auto-mode-alist '("\\.log\\'" . my-log-settings))
+
 ;; ----------------------------------------------------------------------------
 ;* Yaml
 ;; ----------------------------------------------------------------------------
