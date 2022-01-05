@@ -1051,6 +1051,8 @@ return the project path instead"
 
 (define-key magit-repolist-mode-map (kbd "j") (kbd "n"))
 (define-key magit-repolist-mode-map (kbd "k") (kbd "p"))
+(define-key magit-repolist-mode-map (kbd "SPC") evil-leader--default-map)
+(define-key magit-repolist-mode-map (kbd "C-w") 'evil-window-map)
 
 ;; stop escape burying magit buffers
 (evil-define-key 'normal magit-mode-map (kbd "<escape>") nil)
