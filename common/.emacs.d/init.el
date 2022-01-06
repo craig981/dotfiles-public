@@ -666,7 +666,8 @@
 (require 'consult)
 
 ;; for virtual buffers
-(evil-leader/set-key "j" 'consult-buffer)
+(evil-leader/set-key "f" 'consult-buffer)
+(evil-leader/set-key "j" 'consult-buffer-other-window)
 (global-set-key (kbd "C-x b") 'consult-buffer)
 (global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window)
 
@@ -1412,7 +1413,7 @@ in that directory, then visit-tags-table on the file"
 (add-hook 'python-mode-hook 'my-python-mode-hook)
 (add-hook 'inferior-python-mode-hook 'my-python-shell-mode-hook)
 
-(evil-leader/set-key-for-mode 'python-mode "f"
+(evil-leader/set-key-for-mode 'python-mode "R"
   (lambda ()
     (interactive)
     (if (use-region-p)
