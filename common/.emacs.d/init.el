@@ -645,7 +645,7 @@
 
 (vertico-mode)
 (marginalia-mode)
-(setq completion-styles '(orderless))
+(setq completion-styles '(orderless partial-completion))
 
 (define-key vertico-map (kbd "C-j") nil)
 
