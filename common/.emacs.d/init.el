@@ -910,6 +910,8 @@ return the project path instead"
 (global-set-key (kbd "C-c p s") #'my-choose-project-and-search)
 (global-set-key (kbd "C-c p m") #'my-choose-project-and-magit)
 
+(evil-leader/set-key "E" #'my-choose-project-and-find-file)
+
 (global-set-key (kbd "C-c x") (lambda ()
 				(interactive)
 				(let ((default-directory "~/dotfiles-public"))
