@@ -981,6 +981,12 @@ return the project path instead"
 (require 'dired-x)
 (setq dired-dwim-target t)
 
+(evil-collection-dired-setup)
+
+(defun my-dired-hook ()
+  (evil-local-mode 1))
+(add-hook 'dired-mode-hook 'my-dired-hook)
+
 ;; kill dired buffer instead of burying it
 (define-key dired-mode-map (kbd "q")
   (lambda ()
