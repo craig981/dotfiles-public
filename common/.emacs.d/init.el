@@ -898,6 +898,10 @@ return the project path instead"
   (interactive)
   (my-choose-project-and-invoke #'my-find-file-in-project))
 
+(defun my-choose-project-and-find-file-other-window ()
+  (interactive)
+  (my-choose-project-and-invoke #'my-find-file-in-project-other-window))
+
 (defun my-choose-project-and-search ()
   (interactive)
   (my-choose-project-and-invoke #'my-search-project))
@@ -911,6 +915,7 @@ return the project path instead"
 (global-set-key (kbd "C-c p m") #'my-choose-project-and-magit)
 
 (evil-leader/set-key "E" #'my-choose-project-and-find-file)
+(evil-leader/set-key "U" #'my-choose-project-and-find-file-other-window)
 
 (global-set-key (kbd "C-c x") (lambda ()
 				(interactive)
