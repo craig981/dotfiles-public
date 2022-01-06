@@ -992,6 +992,7 @@ return the project path instead"
 (define-key dired-mode-map (kbd "K") 'dired-do-kill-lines)
 (define-key dired-mode-map (kbd "Q") 'my-close-other-window)
 (define-key dired-mode-map (kbd "SPC") evil-leader--default-map)
+(define-key dired-mode-map (kbd "C-w") 'evil-window-map)
 
 ;; make q work when viewing a file with v
 (defun my-view-mode-hook ()
