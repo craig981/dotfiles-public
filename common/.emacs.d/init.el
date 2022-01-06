@@ -981,17 +981,17 @@ return the project path instead"
 (require 'dired-x)
 (setq dired-dwim-target t)
 
-(evil-collection-dired-setup)
-
-(defun my-dired-hook ()
-  (evil-local-mode 1))
-(add-hook 'dired-mode-hook 'my-dired-hook)
-
 ;; kill dired buffer instead of burying it
 (define-key dired-mode-map (kbd "q")
   (lambda ()
     (interactive)
     (quit-window t)))
+
+(define-key dired-mode-map (kbd "j") 'dired-next-line)
+(define-key dired-mode-map (kbd "k") 'dired-previous-line)
+(define-key dired-mode-map (kbd "K") 'dired-do-kill-lines)
+(define-key dired-mode-map (kbd "Q") 'my-close-other-window)
+(define-key dired-mode-map (kbd "SPC") evil-leader--default-map)
 
 ;; make q work when viewing a file with v
 (defun my-view-mode-hook ()
@@ -1016,7 +1016,6 @@ return the project path instead"
 	(call-interactively 'image-dired-display-thumbnail-original-image)))))
 
 (global-set-key (kbd "C-x C-j") 'dired-jump)
-(define-key dired-mode-map (kbd "SPC") evil-leader--default-map)
 
 ;; ----------------------------------------------------------------------------
 ;* Magit
