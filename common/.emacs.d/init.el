@@ -915,8 +915,8 @@ return the project path instead"
 (global-set-key (kbd "C-c p s") #'my-choose-project-and-search)
 (global-set-key (kbd "C-c p m") #'my-choose-project-and-magit)
 
-(evil-leader/set-key "E" #'my-choose-project-and-find-file)
-(evil-leader/set-key "U" #'my-choose-project-and-find-file-other-window)
+(evil-leader/set-key "pe" #'my-choose-project-and-find-file)
+(evil-leader/set-key "pu" #'my-choose-project-and-find-file-other-window)
 
 (global-set-key (kbd "C-c x") (lambda ()
 				(interactive)
