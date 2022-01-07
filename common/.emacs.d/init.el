@@ -666,8 +666,8 @@
 (require 'consult)
 
 ;; for virtual buffers
-(evil-leader/set-key "f" 'consult-buffer)
-(evil-leader/set-key "j" 'consult-buffer-other-window)
+(evil-leader/set-key "j" 'consult-buffer)
+(evil-leader/set-key "J" 'consult-buffer-other-window)
 (global-set-key (kbd "C-x b") 'consult-buffer)
 (global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window)
 
