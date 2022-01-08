@@ -1,0 +1,23 @@
+/* https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/EventOverview/TextDefaultsBindings/TextDefaultsBindings.html */
+
+{
+	"@\U007F" = "deleteWordBackward:"; /* Cmd  + Backspace */
+	"~\010" = "deleteWordBackward:";  /* Option-backspace */
+	"~f" = "moveWordForward:";
+	"~b" = "moveWordBackward:";
+	"~d" = "deleteWordForward:";
+	"~<" = "moveToBeginningOfDocument:";
+	"~>" = "moveToEndOfDocument:";
+	"~v" = "pageUp:";
+	"^/" = "undo:";
+	"~/" = "complete:";
+	"~c" = "capitalizeWord:";
+	"~l" = "lowercaseWord:";
+	"~w" = "copy:";
+	"^w" = "cut:";
+	/* "^y" = "paste:"; */
+	/* "@d" = "deleteWordForward:"; */
+	/* "@b" = "moveWordBackward:"; */
+	/* "@f" = "moveWordForward:"; */
+	/* "@\010" = "deleteWordBackward:"; */
+}

@@ -14,6 +14,8 @@ endif
 endif
 ifeq ($(osuname),Darwin)
 	stow -v cmus
+	mkdir -p ~/Library/KeyBindings
+	cp -v mac/Library/KeyBindings/DefaultKeyBinding.dict ~/Library/KeyBindings/
 endif
 
 	[ -f ~/.vim/autoload/plug.vim ] || \
