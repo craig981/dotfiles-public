@@ -641,6 +641,12 @@
 
 (define-key vertico-map (kbd "C-j") nil)
 
+(defun my-disable-vertico (func &rest args)
+  (vertico-mode -1)
+  (unwind-protect
+      (apply func args)
+    (vertico-mode)))
+
 (defun my-disable-marginalia (func &rest args)
   (marginalia-mode -1)
   (unwind-protect
@@ -685,7 +691,8 @@
 (with-eval-after-load "calc-ext"
   (define-key calc-mode-map (kbd "C-c r") #'calc-reset)
   (define-key calc-mode-map (kbd "C-c C-r") #'calc-reset)
-  (setq calc-multiplication-has-precedence nil))
+  (setq calc-multiplication-has-precedence nil)
+  (advice-add #'calc-user-define-formula :around #'my-disable-vertico))
 
 ;; ----------------------------------------------------------------------------
 ;* Tramp
