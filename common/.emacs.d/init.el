@@ -620,14 +620,6 @@
 (global-set-key (kbd "C-c C-h") 'winner-undo)
 (global-set-key (kbd "C-c H") 'winner-redo)
 
-;; ----------------------------------------------------------------------------
-;* Calc
-;; ----------------------------------------------------------------------------
-
-(with-eval-after-load "calc-ext"
-  (define-key calc-mode-map (kbd "C-c r") #'calc-reset)
-  (define-key calc-mode-map (kbd "C-c C-r") #'calc-reset)
-  (setq calc-multiplication-has-precedence nil))
 
 ;; ----------------------------------------------------------------------------
 ;* Vertico, orderless, marginalia
@@ -685,6 +677,15 @@
 (define-key helm-map (kbd "C-c C-u") 'kill-whole-line)
 (define-key helm-map (kbd "<escape>") nil)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
+
+;; ----------------------------------------------------------------------------
+;* Calc
+;; ----------------------------------------------------------------------------
+
+(with-eval-after-load "calc-ext"
+  (define-key calc-mode-map (kbd "C-c r") #'calc-reset)
+  (define-key calc-mode-map (kbd "C-c C-r") #'calc-reset)
+  (setq calc-multiplication-has-precedence nil))
 
 ;; ----------------------------------------------------------------------------
 ;* Tramp
