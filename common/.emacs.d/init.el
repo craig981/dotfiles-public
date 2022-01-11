@@ -637,7 +637,8 @@
 
 (vertico-mode)
 (marginalia-mode)
-(setq completion-styles '(orderless partial-completion))
+(setq completion-styles '(orderless flex))
+(setq completion-ignore-case t)
 
 (define-key vertico-map (kbd "C-j") nil)
 
@@ -1244,7 +1245,8 @@ return the project path instead"
   (toggle-truncate-lines 0)
   (define-key shell-mode-map (kbd "C-d") #'my-shell-ctrl-d)
   ;; don't ignore .git, etc
-  (setq-local completion-ignored-extensions nil))
+  (setq-local completion-ignored-extensions nil
+	      completion-ignore-case nil))
 
 (add-hook 'shell-mode-hook 'my-shell-hook)
 (evil-set-initial-state 'shell-mode 'emacs)
