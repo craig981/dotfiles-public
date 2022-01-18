@@ -58,7 +58,7 @@ nnoremap <leader>s :%s/\<<c-r><c-w>\>//gI<Left><Left><Left>
 nnoremap <leader>L :set invlazyredraw<CR>:set lazyredraw?<CR>
 
 "align selection in a table
-vnoremap <leader>a :!column -t<CR>gv
+vnoremap <leader>= :!column -t<CR>gv
 " remove trailing whitespace in selection
 vnoremap <leader>k :s/\s\+$//<CR>
 
