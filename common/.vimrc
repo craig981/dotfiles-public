@@ -258,7 +258,7 @@ function! InsertCurvePoint()
 	call inputsave()
 	let var = input('var: ')
 	call inputrestore()
-	execute "normal! o\"-p \" << " . var . "[-1] << \" \" << " . var . "[1] << \" \" << " . var . "[2] << \" \"\<Esc>"
+	execute "normal! o\"-p \" << " . var . "[0] << \" \" << " . var . "[1] << \" \" << " . var . "[2] << \" \"\<Esc>"
 endfunction
 
 
