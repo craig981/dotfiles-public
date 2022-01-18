@@ -31,9 +31,6 @@ nnoremap gj j
 nnoremap gk k
 
 nnoremap <C-p> <C-x>
-if has("nvim")
-	nnoremap <C-q> <C-x>
-endif
 
 "format paragraph like emacs M-q
 if has("nvim")
@@ -50,7 +47,6 @@ nnoremap <leader>j :b<space>
 nnoremap <leader>t :term<CR>
 nnoremap <leader>d :pwd<CR>
 nnoremap <leader>D :lcd %:p:h <bar> pwd<CR>
-nnoremap <leader><leader> <C-^>
 nnoremap <leader>w :write<CR>
 nnoremap <C-w>d :bd<CR>
 nnoremap <silent> <C-w><C-d> :Bclose<CR>
@@ -117,10 +113,6 @@ noremap § `
 noremap! ± ~
 noremap! § `
 
-" if has("clipboard") && empty($SSH_TTY)
-" 	set clipboard^=unnamedplus
-" endif
-
 if has("clipboard")
 	vnoremap Y "+y
 elseif has("linux")
@@ -177,11 +169,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 	Plug 'skywind3000/asyncrun.vim'
 	Plug 'gruvbox-community/gruvbox'
 	Plug 'adlawson/vim-sorcerer'
-	if has("nvim")
-		Plug 'nvim-lua/popup.nvim'
-		Plug 'nvim-lua/plenary.nvim'
-		Plug 'nvim-telescope/telescope.nvim'
-	endif
 	call plug#end()
 
 	augroup change_the_colours
@@ -200,12 +187,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 	nnoremap ,m :cope <bar> AsyncRun make -f build.mk run<CR><C-W><C-P>
 	nnoremap <C-C><C-K> :AsyncStop<CR>
 
-	if has("nvim")
-		lua require('telescope').setup{ defaults = { file_ignore_patterns = {".git/", "build/"} } }
-		nnoremap <leader>e :lua require("telescope.builtin").find_files({ hidden = true })<CR>
-	else
-		nnoremap <leader>e :find<space>
-	endif
+	nnoremap <leader>e :find<space>
 endif
 
 if has("nvim")
