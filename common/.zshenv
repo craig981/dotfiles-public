@@ -9,4 +9,4 @@ if [[ "$(uname -s)" = "Darwin" ]]; then
 fi
 
 export PATH="$HOME/tools/bin:$HOME/dotfiles-public/bin:${PATH}"
-export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.cargo/bin:${PATH}"

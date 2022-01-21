@@ -44,4 +44,8 @@ unsetopt nomatch
 test -f ~/dotfiles-public/bash_zsh_alias && source ~/dotfiles-public/bash_zsh_alias
 test -f ~/dotfiles/bash_zsh_alias && source ~/dotfiles/bash_zsh_alias
 
+if [[ "$(uname -s)" = "Linux" ]]; then
+    test -f ~/dotfiles-public/common/.zshenv && source ~/dotfiles-public/common/.zshenv
+fi
+
 PS1="%n@%m %2~ %# "
