@@ -497,6 +497,12 @@
   (define-key org-agenda-mode-map "k" (kbd "p"))
   (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map))
 
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "M-n") 'forward-paragraph)
+  (define-key org-mode-map (kbd "M-p") 'backward-paragraph)
+  (define-key org-mode-map (kbd "C-c L") 'org-toggle-link-display)
+  (define-key org-mode-map (kbd "C-c I") 'org-toggle-inline-images))
+
 (when (eq system-type 'gnu/linux)
   (setq org-agenda-files (list "~/notes.org"))
   (setq org-default-notes-file "~/notes.org"))
@@ -567,11 +573,7 @@
   (auto-fill-mode 1)
   (setq-local indent-tabs-mode nil)
   (setq-local evil-shift-width 2)
-  (setq-local tab-width 2)
-  (local-set-key (kbd "M-n") 'forward-paragraph)
-  (local-set-key (kbd "M-p") 'backward-paragraph)
-  (local-set-key (kbd "C-c L") 'org-toggle-link-display)
-  (local-set-key (kbd "C-c I") 'org-toggle-inline-images))
+  (setq-local tab-width 2))
 
 (defun my-org-capture ()
   (interactive)
