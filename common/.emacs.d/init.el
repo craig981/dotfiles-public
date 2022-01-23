@@ -1778,12 +1778,12 @@ in that directory, then visit-tags-table on the file"
 
 ;; linux: install to ~/.fonts/  then fc-cache -v ~/.fonts
 (when (and (eq system-type 'gnu/linux)
-	   (string= (getenv "XDG_CURRENT_DESKTOP") "i3"))
+	   (display-graphic-p))
 
   (set-face-attribute 'default nil :font "Menlo:pixelsize=14:weight=normal:slant=normal:width=normal:spacing=100:scalable=true")
 
-  (if (string= (string-trim
-		(shell-command-to-string "xrandr | awk '/^HDMI-1/{print $2}'"))
+  (if (string= (string-trim (shell-command-to-string
+			     "xrandr | awk '/^HDMI-1/{print $2}'"))
 	       "connected")
       ;; external monitor
       (set-face-attribute 'default nil :height 90)
