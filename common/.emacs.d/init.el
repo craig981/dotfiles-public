@@ -491,6 +491,7 @@
 (global-set-key (kbd "C-c k") 'org-capture)
 
 (evil-leader/set-key "g" 'org-agenda-list)
+(evil-leader/set-key-for-mode 'org-mode "," 'org-insert-structure-template)
 
 (with-eval-after-load 'org-agenda
   (define-key org-agenda-mode-map "j" (kbd "n"))
