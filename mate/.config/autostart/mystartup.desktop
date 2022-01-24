@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Exec=/home/craig/dotfiles-public/bin/mystartup.sh
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name=My Startup
+

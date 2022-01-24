@@ -8,6 +8,9 @@ all:
 
 ifeq ($(osuname),Linux)
 	stow -v gtk
+# ifeq (${XDG_CURRENT_DESKTOP},mate)
+	# stow -v mate
+# endif
 ifeq (${XDG_CURRENT_DESKTOP},i3)
 	stow -v i3
 endif
