@@ -1738,7 +1738,8 @@ in that directory, then visit-tags-table on the file"
      '(mode-line-buffer-id ((t (:foreground "#C7B299"))))
      '(mode-line-inactive ((t (:foreground "#656565" :background "#222222")))))
     (set-face-attribute 'region nil :foreground "#ffffff" :background "#243539")
-    (my-unspecified-background)))
+    ;; (my-unspecified-background)
+    ))
 
 (defun my-theme-light ()
   ;; (require 'gandalf-theme)
