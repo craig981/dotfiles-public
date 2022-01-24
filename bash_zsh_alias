@@ -26,9 +26,6 @@ else
   alias ke='killall -s 9 emacs'
   alias km='killall -s 9 maya.bin'
 
-  if [[ -n "$DISPLAY" && -n "$PS1" && -z "$SSH_TTY" && "$XDG_CURRENT_DESKTOP" != "i3" ]]; then
-      ~/dotfiles-public/bin/keyboard.sh &> /dev/null
-  fi
 fi
 
 function lt() {
