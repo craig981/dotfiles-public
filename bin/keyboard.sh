@@ -8,6 +8,10 @@ setxkbmap -option caps:ctrl_modifier
 setxkbmap -option ctrl:ralt_rctrl
 setxkbmap -option altwin:menu_win
 
+if [[ "$XDG_CURRENT_DESKTOP" = "MATE" ]]; then
+    gsettings set org.mate.interface gtk-key-theme Emacs
+fi
+
 # # mac keyboard
 # setxkbmap -option
 # setxkbmap -option caps:ctrl_modifier
