@@ -11,9 +11,6 @@ ifeq ($(osuname),Linux)
 # ifeq (${XDG_CURRENT_DESKTOP},mate)
 	# stow -v mate
 # endif
-ifeq (${XDG_CURRENT_DESKTOP},i3)
-	stow -v i3
-endif
 endif
 ifeq ($(osuname),Darwin)
 	stow -v cmus
