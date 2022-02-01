@@ -10,6 +10,13 @@ unbind -f common L
 bind common H seek -1m
 bind common L seek +1m
 
+unbind -f common J
+unbind -f common K
+unbind -f common <
+unbind -f common >
+bind common < seek -5m
+bind common > seek +5m
+
 unbind -f common s
 
 set wrap_search=false
