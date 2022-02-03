@@ -926,11 +926,14 @@ return the project path instead"
   (my-choose-project-and-invoke #'magit))
 
 (global-set-key (kbd "C-c p e") #'my-choose-project-and-find-file)
+(global-set-key (kbd "C-c p u") #'my-choose-project-and-find-file-other-window)
 (global-set-key (kbd "C-c p s") #'my-choose-project-and-search)
 (global-set-key (kbd "C-c p m") #'my-choose-project-and-magit)
 
 (evil-leader/set-key "pe" #'my-choose-project-and-find-file)
 (evil-leader/set-key "pu" #'my-choose-project-and-find-file-other-window)
+(evil-leader/set-key "ps" #'my-choose-project-and-search)
+(evil-leader/set-key "pm" #'my-choose-project-and-magit)
 
 (global-set-key (kbd "C-c x") (lambda ()
 				(interactive)
