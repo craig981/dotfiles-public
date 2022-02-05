@@ -1285,13 +1285,14 @@ return the project path instead"
     (define-key etags-select-mode-map (kbd "C-m") (kbd "<return>"))
   (define-key etags-select-mode-map (kbd "RET") (kbd "<return>")))
 
-(defun my-jump-to-tag-in-split-window ()
+(defun my-jump-to-tag-in-other-window ()
   (interactive)
-  (evil-window-split)
-  ;;(evil-jump-to-tag)
-  (etags-select-find-tag-at-point))
+  (let ((tag (find-tag-default)))
+    (other-window 1)
+    ;; (etags-select-find-tag-at-point)
+    (etags-select-find tag)))
 
-(evil-global-set-key 'normal (kbd "C-w C-]") #'my-jump-to-tag-in-split-window)
+(evil-global-set-key 'normal (kbd "C-w C-]") #'my-jump-to-tag-in-other-window)
 (evil-global-set-key 'motion (kbd "C-]") #'etags-select-find-tag-at-point)
 
 (evil-set-initial-state 'xref--xref-buffer-mode 'emacs)
