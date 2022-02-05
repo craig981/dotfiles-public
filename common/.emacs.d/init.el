@@ -146,6 +146,16 @@
   (other-window 1))
 (advice-add 'evil-window-rotate-downwards :after #'my-advise-window-rotate)
 
+(defun my-advise-window-new (func &rest args)
+  "Use evil-local-mode and the same major mode in the new buffer"
+  (let ((mode (if (derived-mode-p 'prog-mode)
+		  major-mode
+		'text-mode)))
+    (apply func args)
+    (evil-local-mode 1)
+    (funcall mode)))
+(advice-add 'evil-window-new :around #'my-advise-window-new)
+
 ;; ----------------------------------------------------------------------------
 ;* Syntax and indent
 ;; ----------------------------------------------------------------------------
