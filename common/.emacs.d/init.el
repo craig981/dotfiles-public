@@ -1274,6 +1274,11 @@ return the project path instead"
 
 (add-hook 'sh-mode-hook 'my-syntax-entry)
 
+(defun expose-global-binding-in-term (binding)
+  (define-key term-raw-map binding
+    (lookup-key (current-global-map) binding)))
+(expose-global-binding-in-term (kbd "M-o"))
+
 ;; ----------------------------------------------------------------------------
 ;* Tags
 ;; ----------------------------------------------------------------------------
