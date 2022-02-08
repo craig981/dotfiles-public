@@ -1682,8 +1682,8 @@ in that directory, then visit-tags-table on the file"
 	 (w-io (split-window w-source (floor (* 0.66 (window-body-height))) 'below)) ;; left bottom
 	 )
 
-    (set-window-buffer w-io (or (get-buffer "*shell*")
-				(get-buffer "*compilation*")
+    (set-window-buffer w-io (or (get-buffer "*compilation*")
+				(get-buffer "*shell*")
 				(gdb-get-buffer-create 'gdb-inferior-io)))
     ;; (set-window-buffer w-breakpoints (gdb-get-buffer-create 'gdb-breakpoints-buffer))
     (set-window-buffer w-locals (gdb-get-buffer-create 'gdb-locals-buffer))
