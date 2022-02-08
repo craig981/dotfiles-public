@@ -1277,7 +1277,8 @@ return the project path instead"
 (defun expose-global-binding-in-term (binding)
   (define-key term-raw-map binding
     (lookup-key (current-global-map) binding)))
-(expose-global-binding-in-term (kbd "M-o"))
+(with-eval-after-load 'term
+  (expose-global-binding-in-term (kbd "M-o")))
 
 ;; ----------------------------------------------------------------------------
 ;* Tags
