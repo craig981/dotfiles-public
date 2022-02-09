@@ -327,6 +327,7 @@
 (global-set-key (kbd "C-c t") #'my-toggle-wrap)
 (global-set-key (kbd "C-c b") 'bookmark-jump)
 (evil-leader/set-key ";" (kbd "C-x C-;"))
+(evil-leader/set-key "%" #'my-copy-filename)
 
 (global-set-key (kbd "C-x C-h") (kbd "C-x h"))
 (global-set-key (kbd "C-x C-b") 'ibuffer)
