@@ -1,0 +1,14 @@
+{
+	"Key Mappings":{
+		"0x5f-0x120000":{"Text":"_","Action":10},
+		"0x66-0x100000":{"Text":"f","Action":10},
+		"0x62-0x100000":{"Text":"b","Action":10},
+		"0x64-0x100000":{"Text":"d","Action":10},
+		"0x70-0x100000":{"Text":"[A","Action":10},
+		"0x6e-0x100000":{"Text":"[B","Action":10},
+		"0x7f-0x100000":{"Text":"0x1b 0x7f","Action":11},
+		"0xb1-0x20000":{"Text":"~","Action":12},
+		"0xa7-0x0":{"Text":"`","Action":12}
+	}
+}
+
