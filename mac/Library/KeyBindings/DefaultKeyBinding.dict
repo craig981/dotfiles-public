@@ -11,6 +11,8 @@
 	"@d" = "deleteWordForward:";
 	"~<" = "moveToBeginningOfDocument:";
 	"~>" = "moveToEndOfDocument:";
+	"@<" = "moveToBeginningOfDocument:";
+	"@>" = "moveToEndOfDocument:";
 	"~v" = "pageUp:";
 	"^/" = "undo:";
 	"~/" = "complete:";
