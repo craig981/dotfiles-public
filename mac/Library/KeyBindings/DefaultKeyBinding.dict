@@ -4,8 +4,11 @@
 	"@\U007F" = "deleteWordBackward:"; /* Cmd  + Backspace */
 	"~\010" = "deleteWordBackward:";  /* Option-backspace */
 	"~f" = "moveWordForward:";
+	"@f" = "moveWordForward:";
 	"~b" = "moveWordBackward:";
+	"@b" = "moveWordBackward:";
 	"~d" = "deleteWordForward:";
+	"@d" = "deleteWordForward:";
 	"~<" = "moveToBeginningOfDocument:";
 	"~>" = "moveToEndOfDocument:";
 	"~v" = "pageUp:";
@@ -16,8 +19,4 @@
 	"~w" = "copy:";
 	"^w" = "cut:";
 	/* "^y" = "paste:"; */
-	/* "@d" = "deleteWordForward:"; */
-	/* "@b" = "moveWordBackward:"; */
-	/* "@f" = "moveWordForward:"; */
-	/* "@\010" = "deleteWordBackward:"; */
 }
