@@ -1735,11 +1735,12 @@ in that directory, then visit-tags-table on the file"
 (defun my-theme-dark ()
   (require 'reykjavik-theme)
   (load-theme 'reykjavik)
+
   (set-cursor-color "white")
   (setq evil-normal-state-cursor '(box "white"))
   (setq evil-insert-state-cursor '(box "orange"))
   (custom-set-faces
-   '(isearch ((t (:background "gold2" :foreground "black" :weight bold))))
+   '(isearch ((t (:background "gold3" :foreground "black"))))
    '(lazy-highlight ((t (:background "turquoise" :foreground "black" ))))
    '(show-paren-match ((t (:weight bold :background nil :foreground "#dddddd")))))
   (if (display-graphic-p)
@@ -1941,7 +1942,6 @@ in that directory, then visit-tags-table on the file"
  '(company-tooltip-common-selection ((t (:foreground "white"))))
  '(company-tooltip-selection ((t (:background "steelblue" :foreground "white"))))
  '(font-lock-comment-face ((t (:foreground "#708080"))))
- '(lazy-highlight ((t (:background "#555566" :foreground "#aaaabb" :weight extra-bold))))
  '(magit-diff-context-highlight ((t nil)))
  '(message-cited-text-1 ((t (:foreground "#878787"))))
  '(mode-line ((t nil)))
