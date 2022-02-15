@@ -1233,6 +1233,8 @@ return the project path instead"
 (define-key shell-mode-map (kbd "C-r") 'comint-history-isearch-backward)
 (define-key shell-mode-map (kbd "SPC") 'comint-magic-space)
 (define-key shell-mode-map (kbd "C-c C-l") 'comint-clear-buffer)
+(define-key comint-mode-map (kbd "C-r") 'comint-history-isearch-backward)
+(define-key comint-mode-map (kbd "M-r") 'move-to-window-line-top-bottom)
 
 ;; When the cursor is in the middle of the shell output, stop the
 ;; return key from pasting the whole lot back and executing it
