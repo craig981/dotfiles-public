@@ -378,18 +378,18 @@
 ;* Fancy dabbrev
 ;; ----------------------------------------------------------------------------
 
-(when (not (string-match "\.el[7-9]\." operating-system-release)) ;; centos
+(when t ;; (not (string-match "\.el[7-9]\." operating-system-release)) ;; centos
 
   (require 'fancy-dabbrev)
 
   (global-fancy-dabbrev-mode)
 
   (evil-global-set-key 'insert (kbd "TAB") 'fancy-dabbrev-expand-or-indent)
-  (global-set-key (kbd "M-/") 'fancy-dabbrev-expand-or-indent)
+  (global-set-key (kbd "M-/") 'fancy-dabbrev-expand)
   (global-set-key (kbd "<backtab>") 'fancy-dabbrev-backward)
   (setq-default fancy-dabbrev-menu-height 15)
   (setq-default fancy-dabbrev-preview-context 'everywhere)
-  (setq-default fancy-dabbrev-preview-delay 0.1))
+  (setq-default fancy-dabbrev-preview-delay 0.25))
 
 ;; ----------------------------------------------------------------------------
 ;* Keyboard
