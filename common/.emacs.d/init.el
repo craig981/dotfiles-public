@@ -1744,6 +1744,7 @@ in that directory, then visit-tags-table on the file"
   (custom-set-faces
    '(isearch ((t (:background "gold3" :foreground "black"))))
    '(lazy-highlight ((t (:background "turquoise" :foreground "black" ))))
+   '(font-lock-warning-face ((t (:background "#243539" :foreground "#e81050"))))
    '(show-paren-match ((t (:weight bold :background nil :foreground "#dddddd")))))
   (if (display-graphic-p)
       (progn
@@ -1782,6 +1783,7 @@ in that directory, then visit-tags-table on the file"
    '(isearch ((t (:background "deeppink" :foreground "black" :weight bold))))
    '(lazy-highlight ((t (:background "turquoise" :foreground "black" ))))
    '(font-lock-comment-face ((t (:foreground  "dark green" :italic t))))
+   '(font-lock-warning-face ((t (:background "#ffffff" :foreground "#ff6523" :inverse-video nil))))
    '(show-paren-match ((t (:weight bold :background nil :foreground "#000000"))))
    '(region ((t (:background "#3399aa" :foreground "#ffffff"))))
    '(orderless-match-face-0 ((t (:foreground "#5555ff" :weight bold))))
