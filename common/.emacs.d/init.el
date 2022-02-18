@@ -324,7 +324,7 @@
 (global-set-key (kbd "C-x k") 'my-kill-buffer)
 
 (global-set-key (kbd "C-c %") #'my-copy-filename)
-(global-set-key (kbd "C-c t") #'my-toggle-wrap)
+(global-set-key (kbd "C-c u") #'my-toggle-wrap)
 (global-set-key (kbd "C-c b") 'bookmark-jump)
 (evil-leader/set-key ";" (kbd "C-x C-;"))
 (evil-leader/set-key "%" #'my-copy-filename)
@@ -1223,8 +1223,8 @@ return the project path instead"
     (evil-window-split))
   (my-spawn-shell))
 
-(global-set-key (kbd "C-c v") 'shell)
-(global-set-key (kbd "C-c V") 'my-split-shell)
+(global-set-key (kbd "C-c t") 'shell)
+(global-set-key (kbd "C-c T") 'my-split-shell)
 (evil-leader/set-key "t" 'shell)
 (evil-leader/set-key "T" 'my-split-shell)
 
