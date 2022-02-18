@@ -1442,7 +1442,8 @@ in that directory, then visit-tags-table on the file"
 		  "python3")))      ;; ubuntu
 
 (defun my-python-shell-mode-hook ()
-  (toggle-truncate-lines 0))
+  (toggle-truncate-lines 0)
+  (fancy-dabbrev-mode -1))
 
 (defun my-python-mode-hook ()
   (my-syntax-entry)
