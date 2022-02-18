@@ -4,6 +4,7 @@
 		"0x66-0x100000":{"Text":"f","Action":10},
 		"0x62-0x100000":{"Text":"b","Action":10},
 		"0x64-0x100000":{"Text":"d","Action":10},
+		"0x6f-0x100000":{"Text":"o","Action":10},
 		"0x70-0x100000":{"Text":"[A","Action":10},
 		"0x6e-0x100000":{"Text":"[B","Action":10},
 		"0x7f-0x100000":{"Text":"0x1b 0x7f","Action":11},
