@@ -148,7 +148,8 @@
 
 (defun my-advise-window-new (func &rest args)
   "Use evil-local-mode and the same major mode in the new buffer"
-  (let ((mode (if (derived-mode-p 'prog-mode)
+  (let ((mode (if (or (derived-mode-p 'prog-mode)
+		      (eq major-mode 'org-mode))
 		  major-mode
 		'text-mode)))
     (apply func args)
