@@ -9,7 +9,8 @@
 		"0x6e-0x100000":{"Text":"[B","Action":10},
 		"0x7f-0x100000":{"Text":"0x1b 0x7f","Action":11},
 		"0xb1-0x20000":{"Text":"~","Action":12},
-		"0xa7-0x0":{"Text":"`","Action":12}
+		"0xa7-0x0":{"Text":"`","Action":12},
+		"0x4e-0x120000":{"Text":"B95A9430-2D01-4DCB-BBF2-3F4BAD48510B","Action":26}
 	}
 }
 
