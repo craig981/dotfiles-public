@@ -169,6 +169,10 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 	Plug 'skywind3000/asyncrun.vim'
 	Plug 'gruvbox-community/gruvbox'
 	Plug 'adlawson/vim-sorcerer'
+	if has("nvim")
+		Plug 'nvim-lua/plenary.nvim'
+		Plug 'nvim-telescope/telescope.nvim'
+	endif
 	call plug#end()
 
 	augroup change_the_colours
@@ -186,25 +190,37 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 
 	nnoremap ,m :cope <bar> AsyncRun make -f build.mk run<CR><C-W><C-P>
 	nnoremap <C-C><C-K> :AsyncStop<CR>
-endif
 
-if has("nvim")
-	nnoremap <leader>e :find<space>
-elseif executable('fzy')
-	function! FzyCommand(choice_command, vim_command)
-		try
-			let output = system(a:choice_command . " | fzy ")
-		catch /Vim:Interrupt/
-			" Swallow errors from ^C, allow redraw! below
-		endtry
-		redraw!
-		if v:shell_error == 0 && !empty(output)
-			exec a:vim_command . ' ' . output
-		endif
-	endfunction
-	nnoremap <leader>e :call FzyCommand("find . \\( -type d -name .git \\) -prune -false -o -type f", ":e")<cr>
-else
-	nnoremap <leader>e :find<space>
+	if has("nvim")
+		lua << EOF
+		local telescope = require('telescope')
+		telescope.setup {
+			pickers = {
+				find_files = {
+					file_ignore_patterns = {".git/"},
+					hidden = true
+				}
+			}
+		}
+EOF
+		nnoremap <leader>e <cmd>Telescope find_files<cr>
+
+	elseif executable('fzy')
+		function! FzyCommand(choice_command, vim_command)
+			try
+				let output = system(a:choice_command . " | fzy ")
+			catch /Vim:Interrupt/
+				" Swallow errors from ^C, allow redraw! below
+			endtry
+			redraw!
+			if v:shell_error == 0 && !empty(output)
+				exec a:vim_command . ' ' . output
+			endif
+		endfunction
+		nnoremap <leader>e :call FzyCommand("find . \\( -type d -name .git \\) -prune -false -o -type f", ":e")<cr>
+	else
+		nnoremap <leader>e :find<space>
+	endif
 endif
 
 if has("nvim")
