@@ -186,7 +186,24 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 
 	nnoremap ,m :cope <bar> AsyncRun make -f build.mk run<CR><C-W><C-P>
 	nnoremap <C-C><C-K> :AsyncStop<CR>
+endif
 
+if has("nvim")
+	nnoremap <leader>e :find<space>
+elseif executable('fzy')
+	function! FzyCommand(choice_command, vim_command)
+		try
+			let output = system(a:choice_command . " | fzy ")
+		catch /Vim:Interrupt/
+			" Swallow errors from ^C, allow redraw! below
+		endtry
+		redraw!
+		if v:shell_error == 0 && !empty(output)
+			exec a:vim_command . ' ' . output
+		endif
+	endfunction
+	nnoremap <leader>e :call FzyCommand("find . \\( -type d -name .git \\) -prune -false -o -type f", ":e")<cr>
+else
 	nnoremap <leader>e :find<space>
 endif
 
