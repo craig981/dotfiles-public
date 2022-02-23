@@ -175,6 +175,7 @@
   (modify-syntax-entry ?+ ".")
   ;; / is punctuation, so evil * works on path components
   (modify-syntax-entry ?/ ".")
+  (modify-syntax-entry ?| ".")
   ;; _ is word constituent
   (modify-syntax-entry ?_ "w"))
 
