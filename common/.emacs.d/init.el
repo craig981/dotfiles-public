@@ -1748,6 +1748,7 @@ in that directory, then visit-tags-table on the file"
   (setq evil-normal-state-cursor '(box "white"))
   (setq evil-insert-state-cursor '(box "orange"))
   (custom-set-faces
+   '(vertico-current ((t (:inherit highlight :extend t))))
    '(isearch ((t (:background "gold3" :foreground "black"))))
    '(lazy-highlight ((t (:background "turquoise" :foreground "black" ))))
    '(font-lock-warning-face ((t (:background "#243539" :foreground "#e81050"))))
@@ -1793,6 +1794,7 @@ in that directory, then visit-tags-table on the file"
    '(show-paren-match ((t (:weight bold :background nil :foreground "#000000"))))
    '(region ((t (:background "#3399aa" :foreground "#ffffff"))))
    '(orderless-match-face-0 ((t (:foreground "#5555ff" :weight bold))))
+   '(vertico-current ((t (:inherit highlight :extend t :background "light gray" :foreground "black"))))
    '(magit-diff-context-highlight ((t ())))
    '(mode-line ((t ())))
    '(mode-line-buffer-id ((t ())))
