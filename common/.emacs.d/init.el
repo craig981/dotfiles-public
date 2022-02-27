@@ -426,7 +426,8 @@
 
   (dolist (remap '(("[" . "å")
 		   (";" . "ö")
-		   ("]" . "ä")))
+		   ("'" . "ä")
+		   ("\\" . "'")))
     (let ((en (car remap))
 	  (se (cdr remap)))
       (evil-global-set-key 'insert (kbd en)
