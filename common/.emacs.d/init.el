@@ -307,7 +307,7 @@
     (my-substitute ".,$")))
 
 (evil-leader/set-key "=" #'my-align-regexp)
-(evil-leader/set-key "k" #'my-delete-trailing-whitespace)
+(evil-leader/set-key "l" #'my-delete-trailing-whitespace)
 (evil-leader/set-key "m" #'my-mirror-buffer)
 (evil-leader/set-key "d" 'pwd)
 
@@ -686,7 +686,7 @@
 
 ;; for virtual buffers
 (evil-leader/set-key "j" 'consult-buffer)
-(evil-leader/set-key "l" 'consult-buffer-other-window)
+(evil-leader/set-key "k" 'consult-buffer-other-window)
 (global-set-key (kbd "C-x b") 'consult-buffer)
 (global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window)
 

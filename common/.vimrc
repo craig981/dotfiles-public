@@ -60,7 +60,7 @@ nnoremap <leader>L :set invlazyredraw<CR>:set lazyredraw?<CR>
 "align selection in a table
 vnoremap <leader>= :!column -t<CR>gv
 " remove trailing whitespace in selection
-vnoremap <leader>k :s/\s\+$//<CR>
+vnoremap <leader>l :s/\s\+$//<CR>
 
 nnoremap <leader>r :silent grep '<c-r><c-w>' .<Left><Left><Left>
 if executable('ag')
@@ -73,7 +73,7 @@ nnoremap <leader>o :vimgrep /\<<c-r><c-w>\>/ %<CR>:cope<CR><C-w><C-p>
 
 " search for all chars as normal text, e.g. paths with /
 command! -nargs=1 SS let @/ = '\V'.escape(<q-args>, '\')
-nnoremap <leader>l :SS <C-R><C-A>
+nnoremap <leader>/ :SS <C-R><C-A>
 
 "command line emacs keys
 cnoremap <c-n> <down>
