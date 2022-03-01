@@ -1080,6 +1080,7 @@ return the project path instead"
   (company-mode -1))
 
 (defun my-magit-repolist-hook ()
+  (evil-local-mode 1)
   (tabulated-list-sort 0)
   (beginning-of-buffer))
 
@@ -1102,11 +1103,6 @@ return the project path instead"
 					((:right-align t)
 					 (:help-echo "Local changes not in upstream")))
 				       ))
-
-(define-key magit-repolist-mode-map (kbd "j") (kbd "n"))
-(define-key magit-repolist-mode-map (kbd "k") (kbd "p"))
-(define-key magit-repolist-mode-map (kbd "SPC") evil-leader--default-map)
-(define-key magit-repolist-mode-map (kbd "C-w") 'evil-window-map)
 
 ;; stop escape burying magit buffers
 (evil-define-key 'normal magit-mode-map (kbd "<escape>") nil)
