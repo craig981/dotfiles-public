@@ -1203,7 +1203,9 @@ return the project path instead"
 
 (defun my-yaml-hook ()
   (auto-fill-mode -1)
-  (setq-local evil-shift-width 2))
+  (setq-local evil-shift-width 2)
+  ;; = is punctuation
+  (modify-syntax-entry ?= "."))
 
 (add-hook 'yaml-mode-hook 'my-yaml-hook)
 
