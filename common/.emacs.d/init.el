@@ -379,6 +379,9 @@
 (define-global-abbrev "conat" "const")
 (define-global-abbrev "trinagle" "triangle")
 
+;;; want C-x C-l to expand line first
+(push 'try-expand-line hippie-expand-try-functions-list)
+
 ;; ----------------------------------------------------------------------------
 ;* Fancy dabbrev
 ;; ----------------------------------------------------------------------------
