@@ -1084,6 +1084,7 @@ return the project path instead"
 
 (defun my-magit-repolist-hook ()
   (evil-local-mode 1)
+  (evil-local-set-key 'normal (kbd "q") 'quit-window)
   (tabulated-list-sort 0)
   (beginning-of-buffer))
 
