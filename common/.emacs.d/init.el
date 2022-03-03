@@ -1922,6 +1922,7 @@ in that directory, then visit-tags-table on the file"
      ido-vertical-mode
      magit
      marginalia
+     markdown-mode
      orderless
      ox-pandoc
      paredit
