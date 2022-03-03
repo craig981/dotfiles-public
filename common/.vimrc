@@ -42,7 +42,7 @@ endif
 let mapleader=" "
 nnoremap <leader>f :e <C-R>=expand('%:p:h') . '/'<CR>
 nnoremap <leader>h :sf<space>
-nnoremap <leader>u :vert sf<space>
+nnoremap <leader>u :set invwrap<CR>
 nnoremap <leader>j :b<space>
 nnoremap <leader>t :term<CR>
 nnoremap <leader>d :pwd<CR>
