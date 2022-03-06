@@ -814,6 +814,13 @@
     (interactive)
     (my-toggle-symbol-boundary "\\b" "\\b" "\\\\b")))
 
+(when (eq system-type 'darwin)
+  (defun my-helm-minibuffer-hook ()
+    "Preserve my-lang for helm occur"
+    (setq-local my-lang (with-current-buffer (nth 2 (buffer-list)) my-lang)))
+
+  (add-hook 'helm-minibuffer-set-up-hook 'my-helm-minibuffer-hook))
+
 ;; ----------------------------------------------------------------------------
 ;* Imenu
 ;; ----------------------------------------------------------------------------
