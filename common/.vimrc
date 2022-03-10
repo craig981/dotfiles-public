@@ -250,7 +250,10 @@ else
 	endif
 endif
 
-
+" tcsh startup slow at work
+if &shell == "/bin/tcsh"
+	set shell=/bin/tcsh\ -f
+endif
 
 let g:netrw_banner=0
 let g:netrw_browse_split=4
