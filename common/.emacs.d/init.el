@@ -330,7 +330,6 @@
 
 (global-set-key (kbd "C-c %") #'my-copy-filename)
 (global-set-key (kbd "C-c u") #'my-toggle-wrap)
-(global-set-key (kbd "C-c b") 'bookmark-jump)
 (evil-leader/set-key ";" (kbd "C-x C-;"))
 (evil-leader/set-key "%" #'my-copy-filename)
 
@@ -1597,7 +1596,7 @@ in that directory, then visit-tags-table on the file"
   (evil-local-set-key 'normal (kbd "[#") 'c-up-conditional)
   (local-set-key (kbd "TAB") #'fancy-dabbrev-expand-or-indent)
   ;; don't want c-submit-bug-report
-  (local-set-key (kbd "C-c C-b") (kbd "C-c b"))
+  (local-set-key (kbd "C-c C-b") nil)
   (auto-fill-mode -1)
   (setq-local fill-column 80)
   (cpp-highlight-if-0/1)
