@@ -1184,6 +1184,7 @@ return the project path instead"
 (define-key compilation-mode-map (kbd "?") nil)
 (define-key compilation-mode-map (kbd "h") nil)
 (define-key compilation-mode-map (kbd "g") nil)
+(define-key compilation-mode-map (kbd "0") 'evil-beginning-of-line)
 
 ;; ----------------------------------------------------------------------------
 ;* Makefile
