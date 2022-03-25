@@ -1915,6 +1915,7 @@ in that directory, then visit-tags-table on the file"
 
   (add-hook 'bongo-player-started-hook 'my-bongo-start-hook)
 
+  (bongo-mode-line-indicator-mode -1)
   (setq bongo-display-track-icons nil)
   (setq bongo-logo nil)
   (setq bongo-enabled-backends '(vlc))
