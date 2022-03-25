@@ -1883,9 +1883,10 @@ in that directory, then visit-tags-table on the file"
 ;* Music
 ;; ----------------------------------------------------------------------------
 
-(when (and (display-graphic-p)
-	   (eq system-type 'darwin))
+(when (eq system-type 'darwin)
+
   (require 'bongo)
+
   (global-set-key (kbd "C-c b") 'bongo)
   (define-key bongo-mode-map (kbd "SPC") evil-leader--default-map)
   (define-key bongo-mode-map (kbd "z") (kbd "C-c C-p"))
@@ -1901,11 +1902,23 @@ in that directory, then visit-tags-table on the file"
   (define-key bongo-mode-map (kbd "l") 'bongo-seek-forward-3)
   (define-key bongo-mode-map (kbd "L") 'bongo-seek-forward-60)
   (define-key bongo-mode-map (kbd ";") 'bongo-recenter)
+
+  (defun my-bongo-set-volume (vol)
+    "Set VLC volume"
+    (let ((process (get-process "bongo-vlc")))
+      (when process
+	(process-send-string process (format "volume %s\n" vol)))))
+
+  (defun my-bongo-start-hook ()
+    (sit-for 0.2)
+    (my-bongo-set-volume 200))
+
+  (add-hook 'bongo-player-started-hook 'my-bongo-start-hook)
+
   (setq bongo-display-track-icons nil)
   (setq bongo-logo nil)
-  (when (eq system-type 'darwin)
-    (setq bongo-enabled-backends '(vlc))
-    (setq bongo-vlc-program-name "/Applications/VLC.app/Contents/MacOS/VLC")))
+  (setq bongo-enabled-backends '(vlc))
+  (setq bongo-vlc-program-name "/Applications/VLC.app/Contents/MacOS/VLC"))
 
 ;; ----------------------------------------------------------------------------
 ;* Customs
