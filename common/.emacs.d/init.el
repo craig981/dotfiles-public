@@ -515,7 +515,8 @@
 (with-eval-after-load 'org-agenda
   (define-key org-agenda-mode-map "j" (kbd "n"))
   (define-key org-agenda-mode-map "k" (kbd "p"))
-  (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map))
+  (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map)
+  (define-key org-agenda-mode-map (kbd "h") (lambda () (interactive))))
 
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "M-n") 'forward-paragraph)
