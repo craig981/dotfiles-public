@@ -67,7 +67,8 @@
 (evil-esc-mode 1)			; make C-[ escape
 
 (defun my-find-file-hook ()
-  (if (not (eq major-mode 'image-mode))
+  (if (not (or (eq major-mode 'image-mode)
+	       (derived-mode-p 'bongo-mode)))
       (evil-local-mode 1)))
 
 (add-hook 'find-file-hook 'my-find-file-hook)
