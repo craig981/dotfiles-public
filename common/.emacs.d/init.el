@@ -293,11 +293,12 @@
   (interactive)
   (browse-url
    (concat
-    (if (string= my-lang "se")
-	"https://translate.google.com/?sl=sv&tl=en&op=translate&text="
-	"https://www.google.com/search?ie=utf-8&oe=utf-8&q=")
+    (cond
+     ((string= my-lang "se") "https://translate.google.com/?sl=sv&tl=en&op=translate&text=")
+     ((string= my-lang "de") "https://translate.google.com/?sl=de&tl=en&op=translate&text=")
+     (t "https://www.google.com/search?ie=utf-8&oe=utf-8&q="))
     (url-hexify-string (if mark-active
-                           (format (if (string= my-lang "se") "%s" "\"%s\"")
+                           (format (if (string= my-lang "en") "\"%s\"" "%s")
 				   (buffer-substring (region-beginning) (region-end)))
                          (read-string "Search Google: "))))))
 
@@ -403,16 +404,18 @@
 ;* Keyboard
 ;; ----------------------------------------------------------------------------
 
-(defun my-char (en se)
+(defun my-char (en se de)
   (interactive)
   (cond
    ((string= my-lang "se") (insert se))
+   ((string= my-lang "de") (insert de))
    (t (insert en))))
 
 (defun my-toggle-lang ()
   (interactive)
   (cond
-   ((string= my-lang "se") (setq-local my-lang "en"))
+   ((string= my-lang "se") (setq-local my-lang "de"))
+   ((string= my-lang "de") (setq-local my-lang "en"))
    ((string= my-lang "en") (setq-local my-lang "se")))
   (message (format "Lang: %s" my-lang)))
 
@@ -427,16 +430,18 @@
   (setq-default mac-right-command-modifier 'control)
   (setq-default mac-option-modifier 'alt)
 
-  (dolist (remap '(("[" . "å")
-		   (";" . "ö")
-		   ("'" . "ä")
-		   ("\\" . "'")))
+  (dolist (remap '(("[" "å" "ü")
+		   ("]" "]" "ß")
+		   (";" "ö" "ö")
+		   ("'" "ä" "ä")
+		   ("\\" "'" "'")))
     (let ((en (car remap))
-	  (se (cdr remap)))
+	  (se (cadr remap))
+	  (de (caddr remap)))
       (evil-global-set-key 'insert (kbd en)
-			   `(lambda () (interactive) (my-char ,en ,se)))
+			   `(lambda () (interactive) (my-char ,en ,se ,de)))
       (define-key minibuffer-local-map (kbd en)
-	`(lambda () (interactive) (my-char ,en ,se)))))
+	`(lambda () (interactive) (my-char ,en ,se ,de)))))
 
   ;; shift+alt+space
   (global-set-key (kbd "A-SPC") 'my-toggle-lang))
