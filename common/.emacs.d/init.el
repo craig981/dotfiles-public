@@ -1900,6 +1900,7 @@ in that directory, then visit-tags-table on the file"
   (define-key bongo-mode-map (kbd "z") (kbd "C-c C-p"))
   (define-key bongo-mode-map (kbd "x") 'bongo-start/stop)
   (define-key bongo-mode-map (kbd "c") 'bongo-pause/resume)
+  (global-set-key (kbd "<f8>") 'bongo-pause/resume)
   (define-key bongo-mode-map (kbd "v") nil)
   (define-key bongo-mode-map (kbd "b") (kbd "C-c C-n"))
   (define-key bongo-mode-map (kbd "f") nil)
