@@ -1551,7 +1551,7 @@ in that directory, then visit-tags-table on the file"
 (evil-leader/set-key
   "0" (lambda () (interactive) (my-wrap-if-endif 0))
   "3" (lambda () (interactive) (my-wrap-if-endif 1))
-  "1" (lambda () (interactive) (my-wrap-if-endif 1 t)))
+  "2" (lambda () (interactive) (my-wrap-if-endif 1 t)))
 
 (defun my-jump-to-header ()
   (interactive)
