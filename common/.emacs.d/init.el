@@ -201,8 +201,6 @@
 ;* Convenience
 ;; ----------------------------------------------------------------------------
 
-(defvar my-lang "en")
-
 (fset 'yes-or-no-p 'y-or-n-p)
 (column-number-mode t)
 
@@ -287,20 +285,6 @@
 (defun my-man-page-hook ()
   (evil-local-mode))
 
-;; justinmk
-(defun my-google ()
-  "Google the selected region if any, display a query prompt otherwise."
-  (interactive)
-  (browse-url
-   (concat
-    (cond
-     ((string= my-lang "se") "https://translate.google.com/?sl=sv&tl=en&op=translate&text=")
-     ((string= my-lang "de") "https://translate.google.com/?sl=de&tl=en&op=translate&text=")
-     (t "https://www.google.com/search?ie=utf-8&oe=utf-8&q="))
-    (url-hexify-string (if mark-active
-                           (format (if (string= my-lang "en") "\"%s\"" "%s")
-				   (buffer-substring (region-beginning) (region-end)))
-                         (read-string "Search Google: "))))))
 
 (evil-leader/set-key "s" #'my-substitute) ; substitute whole buffer
 (evil-leader/set-key "S" ; substitute from current line to end of buffer
@@ -353,8 +337,6 @@
 (global-unset-key (kbd "C-h h")) ;; stop accidentally opening hello file
 (global-set-key (kbd "C-h C-c") nil) ;; disable describe-copying
 
-(global-set-key (kbd "C-x g") #'my-google)
-
 (define-key minibuffer-local-map (kbd "<escape>") 'abort-recursive-edit)
 
 (put 'narrow-to-region 'disabled nil)
@@ -401,8 +383,26 @@
   (setq-default fancy-dabbrev-preview-delay 0.25))
 
 ;; ----------------------------------------------------------------------------
-;* Keyboard
+;* Lang
 ;; ----------------------------------------------------------------------------
+
+(defvar my-lang "en")
+
+(defun my-lookup ()
+  "Google the selected region if any, display a query prompt otherwise."
+  (interactive)
+  (browse-url
+   (concat
+    (cond
+     ((string= my-lang "se") "https://translate.google.com/?sl=sv&tl=en&op=translate&text=")
+     ((string= my-lang "de") "https://translate.google.com/?sl=de&tl=en&op=translate&text=")
+     (t "https://www.google.com/search?ie=utf-8&oe=utf-8&q="))
+    (url-hexify-string (if mark-active
+                           (format (if (string= my-lang "en") "\"%s\"" "%s")
+				   (buffer-substring (region-beginning) (region-end)))
+                         (read-string "Search Google: "))))))
+
+(global-set-key (kbd "C-x g") #'my-lookup)
 
 (defun my-char (en se de)
   (interactive)
@@ -420,16 +420,6 @@
   (message (format "Lang: %s" my-lang)))
 
 (when (eq system-type 'darwin)
-  ;; tilde in the same place as in US keyboard
-  (keyboard-translate ?\§ ?\`)
-  (keyboard-translate ?\± ?\~)
-  ;; make ISO backtick escape
-  ;; (keyboard-translate ?\` ?\)
-
-  (setq-default mac-command-modifier 'meta)
-  (setq-default mac-right-command-modifier 'control)
-  (setq-default mac-option-modifier 'alt)
-
   (dolist (remap '(("[" "å" "ü")
 		   ("]" "]" "ß")
 		   (";" "ö" "ö")
@@ -446,6 +436,20 @@
   ;; shift+alt+space
   (global-set-key (kbd "A-SPC") 'my-toggle-lang))
 
+;; ----------------------------------------------------------------------------
+;* Keyboard
+;; ----------------------------------------------------------------------------
+
+(when (eq system-type 'darwin)
+  ;; tilde in the same place as in US keyboard
+  (keyboard-translate ?\§ ?\`)
+  (keyboard-translate ?\± ?\~)
+  ;; make ISO backtick escape
+  ;; (keyboard-translate ?\` ?\)
+
+  (setq-default mac-command-modifier 'meta)
+  (setq-default mac-right-command-modifier 'control)
+  (setq-default mac-option-modifier 'alt))
 
 ;; ----------------------------------------------------------------------------
 ;* Clipboard
