@@ -553,7 +553,10 @@
 (setq org-startup-folded nil)
 (setq org-confirm-babel-evaluate nil)
 
-(org-babel-do-load-languages 'org-babel-load-languages '((shell . t)))
+(org-babel-do-load-languages 'org-babel-load-languages
+			     '((shell . t)
+			       (python .t)
+			       (emacs-lisp . t)))
 
 (setq org-agenda-custom-commands
       '(("d" "Done stuff" todo "DONE" )
