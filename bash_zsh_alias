@@ -16,10 +16,6 @@ if [[ "$(uname -s)" = "Darwin" ]]; then
       export TERM=dumb-emacs-ansi COLORTERM=1
   fi
 
-  export EDITOR=nvim
-  alias vim=nvim
-  alias vi=nvim
-
 else
 
   alias ls='/bin/ls --color=auto'
@@ -30,10 +26,10 @@ else
   alias ke='killall -s 9 emacs'
   alias km='killall -s 9 maya.bin'
 
-  export EDITOR=vim
-  alias vi=vim
-
 fi
+
+export EDITOR=vim
+alias vi=vim
 
 function lt() {
 	tree -C -a -I .git "$@" | less -R
