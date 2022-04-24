@@ -2005,6 +2005,7 @@ in that directory, then visit-tags-table on the file"
  '(safe-local-variable-values
    '((tab-always-indent)
      (my-lang . "se")
+     (my-lang . "de")
      (indent-tabs-mode nil)
      (evil-shift-width . 2)
      (evil-shift-width . 4)))
