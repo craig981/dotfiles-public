@@ -16,6 +16,8 @@ if [[ "$(uname -s)" = "Darwin" ]]; then
       export TERM=dumb-emacs-ansi COLORTERM=1
   fi
 
+  alias vim=nvim
+
 else
 
   alias ls='/bin/ls --color=auto'
