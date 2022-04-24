@@ -66,6 +66,8 @@
 (global-evil-leader-mode)
 (evil-esc-mode 1)			; make C-[ escape
 
+(global-set-key (kbd "C-c E") #'evil-local-mode)
+
 (defun my-find-file-hook ()
   (if (not (or (eq major-mode 'image-mode)
 	       (derived-mode-p 'bongo-mode)))
