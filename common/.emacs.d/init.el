@@ -829,6 +829,8 @@
     (interactive)
     (my-toggle-symbol-boundary "\\b" "\\b" "\\\\b")))
 
+(define-key helm-ag-map (kbd "C-c C-o") (kbd "C-c o"))
+
 (when (eq system-type 'darwin)
   (defun my-helm-minibuffer-hook ()
     "Preserve my-lang for helm occur"
