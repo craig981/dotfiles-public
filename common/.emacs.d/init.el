@@ -528,7 +528,10 @@
   (define-key org-agenda-mode-map "j" (kbd "n"))
   (define-key org-agenda-mode-map "k" (kbd "p"))
   (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map)
-  (define-key org-agenda-mode-map (kbd "h") (lambda () (interactive))))
+  (define-key org-agenda-mode-map (kbd "h") (lambda () (interactive)))
+  (setq org-agenda-sorting-strategy
+      (cons '(agenda tag-up habit-down time-up priority-down category-keep)
+	    org-agenda-sorting-strategy)))
 
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "M-n") 'forward-paragraph)
