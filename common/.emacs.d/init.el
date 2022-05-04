@@ -404,7 +404,7 @@
 				   (buffer-substring (region-beginning) (region-end)))
                          (read-string "Search Google: "))))))
 
-(global-set-key (kbd "C-x g") #'my-lookup)
+(global-set-key (kbd "C-x w") #'my-lookup)
 
 (defun my-char (en se de)
   (interactive)
