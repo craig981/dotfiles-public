@@ -328,7 +328,7 @@
 (global-set-key (kbd "M-j") (lambda () (interactive) (join-line 1)))
 (global-set-key (kbd "M-=") 'count-words)
 (global-set-key (kbd "M-'") #'delete-blank-lines)
-(global-set-key (kbd "M-SPC") #'cycle-spacing)
+(evil-leader/set-key "SPC" #'cycle-spacing)
 
 (global-set-key (kbd "C-c w h") #'evil-window-move-far-left)
 (global-set-key (kbd "C-c w l") #'evil-window-move-far-right)
@@ -705,9 +705,7 @@
 
 (require 'consult)
 
-;; for virtual buffers
 (evil-leader/set-key "j" 'consult-buffer)
-(evil-leader/set-key "l" 'consult-buffer-other-window)
 (global-set-key (kbd "C-x b") 'consult-buffer)
 (global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window)
 
@@ -1909,7 +1907,6 @@ in that directory, then visit-tags-table on the file"
 
   (require 'bongo)
 
-  (global-set-key (kbd "C-c b") 'bongo)
   (define-key bongo-mode-map (kbd "SPC") evil-leader--default-map)
   (define-key bongo-mode-map (kbd "z") (kbd "C-c C-p"))
   (define-key bongo-mode-map (kbd "x") 'bongo-start/stop)
