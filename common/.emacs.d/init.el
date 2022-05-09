@@ -1847,15 +1847,21 @@ in that directory, then visit-tags-table on the file"
 (when (and (eq system-type 'gnu/linux)
 	   (display-graphic-p))
 
-  (set-face-attribute 'default nil :font "Menlo:pixelsize=14:weight=normal:slant=normal:width=normal:spacing=100:scalable=true")
+  (defun my-font-config ()
+    (interactive)
 
-  (if (string= (string-trim (shell-command-to-string
-			     "xrandr | awk '/^HDMI-1/{print $2}'"))
-	       "connected")
-      ;; external monitor
-      (set-face-attribute 'default nil :height 90)
-    ;; laptop screen
-    (set-face-attribute 'default nil :height 120)))
+    (set-face-attribute 'default nil :font "Menlo:pixelsize=14:weight=normal:slant=normal:width=normal:spacing=100:scalable=true")
+
+    (if (string= (string-trim (shell-command-to-string
+			       "xrandr | awk '/^HDMI-1/{print $2}'"))
+		 "connected")
+	;; external monitor
+	(set-face-attribute 'default nil :height 90)
+      ;; laptop screen
+      (set-face-attribute 'default nil :height 120)))
+
+  (my-font-config)
+  (global-set-key (kbd "C-c F") #'my-font-config))
 
 (when (eq system-type 'darwin)
   (set-face-attribute 'default nil :height 150))
