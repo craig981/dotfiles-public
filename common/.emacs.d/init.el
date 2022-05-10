@@ -898,15 +898,9 @@
   (let ((current-prefix-arg 4)) ;; emulate C-u
     (call-interactively 'my-find-file-in-project)))
 
-(evil-leader/set-key "e" 'my-find-file-in-project)
-(evil-leader/set-key "u" 'my-find-file-in-project-other-window)
-(global-set-key (kbd "C-c e") 'my-find-file-in-project)
-
 (defun my-jump-project-dired ()
   (interactive)
   (dired (or (vc-root-dir) (my-find-project-root))))
-
-(global-set-key (kbd "C-c d") #'my-jump-project-dired)
 
 (defvar my-projects)
 (when (eq system-type 'darwin)
@@ -978,10 +972,8 @@ return the project path instead"
 (global-set-key (kbd "C-c p s") #'my-choose-project-and-search)
 (global-set-key (kbd "C-c p m") #'my-choose-project-and-magit)
 
-(evil-leader/set-key "pe" #'my-choose-project-and-find-file)
-(evil-leader/set-key "pu" #'my-choose-project-and-find-file-other-window)
-(evil-leader/set-key "ps" #'my-choose-project-and-search)
-(evil-leader/set-key "pm" #'my-choose-project-and-magit)
+(global-set-key (kbd "C-c e") 'my-find-file-in-project)
+(global-set-key (kbd "C-c d") #'my-jump-project-dired)
 
 (global-set-key (kbd "C-c x") (lambda ()
 				(interactive)
@@ -994,6 +986,9 @@ return the project path instead"
 				(interactive)
 				(let ((default-directory "~/notefiles"))
 				  (my-find-file-in-project))))
+
+(evil-leader/set-key "e" 'my-find-file-in-project)
+(evil-leader/set-key "u" 'my-find-file-in-project-other-window)
 
 ;; ----------------------------------------------------------------------------
 ;* Isearch
