@@ -967,10 +967,17 @@ return the project path instead"
   (interactive)
   (my-choose-project-and-invoke #'magit))
 
+(defun my-choose-project-and-dired ()
+  (interactive)
+  (my-choose-project (lambda (path)
+		       (dired path)
+		       (pwd))))
+
 (global-set-key (kbd "C-c p e") #'my-choose-project-and-find-file)
 (global-set-key (kbd "C-c p u") #'my-choose-project-and-find-file-other-window)
 (global-set-key (kbd "C-c p s") #'my-choose-project-and-search)
 (global-set-key (kbd "C-c p m") #'my-choose-project-and-magit)
+(global-set-key (kbd "C-c p d") #'my-choose-project-and-dired)
 
 (global-set-key (kbd "C-c e") 'my-find-file-in-project)
 (global-set-key (kbd "C-c d") #'my-jump-project-dired)
