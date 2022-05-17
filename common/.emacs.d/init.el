@@ -996,6 +996,8 @@ return the project path instead"
 
 (evil-leader/set-key "e" 'my-find-file-in-project)
 (evil-leader/set-key "u" 'my-find-file-in-project-other-window)
+(evil-leader/set-key "pe" 'my-choose-project-and-find-file)
+(evil-leader/set-key "pu" 'my-choose-project-and-find-file-other-window)
 
 ;; ----------------------------------------------------------------------------
 ;* Isearch
