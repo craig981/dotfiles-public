@@ -1819,6 +1819,13 @@ in that directory, then visit-tags-table on the file"
   (set-cursor-color "ForestGreen")
   (setq evil-normal-state-cursor '(box "black"))
   (setq evil-insert-state-cursor '(box "orange"))
+
+  (if (display-graphic-p)
+      (custom-set-faces
+       '(region ((t (:background "#3399aa" :foreground "#ffffff")))))
+    (custom-set-faces
+     '(region ((t (:background "dark turquoise" :foreground "#ffffff"))))))
+
   (custom-set-faces
    '(default ((t ())))
    '(highlight ((t (:background "light gray" :foreground "black"))))
@@ -1827,7 +1834,6 @@ in that directory, then visit-tags-table on the file"
    '(font-lock-comment-face ((t (:foreground  "dark green" :italic t))))
    '(font-lock-warning-face ((t (:background "#ffffff" :foreground "#ff6523" :inverse-video nil))))
    '(show-paren-match ((t (:weight bold :background nil :foreground "#000000"))))
-   '(region ((t (:background "#3399aa" :foreground "#ffffff"))))
    '(orderless-match-face-0 ((t (:foreground "#5555ff" :weight bold))))
    '(magit-diff-context-highlight ((t ())))
    '(mode-line ((t ())))
