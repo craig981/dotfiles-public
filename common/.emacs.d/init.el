@@ -213,7 +213,6 @@
 
 (setq ring-bell-function 'ignore) ;; stop binging noise on C-g
 
-(setq-default calendar-week-start-day 1) ;; start on monday
 (setq-default vc-follow-symlinks t)
 (setq-default backup-inhibited t)    ;; disable backup
 (setq-default auto-save-default nil) ;; disable auto save
@@ -512,6 +511,17 @@
   (evil-local-mode))
 
 (add-hook 'text-mode-hook 'my-text-mode-hook)
+
+;; ----------------------------------------------------------------------------
+;* Calendar
+;; ----------------------------------------------------------------------------
+
+(setq-default calendar-week-start-day 1) ;; start on monday
+
+(push '("\\*Calendar\\*"
+        (display-buffer-reuse-window display-buffer-below-selected)
+        (window-height . 10))
+      display-buffer-alist)
 
 ;; ----------------------------------------------------------------------------
 ;* Org
