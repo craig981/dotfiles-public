@@ -392,16 +392,17 @@
 (defun my-lookup ()
   (interactive)
   (let ((google "https://www.google.com/search?ie=utf-8&oe=utf-8&q=")
-	(svenska "https://translate.google.com/?sl=sv&tl=en&op=translate&text=")
-	(deutsch "https://translate.google.com/?sl=de&tl=en&op=translate&text="))
+	(translate (cond
+		    ((string= my-lang "se") "https://translate.google.com/?sl=sv&tl=en&op=translate&text=")
+		    ((string= my-lang "de") "https://translate.google.com/?sl=de&tl=en&op=translate&text=")
+		    (t nil))))
     (browse-url
      (if mark-active
 	 (let* ((text (buffer-substring (region-beginning) (region-end)))
 		(hex (url-hexify-string text))
 		(hexq (url-hexify-string (format "\"%s\"" text))))
 	   (cond
-	    ((string= my-lang "se") (concat svenska hex))
-	    ((string= my-lang "de") (concat deutsch hex))
+	    (translate (concat translate hex))
 	    (t (concat google hexq))))
 
        (let ((sym (thing-at-point 'symbol t)))
@@ -409,8 +410,7 @@
 	  ((and sym (string-match "^gl[A-Z][^\s-]+$" sym)
 		(or (eq major-mode 'c++-mode)
 		    (eq major-mode 'c-mode))) (concat "https://docs.gl/" (read-string "OpenGL: " (concat "gl4/" sym))))
-	  ((string= my-lang "se") (concat svenska (url-hexify-string (read-string "Translate: " sym))))
-	  ((string= my-lang "de") (concat deutsch (url-hexify-string (read-string "Translate: " sym))))
+	  (translate (concat translate (url-hexify-string (read-string "Translate: " sym))))
 	  (t (concat google (url-hexify-string (read-string "Search Google: " sym))))))))))
 
 (global-set-key (kbd "C-x w") #'my-lookup)
