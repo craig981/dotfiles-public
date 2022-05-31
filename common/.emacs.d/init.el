@@ -408,7 +408,7 @@
 	 (cond
 	  ((and sym (string-match "^gl[A-Z][^\s-]+$" sym)
 		(or (eq major-mode 'c++-mode)
-		    (eq major-mode 'c-mode))) (concat "https://docs.gl/gl4/" (url-hexify-string sym)))
+		    (eq major-mode 'c-mode))) (concat "https://docs.gl/" (read-string "OpenGL: " (concat "gl4/" sym))))
 	  ((string= my-lang "se") (concat svenska (url-hexify-string (read-string "Translate: " sym))))
 	  ((string= my-lang "de") (concat deutsch (url-hexify-string (read-string "Translate: " sym))))
 	  (t (concat google (url-hexify-string (read-string "Search Google: " sym))))))))))
