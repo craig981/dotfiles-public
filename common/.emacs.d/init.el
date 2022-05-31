@@ -398,12 +398,10 @@
 		    (t nil))))
     (browse-url
      (if mark-active
-	 (let* ((text (buffer-substring (region-beginning) (region-end)))
-		(hex (url-hexify-string text))
-		(hexq (url-hexify-string (format "\"%s\"" text))))
+	 (let ((text (buffer-substring (region-beginning) (region-end))))
 	   (cond
-	    (translate (concat translate hex))
-	    (t (concat google hexq))))
+	    (translate (concat translate (url-hexify-string text)))
+	    (t (concat google (url-hexify-string (format "\"%s\"" text))))))
 
        (let ((sym (thing-at-point 'symbol t)))
 	 (cond
