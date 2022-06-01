@@ -195,9 +195,9 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 	colorscheme sorcerer
 
 	if has("nvim")
-		au TextYankPost * silent! lua vim.highlight.on_yank {timeout=200}
+		au TextYankPost * silent! lua vim.highlight.on_yank {timeout=300}
 	else
-		let g:highlightedyank_highlight_duration = 200
+		let g:highlightedyank_highlight_duration = 300
 	endif
 
 	nnoremap ,m :cope <bar> AsyncRun make -f build.mk run<CR><C-W><C-P>
