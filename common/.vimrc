@@ -183,6 +183,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 		autocmd ColorScheme sorcerer hi clear ModeMsg
 		"Thinner vertical split
 		autocmd ColorScheme sorcerer hi VertSplit cterm=NONE ctermbg=NONE
+		autocmd ColorScheme sorcerer hi Visual cterm=NONE ctermbg=23 ctermfg=15
 	augroup END
 
 	"autocmd VimEnter * colorscheme gruvbox
