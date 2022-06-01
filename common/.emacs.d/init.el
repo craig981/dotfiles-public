@@ -48,7 +48,9 @@
 (when (display-graphic-p)
   (let ((path-from-shell (replace-regexp-in-string
 			  "[[:space:]\n]*$" ""
-			  (shell-command-to-string "$SHELL -l -c 'printenv PATH'"))))
+			  (shell-command-to-string
+			   (format "$SHELL %s -c 'printenv PATH'"
+				   (if (string= "/bin/tcsh" (getenv "SHELL")) "" "-l"))))))
     (setenv "PATH" path-from-shell)
     (setq exec-path (split-string path-from-shell path-separator))))
 
