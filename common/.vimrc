@@ -184,9 +184,10 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 	augroup END
 
 	"autocmd VimEnter * colorscheme gruvbox
-	colorscheme gruvbox
+	"colorscheme gruvbox
 	"colorscheme desert
-	"colorscheme sorcerer
+	colorscheme sorcerer
+
 
 	nnoremap ,m :cope <bar> AsyncRun make -f build.mk run<CR><C-W><C-P>
 	nnoremap <C-C><C-K> :AsyncStop<CR>
