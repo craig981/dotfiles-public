@@ -1788,6 +1788,14 @@ in that directory, then visit-tags-table on the file"
 (blink-cursor-mode 0)
 (setq-default cursor-type 'box)
 
+(defun my-highlight-yanked-region (orig-fn beg end &rest args)
+  "Highlight yanked region. https://blog.meain.io/2020/emacs-highlight-yanked/"
+  (let ((pulse-delay 0.2)
+	(pulse-iterations 1))
+    (pulse-momentary-highlight-region beg end 'highlight))
+  (apply orig-fn beg end args))
+(advice-add 'evil-yank :around #'my-highlight-yanked-region)
+
 ;; see terminal background colour/image
 (defun my-unspecified-background ()
   (unless (display-graphic-p (selected-frame))

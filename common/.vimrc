@@ -174,6 +174,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 	if has("nvim")
 		Plug 'nvim-lua/plenary.nvim'
 		Plug 'nvim-telescope/telescope.nvim'
+	else
+		Plug 'machakann/vim-highlightedyank'
 	endif
 	call plug#end()
 
@@ -184,6 +186,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 		"Thinner vertical split
 		autocmd ColorScheme sorcerer hi VertSplit cterm=NONE ctermbg=NONE
 		autocmd ColorScheme sorcerer hi Visual cterm=NONE ctermbg=23 ctermfg=15
+		autocmd ColorScheme sorcerer hi IncSearch ctermbg=236 ctermfg=7 cterm=NONE
 	augroup END
 
 	"autocmd VimEnter * colorscheme gruvbox
@@ -191,6 +194,11 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 	"colorscheme desert
 	colorscheme sorcerer
 
+	if has("nvim")
+		au TextYankPost * silent! lua vim.highlight.on_yank {timeout=200}
+	else
+		let g:highlightedyank_highlight_duration = 200
+	endif
 
 	nnoremap ,m :cope <bar> AsyncRun make -f build.mk run<CR><C-W><C-P>
 	nnoremap <C-C><C-K> :AsyncStop<CR>
