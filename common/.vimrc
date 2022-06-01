@@ -32,6 +32,8 @@ nnoremap gk k
 
 nnoremap <C-p> <C-x>
 
+nnoremap Y yy
+
 "format paragraph like emacs M-q
 if has("nvim")
 	nnoremap <A-q> gwip
