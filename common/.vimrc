@@ -58,6 +58,7 @@ nnoremap <leader>z :e ~/.vimrc<CR>
 nnoremap <leader>s :%s/\<<c-r><c-w>\>//gI<Left><Left><Left>
 "toggle redraw during macro exec
 nnoremap <leader>L :set invlazyredraw<CR>:set lazyredraw?<CR>
+nmap <leader>; gcc
 
 "align selection in a table
 vnoremap <leader>= :!column -t<CR>gv
