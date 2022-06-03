@@ -310,7 +310,6 @@
 		       'man))
 (add-hook #'Man-mode-hook #'my-man-page-hook)
 
-(evil-global-set-key 'motion (kbd "Q") #'my-close-other-window)
 (global-set-key (kbd "C-c q") #'my-close-other-window)
 
 (evil-global-set-key 'motion (kbd "C-w d") 'my-kill-buffer)
@@ -1087,7 +1086,6 @@ return the project path instead"
 (define-key dired-mode-map (kbd "j") 'dired-next-line)
 (define-key dired-mode-map (kbd "k") 'dired-previous-line)
 (define-key dired-mode-map (kbd "K") 'dired-do-kill-lines)
-(define-key dired-mode-map (kbd "Q") 'my-close-other-window)
 (define-key dired-mode-map (kbd "SPC") evil-leader--default-map)
 (define-key dired-mode-map (kbd "C-w") 'evil-window-map)
 
