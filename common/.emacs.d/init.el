@@ -324,6 +324,8 @@
 (global-set-key (kbd "C-x C-h") (kbd "C-x h"))
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+(global-set-key (kbd "M-p") (kbd "M-{"))
+(global-set-key (kbd "M-n") (kbd "M-}"))
 (global-set-key (kbd "M-o") (kbd "C-x o"))
 (global-set-key (kbd "M-j") (lambda () (interactive) (join-line 1)))
 (global-set-key (kbd "M-=") 'count-words)
