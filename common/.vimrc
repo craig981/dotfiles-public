@@ -171,6 +171,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 	Plug 'skywind3000/asyncrun.vim'
 	Plug 'gruvbox-community/gruvbox'
 	Plug 'adlawson/vim-sorcerer'
+	Plug 'mswift42/vim-themes'
 	if has("nvim")
 		Plug 'nvim-lua/plenary.nvim'
 		Plug 'nvim-telescope/telescope.nvim'
@@ -187,12 +188,19 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 		autocmd ColorScheme sorcerer hi VertSplit cterm=NONE ctermbg=NONE
 		autocmd ColorScheme sorcerer hi Visual cterm=NONE ctermbg=23 ctermfg=15
 		autocmd ColorScheme sorcerer hi IncSearch ctermbg=236 ctermfg=7 cterm=NONE
+		autocmd ColorScheme reykjavik hi Identifier gui=NONE
+		autocmd ColorScheme reykjavik hi Visual guifg='#dddddd' guibg='#116677'
 	augroup END
 
 	"autocmd VimEnter * colorscheme gruvbox
 	"colorscheme gruvbox
 	"colorscheme desert
-	colorscheme sorcerer
+	if has("termguicolors")
+		set termguicolors
+		colorscheme reykjavik
+	else
+		colorscheme sorcerer
+	endif
 
 	if has("nvim")
 		au TextYankPost * silent! lua vim.highlight.on_yank {timeout=300}
