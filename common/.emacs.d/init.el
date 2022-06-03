@@ -1163,6 +1163,7 @@ return the project path instead"
 (evil-define-key 'normal magit-mode-map (kbd "C-n") (kbd "C-j"))
 (evil-define-key 'normal magit-mode-map (kbd "C-p") (kbd "C-k"))
 (evil-define-key 'normal magit-mode-map (kbd "p") (kbd "C-p"))
+(evil-define-key 'normal magit-mode-map (kbd "n") (kbd "C-n"))
 
 (evil-leader/set-key "v" 'magit-status)
 (global-set-key (kbd "C-c m") 'magit-status)
