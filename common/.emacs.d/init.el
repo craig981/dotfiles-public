@@ -317,7 +317,7 @@
 (global-set-key (kbd "C-x k") 'my-kill-buffer)
 
 (global-set-key (kbd "C-c %") #'my-copy-filename)
-(global-set-key (kbd "C-c u") #'my-toggle-wrap)
+(global-set-key (kbd "C-c U") #'my-toggle-wrap)
 (evil-leader/set-key ";" (kbd "C-x C-;"))
 (evil-leader/set-key "%" #'my-copy-filename)
 
