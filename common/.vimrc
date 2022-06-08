@@ -198,6 +198,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 	"colorscheme desert
 	if has("termguicolors")
 		set termguicolors
+		set term=xterm-256color
 		colorscheme reykjavik
 	else
 		colorscheme sorcerer
