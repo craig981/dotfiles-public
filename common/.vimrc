@@ -177,7 +177,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 		Plug 'nvim-lua/plenary.nvim'
 		Plug 'nvim-telescope/telescope.nvim'
 	else
-		Plug 'machakann/vim-highlightedyank'
+		" Plug 'machakann/vim-highlightedyank'
 	endif
 	call plug#end()
 
@@ -206,7 +206,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 	if has("nvim")
 		au TextYankPost * silent! lua vim.highlight.on_yank {timeout=300}
 	else
-		let g:highlightedyank_highlight_duration = 300
+		" let g:highlightedyank_highlight_duration = 300
 	endif
 
 	nnoremap ,m :cope <bar> AsyncRun make -f build.mk run<CR><C-W><C-P>
