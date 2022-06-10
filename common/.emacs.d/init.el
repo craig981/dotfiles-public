@@ -1914,7 +1914,8 @@ in that directory, then visit-tags-table on the file"
   (tool-bar-mode -1)
   (scroll-bar-mode -1))
 
-(menu-bar-mode -1)
+(when (not (eq system-type 'darwin))
+  (menu-bar-mode -1))
 
 ;; ----------------------------------------------------------------------------
 ;* Email
