@@ -727,6 +727,7 @@
 (require 'consult)
 
 (evil-leader/set-key "j" 'consult-buffer)
+(global-set-key (kbd "C-c j") 'consult-buffer)
 (global-set-key (kbd "C-x b") 'consult-buffer)
 (global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window)
 
