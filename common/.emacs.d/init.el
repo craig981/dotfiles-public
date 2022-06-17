@@ -358,7 +358,8 @@
 
 (defun my-before-close-tag (&rest args)
   "Put the cursor after the tag when in normal mode"
-  (when (eq evil-state 'normal)
+  (when (and (eq evil-state 'normal)
+	     (eq (following-char) ?>)))
     (forward-char)))
 (advice-add 'sgml-close-tag :before #'my-before-close-tag)
 
