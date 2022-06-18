@@ -1971,6 +1971,8 @@ in that directory, then visit-tags-table on the file"
 
   (require 'bongo)
 
+  (global-set-key (kbd "C-c b") #'bongo)
+
   (define-key bongo-mode-map (kbd "SPC") evil-leader--default-map)
   (define-key bongo-mode-map (kbd "z") (kbd "C-c C-p"))
   (define-key bongo-mode-map (kbd "x") 'bongo-start/stop)
