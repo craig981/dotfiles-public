@@ -865,6 +865,11 @@
 
 (define-key helm-ag-map (kbd "C-c C-o") (kbd "C-c o"))
 
+(define-key helm-occur-map (kbd "M-w")
+  (lambda ()
+    (interactive)
+    (my-toggle-symbol-boundary "\\_<" "\\_>" "\\\\_<")))
+
 (when (eq system-type 'darwin)
   (defun my-helm-minibuffer-hook ()
     "Preserve my-lang for helm occur"
