@@ -1979,8 +1979,8 @@ in that directory, then visit-tags-table on the file"
   (define-key bongo-mode-map (kbd "o") 'bongo-switch-buffers)
   (define-key bongo-mode-map (kbd "O") 'bongo-list-buffers)
   (define-key bongo-mode-map (kbd "H") 'bongo-seek-backward-60)
-  (define-key bongo-mode-map (kbd "h") 'bongo-seek-backward-3)
-  (define-key bongo-mode-map (kbd "l") 'bongo-seek-forward-3)
+  (define-key bongo-mode-map (kbd "h") 'bongo-seek-backward-10)
+  (define-key bongo-mode-map (kbd "l") 'bongo-seek-forward-10)
   (define-key bongo-mode-map (kbd "L") 'bongo-seek-forward-60)
   (define-key bongo-mode-map (kbd ";") 'bongo-recenter)
 
