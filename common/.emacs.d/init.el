@@ -7,6 +7,7 @@
 	     "/etc/pki/tls/certs/ca-bundle.crt"	   ;; centos
 	   "/etc/ssl/certs/ca-certificates.crt"))  ;; ubuntu
 	(t "/usr/local/etc/openssl/cert.pem"))))   ;; darwin
+  ;; https://curl.se/docs/caextract.html
   (setq tls-checktrust t)
   (setq tls-program
 	(list
