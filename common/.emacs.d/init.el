@@ -636,6 +636,9 @@
   ;; (un)collapsing headers
   (when (not (display-graphic-p))
     (evil-local-set-key 'motion (kbd "C-i") 'org-cycle))
+  (when (and (display-graphic-p)
+	     (not (version< emacs-version "28.1")))
+    (evil-local-set-key 'normal (kbd "TAB") 'org-cycle))
   ;; / is punctuation, so evil * works on path components
   (modify-syntax-entry ?/ ".")
   (auto-fill-mode 1)
