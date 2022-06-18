@@ -2080,7 +2080,8 @@ in that directory, then visit-tags-table on the file"
      (evil-shift-width . 2)
      (evil-shift-width . 4)))
  '(tramp-ssh-controlmaster-options
-   "-o ControlMaster=auto -o ControlPath=tramp.%%C -o ControlPersist=60m" t))
+   "-o ControlMaster=auto -o ControlPath=tramp.%%C -o ControlPersist=60m" t)
+ '(undo-tree-auto-save-history nil))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
