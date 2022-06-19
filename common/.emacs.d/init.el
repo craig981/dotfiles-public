@@ -661,6 +661,33 @@
   ;; for pdf export
   (require 'ox-pandoc))
 
+(defun my-www-get-page-title (url)
+  (with-current-buffer (url-retrieve-synchronously url)
+    (goto-char (point-min))
+    (re-search-forward "<title[^>]*>\\([^<]*\\)</title>" nil t 1)
+    (let ((title (match-string 1)))
+      (goto-char (point-min))
+      (re-search-forward "charset=\\([-0-9a-zA-Z]*\\)" nil t 1)
+      (let* ((c (match-string 1))
+	     (coding (if (or (not c)
+			     (string= c "UTF-8")
+			     (string= c title))
+			 "utf-8" c)))
+	(decode-coding-string title (intern coding))))))
+
+(defun my-wrap-org-link ()
+  "With point at the start of a URL, turn it into [[url][title]]"
+  (interactive)
+  (let* ((url (thing-at-point 'url t))
+	 (title (my-www-get-page-title url)))
+    (save-excursion
+      (insert "[[")
+      (evil-forward-WORD-end)
+      (forward-char)
+      (insert (format "][%s]]" title)))))
+
+(global-set-key (kbd "C-c M-t") #'my-wrap-org-link)
+
 ;; ----------------------------------------------------------------------------
 ;* Browser
 ;; ----------------------------------------------------------------------------
