@@ -361,13 +361,6 @@
       (lambda (&optional no-file no-context posn)
 	(funcall 'bookmark-make-record-default no-file t posn)))
 
-(defun my-before-close-tag (&rest args)
-  "Put the cursor after the tag when in normal mode"
-  (when (and (eq evil-state 'normal)
-	     (eq (following-char) ?>))
-    (forward-char)))
-(advice-add 'sgml-close-tag :before #'my-before-close-tag)
-
 ;; ----------------------------------------------------------------------------
 ;* Abbreviations
 ;; ----------------------------------------------------------------------------
@@ -681,6 +674,16 @@
 		      ("\\.mm\\'" . default)
 		      ("\\.x?html?\\'" . "google-chrome %s")
 		      ("\\.pdf\\'" . default)))
+
+;; ----------------------------------------------------------------------------
+;* HTML
+;; ----------------------------------------------------------------------------
+(defun my-before-close-tag (&rest args)
+  "Put the cursor after the tag when in normal mode"
+  (when (and (eq evil-state 'normal)
+	     (eq (following-char) ?>))
+    (forward-char)))
+(advice-add 'sgml-close-tag :before #'my-before-close-tag)
 
 ;; ----------------------------------------------------------------------------
 ;* Which key
