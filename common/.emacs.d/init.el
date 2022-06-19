@@ -678,6 +678,12 @@
 ;; ----------------------------------------------------------------------------
 ;* HTML
 ;; ----------------------------------------------------------------------------
+
+(defun my-html-hook ()
+  (define-key html-mode-map (kbd "M-o") nil))
+
+(add-hook 'html-mode-hook #'my-html-hook)
+
 (defun my-before-close-tag (&rest args)
   "Put the cursor after the tag when in normal mode"
   (when (and (eq evil-state 'normal)
