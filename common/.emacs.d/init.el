@@ -917,6 +917,9 @@
 
   (add-hook 'helm-minibuffer-set-up-hook 'my-helm-minibuffer-hook))
 
+;;; leave the highlight for occur
+(setq next-error-highlight-no-select t)
+
 ;; ----------------------------------------------------------------------------
 ;* Imenu
 ;; ----------------------------------------------------------------------------
