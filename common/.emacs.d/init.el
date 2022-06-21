@@ -328,9 +328,9 @@
 (global-set-key (kbd "M-p") (kbd "M-{"))
 (global-set-key (kbd "M-n") (kbd "M-}"))
 (global-set-key (kbd "M-o") (kbd "C-x o"))
-(global-set-key (kbd "C-c j") (lambda () (interactive) (join-line 1)))
+(global-set-key (kbd "M-j") (lambda () (interactive) (join-line 1)))
 (global-set-key (kbd "M-=") 'count-words)
-(global-set-key (kbd "M-'") #'delete-blank-lines)
+;; (global-set-key (kbd "M-'") #'delete-blank-lines)
 (evil-leader/set-key "SPC" #'cycle-spacing)
 
 (global-set-key (kbd "C-c w h") #'evil-window-move-far-left)
@@ -778,7 +778,7 @@
 (require 'consult)
 
 (evil-leader/set-key "j" 'consult-buffer)
-(global-set-key (kbd "M-j") 'consult-buffer)
+(global-set-key (kbd "M-'") 'consult-buffer)
 (global-set-key (kbd "C-x b") 'consult-buffer)
 (global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window)
 
