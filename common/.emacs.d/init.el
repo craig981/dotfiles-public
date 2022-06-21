@@ -319,8 +319,7 @@
 
 (global-set-key (kbd "C-c %") #'my-copy-filename)
 (global-set-key (kbd "C-c U") #'my-toggle-wrap)
-(evil-leader/set-key ";" (kbd "C-x C-;"))
-(evil-leader/set-key "%" #'my-copy-filename)
+(global-set-key (kbd "C-c ;") (kbd "C-x C-;"))
 
 (global-set-key (kbd "C-x C-h") (kbd "C-x h"))
 (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -1134,6 +1133,7 @@ return the project path instead"
 
 (define-key dired-mode-map (kbd "j") 'dired-next-line)
 (define-key dired-mode-map (kbd "k") 'dired-previous-line)
+(define-key dired-mode-map (kbd "C-j") 'dired-goto-file)
 (define-key dired-mode-map (kbd "K") 'dired-do-kill-lines)
 (define-key dired-mode-map (kbd "SPC") evil-leader--default-map)
 (define-key dired-mode-map (kbd "C-w") 'evil-window-map)
@@ -1555,7 +1555,7 @@ in that directory, then visit-tags-table on the file"
 (add-hook 'python-mode-hook 'my-python-mode-hook)
 (add-hook 'inferior-python-mode-hook 'my-python-shell-mode-hook)
 
-(evil-leader/set-key-for-mode 'python-mode "c"
+(evil-leader/set-key-for-mode 'python-mode "."
   (lambda ()
     (interactive)
     (if (use-region-p)
