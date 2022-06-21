@@ -350,11 +350,7 @@
   (evil-local-mode)
   (evil-local-set-key 'motion (kbd "TAB") #'forward-button))
 
-(defun my-messages-hook ()
-  (evil-local-mode))
-
 (add-hook 'help-mode-hook #'my-help-mode-hook)
-(add-hook 'messages-buffer-mode-hook #'my-messages-hook)
 
 ;; don't save context strings
 (setq-default bookmark-make-record-function
