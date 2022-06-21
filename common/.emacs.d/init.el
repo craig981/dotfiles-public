@@ -330,8 +330,6 @@
 (global-set-key (kbd "M-o") (kbd "C-x o"))
 (global-set-key (kbd "M-j") (lambda () (interactive) (join-line 1)))
 (global-set-key (kbd "M-=") 'count-words)
-;; (global-set-key (kbd "M-'") #'delete-blank-lines)
-(evil-leader/set-key "SPC" #'cycle-spacing)
 
 (global-set-key (kbd "C-c w h") #'evil-window-move-far-left)
 (global-set-key (kbd "C-c w l") #'evil-window-move-far-right)
@@ -457,8 +455,6 @@
   ;; tilde in the same place as in US keyboard
   (keyboard-translate ?\§ ?\`)
   (keyboard-translate ?\± ?\~)
-  ;; make ISO backtick escape
-  ;; (keyboard-translate ?\` ?\)
 
   (setq-default mac-command-modifier 'meta)
   (setq-default mac-right-command-modifier 'control)
@@ -900,11 +896,6 @@
     (my-toggle-symbol-boundary "\\b" "\\b" "\\\\b")))
 
 (define-key helm-ag-map (kbd "C-c C-o") (kbd "C-c o"))
-
-(define-key helm-occur-map (kbd "M-w")
-  (lambda ()
-    (interactive)
-    (my-toggle-symbol-boundary "\\_<" "\\_>" "\\\\_<")))
 
 (when (eq system-type 'darwin)
   (defun my-helm-minibuffer-hook ()
@@ -1460,14 +1451,8 @@ in that directory, then visit-tags-table on the file"
 (defun my-company-abort ()
   (interactive)
   (company-abort)
-  (cond
-   ((evil-insert-state-p) (evil-normal-state))
-   ((and ;;(bound-and-true-p git-commit-mode)
-	 (evil-emacs-state-p))
-    ;; Send another C-c event, so in a git commit message we only have
-    ;; to hit C-c twice, rather than three times, to abort the
-    ;; completion and finish the commit.
-    (setq unread-command-events (listify-key-sequence "\C-c")))))
+  (when (evil-insert-state-p)
+    (evil-normal-state)))
 
 (define-key company-active-map (kbd "C-n") 'company-select-next)
 (define-key company-active-map (kbd "C-p") 'company-select-previous)
