@@ -317,6 +317,7 @@
 (evil-global-set-key 'motion (kbd "C-w C-d") 'my-kill-buffer)
 (global-set-key (kbd "C-x k") 'my-kill-buffer)
 
+(evil-leader/set-key "%" #'my-copy-filename)
 (global-set-key (kbd "C-c %") #'my-copy-filename)
 (global-set-key (kbd "C-c U") #'my-toggle-wrap)
 (global-set-key (kbd "C-c ;") (kbd "C-x C-;"))
@@ -329,6 +330,7 @@
 (global-set-key (kbd "M-o") (kbd "C-x o"))
 (global-set-key (kbd "M-j") (lambda () (interactive) (join-line 1)))
 (global-set-key (kbd "M-=") 'count-words)
+(global-set-key (kbd "M-'") #'delete-blank-lines)
 
 (global-set-key (kbd "C-c w h") #'evil-window-move-far-left)
 (global-set-key (kbd "C-c w l") #'evil-window-move-far-right)
@@ -769,7 +771,7 @@
 (require 'consult)
 
 (evil-leader/set-key "j" 'consult-buffer)
-(global-set-key (kbd "M-'") 'consult-buffer)
+;; (global-set-key (kbd "M-'") 'consult-buffer)
 (global-set-key (kbd "C-x b") 'consult-buffer)
 (global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window)
 
