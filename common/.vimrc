@@ -23,7 +23,8 @@ set laststatus=2
 
 set nohlsearch
 "set incsearch
-nnoremap <C-l> :set invhlsearch<CR>
+nnoremap <C-h> :set invhlsearch<CR>
+nnoremap <C-l> zz
 
 nnoremap j gj
 nnoremap k gk
