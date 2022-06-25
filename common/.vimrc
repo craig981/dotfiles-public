@@ -61,6 +61,9 @@ nnoremap <leader>s :%s/\<<c-r><c-w>\>//gI<Left><Left><Left>
 nnoremap <leader>L :set invlazyredraw<CR>:set lazyredraw?<CR>
 nmap <leader>; gcc
 
+nnoremap <leader>l :setlocal spell!<CR>
+set spelllang=en_gb
+
 "align selection in a table
 vnoremap <leader>= :!column -t<CR>gv
 " remove trailing whitespace in selection
@@ -206,6 +209,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 	else
 		colorscheme sorcerer
 	endif
+	hi clear SpellBad
+	hi SpellBad guifg=white guibg=red
 
 	if has("nvim")
 		au TextYankPost * silent! lua vim.highlight.on_yank {timeout=300}

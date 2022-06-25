@@ -2124,6 +2124,8 @@ in that directory, then visit-tags-table on the file"
  '(company-tooltip-common ((t (:foreground "black"))))
  '(company-tooltip-common-selection ((t (:foreground "white"))))
  '(company-tooltip-selection ((t (:background "steelblue" :foreground "white"))))
+ '(flyspell-duplicate ((t (:background "Magenta" :foreground "white"))))
+ '(flyspell-incorrect ((t (:background "red" :foreground "white"))))
  '(font-lock-comment-face ((t (:foreground "#708080"))))
  '(magit-diff-context-highlight ((t nil)))
  '(message-cited-text-1 ((t (:foreground "#878787"))))
