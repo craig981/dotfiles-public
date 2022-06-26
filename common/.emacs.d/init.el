@@ -782,7 +782,14 @@
 
 (require 'consult-dir)
 
-(define-key vertico-map (kbd "C-x C-j") #'consult-dir)
+(global-set-key (kbd "C-x C-d") #'consult-dir)
+(define-key vertico-map (kbd "C-x C-d") #'consult-dir)
+
+;;; insert directory name into buffer
+(setq consult-dir-default-command
+      (lambda ()
+	(interactive)
+	(insert default-directory)))
 
 ;; ----------------------------------------------------------------------------
 ;* Helm
