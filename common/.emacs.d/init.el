@@ -278,9 +278,10 @@
 (defun my-kill-buffer ()
   "Kill unmodified buffers without asking"
   (interactive)
-  (if (buffer-modified-p)
-      (call-interactively 'kill-buffer)
-    (kill-this-buffer)))
+  (if (or buffer-read-only
+	  (not (buffer-modified-p)))
+      (kill-this-buffer)
+    (call-interactively 'kill-buffer)))
 
 (defun my-close-other-window ()
   (interactive)
