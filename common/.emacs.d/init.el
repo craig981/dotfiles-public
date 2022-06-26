@@ -133,6 +133,8 @@
 (evil-global-set-key 'insert (kbd "C-e") nil)
 (evil-global-set-key 'insert (kbd "C-k") nil)
 (evil-global-set-key 'insert (kbd "C-y") nil)
+(evil-global-set-key 'insert (kbd "C-n") nil)
+(evil-global-set-key 'insert (kbd "C-p") nil)
 (evil-global-set-key 'insert (kbd "C-d") 'my-delete-or-indent-left)
 
 (define-key evil-ex-completion-map (kbd "C-a") 'move-beginning-of-line)
@@ -1521,8 +1523,8 @@ in that directory, then visit-tags-table on the file"
 (evil-declare-change-repeat 'company-complete)
 
 ;; after C-n, use C-s C-r to search and C-o to narrow list to results
-(evil-global-set-key 'insert (kbd "C-p") 'company-complete)
-(evil-global-set-key 'insert (kbd "C-n") 'company-complete)
+;; (evil-global-set-key 'insert (kbd "C-p") 'company-complete)
+;; (evil-global-set-key 'insert (kbd "C-n") 'company-complete)
 (evil-global-set-key 'insert (kbd "C-x C-f") 'company-files)
 
 ;; ----------------------------------------------------------------------------
