@@ -780,6 +780,10 @@
  consult-buffer consult-buffer-other-window consult-theme
  :preview-key (kbd "C-j"))
 
+(require 'consult-dir)
+
+(define-key vertico-map (kbd "C-x C-j") #'consult-dir)
+
 ;; ----------------------------------------------------------------------------
 ;* Helm
 ;; ----------------------------------------------------------------------------
@@ -2077,6 +2081,7 @@ in that directory, then visit-tags-table on the file"
      company
      company-statistics
      consult
+     consult-dir
      evil
      evil-leader
      evil-collection
