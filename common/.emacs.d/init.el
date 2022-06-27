@@ -1390,6 +1390,10 @@ return the project path instead"
   (visual-line-mode 0)
   (toggle-truncate-lines 0)
   (define-key shell-mode-map (kbd "C-d") #'my-shell-ctrl-d)
+
+  ;; fill out longest common part of filename first
+  (setq-local completion-styles '(emacs21 flex))
+
   ;; don't ignore .git, etc
   (setq-local completion-ignored-extensions nil
 	      completion-ignore-case nil))
