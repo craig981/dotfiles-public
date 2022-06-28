@@ -1567,8 +1567,8 @@ in that directory, then visit-tags-table on the file"
 
 (defun my-python-mode-hook ()
   (my-syntax-entry)
-  (anaconda-mode)
-  (anaconda-eldoc-mode)
+  ;; (anaconda-mode)
+  ;; (anaconda-eldoc-mode)
   (setq-local tab-width 4)
   (setq-local evil-shift-width 4))
 
