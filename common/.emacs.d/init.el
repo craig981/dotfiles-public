@@ -1228,17 +1228,18 @@ return the project path instead"
 (evil-define-key 'normal magit-mode-map (kbd "p") (kbd "C-p"))
 (evil-define-key 'normal magit-mode-map (kbd "n") (kbd "C-n"))
 
+(defun my-magit-list-repos ()
+  (interactive)
+  (other-window 1)
+  (setq magit-repository-directories '())
+  (dolist (proj (my-list-repos))
+    (let ((dir (cdr proj)))
+      (push `(,dir . 0) magit-repository-directories)))
+  (magit-list-repositories))
+
 (evil-leader/set-key "v" 'magit-status)
 (global-set-key (kbd "C-c m") 'magit-status)
-(global-set-key (kbd "C-c M")
-		(lambda ()
-		  (interactive)
-		  (other-window 1)
-		  (setq magit-repository-directories '())
-		  (dolist (proj (my-list-repos))
-		    (let ((dir (cdr proj)))
-		      (push `(,dir . 0) magit-repository-directories)))
-		  (magit-list-repositories)))
+(global-set-key (kbd "C-c M") #'my-magit-list-repos)
 
 ;; ----------------------------------------------------------------------------
 ;* Ediff
