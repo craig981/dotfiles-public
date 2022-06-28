@@ -1452,11 +1452,11 @@ in that directory, then visit-tags-table on the file"
 ;; ----------------------------------------------------------------------------
 
 (require 'company)
-(require 'company-statistics)
+;; (require 'company-statistics)
 
 (global-company-mode 1)
-(company-statistics-mode 1)
-(setq company-statistics-auto-save nil)
+;; (company-statistics-mode 1)
+;; (setq company-statistics-auto-save nil)
 
 (defun my-company-newline ()
   (interactive)
