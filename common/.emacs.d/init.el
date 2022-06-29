@@ -556,8 +556,9 @@
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "M-n") 'forward-paragraph)
   (define-key org-mode-map (kbd "M-p") 'backward-paragraph)
-  (define-key org-mode-map (kbd "C-c C-M-l") 'org-toggle-link-display)
-  (define-key org-mode-map (kbd "C-c C-M-i") 'org-toggle-inline-images))
+  (define-key org-mode-map (kbd "C-c M-[") 'org-toggle-link-display)
+  (define-key org-mode-map (kbd "C-c M-]") 'org-toggle-link-display)
+  (define-key org-mode-map (kbd "C-c M-i") 'org-toggle-inline-images))
 
 (when (eq system-type 'gnu/linux)
   (setq org-agenda-files (list "~/notes.org"))
