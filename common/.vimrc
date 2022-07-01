@@ -1,4 +1,8 @@
 set encoding=utf-8
+set nohidden
+if has("nvim") || v:version >= 800
+	set nofixendofline
+endif
 
 "stop annoying flashing of screen
 set novb
