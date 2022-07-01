@@ -26,10 +26,10 @@ set nohlsearch
 nnoremap <C-h> :set invhlsearch<CR>
 nnoremap <C-l> zz
 
-nnoremap j gj
-nnoremap k gk
-nnoremap gj j
-nnoremap gk k
+" nnoremap j gj
+" nnoremap k gk
+" nnoremap gj j
+" nnoremap gk k
 
 nnoremap <C-p> <C-x>
 
