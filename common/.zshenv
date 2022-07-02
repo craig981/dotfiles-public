@@ -8,5 +8,5 @@ if [[ "$(uname -s)" = "Darwin" ]]; then
   export PATH="$PATH:/usr/local/texlive/2015basic/bin/x86_64-darwin"
 fi
 
-export PATH="$HOME/tools/bin:$HOME/dotfiles-public/bin:${PATH}"
+export PATH="$HOME/dotfiles-public/bin:${PATH}"
 export PATH="$HOME/.cargo/bin:${PATH}"
