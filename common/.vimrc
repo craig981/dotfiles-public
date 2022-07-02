@@ -162,6 +162,9 @@ set wildmenu
 set wildmode=longest:full,full
 set wildignore=**/build/**/*.h,*.o,*.a,*.so,*.pyc
 set wildignore+=**/.git/*
+if v:version >= 900
+	set wildoptions=pum
+endif
 
 set tags=$HOME/dev/git/tags
 
