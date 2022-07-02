@@ -160,7 +160,8 @@ augroup END
 
 set wildmenu
 set wildmode=longest:full,full
-set wildignore+=**/build/**/*.h,*.o,*.a,*.so,*.pyc
+set wildignore=**/build/**/*.h,*.o,*.a,*.so,*.pyc
+set wildignore+=**/.git/*
 
 set tags=$HOME/dev/git/tags
 
