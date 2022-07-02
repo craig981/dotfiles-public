@@ -29,7 +29,7 @@ macports-install:
 	sudo port install \
 		tree htop the_silver_searcher git \
 		vim neovim tmux universal-ctags cmake stow \
-		cmus ImageMagick ffmpeg fzy \
+		cmus ImageMagick ffmpeg \
 		aspell aspell-dict-en
 
 macports-selfupdate:
@@ -47,7 +47,7 @@ apt-install:
 	sudo apt-get install \
 		tree htop silversearcher-ag git \
 		neovim universal-ctags cmake stow \
-		cmus imagemagick feh fzy
+		cmus imagemagick feh
 
 security-updates-dry-run:
 	sudo apt-get update
