@@ -1355,7 +1355,7 @@ return the project path instead"
 
 (global-set-key (kbd "C-c t") 'my-spawn-shell)
 (global-set-key (kbd "C-c T") 'my-split-shell)
-(evil-leader/set-key "t" 'my-spawn-shell)
+(evil-leader/set-key "t" 'shell)
 (evil-leader/set-key "T" 'my-split-shell)
 
 (setq comint-prompt-read-only t)
