@@ -359,6 +359,9 @@
       (lambda (&optional no-file no-context posn)
 	(funcall 'bookmark-make-record-default no-file t posn)))
 
+(when (not (version< emacs-version "28.1"))
+  (setq-default bookmark-set-fringe-mark nil))
+
 ;; ----------------------------------------------------------------------------
 ;* Abbreviations
 ;; ----------------------------------------------------------------------------
