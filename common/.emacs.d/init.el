@@ -1335,9 +1335,13 @@ return the project path instead"
 ;* Shell
 ;; ----------------------------------------------------------------------------
 
-(defun my-spawn-shell ()
+(defun my-spawn-shell (name)
+  (interactive "MName shell buffer: ")
   (let ((currentbuf (get-buffer-window (current-buffer)))
-	(newbuf     (generate-new-buffer-name "*shell*")))
+	(newbuf     (generate-new-buffer-name
+		     (if (string-empty-p name)
+			 "*shell*"
+		       (format "*shell:%s*" name)))))
     (generate-new-buffer newbuf)
     (set-window-dedicated-p currentbuf nil)
     (set-window-buffer currentbuf newbuf)
@@ -1347,11 +1351,11 @@ return the project path instead"
   (interactive)
   (let ((evil-split-window-below t))
     (evil-window-split))
-  (my-spawn-shell))
+  (call-interactively 'my-spawn-shell))
 
-(global-set-key (kbd "C-c t") 'shell)
+(global-set-key (kbd "C-c t") 'my-spawn-shell)
 (global-set-key (kbd "C-c T") 'my-split-shell)
-(evil-leader/set-key "t" 'shell)
+(evil-leader/set-key "t" 'my-spawn-shell)
 (evil-leader/set-key "T" 'my-split-shell)
 
 (setq comint-prompt-read-only t)
