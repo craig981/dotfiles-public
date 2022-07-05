@@ -1347,16 +1347,17 @@ return the project path instead"
     (set-window-buffer currentbuf newbuf)
     (shell newbuf)))
 
-(defun my-split-shell ()
-  (interactive)
+(defun my-split-shell (choose-name)
   (let ((evil-split-window-below t))
     (evil-window-split))
-  (call-interactively 'my-spawn-shell))
+  (if choose-name
+      (call-interactively 'my-spawn-shell)
+    (my-spawn-shell "")))
 
 (global-set-key (kbd "C-c t") 'my-spawn-shell)
-(global-set-key (kbd "C-c T") 'my-split-shell)
+(global-set-key (kbd "C-c T") (lambda () (interactive) (my-split-shell t)))
 (evil-leader/set-key "t" 'shell)
-(evil-leader/set-key "T" 'my-split-shell)
+(evil-leader/set-key "T" (lambda () (interactive) (my-split-shell nil)))
 
 (setq comint-prompt-read-only t)
 (define-key shell-mode-map (kbd "M-_") 'comint-insert-previous-argument)
