@@ -1968,7 +1968,7 @@ in that directory, then visit-tags-table on the file"
 	;; external monitor
 	(set-face-attribute 'default nil :height 90)
       ;; laptop screen
-      (set-face-attribute 'default nil :height 120)))
+      (set-face-attribute 'default nil :height 110)))
 
   (my-font-config)
   (global-set-key (kbd "C-c F") #'my-font-config))
