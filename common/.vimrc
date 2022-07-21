@@ -185,12 +185,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 	Plug 'gruvbox-community/gruvbox'
 	Plug 'adlawson/vim-sorcerer'
 	Plug 'mswift42/vim-themes'
-	if has("nvim")
-		Plug 'nvim-lua/plenary.nvim'
-		Plug 'nvim-telescope/telescope.nvim'
-	else
-		" Plug 'machakann/vim-highlightedyank'
-	endif
 	call plug#end()
 
 	augroup change_the_colours
@@ -220,31 +214,10 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 	hi clear SpellBad
 	hi SpellBad guifg=white guibg=red
 
-	if has("nvim")
-		au TextYankPost * silent! lua vim.highlight.on_yank {timeout=300}
-	else
-		" let g:highlightedyank_highlight_duration = 300
-	endif
-
 	nnoremap ,m :cope <bar> AsyncRun make -f build.mk run<CR><C-W><C-P>
 	nnoremap <C-C><C-K> :AsyncStop<CR>
 
-	if has("nvim")
-		lua << EOF
-		local telescope = require('telescope')
-		telescope.setup {
-			pickers = {
-				find_files = {
-					file_ignore_patterns = {".git/"},
-					hidden = true
-				}
-			}
-		}
-EOF
-		nnoremap <leader>e <cmd>Telescope find_files<cr>
-	else
-		nnoremap <leader>e :find<space>
-	endif
+	nnoremap <leader>e :find<space>
 endif
 
 if has("nvim")

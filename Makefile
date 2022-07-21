@@ -28,7 +28,7 @@ endif
 macports-install:
 	sudo port install \
 		tree htop the_silver_searcher git \
-		vim neovim tmux universal-ctags cmake stow \
+		vim tmux universal-ctags cmake stow \
 		cmus ImageMagick ffmpeg \
 		aspell aspell-dict-en
 
@@ -46,7 +46,7 @@ macports-remove-old:
 apt-install:
 	sudo apt-get install \
 		tree htop silversearcher-ag git \
-		neovim universal-ctags cmake stow \
+		universal-ctags cmake stow \
 		cmus imagemagick feh
 
 security-updates-dry-run:
