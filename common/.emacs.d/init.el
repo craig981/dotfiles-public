@@ -2020,7 +2020,10 @@ in that directory, then visit-tags-table on the file"
 ;* Music
 ;; ----------------------------------------------------------------------------
 
-(when (eq system-type 'darwin)
+(when (or (eq system-type 'darwin)
+	  (and (eq system-type 'gnu/linux)
+	       (display-graphic-p)
+	       (string= (string-trim (shell-command-to-string "lsb_release -i -s")) "Ubuntu")))
 
   (require 'bongo)
 
@@ -2061,7 +2064,9 @@ in that directory, then visit-tags-table on the file"
   (setq bongo-display-track-icons nil)
   (setq bongo-logo nil)
   (setq bongo-enabled-backends '(vlc))
-  (setq bongo-vlc-program-name "/Applications/VLC.app/Contents/MacOS/VLC"))
+  (setq bongo-vlc-program-name (if (eq system-type 'darwin)
+				   "/Applications/VLC.app/Contents/MacOS/VLC"
+				 "/usr/bin/vlc")))
 
 ;; ----------------------------------------------------------------------------
 ;* Customs
@@ -2099,6 +2104,7 @@ in that directory, then visit-tags-table on the file"
    '(magit-insert-error-header magit-insert-diff-filter-header magit-insert-repo-header magit-insert-head-branch-header magit-insert-upstream-branch-header magit-insert-push-branch-header magit-insert-tags-header))
  '(package-selected-packages
    '(anaconda-mode
+     bongo
      cmake-mode
      company
      company-statistics
