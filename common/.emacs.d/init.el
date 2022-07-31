@@ -394,15 +394,17 @@
 ;* Lang
 ;; ----------------------------------------------------------------------------
 
-(defvar my-lang "en")
 
 (defun my-lookup ()
   (interactive)
-  (let ((google "https://www.google.com/search?ie=utf-8&oe=utf-8&q=")
-	(translate (cond
-		    ((string= my-lang "se") "https://translate.google.com/?sl=sv&tl=en&op=translate&text=")
-		    ((string= my-lang "de") "https://translate.google.com/?sl=de&tl=en&op=translate&text=")
-		    (t nil))))
+  (let* ((google "https://www.google.com/search?ie=utf-8&oe=utf-8&q=")
+	 (input-method (if (evil-normal-state-p)
+			   evil-input-method
+			 current-input-method))
+	 (translate (cond
+		     ((string= input-method "swedish-postfix") "https://translate.google.com/?sl=sv&tl=en&op=translate&text=")
+		     ((string= input-method "german-postfix") "https://translate.google.com/?sl=de&tl=en&op=translate&text=")
+		     (t nil))))
     (browse-url
      (if mark-active
 	 (let ((text (buffer-substring (region-beginning) (region-end))))
@@ -420,38 +422,6 @@
 
 (global-set-key (kbd "C-c SPC") #'my-lookup)
 (evil-leader/set-key "SPC" #'my-lookup)
-
-(defun my-char (en se de)
-  (interactive)
-  (cond
-   ((string= my-lang "se") (insert se))
-   ((string= my-lang "de") (insert de))
-   (t (insert en))))
-
-(defun my-toggle-lang ()
-  (interactive)
-  (cond
-   ((string= my-lang "se") (setq-local my-lang "de"))
-   ((string= my-lang "de") (setq-local my-lang "en"))
-   ((string= my-lang "en") (setq-local my-lang "se")))
-  (message (format "Lang: %s" my-lang)))
-
-(when (eq system-type 'darwin)
-  (dolist (remap '(("[" "å" "ü")
-		   ("]" "]" "ß")
-		   (";" "ö" "ö")
-		   ("'" "ä" "ä")
-		   ("\\" "'" "'")))
-    (let ((en (car remap))
-	  (se (cadr remap))
-	  (de (caddr remap)))
-      (evil-global-set-key 'insert (kbd en)
-			   `(lambda () (interactive) (my-char ,en ,se ,de)))
-      (define-key minibuffer-local-map (kbd en)
-	`(lambda () (interactive) (my-char ,en ,se ,de)))))
-
-  ;; shift+alt+space
-  (global-set-key (kbd "A-SPC") 'my-toggle-lang))
 
 ;; ----------------------------------------------------------------------------
 ;* Keyboard
@@ -916,13 +886,6 @@
     (my-toggle-symbol-boundary "\\b" "\\b" "\\\\b")))
 
 (define-key helm-ag-map (kbd "C-c C-o") (kbd "C-c o"))
-
-(when (eq system-type 'darwin)
-  (defun my-helm-minibuffer-hook ()
-    "Preserve my-lang for helm occur"
-    (setq-local my-lang (with-current-buffer (nth 2 (buffer-list)) my-lang)))
-
-  (add-hook 'helm-minibuffer-set-up-hook 'my-helm-minibuffer-hook))
 
 ;;; leave the highlight for occur
 (setq next-error-highlight-no-select t)
@@ -2141,8 +2104,8 @@ in that directory, then visit-tags-table on the file"
  '(read-quoted-char-radix 16)
  '(safe-local-variable-values
    '((tab-always-indent)
-     (my-lang . "se")
-     (my-lang . "de")
+     (evil-input-method . swedish-postfix)
+     (evil-input-method . german-postfix)
      (indent-tabs-mode nil)
      (evil-shift-width . 2)
      (evil-shift-width . 4)))
