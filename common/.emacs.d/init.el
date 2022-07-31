@@ -1337,29 +1337,31 @@ return the project path instead"
 ;* Shell
 ;; ----------------------------------------------------------------------------
 
-(defun my-spawn-shell (name)
-  (interactive "MName shell buffer: ")
-  (let ((currentbuf (get-buffer-window (current-buffer)))
-	(newbuf     (generate-new-buffer-name
-		     (if (string-empty-p name)
-			 "*shell*"
-		       (format "*shell:%s*" name)))))
+(defun my-spawn-shell ()
+  (interactive)
+  (let* ((dir        (directory-file-name (expand-file-name default-directory)))
+	 (name       (file-name-nondirectory dir))
+	 (currentbuf (get-buffer-window (current-buffer)))
+	 (newbuf     (generate-new-buffer-name
+		      (if (or (string-empty-p name)
+			      (string= dir (expand-file-name "~")))
+			  "*shell*"
+			(format "*shell:%s*" name)))))
     (generate-new-buffer newbuf)
     (set-window-dedicated-p currentbuf nil)
     (set-window-buffer currentbuf newbuf)
     (shell newbuf)))
 
-(defun my-split-shell (choose-name)
+(defun my-split-shell ()
+  (interactive)
   (let ((evil-split-window-below t))
     (evil-window-split))
-  (if choose-name
-      (call-interactively 'my-spawn-shell)
-    (my-spawn-shell "")))
+  (my-spawn-shell))
 
-(global-set-key (kbd "C-c t") 'my-spawn-shell)
-(global-set-key (kbd "C-c T") (lambda () (interactive) (my-split-shell t)))
+(global-set-key (kbd "C-c t") 'shell)
+(global-set-key (kbd "C-c T") 'my-split-shell)
 (evil-leader/set-key "t" 'shell)
-(evil-leader/set-key "T" (lambda () (interactive) (my-split-shell nil)))
+(evil-leader/set-key "T" 'my-split-shell)
 
 (setq comint-prompt-read-only t)
 (define-key shell-mode-map (kbd "M-_") 'comint-insert-previous-argument)
