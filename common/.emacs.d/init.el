@@ -2138,6 +2138,7 @@ in that directory, then visit-tags-table on the file"
      which-key
      yaml-mode
      yasnippet))
+ '(read-quoted-char-radix 16)
  '(safe-local-variable-values
    '((tab-always-indent)
      (my-lang . "se")
