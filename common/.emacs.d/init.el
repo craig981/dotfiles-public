@@ -418,7 +418,8 @@
 	  (translate (concat translate (url-hexify-string (read-string "Translate: " sym))))
 	  (t (concat google (url-hexify-string (read-string "Search Google: " sym))))))))))
 
-(global-set-key (kbd "C-x w") #'my-lookup)
+(global-set-key (kbd "C-c SPC") #'my-lookup)
+(evil-leader/set-key "SPC" #'my-lookup)
 
 (defun my-char (en se de)
   (interactive)
