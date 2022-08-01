@@ -322,7 +322,7 @@
 
 (evil-leader/set-key "%" #'my-copy-filename)
 (global-set-key (kbd "C-c %") #'my-copy-filename)
-(global-set-key (kbd "C-c U") #'my-toggle-wrap)
+(global-set-key (kbd "C-c u") #'my-toggle-wrap)
 (global-set-key (kbd "C-c ;") (kbd "C-x C-;"))
 
 (global-set-key (kbd "C-x C-h") (kbd "C-x h"))
