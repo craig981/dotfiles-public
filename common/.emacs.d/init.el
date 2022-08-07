@@ -394,13 +394,13 @@
 ;* Lang
 ;; ----------------------------------------------------------------------------
 
-
 (defun my-lookup ()
   (interactive)
   (let* ((google "https://www.google.com/search?ie=utf-8&oe=utf-8&q=")
-	 (input-method (if (evil-normal-state-p)
-			   evil-input-method
-			 current-input-method))
+	 (input-method (if (or (not (bound-and-true-p evil-local-mode))
+			       (evil-emacs-state-p))
+			   current-input-method
+			 evil-input-method))
 	 (translate (cond
 		     ((string= input-method "swedish-postfix") "https://translate.google.com/?sl=sv&tl=en&op=translate&text=")
 		     ((string= input-method "german-postfix") "https://translate.google.com/?sl=de&tl=en&op=translate&text=")
