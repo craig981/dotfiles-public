@@ -383,12 +383,18 @@
 
 (global-fancy-dabbrev-mode)
 
-(evil-global-set-key 'insert (kbd "TAB") 'fancy-dabbrev-expand-or-indent)
+(evil-global-set-key 'insert (kbd "TAB")
+		     (lambda ()
+		       (interactive)
+		       (if (not evil-input-method)
+			   (fancy-dabbrev-expand-or-indent)
+			 (insert "\t"))))
 (global-set-key (kbd "M-/") 'fancy-dabbrev-expand)
 (global-set-key (kbd "<backtab>") 'fancy-dabbrev-backward)
 (setq-default fancy-dabbrev-menu-height 15)
 (setq-default fancy-dabbrev-preview-context 'everywhere)
 (setq-default fancy-dabbrev-preview-delay 0.25)
+(push 'evil-input-method fancy-dabbrev-no-preview-for)
 
 ;; ----------------------------------------------------------------------------
 ;* Lang
