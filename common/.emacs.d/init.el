@@ -890,6 +890,20 @@
 ;;; leave the highlight for occur
 (setq next-error-highlight-no-select t)
 
+(defun my-advise-propagate-input-method (func &rest args)
+  "Allow func to use evil-input-method in minibuffer"
+  (if (and (bound-and-true-p evil-local-mode)
+	   evil-input-method)
+      (evil-without-input-method-hooks
+       (let ((input-method current-input-method))
+	 (set-input-method evil-input-method)
+	 (unwind-protect
+	     (apply func args)
+	   (set-input-method input-method))))
+    (apply func args)))
+
+(advice-add 'helm-occur :around #'my-advise-propagate-input-method)
+
 ;; ----------------------------------------------------------------------------
 ;* Imenu
 ;; ----------------------------------------------------------------------------
