@@ -1055,8 +1055,7 @@ return the project path instead"
 
 (global-set-key (kbd "C-c x") (lambda ()
 				(interactive)
-				(let ((default-directory "~/dotfiles-public"))
-				  (my-find-file-in-project))))
+				(find-file user-init-file)))
 (global-set-key (kbd "C-c z") (lambda ()
 				(interactive)
 				(magit "~/dotfiles-public")))
