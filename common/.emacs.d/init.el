@@ -344,6 +344,8 @@
 (global-unset-key (kbd "C-h h")) ;; stop accidentally opening hello file
 (global-set-key (kbd "C-h C-c") nil) ;; disable describe-copying
 
+(global-set-key (kbd "C-c j") 'jump-to-register)
+
 (define-key minibuffer-local-map (kbd "<escape>") 'abort-recursive-edit)
 
 (put 'narrow-to-region 'disabled nil)
