@@ -615,6 +615,10 @@
   (when (and (display-graphic-p)
 	     (not (version< emacs-version "28.1")))
     (evil-local-set-key 'normal (kbd "TAB") 'org-cycle))
+
+  (evil-local-set-key 'insert (kbd "C-t") #'org-metaright)
+  (evil-local-set-key 'insert (kbd "C-d") #'org-metaleft)
+
   ;; / is punctuation, so evil * works on path components
   (modify-syntax-entry ?/ ".")
   (auto-fill-mode 1)
