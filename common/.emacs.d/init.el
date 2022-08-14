@@ -852,26 +852,42 @@
           (concat "\\(?:[ \t=\[]\\|^\\)\\(" begin "[^ \t\n]*\\)")
 	  (concat "\\(?:[ \t=\[]\\|^\\)\\(" "[^ \t\n]*\\)"))))
 
+(defvar my-completing-filename nil)
+
 (defun my-complete-filename ()
   "Expand the filename before the point"
   (interactive)
-  (let ((path (catch 'foo
-		(dolist (regexp my-file-regexps)
-		  (when (looking-back regexp (point-at-bol))
-		    (throw 'foo (or (match-string-no-properties 1) ""))))
-		"")))
-    (let* ((file (or (file-name-nondirectory path) ""))
-	   (dir  (or (file-name-directory path) "./"))
-	   (candlist (file-name-all-completions file dir))
-	   (selection (completing-read
-		       (format "Complete in %s/: "
-			       (directory-file-name dir))
-		       candlist nil t file)))
+  (setq my-completing-filename t)
+  (unwind-protect
+      (while my-completing-filename
+	(let ((path (catch 'foo
+		      (dolist (regexp my-file-regexps)
+			(when (looking-back regexp (point-at-bol))
+			  (throw 'foo (or (match-string-no-properties 1) ""))))
+		      "")))
+	  (let* ((file (or (file-name-nondirectory path) ""))
+		 (dir  (or (file-name-directory path) "./"))
+		 (candlist (file-name-all-completions file dir))
+		 (selection (completing-read
+			     (format "Complete in %s/: "
+				     (directory-file-name dir))
+			     candlist nil t file)))
 
-      (delete-region (- (point) (length file)) (point))
-      (insert selection))))
+	    (delete-region (- (point) (length file)) (point))
+	    (insert selection)
+
+	    (setq my-completing-filename (eq my-completing-filename 'continue)))))
+
+    (setq my-completing-filename nil)))
 
 (evil-global-set-key 'insert (kbd "C-x C-f") 'my-complete-filename)
+
+(define-key vertico-map (kbd "C-x C-f") ;; keep completing into directory
+  (lambda ()
+    (interactive)
+    (when my-completing-filename
+      (setq my-completing-filename 'continue)
+      (vertico-exit))))
 
 ;; ----------------------------------------------------------------------------
 ;* Helm Ag and Occur
