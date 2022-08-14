@@ -1186,8 +1186,7 @@ return the project path instead"
   (global-magit-file-mode -1))
 
 (defun my-magit-hook ()
-  (evil-local-mode 1)
-  (company-mode -1))
+  (evil-local-mode 1))
 
 (defun my-magit-repolist-hook ()
   (evil-local-mode 1)
@@ -1388,7 +1387,6 @@ return the project path instead"
     (other-window 1)))
 
 (defun my-shell-hook ()
-  (company-mode -1)
   (fancy-dabbrev-mode -1)
   (visual-line-mode 0)
   (toggle-truncate-lines 0)
@@ -1449,90 +1447,6 @@ in that directory, then visit-tags-table on the file"
 	(visit-tags-table (concat path "TAGS"))))))
 
 (global-set-key (kbd "C-c C-]") #'my-rebuild-and-load-tags)
-
-;; ----------------------------------------------------------------------------
-;* Company mode
-;; ----------------------------------------------------------------------------
-
-(require 'company)
-;; (require 'company-statistics)
-
-(global-company-mode 1)
-;; (company-statistics-mode 1)
-;; (setq company-statistics-auto-save nil)
-
-(defun my-company-newline ()
-  (interactive)
-  (company-abort)
-  (newline-and-indent))
-;; return inserts a newline, instead of selecting the first suggestion
-(define-key company-active-map (kbd (if (display-graphic-p) "<return>" "RET"))
-  'my-company-newline)
-(when (display-graphic-p)
-  (define-key company-active-map (kbd "C-m") 'my-company-newline))
-
-(defun my-company-abort ()
-  (interactive)
-  (company-abort)
-  (when (evil-insert-state-p)
-    (evil-normal-state)))
-
-(define-key company-active-map (kbd "C-n") 'company-select-next)
-(define-key company-active-map (kbd "C-p") 'company-select-previous)
-(define-key company-search-map (kbd "C-n") 'company-select-next)
-(define-key company-search-map (kbd "C-p") 'company-select-previous)
-
-(dolist (complete-key `(,(kbd "TAB") [tab]))
-  (define-key company-active-map complete-key 'company-complete-selection)
-  (define-key company-search-map complete-key 'company-complete-selection))
-(dolist (abort-key `(,(kbd "C-c") ,(kbd "<escape>")))
-  (define-key company-active-map abort-key 'my-company-abort)
-  (define-key company-search-map abort-key 'my-company-abort))
-
-;; once the completion popup is already open, pressing C-x C-f again
-;; descends into the selected directory and continues, like vim
-(define-key company-active-map (kbd "C-x C-f")
-  (lambda ()
-    (interactive)
-    (company-complete-selection)
-    (insert "/")
-    (call-interactively 'company-files)))
-
-(setq-default company-dabbrev-downcase nil)	 ;; stop downcasing completion results
-(setq-default company-dabbrev-ignore-case t)	 ;; case insensitive when gathering results
-(setq-default company-dabbrev-code-everywhere t) ;; complete in comments and strings
-(setq-default company-minimum-prefix-length 3)	 ;; num chars before idle completion starts
-;; (setq-default company-idle-delay 0)		 ;; immediate completion
-(setq-default company-idle-delay nil)		 ;; no idle completion
-(setq-default company-tooltip-limit 15)		 ;; number of items in popup menu
-(setq-default company-selection-wrap-around t)
-(setq-default company-backends
-	      '(company-dabbrev company-capf company-files
-				(company-keywords company-dabbrev-code company-etags)))
-(setq-default company-frontends
-	      '(company-pseudo-tooltip-unless-just-one-frontend
-		company-preview-if-just-one-frontend
-		company-echo-metadata-frontend))
-(setq-default company-format-margin-function nil) ;; no icons
-
-;; (defun my-company-dabbrev--prefix ()
-;;   "Modified version of company-dabbrev--prefix that doesn't
-;; return nil if the point is in the middle of a word"
-;;   (company-grab-line (format "\\(?:^\\| \\)[^ ]*?\\(\\(?:%s\\)*\\)"
-;;                              company-dabbrev-char-regexp)
-;;                      1))
-;; ;;; Make completion work when point is at the beginning or in the
-;; ;;; middle of a word
-;; (advice-add 'company-dabbrev--prefix :override #'my-company-dabbrev--prefix)
-
-;; want company mode to work with evil-repeat
-;; (searching within the candidates then evil-repeat still doesn't work however.)
-(evil-declare-change-repeat 'company-complete)
-
-;; after C-n, use C-s C-r to search and C-o to narrow list to results
-;; (evil-global-set-key 'insert (kbd "C-p") 'company-complete)
-;; (evil-global-set-key 'insert (kbd "C-n") 'company-complete)
-(evil-global-set-key 'insert (kbd "C-x C-f") 'company-files)
 
 ;; ----------------------------------------------------------------------------
 ;* Lisp
@@ -1783,7 +1697,6 @@ in that directory, then visit-tags-table on the file"
 ;; ----------------------------------------------------------------------------
 
 (defun my-gdb-mode-hook ()
-  (company-mode -1)
   (define-key gud-mode-map (kbd "C-c C-r") 'comint-show-output)
   (define-key gud-mode-map (kbd "C-c C-p") 'comint-previous-prompt)
   (define-key gud-mode-map (kbd "C-c C-n") 'comint-next-prompt)
@@ -2100,8 +2013,6 @@ in that directory, then visit-tags-table on the file"
    '(anaconda-mode
      bongo
      cmake-mode
-     company
-     company-statistics
      consult
      consult-dir
      evil
@@ -2146,14 +2057,6 @@ in that directory, then visit-tags-table on the file"
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(default ((t nil)))
- '(company-preview ((t (:foreground "darkgray"))))
- '(company-preview-common ((t (:foreground "darkgray"))))
- '(company-scrollbar-bg ((t (:background "gray"))))
- '(company-scrollbar-fg ((t (:background "black"))))
- '(company-tooltip ((t (:background "lightgray" :foreground "black" :weight normal))))
- '(company-tooltip-common ((t (:foreground "black"))))
- '(company-tooltip-common-selection ((t (:foreground "white"))))
- '(company-tooltip-selection ((t (:background "steelblue" :foreground "white"))))
  '(flyspell-duplicate ((t (:background "Magenta" :foreground "white"))))
  '(flyspell-incorrect ((t (:background "red" :foreground "white"))))
  '(font-lock-comment-face ((t (:foreground "#708080"))))
