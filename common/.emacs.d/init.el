@@ -346,6 +346,8 @@
 
 (global-set-key (kbd "C-c j") 'jump-to-register)
 
+(setq register-preview-delay 0.5)
+
 (define-key minibuffer-local-map (kbd "<escape>") 'abort-recursive-edit)
 
 (put 'narrow-to-region 'disabled nil)
