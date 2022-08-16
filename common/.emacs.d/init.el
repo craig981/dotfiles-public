@@ -428,7 +428,7 @@
 	  (translate (concat translate (url-hexify-string (read-string "Translate: " sym))))
 	  (t (concat google (url-hexify-string (read-string "Search Google: " sym))))))))))
 
-(global-set-key (kbd "C-c SPC") #'my-lookup)
+(global-set-key (kbd "M-s M-w") #'my-lookup)
 (evil-leader/set-key "SPC" #'my-lookup)
 
 ;; ----------------------------------------------------------------------------
@@ -1513,6 +1513,9 @@ in that directory, then visit-tags-table on the file"
 (define-key paredit-mode-map (kbd "C-j") (lambda ()
 					   (interactive)
 					   (pp-eval-last-sexp t)))
+
+(define-key paredit-mode-map (kbd "M-s") nil)
+(define-key paredit-mode-map (kbd "M-s s") 'paredit-splice-sexp)
 
 (defun my-lisp-common-hook ()
   (enable-paredit-mode))
