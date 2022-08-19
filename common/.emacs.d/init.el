@@ -996,45 +996,20 @@
     (or (and dir (expand-file-name (file-name-as-directory dir)))
 	default-directory)))
 
-(defvar my-ignore-dir-list '("build" "plugged" ".git"))
-
 ;; C-u opens in other window
 (defun my-find-file-in-project (&optional open-in-other-window initial-input)
   (interactive "P")
-  (let* ((dir (my-find-project-root))
-	 (default-directory dir)	;; so we can open files with relative names
-	 (shell-file-name "/bin/bash")	;; tcsh slow at work
-	 (ignore-args (string-join (mapcar (lambda (d) (format "-name '%s'" d))
-					   my-ignore-dir-list)
-				   " -o "))
-	 (cmd (format "find \"%s\" -type d \\( %s \\) -prune -false -o \\( -type f -o -type l \\)"
-		      dir ignore-args))
-	 (candlist (mapcar
-		    (lambda (file)
-		      (string-remove-prefix dir (expand-file-name file)))
-		    (split-string (shell-command-to-string cmd)
-				  "[\r\n]+" t))))
-
-    (if (null candlist)
-	(message "No files")
-
-      (let ((file (completing-read
-		   (format "Find in %s/: "
-			   (file-name-nondirectory (directory-file-name dir)))
-		   candlist nil t initial-input)))
-	(when file
-	  (if open-in-other-window
-	      (find-file-other-window file)
-	    (find-file file)))))))
+  (if open-in-other-window
+    (let* ((switch-to-buffer-obey-display-actions t)
+           (display-buffer-overriding-action '((display-buffer-pop-up-window)
+					       (inhibit-same-window . t))))
+      (call-interactively 'project-find-file))
+    (call-interactively 'project-find-file)))
 
 (defun my-find-file-in-project-other-window ()
   (interactive)
   (let ((current-prefix-arg 4)) ;; emulate C-u
     (call-interactively 'my-find-file-in-project)))
-
-(defun my-jump-project-dired ()
-  (interactive)
-  (dired (or (vc-root-dir) (my-find-project-root))))
 
 (defvar my-projects)
 (when (eq system-type 'darwin)
@@ -1114,7 +1089,7 @@ return the project path instead"
 (global-set-key (kbd "C-c p d") #'my-choose-project-and-dired)
 
 (global-set-key (kbd "C-c e") 'my-find-file-in-project)
-(global-set-key (kbd "C-c d") #'my-jump-project-dired)
+(global-set-key (kbd "C-c d") #'project-dired)
 
 (global-set-key (kbd "C-c x") (lambda ()
 				(interactive)
