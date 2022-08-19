@@ -1019,25 +1019,36 @@
   (when (file-directory-p d)
     (push `(,d . 1) my-projects)))
 
+(defun my-find-projects (dir depth)
+  "Return a list of projects under 'dir' up to 'depth'"
+  (if (string-suffix-p "/.git" dir)
+      (list (string-remove-suffix "/.git" dir))
+    (if (> depth 0)
+	(seq-mapcat (lambda (x)
+		      (my-find-projects
+		       (concat dir "/" (string-remove-suffix "/" x))
+		       (- depth 1)))
+		    (seq-filter (lambda (x)
+				  (and (string-suffix-p "/" x)
+				       (not (or (string= "./" x)
+						(string= "../" x)))))
+				(file-name-all-completions "" dir))))))
+
 (defun my-list-repos ()
   "Return an alist of repos, with the key the string to match
 against, and the value the expanded full path to the repo"
-  (let ((all '())
-	(shell-file-name "/bin/bash")) ; tcsh slow at work
+  (let ((all '()))
     (dolist (proj my-projects)
       (let* ((dir (expand-file-name (car proj)))
 	     (dir-slash (if (string-suffix-p "/" dir) dir (concat dir "/")))
 	     (depth (cdr proj))
-	     (cmd (format "find \"%s\" -maxdepth %d -type d -name .git" dir depth))
 	     (repos (mapcar
-		     (lambda (x)
-		       (let* ((long (string-remove-suffix "/.git" x))
-			      (short (if (string-prefix-p dir-slash long)
-					 (string-remove-prefix dir-slash long)
-				       (file-name-nondirectory long))))
+		     (lambda (long)
+		       (let ((short (if (string-prefix-p dir-slash long)
+					(string-remove-prefix dir-slash long)
+				      (file-name-nondirectory long))))
 			 `(,short . ,long)))
-		     (split-string (shell-command-to-string cmd)
-				   "\n" t))))
+		     (my-find-projects dir depth))))
 	(setq all (nconc all repos))))
     all))
 
