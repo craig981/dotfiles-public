@@ -992,7 +992,7 @@
 ;; ----------------------------------------------------------------------------
 
 (defun my-find-project-root ()
-  (let* ((dir (locate-dominating-file default-directory ".git")))
+  (let* ((dir (project-root (project-current))))
     (or (and dir (expand-file-name (file-name-as-directory dir)))
 	default-directory)))
 
@@ -1300,8 +1300,7 @@ return the project path instead"
 
 (defun my-compile-project ()
   (interactive)
-  (let ((d (or (vc-root-dir)
-	       (my-find-project-root))))
+  (let ((d (my-find-project-root)))
     (if d
 	(let ((default-directory d))
 	  (call-interactively 'compile))
@@ -1670,7 +1669,7 @@ in that directory, then visit-tags-table on the file"
     (dolist (x my-cc-path)
       (add-to-list 'ffap-c++-path x)))
   (vc-refresh-state)
-  (add-to-list 'ffap-c++-path (or (vc-root-dir) (my-find-project-root))))
+  (add-to-list 'ffap-c++-path (my-find-project-root)))
 
 (defun my-c-mode-hook ()
   (my-c-cpp-settings)
@@ -1679,7 +1678,7 @@ in that directory, then visit-tags-table on the file"
     (dolist (x my-cc-path)
       (add-to-list 'ffap-c-path x)))
   (vc-refresh-state)
-  (add-to-list 'ffap-c-path (or (vc-root-dir) (my-find-project-root))))
+  (add-to-list 'ffap-c-path (my-find-project-root)))
 
 (add-hook 'c++-mode-hook 'my-cpp-mode-hook t)
 (add-hook 'c-mode-hook 'my-c-mode-hook t)
