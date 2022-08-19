@@ -1012,9 +1012,8 @@
     (call-interactively 'my-find-file-in-project)))
 
 (defvar my-projects)
-(when (eq system-type 'darwin)
-  (setq my-projects '(("~/dev" . 2))))
-(when (eq system-type 'gnu/linux)
+(if (eq system-type 'darwin)
+    (setq my-projects '(("~/dev" . 2)))
   (setq my-projects '(("~/dev/git" . 3))))
 (dolist (d '("~/dotfiles-public" "~/dotfiles" "~/notefiles"))
   (when (file-directory-p d)
