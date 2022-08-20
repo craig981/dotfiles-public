@@ -48,4 +48,7 @@ if [[ "$(uname -s)" = "Linux" ]]; then
     test -f ~/dotfiles-public/common/.zshenv && source ~/dotfiles-public/common/.zshenv
 fi
 
-PS1="%n@%m %2~ %# "
+autoload -U colors && colors
+
+PS1="%{$fg[cyan]%}%n@%m %2~ %#%{$reset_color%} "
+
