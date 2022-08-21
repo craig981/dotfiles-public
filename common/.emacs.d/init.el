@@ -1032,7 +1032,7 @@
 (if (eq system-type 'darwin)
     (setq my-projects '(("~/dev" . 2)))
   (setq my-projects '(("~/dev/git" . 3))))
-(dolist (d '("~/dotfiles-public" "~/dotfiles" "~/notefiles"))
+(dolist (d '("~/dotfiles-public" "~/dotfiles" "~/notefiles" "~/.emacs.d/elpa"))
   (when (file-directory-p d)
     (push `(,d . 1) my-projects)))
 
