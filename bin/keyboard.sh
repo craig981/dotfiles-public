@@ -17,3 +17,5 @@ fi
 # setxkbmap -option caps:ctrl_modifier
 # setxkbmap -option ctrl:swap_rwin_rctl
 # setxkbmap -option altwin:swap_lalt_lwin
+
+# https://docs.microsoft.com/en-us/sysinternals/downloads/ctrl2cap

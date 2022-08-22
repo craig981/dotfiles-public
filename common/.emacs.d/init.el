@@ -17,7 +17,8 @@
 ; https://glyph.twistedmatrix.com/2015/11/editor-malware.html
 ; http://elpa.gnu.org/packages/gnu-elpa-keyring-update.html
 
-(when (display-graphic-p)
+(when (and (display-graphic-p)
+	   (not (eq system-type 'windows-nt)))
   (add-hook 'after-init-hook
 	    (lambda ()
 	      (require 'seq)
@@ -46,14 +47,18 @@
 ;* Paths
 ;; ----------------------------------------------------------------------------
 
-(when (display-graphic-p)
-  (let ((path-from-shell (replace-regexp-in-string
-			  "[[:space:]\n]*$" ""
-			  (shell-command-to-string
-			   (format "$SHELL %s -c 'printenv PATH'"
-				   (if (string= "/bin/tcsh" (getenv "SHELL")) "" "-l"))))))
-    (setenv "PATH" path-from-shell)
-    (setq exec-path (split-string path-from-shell path-separator))))
+(if (eq system-type 'windows-nt)
+    (let ((path "C:/cygwin64/bin;C:/windows/system32;C:/Program Files/CMake/bin"))
+      (setenv "PATH" path)
+      (setq exec-path (split-string path path-separator)))
+  (when (display-graphic-p)
+    (let ((path-from-shell (replace-regexp-in-string
+			    "[[:space:]\n]*$" ""
+			    (shell-command-to-string
+			     (format "$SHELL %s -c 'printenv PATH'"
+				     (if (string= "/bin/tcsh" (getenv "SHELL")) "" "-l"))))))
+      (setenv "PATH" path-from-shell)
+      (setq exec-path (split-string path-from-shell path-separator)))))
 
 ;; ----------------------------------------------------------------------------
 ;* Evil mode
@@ -1314,7 +1319,8 @@ return the project path instead"
 (defun my-compilation-mode-hook ()
   (visual-line-mode)
   (evil-local-mode)
-  (setq-local split-width-threshold 1000))
+  (setq-local split-width-threshold 1000)
+  (evil-local-set-key 'normal (kbd "q") 'quit-window))
 
 (add-hook 'compilation-mode-hook 'my-compilation-mode-hook)
 
@@ -1471,12 +1477,11 @@ return the project path instead"
 ;* Tags
 ;; ----------------------------------------------------------------------------
 
-(require 'etags-select "~/.emacs.d/lisp/etags-select")
-
-;; make return to select tag work in terminal, and C-m in the GUI
-(if (display-graphic-p)
-    (define-key etags-select-mode-map (kbd "C-m") (kbd "<return>"))
-  (define-key etags-select-mode-map (kbd "RET") (kbd "<return>")))
+(when (require 'etags-select "~/.emacs.d/lisp/etags-select" t)
+  ;; make return to select tag work in terminal, and C-m in the GUI
+  (if (display-graphic-p)
+      (define-key etags-select-mode-map (kbd "C-m") (kbd "<return>"))
+    (define-key etags-select-mode-map (kbd "RET") (kbd "<return>"))))
 
 (defun my-jump-to-tag-in-other-window ()
   (interactive)
