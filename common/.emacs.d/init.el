@@ -1033,6 +1033,11 @@
   (let ((current-prefix-arg 4)) ;; emulate C-u
     (call-interactively 'my-find-file-in-project)))
 
+(defun my-jump-project-dired ()
+  (interactive)
+  (dired (my-find-project-root)))
+
+
 (defvar my-projects)
 (if (eq system-type 'darwin)
     (setq my-projects '(("~/dev" . 2)))
@@ -1121,7 +1126,7 @@ return the project path instead"
 (global-set-key (kbd "C-c p d") #'my-choose-project-and-dired)
 
 (global-set-key (kbd "C-c e") 'my-find-file-in-project)
-(global-set-key (kbd "C-c d") #'project-dired)
+(global-set-key (kbd "C-c d") 'my-jump-project-dired)
 
 (global-set-key (kbd "C-c x") (lambda ()
 				(interactive)
