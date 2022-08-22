@@ -997,7 +997,9 @@
 ;; ----------------------------------------------------------------------------
 
 (defun my-find-project-root ()
-  (let* ((dir (project-root (project-current t))))
+  (let* ((dir (if (version< emacs-version "28.1")
+		  (locate-dominating-file default-directory ".git")
+		(project-root (project-current t)))))
     (or (and dir (expand-file-name (file-name-as-directory dir)))
 	default-directory)))
 
