@@ -49,12 +49,13 @@ apt-install:
 		universal-ctags cmake stow \
 		cmus imagemagick feh
 
+# /etc/apt/apt.conf.d/50unattended-upgrades
 security-updates-dry-run:
 	sudo apt-get update
-	sudo unattended-upgrade -d --dry-run
+	sudo unattended-upgrade -v --dry-run
 security-updates:
 	sudo apt-get update
-	sudo unattended-upgrade -d
+	sudo unattended-upgrade -v
 
 update-upgrade:
 	# update list of available packages, does not install or upgrade packages
