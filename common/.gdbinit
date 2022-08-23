@@ -9,3 +9,5 @@ python gdb.execute('attach %s' % subprocess.check_output(["pidof", "houdinicore-
 end
 
 set print pretty on
+set history save on
+set history filename ~/.gdb_history
