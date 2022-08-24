@@ -795,6 +795,8 @@
 (require 'helm)
 (require 'helm-config)
 
+(helm-minibuffer-history-mode)
+
 (define-key helm-map (kbd "C-c C-u") 'kill-whole-line)
 (define-key helm-map (kbd "<escape>") nil)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
