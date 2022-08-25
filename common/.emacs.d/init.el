@@ -33,6 +33,9 @@
 						     t "^\\([^.]\\|\\.[^.]\\|\\.\\..\\)"))))
 		      (elt choices (random (length choices))))))))
 
+(with-eval-after-load "evil-leader"
+  (define-key splash-screen-keymap (kbd "SPC") evil-leader--default-map))
+
 ;; ----------------------------------------------------------------------------
 ;* Package
 ;; ----------------------------------------------------------------------------
