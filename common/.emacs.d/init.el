@@ -581,9 +581,11 @@
 
 (setq org-capture-templates
       '(("t" "Task" entry (file+headline org-default-notes-file "Tasks")
-	 "* TODO %?\n  SCHEDULED: %t\n  %U\n")
+	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
 	("b" "Bookmark" entry (file+headline org-default-notes-file "Bookmarks")
-	 "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")))
+	 "* %?\n")
+	("r" "Read/watch" entry (file+headline org-default-notes-file "Tasks")
+	 "* %? :READ:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")))
 
 (setq my-org-agenda-common-review-settings
       '((org-agenda-show-all-dates t)
