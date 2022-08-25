@@ -703,9 +703,9 @@
 (add-hook 'html-mode-hook #'my-html-hook)
 
 (defun my-before-close-tag (&rest args)
-  "Put the cursor after the tag when in normal mode"
+  "Move the cursor before closing the tag in normal mode"
   (when (and (eq evil-state 'normal)
-	     (eq (following-char) ?>))
+	     (not (eolp)))
     (forward-char)))
 (advice-add 'sgml-close-tag :before #'my-before-close-tag)
 
