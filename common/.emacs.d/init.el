@@ -535,7 +535,7 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c k") 'org-capture)
 
-(evil-leader/set-key "g" 'org-agenda-list)
+(evil-leader/set-key "g" (kbd "C-c a g"))
 (evil-leader/set-key-for-mode 'org-mode "," 'org-insert-structure-template)
 
 (with-eval-after-load 'org-agenda
@@ -543,9 +543,10 @@
   (define-key org-agenda-mode-map "k" (kbd "p"))
   (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map)
   (define-key org-agenda-mode-map (kbd "h") (lambda () (interactive)))
-  (setq org-agenda-sorting-strategy
-      (cons '(agenda tag-up habit-down time-up priority-down category-keep)
-	    org-agenda-sorting-strategy)))
+  ;; (setq org-agenda-sorting-strategy
+  ;;     (cons '(agenda tag-up habit-down time-up priority-down category-keep)
+  ;; 	    org-agenda-sorting-strategy))
+  )
 
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "M-n") 'forward-paragraph)
@@ -578,9 +579,6 @@
 			       (python .t)
 			       (emacs-lisp . t)))
 
-(setq org-agenda-custom-commands
-      '(("d" "Done stuff" todo "DONE" )
-	("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))))
 (setq org-capture-templates
       '(("t" "Task" entry (file+headline org-default-notes-file "Tasks")
 	 "* TODO %?\n  SCHEDULED: %t\n  %U\n")
@@ -599,22 +597,28 @@
 	;;  (concat org-agenda-hide-tags-regexp "\\|ARCHIVE"))
 	(org-agenda-start-on-weekday 1)))
 
-(add-to-list 'org-agenda-custom-commands
-	     `("w" "Week"
-	       agenda ""
-	       ,(append my-org-agenda-common-review-settings
-			'((org-agenda-span 'week)
-			  (org-agenda-overriding-header "Week in Review")))
-	       ("/tmp/week.html")))
-
-(add-to-list 'org-agenda-custom-commands
-	     `("W" "Last week"
-	       agenda ""
-	       ,(append my-org-agenda-common-review-settings
-			'((org-agenda-span 'week)
-			  (org-agenda-start-day "-1w")
-			  (org-agenda-overriding-header "Last week in Review")))
-	       ("/tmp/lastweek.html")))
+(let ((tag (if (eq system-type 'darwin) "READ" "NEXT")))
+  (setq org-agenda-custom-commands
+	`(("d" "Done stuff" todo "DONE" )
+	  ("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
+	  ("g" ,(format "Agenda and %s" tag)
+	   ((agenda "" )
+	    (tags ,tag ((org-agenda-skip-function
+			 '(org-agenda-skip-entry-if 'todo '("DONE"))))))
+	   ((org-agenda-start-with-log-mode nil)))
+	  ("w" "This week"
+	   agenda ""
+	   ,(append my-org-agenda-common-review-settings
+		    '((org-agenda-span 'week)
+		      (org-agenda-overriding-header "Week in Review")))
+	   ("/tmp/week.html"))
+	  ("W" "Last week"
+	   agenda ""
+	   ,(append my-org-agenda-common-review-settings
+		    '((org-agenda-span 'week)
+		      (org-agenda-start-day "-1w")
+		      (org-agenda-overriding-header "Last week in Review")))
+	   ("/tmp/lastweek.html")))))
 
 (defun my-org-mode-hook ()
   ;; override the evil binding of C-i (jump forward), as C-i is the
