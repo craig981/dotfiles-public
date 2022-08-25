@@ -536,6 +536,9 @@
 (global-set-key (kbd "C-c k") 'org-capture)
 
 (evil-leader/set-key "g" (kbd "C-c a g"))
+(evil-leader/set-key "n" (lambda ()
+			   (interactive)
+			   (find-file org-default-notes-file)))
 (evil-leader/set-key-for-mode 'org-mode "," 'org-insert-structure-template)
 
 (with-eval-after-load 'org-agenda
