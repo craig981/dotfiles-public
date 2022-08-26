@@ -1031,21 +1031,22 @@
 ;; C-u opens in other window
 (defun my-find-file-in-project (&optional open-in-other-window initial-input)
   (interactive "P")
-  (if open-in-other-window
-      (let* ((switch-to-buffer-obey-display-actions t)
-	     (display-buffer-overriding-action '((display-buffer-pop-up-window)
-						 (inhibit-same-window . t))))
-	(if initial-input
-	    ;; override initial-input arg to completing-read
-	    (let ((my-override-initial-input initial-input))
-	      (advice-add 'completing-read :around 'my-complete-with-initial-input)
-	      (unwind-protect
-		  (call-interactively 'project-find-file)
-		(advice-remove 'completing-read 'my-complete-with-initial-input)))
+  (let ((read-file-name-completion-ignore-case t))
+    (if open-in-other-window
+	(let* ((switch-to-buffer-obey-display-actions t)
+	       (display-buffer-overriding-action '((display-buffer-pop-up-window)
+						   (inhibit-same-window . t))))
+	  (if initial-input
+	      ;; override initial-input arg to completing-read
+	      (let ((my-override-initial-input initial-input))
+		(advice-add 'completing-read :around 'my-complete-with-initial-input)
+		(unwind-protect
+		    (call-interactively 'project-find-file)
+		  (advice-remove 'completing-read 'my-complete-with-initial-input)))
 
-	  (call-interactively 'project-find-file)))
+	    (call-interactively 'project-find-file)))
 
-    (call-interactively 'project-find-file)))
+      (call-interactively 'project-find-file))))
 
 (defun my-find-file-in-project-other-window ()
   (interactive)
