@@ -535,7 +535,9 @@
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c k") 'org-capture)
 
-(evil-leader/set-key "g" (kbd "C-c a g"))
+(evil-leader/set-key "g" (lambda ()
+			   (interactive)
+			   (org-agenda nil "g")))
 (evil-leader/set-key "n" (lambda ()
 			   (interactive)
 			   (find-file org-default-notes-file)))
