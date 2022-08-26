@@ -612,7 +612,8 @@
 	   ((agenda "" )
 	    (tags ,tag ((org-agenda-skip-function
 			 '(org-agenda-skip-entry-if 'todo '("DONE"))))))
-	   ((org-agenda-start-with-log-mode nil)))
+	   ((org-agenda-start-with-log-mode nil)
+	    (org-tags-match-list-sublevels nil)))
 	  ("w" "This week"
 	   agenda ""
 	   ,(append my-org-agenda-common-review-settings
