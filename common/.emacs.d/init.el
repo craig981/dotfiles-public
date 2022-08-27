@@ -628,6 +628,13 @@
 		      (org-agenda-overriding-header "Last week in Review")))
 	   ("/tmp/lastweek.html")))))
 
+(defun my-org-shift (left)
+  (if (string-match-p "^[\s-]*[*-] " (thing-at-point 'line))
+      (funcall (if left #'org-metaleft #'org-metaright))
+    (if left
+	(my-delete-or-indent-left)
+      (evil-shift-right-line 1))))
+
 (defun my-org-mode-hook ()
   ;; override the evil binding of C-i (jump forward), as C-i is the
   ;; same as tab in the terminal, which we want in org mode for
@@ -639,8 +646,12 @@
     (evil-local-set-key 'normal (kbd "TAB") 'org-cycle))
 
   (evil-local-set-key 'insert (kbd "TAB") #'org-cycle)
-  (evil-local-set-key 'insert (kbd "C-t") #'org-metaright)
-  (evil-local-set-key 'insert (kbd "C-d") #'org-metaleft)
+  (evil-local-set-key 'insert (kbd "C-t") (lambda ()
+					    (interactive)
+					    (my-org-shift nil)))
+  (evil-local-set-key 'insert (kbd "C-d") (lambda ()
+					    (interactive)
+					    (my-org-shift t)))
 
   ;; / is punctuation, so evil * works on path components
   (modify-syntax-entry ?/ ".")
