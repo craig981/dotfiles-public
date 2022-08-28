@@ -29,7 +29,7 @@ macports-install:
 	sudo port install \
 		tree htop the_silver_searcher git \
 		vim tmux universal-ctags cmake stow \
-		cmus ImageMagick ffmpeg \
+		cmus ImageMagick ffmpeg gnuplot \
 		aspell aspell-dict-en
 
 macports-selfupdate:

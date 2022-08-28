@@ -583,7 +583,8 @@
 (org-babel-do-load-languages 'org-babel-load-languages
 			     '((shell . t)
 			       (python .t)
-			       (emacs-lisp . t)))
+			       (emacs-lisp . t)
+			       (gnuplot . t)))
 
 (setq org-capture-templates
       '(("t" "Task" entry (file+headline org-default-notes-file "Tasks")
@@ -2126,6 +2127,8 @@ in that directory, then visit-tags-table on the file"
      evil-numbers
      fancy-dabbrev
      gandalf-theme
+     gnuplot
+     gnuplot-mode
      helm
      helm-ag
      ido-vertical-mode
