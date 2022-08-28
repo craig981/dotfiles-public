@@ -17,21 +17,23 @@
 ; https://glyph.twistedmatrix.com/2015/11/editor-malware.html
 ; http://elpa.gnu.org/packages/gnu-elpa-keyring-update.html
 
+(defun my-before-splash-image ()
+  (unless fancy-splash-image
+    (setq fancy-splash-image
+	  (let ((choices (seq-filter
+			  (lambda (fn)
+			    (let ((ext (file-name-extension fn)))
+			      (or (string= ext "jpg")
+				  (string= ext "jpeg")
+				  (string= ext "png"))))
+			  (directory-files "~/Pictures/splash"
+					   t "^\\([^.]\\|\\.[^.]\\|\\.\\..\\)"))))
+	    (elt choices (random (length choices)))))))
+
 (when (and (display-graphic-p)
 	   (not (eq system-type 'windows-nt)))
-  (add-hook 'after-init-hook
-	    (lambda ()
-	      (require 'seq)
-	      (setq fancy-splash-image
-		    (let ((choices (seq-filter
-				    (lambda (fn)
-				      (let ((ext (file-name-extension fn)))
-					(or (string= ext "jpg")
-					    (string= ext "jpeg")
-					    (string= ext "png"))))
-				    (directory-files "~/Pictures/splash"
-						     t "^\\([^.]\\|\\.[^.]\\|\\.\\..\\)"))))
-		      (elt choices (random (length choices))))))))
+  (require 'seq)
+  (advice-add 'fancy-splash-image-file :before #'my-before-splash-image))
 
 (with-eval-after-load "evil-leader"
   (define-key splash-screen-keymap (kbd "SPC") evil-leader--default-map))
