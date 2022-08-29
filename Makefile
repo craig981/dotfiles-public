@@ -27,10 +27,20 @@ endif
 
 macports-install:
 	sudo port install \
-		tree htop the_silver_searcher git \
-		vim tmux universal-ctags cmake stow \
-		cmus ImageMagick ffmpeg gnuplot \
-		aspell aspell-dict-en
+		ImageMagick \
+		aspell \
+		aspell-dict-en \
+		cmake \
+		cmus \
+		ffmpeg \
+		git \
+		gnuplot \
+		htop \
+		stow \
+		the_silver_searcher \
+		tmux \
+		tree \
+		universal-ctags
 
 macports-selfupdate:
 	sudo port selfupdate
@@ -45,9 +55,16 @@ macports-remove-old:
 
 apt-install:
 	sudo apt-get install \
-		tree htop silversearcher-ag git \
-		universal-ctags cmake stow \
-		cmus imagemagick feh
+		cmake \
+		cmus \
+		feh \
+		git \
+		htop \
+		imagemagick \
+		silversearcher-ag \
+		stow \
+		tree \
+		universal-ctags
 
 # /etc/apt/apt.conf.d/50unattended-upgrades
 security-updates-dry-run:
