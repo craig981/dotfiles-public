@@ -591,6 +591,8 @@
 	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
 	("b" "Bookmark" entry (file+headline org-default-notes-file "Bookmarks")
 	 "* %?\n")
+	("B" "Book" entry (file+headline org-default-notes-file "Books")
+	 "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
 	("r" "Read/watch" entry (file+headline org-default-notes-file "Tasks")
 	 "* %? :READ:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")))
 
