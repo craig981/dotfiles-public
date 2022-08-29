@@ -527,6 +527,8 @@
         (window-height . 10))
       display-buffer-alist)
 
+(evil-leader/set-key "c" 'calendar)
+
 ;; ----------------------------------------------------------------------------
 ;* Org
 ;; ----------------------------------------------------------------------------
@@ -535,7 +537,7 @@
 
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c k") 'org-capture)
+(global-set-key (kbd "C-c c") 'org-capture)
 
 (evil-leader/set-key "g" (lambda ()
 			   (interactive)
