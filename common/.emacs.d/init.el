@@ -1739,7 +1739,7 @@ in that directory, then visit-tags-table on the file"
 (defun my-cpp-mode-hook ()
   (my-c-cpp-settings)
   (make-local-variable 'ffap-c++-path)
-  (when my-cc-path
+  (when (bound-and-true-p my-cc-path)
     (dolist (x my-cc-path)
       (add-to-list 'ffap-c++-path x)))
   (vc-refresh-state)
@@ -1748,7 +1748,7 @@ in that directory, then visit-tags-table on the file"
 (defun my-c-mode-hook ()
   (my-c-cpp-settings)
   (make-local-variable 'ffap-c-path)
-  (when my-cc-path
+  (when (bound-and-true-p my-cc-path)
     (dolist (x my-cc-path)
       (add-to-list 'ffap-c-path x)))
   (vc-refresh-state)
