@@ -2107,7 +2107,6 @@ in that directory, then visit-tags-table on the file"
  '(helm-ag-insert-at-point 'symbol)
  '(helm-follow-mode-persistent t)
  '(helm-source-names-using-follow '("AG" "Helm occur"))
- '(ido-vertical-indicator ">")
  '(initial-frame-alist '((fullscreen . maximized)))
  '(ispell-program-name "aspell")
  '(magit-log-arguments '("--graph" "--color" "--decorate" "-n256"))
@@ -2135,7 +2134,6 @@ in that directory, then visit-tags-table on the file"
      gnuplot-mode
      helm
      helm-ag
-     ido-vertical-mode
      magit
      marginalia
      markdown-mode
