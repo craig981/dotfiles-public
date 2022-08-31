@@ -801,7 +801,6 @@
 (require 'consult)
 
 (evil-leader/set-key "j" 'consult-buffer)
-;; (global-set-key (kbd "M-'") 'consult-buffer)
 (global-set-key (kbd "C-x b") 'consult-buffer)
 (global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window)
 (evil-leader/set-key "k" 'consult-line)
@@ -2043,7 +2042,7 @@ in that directory, then visit-tags-table on the file"
 
   (require 'bongo)
 
-  (global-set-key (kbd "C-c b") #'bongo)
+  (evil-leader/set-key "b" #'bongo)
 
   (define-key bongo-mode-map (kbd "SPC") evil-leader--default-map)
   (define-key bongo-mode-map (kbd "z") (kbd "C-c C-p"))
