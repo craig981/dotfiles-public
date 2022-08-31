@@ -804,10 +804,12 @@
 ;; (global-set-key (kbd "M-'") 'consult-buffer)
 (global-set-key (kbd "C-x b") 'consult-buffer)
 (global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window)
+(evil-leader/set-key "k" 'consult-line)
 
 (consult-customize
  consult-buffer consult-buffer-other-window consult-theme
  :preview-key (kbd "C-j"))
+(consult-customize consult-line :preview-key 'any)
 
 (require 'consult-dir)
 
