@@ -2170,6 +2170,7 @@ in that directory, then visit-tags-table on the file"
  '(flyspell-duplicate ((t (:background "Magenta" :foreground "white"))))
  '(flyspell-incorrect ((t (:background "red" :foreground "white"))))
  '(font-lock-comment-face ((t (:foreground "#708080"))))
+ '(helm-match ((t (:inherit region))))
  '(magit-diff-context-highlight ((t nil)))
  '(message-cited-text-1 ((t (:foreground "#878787"))))
  '(mode-line ((t nil)))
