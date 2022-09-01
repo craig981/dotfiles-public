@@ -610,7 +610,7 @@
 	;;  (concat org-agenda-hide-tags-regexp "\\|ARCHIVE"))
 	(org-agenda-start-on-weekday 1)))
 
-(let ((tag (if (eq system-type 'darwin) "READ" "NEXT")))
+(let ((tag (if (eq system-type 'darwin) "READ|PROJECT" "NEXT")))
   (setq org-agenda-custom-commands
 	`(("d" "Done stuff" todo "DONE" )
 	  ("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
