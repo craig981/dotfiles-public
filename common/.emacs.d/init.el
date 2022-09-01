@@ -803,7 +803,7 @@
 (evil-leader/set-key "j" 'consult-buffer)
 (global-set-key (kbd "C-x b") 'consult-buffer)
 (global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window)
-(evil-leader/set-key "k" 'consult-line)
+(evil-leader/set-key "l" 'consult-line)
 
 (consult-customize
  consult-buffer consult-buffer-other-window consult-theme
