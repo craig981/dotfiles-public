@@ -36,6 +36,7 @@ macports-install:
 		git \
 		gnuplot \
 		htop \
+		pandoc \
 		stow \
 		the_silver_searcher \
 		tmux \
