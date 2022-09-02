@@ -581,6 +581,8 @@
 (setq org-src-fontify-natively t)
 (setq org-startup-folded nil)
 (setq org-confirm-babel-evaluate nil)
+(when (eq system-type 'darwin)
+  (setq org-todo-keywords '((sequence "TODO" "WAITING" "DONE"))))
 
 (org-babel-do-load-languages 'org-babel-load-languages
 			     '((shell . t)
