@@ -653,7 +653,7 @@
 	     (not (version< emacs-version "28.1")))
     (evil-local-set-key 'normal (kbd "TAB") 'org-cycle))
 
-  (evil-local-set-key 'insert (kbd "TAB") #'org-cycle)
+  (evil-local-set-key 'insert (kbd "<backtab>") #'fancy-dabbrev-backward)
   (evil-local-set-key 'insert (kbd "C-t") (lambda ()
 					    (interactive)
 					    (my-org-shift nil)))
