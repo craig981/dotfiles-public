@@ -1281,6 +1281,19 @@ return the project path instead"
 
 (global-set-key (kbd "C-x C-j") 'dired-jump)
 
+;;; stop opening multiple image buffers
+(push '((lambda (buf actions)
+	  (eq 'image-mode (with-current-buffer buf major-mode)))
+        (display-buffer-reuse-window display-buffer-use-some-window))
+      display-buffer-alist)
+
+;; put the thumbnail buffer at the bottom
+(push '((lambda (buf actions)
+	  (eq 'image-dired-thumbnail-mode (with-current-buffer buf major-mode)))
+        (display-buffer-reuse-window display-buffer-at-bottom)
+        (window-height . 10))
+      display-buffer-alist)
+
 ;; ----------------------------------------------------------------------------
 ;* Magit
 ;; ----------------------------------------------------------------------------
