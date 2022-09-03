@@ -836,6 +836,9 @@
 (define-key helm-map (kbd "<escape>") nil)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 
+(setq helm-highlight-only-all-matches t)
+(setq helm-highlight-matches-around-point-max-lines '(25 . 25))
+
 ;; ----------------------------------------------------------------------------
 ;* Calc
 ;; ----------------------------------------------------------------------------
