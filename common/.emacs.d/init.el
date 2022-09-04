@@ -827,6 +827,10 @@
 ;* Helm
 ;; ----------------------------------------------------------------------------
 
+(let ((dir "~/dev/helm"))
+  (when (file-directory-p dir)
+    (add-to-list 'load-path dir)))
+
 (require 'helm)
 (require 'helm-config)
 
