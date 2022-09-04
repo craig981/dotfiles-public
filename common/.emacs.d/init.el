@@ -350,6 +350,7 @@
 (global-set-key (kbd "C-c w j") #'evil-window-move-very-bottom)
 (global-set-key (kbd "C-c w k") #'evil-window-move-very-top)
 (global-set-key (kbd "C-c w r") #'evil-window-rotate-downwards)
+(global-set-key (kbd "C-c w =") #'balance-windows)
 
 (global-unset-key (kbd "C-h h")) ;; stop accidentally opening hello file
 (global-set-key (kbd "C-h C-c") nil) ;; disable describe-copying
