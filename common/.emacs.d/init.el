@@ -46,7 +46,7 @@
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
 	("gnu"   . "https://elpa.gnu.org/packages/")))
-(package-initialize)
+;; (package-initialize)
 
 ;; ----------------------------------------------------------------------------
 ;* Paths
@@ -533,8 +533,6 @@
 ;* Org
 ;; ----------------------------------------------------------------------------
 
-(require 'org)
-
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
@@ -561,7 +559,17 @@
   (define-key org-mode-map (kbd "M-n") 'forward-paragraph)
   (define-key org-mode-map (kbd "M-p") 'backward-paragraph)
   (define-key org-mode-map (kbd "C-c M-[") 'org-toggle-link-display)
-  (define-key org-mode-map (kbd "C-c M-]") 'org-toggle-link-display))
+  (define-key org-mode-map (kbd "C-c M-]") 'org-toggle-link-display)
+
+  (org-babel-do-load-languages 'org-babel-load-languages
+			       '((shell . t)
+				 (python .t)
+				 (emacs-lisp . t)
+				 (gnuplot . t)))
+
+  (when (eq system-type 'darwin)
+    ;; for pdf export
+    (require 'ox-pandoc)))
 
 (when (eq system-type 'gnu/linux)
   (setq org-agenda-files (list "~/notes.org"))
@@ -583,12 +591,6 @@
 (setq org-confirm-babel-evaluate nil)
 ;; (when (eq system-type 'darwin)
 ;;   (setq org-todo-keywords '((sequence "TODO" "WAITING" "DONE"))))
-
-(org-babel-do-load-languages 'org-babel-load-languages
-			     '((shell . t)
-			       (python .t)
-			       (emacs-lisp . t)
-			       (gnuplot . t)))
 
 (setq org-capture-templates
       '(("t" "Task" entry (file+headline org-default-notes-file "Tasks")
@@ -682,9 +684,6 @@
   (org-clock-jump-to-current-clock))
 (global-set-key (kbd "C-c C-x C-j") 'my-org-clock-jump)
 
-(when (eq system-type 'darwin)
-  ;; for pdf export
-  (require 'ox-pandoc))
 
 (defun my-www-get-page-title (url)
   (with-current-buffer (url-retrieve-synchronously url)
@@ -1305,14 +1304,6 @@ return the project path instead"
 ;* Magit
 ;; ----------------------------------------------------------------------------
 
-(require 'magit)
-
-(evil-collection-magit-setup)
-
-;; this is on by default and breaks C-c exiting evil insert mode
-(when (fboundp 'global-magit-file-mode)
-  (global-magit-file-mode -1))
-
 (defun my-magit-hook ()
   (evil-local-mode 1))
 
@@ -1322,34 +1313,6 @@ return the project path instead"
   (tabulated-list-sort 0)
   (beginning-of-buffer))
 
-(add-hook 'magit-mode-hook #'my-magit-hook)
-(add-hook 'magit-repolist-mode-hook #'my-magit-repolist-hook)
-(advice-add 'git-commit-mode :after 'evil-insert-state)
-
-(setq magit-delete-by-moving-to-trash nil)
-
-(setq-default magit-repolist-column-flag-alist '((magit-unstaged-files . "U")
-						 (magit-staged-files . "S"))
-	      magit-repolist-columns '(("Branch" 20 magit-repolist-column-branch nil)
-				       ("Flag" 4 magit-repolist-column-flag)
-				       ("Path" 50 magit-repolist-column-path nil)
-				       ;; ("Name" 25 magit-repolist-column-ident nil)
-				       ("B<U" 3 magit-repolist-column-unpulled-from-upstream
-					((:right-align t)
-					 (:help-echo "Upstream changes not in branch")))
-				       ("B>U" 3 magit-repolist-column-unpushed-to-upstream
-					((:right-align t)
-					 (:help-echo "Local changes not in upstream")))
-				       ))
-
-;; stop escape burying magit buffers
-(evil-define-key 'normal magit-mode-map (kbd "<escape>") nil)
-
-(evil-define-key 'normal magit-mode-map (kbd "C-n") (kbd "C-j"))
-(evil-define-key 'normal magit-mode-map (kbd "C-p") (kbd "C-k"))
-(evil-define-key 'normal magit-mode-map (kbd "p") (kbd "C-p"))
-(evil-define-key 'normal magit-mode-map (kbd "n") (kbd "C-n"))
-
 (defun my-magit-list-repos ()
   (interactive)
   (other-window 1)
@@ -1358,6 +1321,36 @@ return the project path instead"
     (let ((dir (cdr proj)))
       (push `(,dir . 0) magit-repository-directories)))
   (magit-list-repositories))
+
+(with-eval-after-load 'magit
+
+  (evil-collection-magit-setup)
+
+  (add-hook 'magit-mode-hook #'my-magit-hook)
+  (add-hook 'magit-repolist-mode-hook #'my-magit-repolist-hook)
+
+  (advice-add 'git-commit-mode :after 'evil-insert-state)
+
+  (setq magit-delete-by-moving-to-trash nil)
+  (setq magit-repolist-column-flag-alist '((magit-unstaged-files . "U")
+					   (magit-staged-files . "S"))
+	magit-repolist-columns '(("Branch" 20 magit-repolist-column-branch nil)
+				 ("Flag" 4 magit-repolist-column-flag)
+				 ("Path" 50 magit-repolist-column-path nil)
+				 ;; ("Name" 25 magit-repolist-column-ident nil)
+				 ("B<U" 3 magit-repolist-column-unpulled-from-upstream
+				  ((:right-align t)
+				   (:help-echo "Upstream changes not in branch")))
+				 ("B>U" 3 magit-repolist-column-unpushed-to-upstream
+				  ((:right-align t)
+				   (:help-echo "Local changes not in upstream")))
+				 ))
+
+  (evil-define-key 'normal magit-mode-map (kbd "<escape>") nil) ;; stop escape burying buffer
+  (evil-define-key 'normal magit-mode-map (kbd "C-n") (kbd "C-j"))
+  (evil-define-key 'normal magit-mode-map (kbd "C-p") (kbd "C-k"))
+  (evil-define-key 'normal magit-mode-map (kbd "p") (kbd "C-p"))
+  (evil-define-key 'normal magit-mode-map (kbd "n") (kbd "C-n")))
 
 (evil-leader/set-key "v" 'magit-status)
 (global-set-key (kbd "C-c m") 'magit-status)
@@ -1369,9 +1362,12 @@ return the project path instead"
 
 (setq-default ediff-custom-diff-options "-u")
 
-;; stop overriding new window switch key
-(define-key diff-mode-map (kbd "M-o") nil)
-(define-key diff-mode-map (kbd "M-SPC") nil)
+(defun my-diff-mode-hook ()
+  ;; stop overriding new window switch key
+  (define-key diff-mode-map (kbd "M-o") nil)
+  (define-key diff-mode-map (kbd "M-SPC") nil))
+
+(add-hook 'diff-mode-hook #'my-diff-mode-hook)
 
 ;; ----------------------------------------------------------------------------
 ;* Compilation
@@ -2043,11 +2039,11 @@ in that directory, then visit-tags-table on the file"
   (modify-syntax-entry ?= ".")
   (setq-local fill-column 72)
   ;; stop paragraph lines after the first being extra indented by M-q
-  (setq-local fill-paragraph-function nil))
-(add-hook 'message-mode-hook 'my-message-mode-hook)
+  (setq-local fill-paragraph-function nil)
+  (define-key message-mode-map (kbd "C-c C-c") nil)
+  (define-key message-mode-map (kbd "C-c C-s") nil))
 
-(define-key message-mode-map (kbd "C-c C-c") nil)
-(define-key message-mode-map (kbd "C-c C-s") nil)
+(add-hook 'message-mode-hook 'my-message-mode-hook)
 
 (setq-default message-auto-save-directory nil)
 
