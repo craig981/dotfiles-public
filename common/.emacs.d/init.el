@@ -3,7 +3,7 @@
 (let ((trustfile
        (cond
 	((eq system-type 'gnu/linux)
-	 (if (string-match "\.el[7-9]\." operating-system-release)
+	 (if (string-match "\\.el7\\." operating-system-release)
 	     "/etc/pki/tls/certs/ca-bundle.crt"	   ;; centos
 	   "/etc/ssl/certs/ca-certificates.crt"))  ;; ubuntu
 	(t "/usr/local/etc/openssl/cert.pem"))))   ;; darwin
@@ -1607,7 +1607,7 @@ in that directory, then visit-tags-table on the file"
 
 (when (eq system-type 'gnu/linux)
   (setq-default python-shell-interpreter
-		(if (string-match "\.el[7-9]\." operating-system-release)
+		(if (string-match "\\.el7\\." operating-system-release)
 		    "millpython2.7" ;; centos
 		  "python3")))      ;; ubuntu
 
