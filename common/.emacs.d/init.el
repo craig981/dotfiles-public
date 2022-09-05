@@ -1333,6 +1333,14 @@ return the project path instead"
   (advice-add 'git-commit-mode :after 'evil-insert-state)
 
   (setq magit-delete-by-moving-to-trash nil)
+
+  (evil-define-key 'normal magit-mode-map (kbd "<escape>") nil) ;; stop escape burying buffer
+  (evil-define-key 'normal magit-mode-map (kbd "C-n") (kbd "C-j"))
+  (evil-define-key 'normal magit-mode-map (kbd "C-p") (kbd "C-k"))
+  (evil-define-key 'normal magit-mode-map (kbd "p") (kbd "C-p"))
+  (evil-define-key 'normal magit-mode-map (kbd "n") (kbd "C-n")))
+
+(with-eval-after-load 'magit-repos
   (setq magit-repolist-column-flag-alist '((magit-unstaged-files . "U")
 					   (magit-staged-files . "S"))
 	magit-repolist-columns '(("Branch" 20 magit-repolist-column-branch nil)
@@ -1344,14 +1352,7 @@ return the project path instead"
 				   (:help-echo "Upstream changes not in branch")))
 				 ("B>U" 3 magit-repolist-column-unpushed-to-upstream
 				  ((:right-align t)
-				   (:help-echo "Local changes not in upstream")))
-				 ))
-
-  (evil-define-key 'normal magit-mode-map (kbd "<escape>") nil) ;; stop escape burying buffer
-  (evil-define-key 'normal magit-mode-map (kbd "C-n") (kbd "C-j"))
-  (evil-define-key 'normal magit-mode-map (kbd "C-p") (kbd "C-k"))
-  (evil-define-key 'normal magit-mode-map (kbd "p") (kbd "C-p"))
-  (evil-define-key 'normal magit-mode-map (kbd "n") (kbd "C-n")))
+				   (:help-echo "Local changes not in upstream"))))))
 
 (evil-leader/set-key "v" 'magit-status)
 (global-set-key (kbd "C-c m") 'magit-status)
