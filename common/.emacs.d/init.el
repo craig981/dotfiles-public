@@ -1311,7 +1311,6 @@ return the project path instead"
 (defun my-magit-repolist-hook ()
   (evil-local-mode 1)
   (evil-local-set-key 'normal (kbd "q") 'quit-window)
-  (tabulated-list-sort 0)
   (beginning-of-buffer))
 
 (defun my-magit-list-repos ()
@@ -1328,7 +1327,6 @@ return the project path instead"
   (evil-collection-magit-setup)
 
   (add-hook 'magit-mode-hook #'my-magit-hook)
-  (add-hook 'magit-repolist-mode-hook #'my-magit-repolist-hook)
 
   (advice-add 'git-commit-mode :after 'evil-insert-state)
 
@@ -1341,6 +1339,10 @@ return the project path instead"
   (evil-define-key 'normal magit-mode-map (kbd "n") (kbd "C-n")))
 
 (with-eval-after-load 'magit-repos
+
+  (add-hook 'magit-repolist-mode-hook #'my-magit-repolist-hook)
+
+  (setq magit-repolist-sort-key "Branch")
   (setq magit-repolist-column-flag-alist '((magit-unstaged-files . "U")
 					   (magit-staged-files . "S"))
 	magit-repolist-columns '(("Branch" 20 magit-repolist-column-branch nil)
