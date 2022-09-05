@@ -1342,6 +1342,8 @@ return the project path instead"
 
   (add-hook 'magit-repolist-mode-hook #'my-magit-repolist-hook)
 
+  (evil-define-key 'normal magit-repolist-mode-map (kbd "RET") 'magit-repolist-status)
+
   (setq magit-repolist-sort-key '("Branch"))
   (setq magit-repolist-column-flag-alist '((magit-unstaged-files . "U")
 					   (magit-staged-files . "S"))
