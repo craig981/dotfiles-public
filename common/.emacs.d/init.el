@@ -1342,7 +1342,7 @@ return the project path instead"
 
   (add-hook 'magit-repolist-mode-hook #'my-magit-repolist-hook)
 
-  (setq magit-repolist-sort-key "Branch")
+  (setq magit-repolist-sort-key '("Branch"))
   (setq magit-repolist-column-flag-alist '((magit-unstaged-files . "U")
 					   (magit-staged-files . "S"))
 	magit-repolist-columns '(("Branch" 20 magit-repolist-column-branch nil)
