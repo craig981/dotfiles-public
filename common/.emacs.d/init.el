@@ -365,7 +365,8 @@
 
 (defun my-help-mode-hook ()
   (evil-local-mode)
-  (evil-local-set-key 'motion (kbd "TAB") #'forward-button))
+  (evil-local-set-key 'motion (kbd "TAB") #'forward-button)
+  (evil-local-set-key 'motion (kbd "q") 'quit-window))
 
 (add-hook 'help-mode-hook #'my-help-mode-hook)
 
