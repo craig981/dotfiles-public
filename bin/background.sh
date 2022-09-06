@@ -9,7 +9,7 @@ if [[ "$XDG_CURRENT_DESKTOP" = "MATE" ]]; then
 fi
 
 if [[ "$XDG_CURRENT_DESKTOP" = "i3" ]]; then
-    [ -f ~/Pictures/background ] && feh --bg-fill ~/Pictures/background
-    [ -d ~/Pictures/background ] && feh --bg-fill -z ~/Pictures/background
+    [ -f ~/Pictures/background ] && feh --no-fehbg --bg-fill ~/Pictures/background
+    [ -d ~/Pictures/background ] && feh --no-fehbg --bg-fill -z ~/Pictures/background
 fi
 
