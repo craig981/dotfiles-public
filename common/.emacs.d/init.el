@@ -629,6 +629,7 @@
 	  ("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
 	  ("g" ,(format "Agenda and %s" tag)
 	   ((agenda "" )
+	    ,@(if (eq system-type 'gnu/linux) '((tags "PIN")))
 	    (tags ,tag ((org-agenda-skip-function
 			 '(org-agenda-skip-entry-if 'todo '("DONE"))))))
 	   ((org-agenda-start-with-log-mode nil)
