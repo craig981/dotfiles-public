@@ -2075,6 +2075,8 @@ in that directory, then visit-tags-table on the file"
 	       (display-graphic-p)
 	       (string= (string-trim (shell-command-to-string "lsb_release -i -s")) "Ubuntu")))
 
+  (require 'bongo) ;; need this before opening a playlist
+
   (evil-leader/set-key "b" #'bongo)
 
   (setq bongo-logo nil)
