@@ -337,6 +337,8 @@
 
 (global-set-key (kbd "C-x C-h") (kbd "C-x h"))
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+(with-eval-after-load 'ibuffer
+  (define-key ibuffer-mode-map (kbd "M-o") nil))
 
 (global-set-key (kbd "M-p") (kbd "M-{"))
 (global-set-key (kbd "M-n") (kbd "M-}"))
