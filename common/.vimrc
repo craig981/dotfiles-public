@@ -124,11 +124,28 @@ noremap § `
 noremap! ± ~
 noremap! § `
 
-if has("clipboard")
+" copy visual selection to clipboard
+if has("mac") && has("clipboard")
 	vnoremap Y "+y
-elseif has("linux")
-	" copy visual selection to clipboard
-	vnoremap Y :<C-u>silent '<,'>w !xsel -ib<CR>
+endif
+if has("linux")
+	if !empty($SSH_CLIENT) || !empty($SSH_TTY)  " in ssh
+		if has("clipboard") && has("X11")
+			" don't connect to X server, like 'vim -X'
+			set clipboard=exclude:.*
+		endif
+		if executable("xsel") && match($DISPLAY, "^:") == 0
+			vnoremap Y :<C-u>silent '<,'>w !xsel -ib<CR>
+		else
+			vnoremap Y :<C-u>silent echoerr "Not yanking visual selection to clipboard of remote DISPLAY " . $DISPLAY<CR>
+		endif
+	elseif has("clipboard")
+		vnoremap Y "+y
+	elseif executable("xsel")
+		vnoremap Y :<C-u>silent '<,'>w !xsel -ib<CR>
+	else
+		vnoremap Y :<C-u>silent echoerr "Can't yank visual selection to clipboard"<CR>
+	endif
 endif
 
 if &diff
