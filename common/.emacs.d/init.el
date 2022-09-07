@@ -236,7 +236,7 @@
 (save-place-mode 1)
 (setq save-place-forget-unreadable-files nil)
 (when (eq system-type 'gnu/linux)
-  (setq history-length 25)
+  (setq history-length 1000)
   (savehist-mode 1))
 
 (require 'thingatpt)
