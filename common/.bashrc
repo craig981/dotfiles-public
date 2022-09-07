@@ -9,8 +9,9 @@ esac
 
 # don't put duplicate lines or lines starting with space in the history
 HISTCONTROL=ignoreboth
-HISTSIZE=1000
-HISTFILESIZE=2000
+HISTFILESIZE=100000
+HISTSIZE=
+HISTTIMEFORMAT="%Y/%m/%d %a %T "
 
 # append to the history file, don't overwrite
 shopt -s histappend
