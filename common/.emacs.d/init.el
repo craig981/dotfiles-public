@@ -2099,7 +2099,10 @@ current project instead. Visit the tags file."
 
   (setq bongo-logo nil)
   (setq bongo-display-track-icons nil)
-  (setq bongo-enabled-backends '(vlc))
+  ;; seek doesn't work reliably with vlc backend
+  ;; need at least mplayer 1.5 on macOS 11 to fix echoing
+  ;;	brew install mplayer
+  (setq bongo-enabled-backends '(mplayer))  ; vlc
   (setq bongo-vlc-program-name (if (eq system-type 'darwin)
 				   "/Applications/VLC.app/Contents/MacOS/VLC"
 				 "/usr/bin/vlc"))
@@ -2126,15 +2129,18 @@ current project instead. Visit the tags file."
 
     (bongo-mode-line-indicator-mode -1))
 
-  (defun my-bongo-set-volume (vol)
-    "Set VLC volume"
+  (defun my-bongo-set-volume ()
+    (let ((process (get-process "bongo-mplayer")))
+      (when process
+	(process-send-string process "volume 5 1\n")))
     (let ((process (get-process "bongo-vlc")))
       (when process
-	(process-send-string process (format "volume %s\n" vol)))))
+	(process-send-string process "volume 200\n"))))
 
   (defun my-bongo-start-hook ()
-    (sit-for 0.2)
-    (my-bongo-set-volume 200))
+    (when (get-process "bongo-vlc")
+      (sit-for 0.2))
+    (my-bongo-set-volume))
 
   (add-hook 'bongo-player-started-hook 'my-bongo-start-hook)
   (add-hook 'bongo-mode-hook 'my-bongo-mode-hook))
