@@ -1578,18 +1578,29 @@ return the project path instead"
 
 (evil-set-initial-state 'xref--xref-buffer-mode 'emacs)
 
-(defun my-rebuild-and-load-tags ()
+(defun my-rebuild-and-load-tags (&optional one-project)
   "Find a TAGS file above the default-directory, invoke make TAGS
-in that directory, then visit-tags-table on the file"
-  (interactive)
-  (let* ((dir (locate-dominating-file default-directory "TAGS"))
-	 (path (and dir (expand-file-name (file-name-as-directory dir)))))
-    (if (not path)
-	(message (format "No existing TAGS file found above %s" default-directory))
-      (when (y-or-n-p (format "Rebuild tags in %s?" path))
-	(message (format "Rebuilding tags, make -C %s TAGS" path))
-	(call-process "make" nil nil nil "-C" path "TAGS")
-	(visit-tags-table (concat path "TAGS"))))))
+in that directory. If run with a prefix arg, generate tags in the
+current project instead. Visit the tags file."
+  (interactive "P")
+  (if one-project
+      (let ((proj (my-find-project-root)))
+	(when (y-or-n-p (format "Rebuild project tags in %s?" proj))
+	  (message (format "Rebuilding project tags in %s" proj))
+	  (when (= 0 (shell-command
+		  (format "cd \"%s\" && %s -R -e -f TAGS --exclude=.git --exclude=build . > /dev/null"
+			  proj
+			  (if (eq system-type 'darwin) "uctags" "ctags"))))
+	    (visit-tags-table (concat proj "TAGS")))))
+
+    (let* ((dir (locate-dominating-file default-directory "TAGS"))
+	   (path (and dir (expand-file-name (file-name-as-directory dir)))))
+      (if (not path)
+	  (message (format "No existing TAGS file found above %s" default-directory))
+	(when (y-or-n-p (format "Rebuild tags in %s?" path))
+	  (message (format "Rebuilding tags, make -C %s TAGS" path))
+	  (call-process "make" nil nil nil "-C" path "TAGS")
+	  (visit-tags-table (concat path "TAGS")))))))
 
 (global-set-key (kbd "C-c C-]") #'my-rebuild-and-load-tags)
 
