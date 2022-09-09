@@ -437,11 +437,15 @@
 	    (translate (concat translate (url-hexify-string text)))
 	    (t (concat google (url-hexify-string (format "\"%s\"" text))))))
 
-       (let ((sym (thing-at-point 'symbol t)))
+       (let ((sym (thing-at-point 'symbol t))
+	     (cc (or (eq major-mode 'c++-mode)
+		     (eq major-mode 'c-mode))))
 	 (cond
-	  ((and sym (string-match "^gl[A-Z][^\s-]+$" sym)
-		(or (eq major-mode 'c++-mode)
-		    (eq major-mode 'c-mode))) (concat "https://docs.gl/" (read-string "OpenGL: " (concat "gl4/" sym))))
+	  ((and cc sym (string-match-p "^gl[A-Z][^\s-]+$" sym))
+	   (concat "https://docs.gl/" (read-string "OpenGL: " (concat "gl4/" sym))))
+	  ((and cc sym (string-match-p "^M[A-Z][^\s-]+$" sym))
+	   (format "https://help.autodesk.com/view/MAYAUL/2020/ENU/?query=%s&cg=Developer%%27s%%20Documentation"
+		   (read-string "Maya API: " sym)))
 	  (translate (concat translate (url-hexify-string (read-string "Translate: " sym))))
 	  (t (concat google (url-hexify-string (read-string "Search Google: " sym))))))))))
 
