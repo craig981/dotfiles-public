@@ -237,6 +237,7 @@
 (setq save-place-forget-unreadable-files nil)
 (when (eq system-type 'gnu/linux)
   (setq history-length 1000)
+  (setq history-delete-duplicates t)
   (savehist-mode 1))
 
 (require 'thingatpt)
