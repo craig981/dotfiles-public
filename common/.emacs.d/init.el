@@ -1252,7 +1252,7 @@ return the project path instead"
 (require 'yasnippet)
 (setq-default yas-snippet-dirs '("~/.emacs.d/snippets"))
 (yas-reload-all)
-(evil-global-set-key 'insert (kbd "M-[") #'yas-expand)
+(evil-global-set-key 'insert (kbd "M-]") #'yas-expand)
 
 ;; ----------------------------------------------------------------------------
 ;* Dired
