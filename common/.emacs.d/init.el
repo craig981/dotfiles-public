@@ -2102,7 +2102,8 @@ current project instead. Visit the tags file."
   ;; seek doesn't work reliably with vlc backend
   ;; need at least mplayer 1.5 on macOS 11 to fix echoing
   ;;	brew install mplayer
-  (setq bongo-enabled-backends '(mplayer))  ; vlc
+  ;; mplayer volume resets to max after seeking
+  (setq bongo-enabled-backends '(vlc))
   (setq bongo-vlc-program-name (if (eq system-type 'darwin)
 				   "/Applications/VLC.app/Contents/MacOS/VLC"
 				 "/usr/bin/vlc"))
