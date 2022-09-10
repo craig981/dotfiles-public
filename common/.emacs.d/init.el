@@ -2136,7 +2136,7 @@ current project instead. Visit the tags file."
 	(process-send-string process "volume 5 1\n")))
     (let ((process (get-process "bongo-vlc")))
       (when process
-	(process-send-string process "volume 200\n"))))
+	(process-send-string process "volume 175\n"))))
 
   (defun my-bongo-start-hook ()
     (when (get-process "bongo-vlc")
