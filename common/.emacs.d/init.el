@@ -629,10 +629,10 @@
 ;;   (setq org-todo-keywords '((sequence "TODO" "WAITING" "DONE"))))
 
 (setq org-capture-templates
-      '(("t" "Task" entry (file+headline org-default-notes-file "Tasks")
-	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
-	("b" "Bookmark" entry (file+headline org-default-notes-file "Bookmarks")
-	 "* %?\n")))
+      '(("b" "Bookmark" entry (file+headline org-default-notes-file "Bookmarks")
+	 "* %?\n")
+	("t" "Task" entry (file+headline org-default-notes-file "Tasks")
+	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")))
 (when (eq system-type 'darwin)
     (push '("B" "Book" entry (file+headline org-default-notes-file "Books")
 	    "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
