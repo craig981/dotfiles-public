@@ -577,6 +577,9 @@
 				 (gnuplot . t)))
 
   (when (eq system-type 'darwin)
+
+    (setq org-babel-python-command "python3")
+
     ;; for pdf export
     (require 'ox-pandoc)))
 
@@ -692,8 +695,12 @@
   (my-org-mode-hook)
   (evil-insert-state))
 
+(defun my-org-src-hook ()
+  (evil-local-mode 1))
+
 (add-hook 'org-mode-hook 'my-org-mode-hook)
 (add-hook 'org-capture-mode-hook 'my-org-capture)
+(add-hook 'org-src-mode-hook 'my-org-src-hook)
 
 (defun my-org-clock-jump ()
   (interactive)
