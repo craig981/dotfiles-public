@@ -824,6 +824,10 @@
 (setq completion-ignore-case t)
 
 (define-key vertico-map (kbd "C-j") nil)
+(define-key vertico-map (kbd "C-h f")
+  (lambda ()
+    (interactive)
+    (describe-function (intern (vertico--candidate))))))
 
 (defun my-disable-vertico (func &rest args)
   (vertico-mode -1)
