@@ -7,6 +7,11 @@ zle -A emacs-forward-word forward-word
 # make alt+backspace/f/b/d work with directories
 WORDCHARS=${WORDCHARS//[\/.-]}
 
+HISTSIZE=10000
+SAVEHIST=10000
+setopt INC_APPEND_HISTORY
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_SAVE_NO_DUPS
 
 setopt NO_BEEP NO_LIST_BEEP LIST_AMBIGUOUS
 setopt NO_REC_EXACT AUTO_LIST LIST_PACKED
