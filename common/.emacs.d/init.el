@@ -683,7 +683,11 @@
 
 (defun my-org-shift (left)
   (if (string-match-p "^[\s-]*[*-] " (thing-at-point 'line))
-      (funcall (if left #'org-metaleft #'org-metaright))
+      (if left
+	  (if (eolp)
+	      (org-metaleft)
+	    (delete-char 1))
+	(org-metaright))
     (if left
 	(my-delete-or-indent-left)
       (evil-shift-right-line 1))))
