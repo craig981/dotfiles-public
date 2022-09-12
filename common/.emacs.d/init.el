@@ -827,7 +827,7 @@
 (define-key vertico-map (kbd "C-h f")
   (lambda ()
     (interactive)
-    (describe-function (intern (vertico--candidate))))))
+    (describe-function (intern (vertico--candidate)))))
 
 (defun my-disable-vertico (func &rest args)
   (vertico-mode -1)
