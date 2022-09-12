@@ -425,12 +425,13 @@
 
 (global-fancy-dabbrev-mode)
 
-(evil-global-set-key 'insert (kbd "TAB")
-		     (lambda ()
-		       (interactive)
-		       (if (not evil-input-method)
-			   (fancy-dabbrev-expand-or-indent)
-			 (insert "\t"))))
+(defun my-insert-mode-tab ()
+  (interactive)
+  (if (not evil-input-method)
+      (fancy-dabbrev-expand-or-indent)
+    (insert "\t")))
+
+(evil-global-set-key 'insert (kbd "TAB") 'my-insert-mode-tab)
 (global-set-key (kbd "M-/") 'fancy-dabbrev-expand)
 (global-set-key (kbd "<backtab>") 'fancy-dabbrev-backward)
 (setq-default fancy-dabbrev-menu-height 15)
