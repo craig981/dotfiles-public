@@ -1402,7 +1402,7 @@ return the project path instead"
 
   (evil-define-key 'normal magit-repolist-mode-map (kbd "RET") 'magit-repolist-status)
 
-  (setq magit-repolist-sort-key '("Branch"))
+  (setq magit-repolist-sort-key '("B>U" . t))
   (setq magit-repolist-column-flag-alist '((magit-unstaged-files . "U")
 					   (magit-staged-files . "S"))
 	magit-repolist-columns '(("Branch" 20 magit-repolist-column-branch nil)
