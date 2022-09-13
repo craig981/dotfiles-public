@@ -21,7 +21,7 @@ if [[ "$(uname -s)" = "Darwin" ]]; then
 else
 
   alias ls='/bin/ls --color=auto'
-  alias ll='/bin/ls -lrth -F --color=auto'
+  alias ll='/bin/ls -lrth --color=auto'
 
   alias e='emacs -nw'
   alias ee='emacs'
