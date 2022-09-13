@@ -8,7 +8,7 @@ setxkbmap -option caps:ctrl_modifier
 setxkbmap -option ctrl:ralt_rctrl
 setxkbmap -option altwin:menu_win
 
-for id in $(xinput list | sed -e '1,/Virtual core keyboard/d' | grep Keychron | sed -e 's/.*id=\([0-9]\+\).*/\1/')
+for id in "$(xinput list | sed -e '1,/Virtual core keyboard/d' | grep -e 'Keychron' -e 'PCoIP.*Keyboard' -e 'RGS keyboard' | sed -e 's/.*id=\([0-9]\+\).*/\1/')"
 do
 	setxkbmap -device "${id}" -option
 	setxkbmap -device "${id}" -option caps:ctrl_modifier
