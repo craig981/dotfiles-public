@@ -8,13 +8,13 @@ setxkbmap -option caps:ctrl_modifier
 setxkbmap -option ctrl:ralt_rctrl
 setxkbmap -option altwin:menu_win
 
-id=$(xinput list | sed -e '1,/Virtual core keyboard/d' | grep -m 1 Keychron | sed -e 's/.*id=\([0-9]\+\).*/\1/')
-if [[ -n "${id}" ]]; then
+for id in $(xinput list | sed -e '1,/Virtual core keyboard/d' | grep Keychron | sed -e 's/.*id=\([0-9]\+\).*/\1/')
+do
 	setxkbmap -device "${id}" -option
 	setxkbmap -device "${id}" -option caps:ctrl_modifier
 	setxkbmap -device "${id}" -option ctrl:swap_rwin_rctl
 	setxkbmap -device "${id}" -option altwin:swap_lalt_lwin
-fi
+done
 
 if [[ "$XDG_CURRENT_DESKTOP" = "MATE" ]]; then
     gsettings set org.mate.interface gtk-key-theme Emacs
