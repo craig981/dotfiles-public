@@ -1984,78 +1984,27 @@ current project instead. Visit the tags file."
 (defun my-theme-dark ()
   (require 'reykjavik-theme)
   (load-theme 'reykjavik)
+  (load-theme 'my-override-dark)
 
   (set-cursor-color "white")
   (setq evil-normal-state-cursor '(box "white"))
-  (setq evil-insert-state-cursor '(box "orange"))
-  (custom-set-faces
-   '(highlight ((t (:background "#37464a" :foreground "#959595"))))
-   '(isearch ((t (:background "gold3" :foreground "black"))))
-   '(lazy-highlight ((t (:background "turquoise" :foreground "black" ))))
-   '(helm-match ((t (:inherit region))))
-   '(font-lock-warning-face ((t (:background "#243539" :foreground "#e81050"))))
-   '(show-paren-match ((t (:weight bold :background nil :foreground "#dddddd")))))
-  (if (display-graphic-p)
-      (progn
-  	(custom-set-faces
-  	 ;; '(default ((t ())))
-	 '(default ((t (:background "#0d1f24"))))
-	 '(fringe ((t (:background nil))))
-	 '(mode-line-inactive ((t (:box (:line-width 1 :color "#112328")))))
-	 '(mode-line ((t (:box (:line-width 1 :color "#243539")))))
-	 '(mode-line-inactive ((t (:foreground "#878787" :box (:line-width 1 :color "#112328")))))
-	 '(orderless-match-face-0 ((t (:foreground "#a3d4e8" :weight bold))))
-  	 '(font-lock-comment-face ((t (:foreground "#708080")))))
-  	(set-face-attribute 'region nil :foreground "#ffffff" :background "#005f5f"))
-    (custom-set-faces
-     '(default ((t (:background "#070707"))))
-     '(font-lock-comment-face ((t (:foreground "#757575"))))
-     '(magit-diff-context-highlight ((t (:background "color-236" :foreground "#959595"))))
-     '(mode-line ((t (:foreground "#808080" :background "#222222"))))
-     '(mode-line-buffer-id ((t (:foreground "#C7B299"))))
-     '(mode-line-inactive ((t (:foreground "#656565" :background "#222222")))))
-    (set-face-attribute 'region nil :foreground "#ffffff" :background "#243539")
-    ;; (my-unspecified-background)
-    ))
+  (setq evil-insert-state-cursor '(box "orange")))
 
 (defun my-theme-light ()
-  ;; (require 'gandalf-theme)
-  ;; (load-theme 'gandalf)
   (require 'soft-morning-theme)
   (load-theme 'soft-morning)
+  (load-theme 'my-override-light)
 
-  (set-cursor-color "ForestGreen")
   (setq evil-normal-state-cursor '(box "black"))
-  (setq evil-insert-state-cursor '(box "orange"))
-
-  (if (display-graphic-p)
-      (custom-set-faces
-       '(region ((t (:background "#3399aa" :foreground "#ffffff")))))
-    (custom-set-faces
-     '(region ((t (:background "dark turquoise" :foreground "#ffffff"))))))
-
-  (custom-set-faces
-   '(default ((t ())))
-   '(highlight ((t (:background "light gray" :foreground "black"))))
-   '(isearch ((t (:background "deeppink" :foreground "black" :weight bold))))
-   '(lazy-highlight ((t (:background "turquoise" :foreground "black" ))))
-   '(helm-match ((t (:background "LightSkyBlue1" :foreground "black"))))
-   '(font-lock-comment-face ((t (:foreground  "dark green" :italic t))))
-   '(font-lock-warning-face ((t (:background "#ffffff" :foreground "#ff6523" :inverse-video nil))))
-   '(show-paren-match ((t (:weight bold :background nil :foreground "#000000"))))
-   '(orderless-match-face-0 ((t (:foreground "#5555ff" :weight bold))))
-   '(magit-diff-context-highlight ((t ())))
-   '(mode-line ((t ())))
-   '(mode-line-buffer-id ((t ())))
-   '(mode-line-inactive ((t ())))))
+  (setq evil-insert-state-cursor '(box "orange")))
 
 (defun my-color-theme-toggle ()
   (interactive)
-  (let ((cur (format "%s" (car custom-enabled-themes))))
+  (let ((light (memq 'soft-morning custom-enabled-themes)))
     (mapcar #'disable-theme custom-enabled-themes)
-    (if (string-equal "reykjavik" cur)
-	(my-theme-light)
-      (my-theme-dark))))
+    (if light
+	(my-theme-dark)
+      (my-theme-light))))
 
 (global-set-key (kbd "<f6>") 'my-color-theme-toggle)
 
@@ -2200,7 +2149,7 @@ current project instead. Visit the tags file."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   '("8efa3d21b3fa1ac084798fae4e89848ec26ae5c724b9417caf4922f4b2e31c2a" "fd1dd4d022ece05400c7bd1efc2ae5cca5cd64a53f3670da49d0c8f0ef41f4e3" "f0c94bf6a29c232300e46af50f46ce337e721eacca6d618e8654a263db5ecdbe" "621595cbf6c622556432e881945dda779528e48bb57107b65d428e61a8bb7955" "e6ccd0cc810aa6458391e95e4874942875252cd0342efd5a193de92bfbb6416b" "45f7fec480eb3bdf364cbfcbc8d11ed0228bcf586ce7370fc30a6ce5770f181a" "01ce486c3a7c8b37cf13f8c95ca4bb3c11413228b35676025fdf239e77019ea1" "4af6fad34321a1ce23d8ab3486c662de122e8c6c1de97baed3aa4c10fe55e060" "83db918b06f0b1df1153f21c0d47250556c7ffb5b5e6906d21749f41737babb7" default))
+   '("062535e77813505521514d50abffc7ebc584e79004041be91c579a81fc7a3d35" "2fbb0cbdfff7c8a150b66f7537f9a23ad98107d98f2826c6c1dfaa2a3085c199" "a4853578a26cf51c2f70907c40597edf32a1914c58be345537ac3471544fc55d" "c730acdf0dfa1a919d7fe8cab427589f24150d5fa3715e205cb7bd94e0865dda" "6e995e092ec297b0919bc94b1bbf2936a668b5bbe7230dc3306bde69a6400aba" "ae1967910e7ce79efb0559b1f92e6249d3d0bb719d0335b24daf7ec861dbd0b1" "fb6ed924288a0bc476f21bab8f83dbc30e343833d8ad94a84e095a4b18ead1d5" "40798acf74d422d815f9c1d478440e01bc90d4971807d243767415bea128e71a" "0aebb395ae1889592594d1f5519f459dfb778304a8f2b7c4344f0c2e52b11c13" "44602e56a462a8c56597d87d57abe38948b3255ab1940ab2afd885309fad0436" "4ca16a4e1d915f78a5cd90b744b22dbc0507f62e8211724e9c7f86d672ac2df3" "6b0174fa9963275fd7f6181b0f706dc9546ede1df7361d410d9890652a148159" "9ce5b769ac6cf63c24e570c0092466db0ee473a7edfde1be518bf957322f738b" "3e200d49451ec4b8baa068c989e7fba2a97646091fd555eca0ee5a1386d56077" "8efa3d21b3fa1ac084798fae4e89848ec26ae5c724b9417caf4922f4b2e31c2a" "fd1dd4d022ece05400c7bd1efc2ae5cca5cd64a53f3670da49d0c8f0ef41f4e3" "f0c94bf6a29c232300e46af50f46ce337e721eacca6d618e8654a263db5ecdbe" "621595cbf6c622556432e881945dda779528e48bb57107b65d428e61a8bb7955" "e6ccd0cc810aa6458391e95e4874942875252cd0342efd5a193de92bfbb6416b" "45f7fec480eb3bdf364cbfcbc8d11ed0228bcf586ce7370fc30a6ce5770f181a" "01ce486c3a7c8b37cf13f8c95ca4bb3c11413228b35676025fdf239e77019ea1" "4af6fad34321a1ce23d8ab3486c662de122e8c6c1de97baed3aa4c10fe55e060" "83db918b06f0b1df1153f21c0d47250556c7ffb5b5e6906d21749f41737babb7" default))
  '(dabbrev-backward-only t)
  '(dabbrev-case-distinction nil)
  '(dabbrev-case-fold-search nil)
@@ -2272,16 +2221,9 @@ current project instead. Visit the tags file."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t nil)))
  '(flyspell-duplicate ((t (:background "Magenta" :foreground "white"))))
  '(flyspell-incorrect ((t (:background "red" :foreground "white"))))
- '(font-lock-comment-face ((t (:foreground "#708080"))))
- '(magit-diff-context-highlight ((t nil)))
  '(message-cited-text-1 ((t (:foreground "#878787"))))
- '(mode-line ((t nil)))
- '(mode-line-buffer-id ((t nil)))
- '(mode-line-inactive ((t nil)))
- '(show-paren-match ((t (:weight bold :background nil :foreground "#FFDD00"))))
  '(success ((t (:foreground "#00DD00" :weight bold)))))
 
 (if (< (decoded-time-hour (decode-time)) 13)
