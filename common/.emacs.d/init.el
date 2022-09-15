@@ -806,8 +806,8 @@
 ;; ----------------------------------------------------------------------------
 
 (winner-mode 1)
-(global-set-key (kbd "C-c -")   'winner-undo)
-(global-set-key (kbd "C-c =")   'winner-redo)
+(global-set-key (kbd "C-c h") 'winner-undo)
+(global-set-key (kbd "C-c H") 'winner-redo)
 
 ;; ----------------------------------------------------------------------------
 ;* Vertico, orderless, marginalia
@@ -907,7 +907,7 @@
   (setq calc-multiplication-has-precedence nil)
   (advice-add #'calc-user-define-formula :around #'my-disable-vertico))
 
-(global-set-key (kbd "C-c h") (kbd "C-x * c"))
+(global-set-key (kbd "C-c b") (kbd "C-x * c"))
 
 ;; ----------------------------------------------------------------------------
 ;* Tramp
