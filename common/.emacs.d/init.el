@@ -665,7 +665,9 @@
 	   ((agenda "" )
 	    ,@(if (eq system-type 'gnu/linux) '((tags "PIN")))
 	    (tags ,tag ((org-agenda-skip-function
-			 '(org-agenda-skip-entry-if 'todo '("DONE"))))))
+			 '(org-agenda-skip-entry-if 'todo '("DONE")))
+			(org-agenda-sorting-strategy
+			 '((tags tag-up alpha-up))))))
 	   ((org-agenda-start-with-log-mode nil)
 	    (org-tags-match-list-sublevels nil)))
 	  ("w" "This week"
