@@ -907,7 +907,7 @@
   (setq calc-multiplication-has-precedence nil)
   (advice-add #'calc-user-define-formula :around #'my-disable-vertico))
 
-(global-set-key (kbd "C-c b") (kbd "C-x * c"))
+(global-set-key (kbd "C-c v") (kbd "C-x * c"))
 
 ;; ----------------------------------------------------------------------------
 ;* Tramp
