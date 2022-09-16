@@ -21,13 +21,13 @@
        '(mode-line ((t (:box (:line-width 1 :color "#243539")))))
        '(mode-line-inactive ((t (:foreground "#878787" :box (:line-width 1 :color "#112328")))))
        '(orderless-match-face-0 ((t (:foreground "#a3d4e8" :weight bold))))
-       ;; '(font-lock-comment-face ((t (:foreground "#708080"))))
+       '(font-lock-comment-face ((t (:foreground "#708080"))))
        )
       (set-face-attribute 'region nil :foreground "#ffffff" :background "#005f5f"))
   (custom-theme-set-faces
    'my-override-dark
    '(default ((t (:background "#070707"))))
-   ;; '(font-lock-comment-face ((t (:foreground "#757575"))))
+   '(font-lock-comment-face ((t (:foreground "#757575"))))
    '(magit-diff-context-highlight ((t (:background "color-236" :foreground "#959595"))))
    '(mode-line ((t (:foreground "#808080" :background "#222222"))))
    '(mode-line-buffer-id ((t (:foreground "#C7B299"))))
