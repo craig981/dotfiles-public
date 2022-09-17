@@ -384,6 +384,12 @@
 
 (add-hook 'help-mode-hook #'my-help-mode-hook)
 
+(defun my-messages-mode-hook ()
+  (evil-local-mode)
+  (evil-local-set-key 'normal (kbd "q") 'quit-window))
+
+(add-hook 'messages-buffer-mode-hook 'my-messages-mode-hook)
+
 ;;; https://stackoverflow.com/a/36994486
 (defun my-describe-keymap (keymap)
   "Describe a keymap"
