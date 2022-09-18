@@ -1634,21 +1634,21 @@ in that directory. If run with a prefix arg, generate tags in the
 current project instead. Visit the tags file."
   (interactive "P")
   (if one-project
-      (let ((proj (my-find-project-root)))
-	(when (y-or-n-p (format "Rebuild project tags in %s?" proj))
-	  (message (format "Rebuilding project tags in %s" proj))
+      (let ((proj (my-find-project-root))
+	    (ctags (if (eq system-type 'darwin) "uctags" "ctags")))
+	(when (y-or-n-p (format "Run %s in %s?" ctags proj))
+	  (message (format "Running %s in %s" ctags proj))
 	  (when (= 0 (shell-command
-		  (format "cd \"%s\" && %s -R -e -f TAGS --exclude=.git --exclude=build . > /dev/null"
-			  proj
-			  (if (eq system-type 'darwin) "uctags" "ctags"))))
+		      (format "cd \"%s\" && %s -R -e -f TAGS --exclude=.git --exclude=build . > /dev/null"
+			      proj ctags)))
 	    (visit-tags-table (concat proj "TAGS")))))
 
     (let* ((dir (locate-dominating-file default-directory "TAGS"))
 	   (path (and dir (expand-file-name (file-name-as-directory dir)))))
       (if (not path)
 	  (message (format "No existing TAGS file found above %s" default-directory))
-	(when (y-or-n-p (format "Rebuild tags in %s?" path))
-	  (message (format "Rebuilding tags, make -C %s TAGS" path))
+	(when (y-or-n-p (format "Run make TAGS in %s" path))
+	  (message (format "Running make -C %s TAGS" path))
 	  (call-process "make" nil nil nil "-C" path "TAGS")
 	  (visit-tags-table (concat path "TAGS")))))))
 
