@@ -2173,7 +2173,7 @@ current project instead. Visit the tags file."
    '(apropos-mode Buffer-menu-mode calendar-mode color-theme-mode command-history-mode dictionary-mode ert-results-mode help-mode Info-mode Man-mode speedbar-mode undo-tree-visualizer-mode view-mode woman-mode))
  '(helm-ag-insert-at-point 'symbol)
  '(helm-follow-mode-persistent t)
- '(helm-source-names-using-follow '("AG" "Helm occur"))
+ '(helm-source-names-using-follow '("Imenu" "AG" "Helm occur"))
  '(initial-frame-alist '((fullscreen . maximized)))
  '(ispell-program-name "aspell")
  '(magit-log-arguments '("--graph" "--color" "--decorate" "-n256"))
