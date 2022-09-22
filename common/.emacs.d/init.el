@@ -1232,6 +1232,7 @@ return the project path instead"
 (global-set-key (kbd "C-c p e") #'my-choose-project-and-find-file)
 (global-set-key (kbd "C-c p u") #'my-choose-project-and-find-file-other-window)
 (global-set-key (kbd "C-c p r") #'my-choose-project-and-search)
+(global-set-key (kbd "C-c p s") #'my-choose-project-and-search)
 (global-set-key (kbd "C-c p m") #'my-choose-project-and-magit)
 (global-set-key (kbd "C-c p d") #'my-choose-project-and-dired)
 
@@ -1628,6 +1629,8 @@ return the project path instead"
   (evil-global-set-key 'motion (kbd "C-]") #'etags-select-find-tag-at-point))
 
 (evil-set-initial-state 'xref--xref-buffer-mode 'emacs)
+
+(evil-global-set-key 'normal (kbd "C-w .") (kbd "C-x 4 ."))
 
 (defun my-rebuild-and-load-tags (&optional one-project)
   "Find a TAGS file above the default-directory, invoke make TAGS
