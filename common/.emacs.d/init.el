@@ -1631,6 +1631,7 @@ return the project path instead"
 (evil-set-initial-state 'xref--xref-buffer-mode 'emacs)
 
 (evil-global-set-key 'normal (kbd "C-w .") (kbd "C-x 4 ."))
+(evil-global-set-key 'normal (kbd "C-w C-.") (kbd "C-x 4 ."))
 
 (defun my-rebuild-and-load-tags (&optional one-project)
   "Find a TAGS file above the default-directory, invoke make TAGS
