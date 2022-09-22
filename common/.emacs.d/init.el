@@ -334,7 +334,8 @@
 (evil-leader/set-key "%" #'my-copy-filename)
 (global-set-key (kbd "C-c %") #'my-copy-filename)
 (global-set-key (kbd "C-c u") #'my-toggle-wrap)
-(global-set-key (kbd "C-c ;") (kbd "C-x C-;"))
+(when (not (display-graphic-p))
+  (global-set-key (kbd "C-x ;") (kbd "C-x C-;")))
 
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 (with-eval-after-load 'ibuffer
