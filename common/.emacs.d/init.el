@@ -1550,7 +1550,8 @@ return the project path instead"
 (evil-leader/set-key "t" 'shell)
 (evil-leader/set-key "T" 'my-split-shell)
 
-(if (require 'vterm "vterm" t)
+(if (and (display-graphic-p)
+	 (require 'vterm "vterm" t))
     (global-set-key (kbd "C-c v") 'vterm)
   (global-set-key (kbd "C-c v") 'ansi-term))
 
