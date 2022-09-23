@@ -159,6 +159,8 @@
 
 (evil-global-set-key 'normal (kbd "C-a") 'evil-numbers/inc-at-pt)
 (evil-global-set-key 'normal (kbd "C-p") 'evil-numbers/dec-at-pt)
+(evil-global-set-key 'normal (kbd "g C-a") 'evil-numbers/inc-at-pt-incremental)
+(evil-global-set-key 'normal (kbd "g C-p") 'evil-numbers/dec-at-pt-incremental)
 
 (defun my-advise-window-rotate ()
   (other-window 1))
