@@ -916,7 +916,7 @@
   (setq calc-multiplication-has-precedence nil)
   (advice-add #'calc-user-define-formula :around #'my-disable-vertico))
 
-(global-set-key (kbd "C-c v") (kbd "C-x * c"))
+(global-set-key (kbd "C-c SPC") (kbd "C-x * c"))
 
 ;; ----------------------------------------------------------------------------
 ;* Tramp
@@ -1549,6 +1549,10 @@ return the project path instead"
 (global-set-key (kbd "C-c T") 'my-split-shell)
 (evil-leader/set-key "t" 'shell)
 (evil-leader/set-key "T" 'my-split-shell)
+
+(if (require 'vterm "vterm" t)
+    (global-set-key (kbd "C-c v") 'vterm)
+  (global-set-key (kbd "C-c v") 'ansi-term))
 
 (setq comint-prompt-read-only t)
 (define-key shell-mode-map (kbd "M-_") 'comint-insert-previous-argument)
