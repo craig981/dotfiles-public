@@ -17,27 +17,6 @@
 ; https://glyph.twistedmatrix.com/2015/11/editor-malware.html
 ; http://elpa.gnu.org/packages/gnu-elpa-keyring-update.html
 
-(defun my-before-splash-image ()
-  (unless fancy-splash-image
-    (setq fancy-splash-image
-	  (let ((choices (seq-filter
-			  (lambda (fn)
-			    (let ((ext (file-name-extension fn)))
-			      (or (string= ext "jpg")
-				  (string= ext "jpeg")
-				  (string= ext "png"))))
-			  (directory-files "~/Pictures/splash"
-					   t "^\\([^.]\\|\\.[^.]\\|\\.\\..\\)"))))
-	    (elt choices (random (length choices)))))))
-
-(when (and (display-graphic-p)
-	   (not (eq system-type 'windows-nt)))
-  (require 'seq)
-  (advice-add 'fancy-splash-image-file :before #'my-before-splash-image))
-
-(with-eval-after-load "evil-leader"
-  (define-key splash-screen-keymap (kbd "SPC") evil-leader--default-map))
-
 ;; ----------------------------------------------------------------------------
 ;* Package
 ;; ----------------------------------------------------------------------------
@@ -1989,7 +1968,7 @@ current project instead. Visit the tags file."
   (set-window-configuration global-config-editing))
 
 ;; ----------------------------------------------------------------------------
-;* Colours
+;* Colours and splash screen
 ;; ----------------------------------------------------------------------------
 
 (require 'font-lock)
@@ -2007,11 +1986,28 @@ current project instead. Visit the tags file."
 ;;   (apply orig-fn beg end args))
 ;; (advice-add 'evil-yank :around #'my-highlight-yanked-region)
 
-;; see terminal background colour/image
-(defun my-unspecified-background ()
-  (unless (display-graphic-p (selected-frame))
+(defun my-window-setup-hook ()
+  (when (and (display-graphic-p)
+	     (not (eq system-type 'windows-nt)))
+    (require 'seq)
+    (setq fancy-splash-image
+	  (let ((choices (seq-filter
+			  (lambda (fn)
+			    (let ((ext (file-name-extension fn)))
+			      (or (string= ext "jpg")
+				  (string= ext "jpeg")
+				  (string= ext "png"))))
+			  (directory-files "~/Pictures/splash"
+					   t "^\\([^.]\\|\\.[^.]\\|\\.\\..\\)"))))
+	    (elt choices (random (length choices))))))
+  (unless (display-graphic-p)
+    ;; see terminal background colour/image
     (set-face-background 'default "unspecified-bg" (selected-frame))))
-(add-hook 'window-setup-hook 'my-unspecified-background)
+
+(add-hook 'window-setup-hook 'my-window-setup-hook)
+
+(with-eval-after-load "evil-leader"
+  (define-key splash-screen-keymap (kbd "SPC") evil-leader--default-map))
 
 (defun my-theme-dark ()
   (require 'reykjavik-theme)
