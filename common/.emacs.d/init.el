@@ -1693,7 +1693,8 @@ current project instead. Visit the tags file."
 (define-key paredit-mode-map (kbd "M-s s") 'paredit-splice-sexp)
 
 (defun my-lisp-common-hook ()
-  (enable-paredit-mode))
+  (enable-paredit-mode)
+  (evil-local-mode 1))
 
 (add-hook 'emacs-lisp-mode-hook       'my-lisp-common-hook 'append)
 (add-hook 'lisp-mode-hook             'my-lisp-common-hook 'append)
