@@ -1726,6 +1726,14 @@ current project instead. Visit the tags file."
 (add-to-list 'auto-mode-alist '("/SConscript\\'" . python-mode))
 
 ;; ----------------------------------------------------------------------------
+;* Eglot
+;; ----------------------------------------------------------------------------
+
+(require 'eglot)
+
+(add-to-list 'eglot-server-programs '(python-mode . ("pylsp" "-v")))
+
+;; ----------------------------------------------------------------------------
 ;* C++
 ;; ----------------------------------------------------------------------------
 
@@ -2216,6 +2224,7 @@ current project instead. Visit the tags file."
      cmake-mode
      consult
      consult-dir
+     eglot
      embark
      evil
      evil-leader
