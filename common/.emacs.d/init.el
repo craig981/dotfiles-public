@@ -1712,6 +1712,9 @@ current project instead. Visit the tags file."
 (add-hook 'python-mode-hook 'my-python-mode-hook)
 (add-hook 'inferior-python-mode-hook 'my-python-shell-mode-hook)
 
+(with-eval-after-load 'python
+  (define-key python-mode-map (kbd "C-c C-a") 'pyvenv-activate))
+
 (defun my-python-send-region ()
   (interactive)
   (if (use-region-p)
@@ -1732,6 +1735,8 @@ current project instead. Visit the tags file."
 (require 'eglot)
 
 (add-to-list 'eglot-server-programs '(python-mode . ("pylsp" "-v")))
+
+(setq eglot-autoshutdown t)
 
 ;; ----------------------------------------------------------------------------
 ;* C++
@@ -2199,6 +2204,8 @@ current project instead. Visit the tags file."
  '(dabbrev-case-distinction nil)
  '(dabbrev-case-fold-search nil)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
+ '(eldoc-echo-area-use-multiline-p nil)
+ '(eldoc-idle-delay 0.25)
  '(electric-indent-mode t)
  '(electric-pair-mode nil)
  '(evil-flash-delay 60)
@@ -2242,6 +2249,7 @@ current project instead. Visit the tags file."
      orderless
      ox-pandoc
      paredit
+     pyvenv
      reykjavik-theme
      rust-mode
      soft-morning-theme
