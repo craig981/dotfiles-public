@@ -355,6 +355,12 @@
 (when (not (version< emacs-version "28.1"))
   (setq-default bookmark-set-fringe-mark nil))
 
+(defun my-advise-comment (&rest args)
+  (when (evil-normal-state-p)
+    (call-interactively 'evil-append)))
+
+(advice-add 'comment-dwim :after 'my-advise-comment)
+
 ;; ----------------------------------------------------------------------------
 ;* Help
 ;; ----------------------------------------------------------------------------
@@ -1679,6 +1685,8 @@ current project instead. Visit the tags file."
 (add-hook 'lisp-mode-hook             'my-lisp-common-hook 'append)
 (add-hook 'lisp-interaction-mode-hook 'my-lisp-common-hook 'append)
 (add-hook 'scheme-mode-hook           'my-lisp-common-hook 'append)
+
+(advice-add 'paredit-comment-dwim :after 'my-advise-comment)
 
 ;; ----------------------------------------------------------------------------
 ;* Python
