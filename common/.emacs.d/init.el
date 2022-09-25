@@ -1712,12 +1712,13 @@ current project instead. Visit the tags file."
 (add-hook 'python-mode-hook 'my-python-mode-hook)
 (add-hook 'inferior-python-mode-hook 'my-python-shell-mode-hook)
 
-(evil-leader/set-key-for-mode 'python-mode "."
-  (lambda ()
-    (interactive)
-    (if (use-region-p)
-	(call-interactively 'python-shell-send-region)
-      (message "No region active"))))
+(defun my-python-send-region ()
+  (interactive)
+  (if (use-region-p)
+      (call-interactively 'python-shell-send-region)
+    (message "No region active")))
+
+(evil-leader/set-key-for-mode 'python-mode "." 'my-python-send-region)
 
 (evil-set-initial-state 'inferior-python-mode 'emacs)
 
