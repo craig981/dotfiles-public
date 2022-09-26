@@ -1692,11 +1692,8 @@ current project instead. Visit the tags file."
 ;* Python
 ;; ----------------------------------------------------------------------------
 
-(when (eq system-type 'gnu/linux)
-  (setq-default python-shell-interpreter
-		(if (string-match "\\.el7\\." operating-system-release)
-		    "millpython2.7" ;; centos
-		  "python3")))      ;; ubuntu
+(defvar my-python-interp "python3")
+(setq-default python-shell-interpreter my-python-interp)
 
 (defun my-python-shell-mode-hook ()
   (toggle-truncate-lines 0)
