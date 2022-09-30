@@ -239,6 +239,12 @@
 	(message "Deleted trailing whitespace"))
     (message "No region active")))
 
+(defun my-delete-space ()
+  (interactive)
+  (if (region-active-p)
+      (my-delete-trailing-whitespace)
+    (delete-horizontal-space)))
+
 (defun my-align-regexp ()
   (interactive)
   (if (region-active-p)
@@ -295,6 +301,8 @@
 (evil-leader/set-key "\\" #'my-delete-trailing-whitespace)
 (evil-leader/set-key "m" #'my-mirror-buffer)
 (evil-leader/set-key "d" 'pwd)
+
+(global-set-key (kbd "M-\\") #'my-delete-space)
 
 (evil-global-set-key 'insert (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
 (evil-global-set-key 'motion (kbd "K")
