@@ -790,7 +790,12 @@
 ;; ----------------------------------------------------------------------------
 
 (defun my-html-hook ()
-  (define-key html-mode-map (kbd "M-o") nil))
+  (define-key html-mode-map (kbd "M-o") nil)
+  (evil-local-set-key 'normal (kbd "g SPC")
+		      (lambda ()
+			(interactive)
+			(save-buffer)
+			(browse-url-of-file))))
 
 (add-hook 'html-mode-hook #'my-html-hook)
 
@@ -1245,11 +1250,11 @@ return the project path instead"
 (global-set-key (kbd "C-c e") 'my-find-file-in-project)
 (global-set-key (kbd "C-c d") 'my-jump-project-dired)
 
-(global-set-key (kbd "C-c x") (lambda ()
+(global-set-key (kbd "C-c X") (lambda ()
 				(interactive)
 				(let ((default-directory "~/dotfiles-public"))
 				  (my-find-file-in-project))))
-(global-set-key (kbd "C-c X") (lambda ()
+(global-set-key (kbd "C-c x") (lambda ()
 				(interactive)
 				(find-file user-init-file)))
 (global-set-key (kbd "C-c z") (lambda ()
@@ -2015,7 +2020,7 @@ current project instead. Visit the tags file."
 
 (defun my-window-setup-hook ()
   (when (and (display-graphic-p)
-	     (not (eq system-type 'windows-nt)))
+	     (file-exists-p "~/Pictures/splash"))
     (require 'seq)
     (setq fancy-splash-image
 	  (let ((choices (seq-filter
