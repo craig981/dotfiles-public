@@ -47,4 +47,7 @@ set ignoreeof=1
 
 set history=10000
 
+# treat . as punctuation for word delete
+set wordchars='_'
+
 setenv LS_COLORS 'no=00:fi=00:di=38;5;69:ow=38;5;69:ln=01;33:pi=04;33:*.dylib=04;03;31:so=01;35:bd=03;32;03:cd=03;36;02:or=30;01;31:ex=01;32'
