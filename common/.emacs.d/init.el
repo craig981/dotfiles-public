@@ -386,17 +386,30 @@
 
 (add-hook 'messages-buffer-mode-hook 'my-messages-mode-hook)
 
+(defun my-list-all-keymaps ()
+  (let (maps)
+    (mapatoms (lambda (sym)
+		(and (boundp sym)
+		     (keymapp (symbol-value sym))
+		     (push sym maps))))
+    (seq-sort (lambda (x y)
+		(string< (symbol-name x)
+			 (symbol-name y)))
+	      maps)))
+
+;; (my-lookup-key-in-all-keymaps (kbd "C-j"))
+(defun my-lookup-key-in-all-keymaps (key)
+  (dolist (m (my-list-all-keymaps))
+    (let ((f (lookup-key (symbol-value m) key)))
+      (when f
+	(message (format "%-32S\t%S" m f))))))
+
 ;;; https://stackoverflow.com/a/36994486
 (defun my-describe-keymap (keymap)
   "Describe a keymap"
   (interactive
    (list (completing-read
-	  "Keymap: " (let (maps)
-		       (mapatoms (lambda (sym)
-				   (and (boundp sym)
-					(keymapp (symbol-value sym))
-					(push sym maps))))
-		       maps)
+	  "Keymap: " (my-list-all-keymaps)
 	  nil t)))
   (with-output-to-temp-buffer (format "*keymap: %s*" keymap)
     (princ (format "%s\n\n" keymap))
