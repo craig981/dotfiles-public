@@ -1349,7 +1349,7 @@ return the project path instead"
 
 (define-key dired-mode-map (kbd "j") 'dired-next-line)
 (define-key dired-mode-map (kbd "k") 'dired-previous-line)
-(define-key dired-mode-map (kbd "C-j") 'dired-goto-file)
+(define-key dired-mode-map (kbd "J") 'dired-goto-file)
 (define-key dired-mode-map (kbd "K") 'dired-do-kill-lines)
 (define-key dired-mode-map (kbd "SPC") evil-leader--default-map)
 (define-key dired-mode-map (kbd "C-w") 'evil-window-map)
