@@ -615,6 +615,8 @@
 				 (emacs-lisp . t)
 				 (gnuplot . t)))
 
+  (define-key org-mode-map (kbd "C-j") nil)
+
   (when (eq system-type 'darwin)
 
     (setq org-babel-python-command "python3")
@@ -881,10 +883,11 @@
 
 (require 'consult)
 
-(evil-leader/set-key "j" 'consult-buffer)
+(global-set-key (kbd "C-j") 'consult-buffer)
 (global-set-key (kbd "C-x b") 'consult-buffer)
 (global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window)
 
+(setq consult-preview-key (kbd "C-j"))	; stop preview when any key is pressed
 (consult-customize
  consult-buffer consult-buffer-other-window consult-theme
  :preview-key (kbd "C-j"))
@@ -1695,11 +1698,14 @@ current project instead. Visit the tags file."
 (require 'paredit)
 (autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
 
-;; still works if cursor is on a blank line below
-(define-key paredit-mode-map (kbd "C-j") (lambda ()
-					   (interactive)
-					   (pp-eval-last-sexp t)))
+(defun my-lisp-ctrl-j (&optional prefix)
+  (interactive "P")
+  (if prefix
+      ;; still works if cursor is on a blank line below
+      (pp-eval-last-sexp t)
+    (call-interactively (lookup-key (current-global-map) (kbd "C-j")))))
 
+(define-key paredit-mode-map (kbd "C-j") #'my-lisp-ctrl-j)
 (define-key paredit-mode-map (kbd "M-s") nil)
 (define-key paredit-mode-map (kbd "M-s s") 'paredit-splice-sexp)
 
