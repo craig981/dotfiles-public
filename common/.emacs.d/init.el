@@ -2071,6 +2071,7 @@ current project instead. Visit the tags file."
 
 (defun my-theme-dark2 ()
   (interactive)
+  (mapcar #'disable-theme custom-enabled-themes)
   (load-theme 'ef-night)
   (load-theme 'my-override-dark2)
 
