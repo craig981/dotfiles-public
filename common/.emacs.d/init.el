@@ -1423,10 +1423,12 @@ return the project path instead"
   (setq magit-delete-by-moving-to-trash nil)
 
   (evil-define-key 'normal magit-mode-map (kbd "<escape>") nil) ;; stop escape burying buffer
-  (evil-define-key 'normal magit-mode-map (kbd "C-n") (kbd "C-j"))
-  (evil-define-key 'normal magit-mode-map (kbd "C-p") (kbd "C-k"))
-  (evil-define-key 'normal magit-mode-map (kbd "p") (kbd "C-p"))
-  (evil-define-key 'normal magit-mode-map (kbd "n") (kbd "C-n")))
+  (evil-define-key 'normal magit-mode-map (kbd "C-j") nil)
+  (evil-define-key 'normal magit-mode-map (kbd "C-k") nil)
+  (evil-define-key 'normal magit-mode-map (kbd "C-p") (kbd "p"))
+  (evil-define-key 'normal magit-mode-map (kbd "C-n") (kbd "n"))
+  (evil-define-key 'normal magit-mode-map (kbd "p") 'magit-section-backward)
+  (evil-define-key 'normal magit-mode-map (kbd "n") 'magit-section-forward))
 
 (with-eval-after-load 'magit-repos
 
