@@ -2069,10 +2069,10 @@ current project instead. Visit the tags file."
   (setq evil-normal-state-cursor '(box "white"))
   (setq evil-insert-state-cursor '(box "orange")))
 
-(defun my-theme-dark2 ()
+(defun my-color-theme-select ()
   (interactive)
-  (mapcar #'disable-theme custom-enabled-themes)
-  (load-theme 'ef-night)
+  (let ((consult-themes '(ef-night modus-vivendi)))
+    (call-interactively 'consult-theme))
   (load-theme 'my-override-dark2)
 
   (setq evil-normal-state-cursor '(box "white"))
@@ -2095,7 +2095,7 @@ current project instead. Visit the tags file."
       (my-theme-light))))
 
 (global-set-key (kbd "<f6>") 'my-color-theme-toggle)
-(global-set-key (kbd "<f5>") 'my-theme-dark2)
+(global-set-key (kbd "<f5>") 'my-color-theme-select)
 
 ;; ----------------------------------------------------------------------------
 ;* Font
