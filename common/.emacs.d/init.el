@@ -941,7 +941,7 @@
   (setq calc-multiplication-has-precedence nil)
   (advice-add #'calc-user-define-formula :around #'my-disable-vertico))
 
-(global-set-key (kbd "C-c SPC") (kbd "C-x * c"))
+(evil-leader/set-key "a" (kbd "C-x * c"))
 
 ;; ----------------------------------------------------------------------------
 ;* Tramp
@@ -1281,8 +1281,6 @@ return the project path instead"
 
 (evil-leader/set-key "e" 'my-find-file-in-project)
 (evil-leader/set-key "u" 'my-find-file-in-project-other-window)
-(evil-leader/set-key "pe" 'my-choose-project-and-find-file)
-(evil-leader/set-key "pu" 'my-choose-project-and-find-file-other-window)
 
 ;; ----------------------------------------------------------------------------
 ;* Isearch
