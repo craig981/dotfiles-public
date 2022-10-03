@@ -1644,22 +1644,6 @@ return the project path instead"
 ;* Tags
 ;; ----------------------------------------------------------------------------
 
-(when (require 'etags-select "~/.emacs.d/lisp/etags-select" t)
-  ;; make return to select tag work in terminal, and C-m in the GUI
-  (if (display-graphic-p)
-      (define-key etags-select-mode-map (kbd "C-m") (kbd "<return>"))
-    (define-key etags-select-mode-map (kbd "RET") (kbd "<return>")))
-
-  (defun my-jump-to-tag-in-other-window ()
-    (interactive)
-    (let ((tag (find-tag-default)))
-      (other-window 1)
-      ;; (etags-select-find-tag-at-point)
-      (etags-select-find tag)))
-
-  (evil-global-set-key 'normal (kbd "C-w C-]") #'my-jump-to-tag-in-other-window)
-  (evil-global-set-key 'motion (kbd "C-]") #'etags-select-find-tag-at-point))
-
 (evil-set-initial-state 'xref--xref-buffer-mode 'emacs)
 
 (evil-global-set-key 'normal (kbd "C-w .") (kbd "C-x 4 ."))
