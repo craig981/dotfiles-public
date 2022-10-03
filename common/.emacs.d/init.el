@@ -925,7 +925,7 @@
 (helm-minibuffer-history-mode)
 
 (define-key helm-map (kbd "C-c C-u") 'kill-whole-line)
-(define-key helm-map (kbd "<escape>") nil)
+(define-key helm-map (kbd "<escape>") 'helm-keyboard-quit)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 
 (setq helm-highlight-only-all-matches t)
