@@ -883,7 +883,7 @@
 
 (require 'consult)
 
-(global-set-key (kbd "C-j") 'consult-buffer)
+(global-set-key (kbd "C-j") 'evil-switch-to-windows-last-buffer)
 (global-set-key (kbd "C-x b") 'consult-buffer)
 (global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window)
 
@@ -891,8 +891,6 @@
 (consult-customize
  consult-buffer consult-buffer-other-window consult-theme
  :preview-key (kbd "C-j"))
-
-(define-key minibuffer-local-map (kbd "C-l") (kbd "C-m"))
 
 (require 'consult-dir)
 
