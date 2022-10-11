@@ -892,6 +892,8 @@
  consult-buffer consult-buffer-other-window consult-theme
  :preview-key (kbd "C-j"))
 
+(define-key minibuffer-local-map (kbd "C-l") (kbd "C-m"))
+
 (require 'consult-dir)
 
 (global-set-key (kbd "C-x C-d") #'consult-dir)
