@@ -941,7 +941,7 @@
   (setq calc-multiplication-has-precedence nil)
   (advice-add #'calc-user-define-formula :around #'my-disable-vertico))
 
-(evil-leader/set-key "a" (kbd "C-x * c"))
+(evil-leader/set-key "q" (kbd "C-x * c"))
 
 ;; ----------------------------------------------------------------------------
 ;* Tramp
