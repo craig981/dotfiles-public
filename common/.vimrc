@@ -171,7 +171,7 @@ function! ToggleQuickFix()
 		wincmd p
 	endif
 endfunction
-nnoremap <silent> Q :call ToggleQuickFix()<CR>
+nnoremap <silent> <leader>q :call ToggleQuickFix()<CR>
 
 augroup qf_below
 	autocmd!
