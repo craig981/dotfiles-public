@@ -65,7 +65,7 @@ nnoremap <leader>s :%s/\<<c-r><c-w>\>//gI<Left><Left><Left>
 nnoremap <leader>L :set invlazyredraw<CR>:set lazyredraw?<CR>
 nmap <leader>; gcc
 
-# remove multiple adjacent blank lines
+" remove multiple adjacent blank lines
 nnoremap <leader>B :%!cat -s
 
 nnoremap <leader>l :setlocal spell!<CR>
