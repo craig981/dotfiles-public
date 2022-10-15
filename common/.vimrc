@@ -205,6 +205,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 	Plug 'gruvbox-community/gruvbox'
 	Plug 'adlawson/vim-sorcerer'
 	Plug 'mswift42/vim-themes'
+	Plug 'ctrlpvim/ctrlp.vim'
 	call plug#end()
 
 	augroup change_the_colours
@@ -237,7 +238,23 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 	nnoremap ,m :cope <bar> AsyncRun make -f build.mk run<CR><C-W><C-P>
 	nnoremap <C-C><C-K> :AsyncStop<CR>
 
-	nnoremap <leader>e :find<space>
+	if match(&runtimepath, 'ctrlp.vim') != -1
+		let g:ctrlp_map = ''
+		let g:ctrlp_show_hidden = 1
+		let g:ctrlp_use_caching = 0
+		let g:ctrlp_clear_cache_on_exit = 1
+		let g:ctrlp_prompt_mappings = {
+					\ 'PrtSelectMove("j")':   ['<c-n>', '<down>'],
+					\ 'PrtSelectMove("k")':   ['<c-p>', '<up>'],
+					\ 'PrtHistory(-1)':       ['<c-j>'],
+					\ 'PrtHistory(1)':        ['<c-k>'],
+					\ }
+		nnoremap <silent> <leader>e :CtrlP getcwd()<CR>
+	else
+		nnoremap <leader>e :find<space>
+	endif
+
+
 endif
 
 if has("nvim")
