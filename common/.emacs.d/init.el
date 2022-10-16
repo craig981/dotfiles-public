@@ -440,11 +440,11 @@
 
 (global-fancy-dabbrev-mode)
 
-(defun my-insert-mode-tab ()
-  (interactive)
+(defun my-insert-mode-tab (&optional arg)
+  (interactive "P")
   (if (not evil-input-method)
       (fancy-dabbrev-expand-or-indent)
-    (insert "\t")))
+    (insert-tab arg)))
 
 (evil-global-set-key 'insert (kbd "TAB") 'my-insert-mode-tab)
 (global-set-key (kbd "M-/") 'fancy-dabbrev-expand)
