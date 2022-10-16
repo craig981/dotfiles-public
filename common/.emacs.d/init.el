@@ -1573,11 +1573,6 @@ return the project path instead"
     (evil-window-split))
   (my-spawn-shell))
 
-(global-set-key (kbd "C-c t") 'shell)
-(global-set-key (kbd "C-c T") 'my-split-shell)
-(evil-leader/set-key "t" 'shell)
-(evil-leader/set-key "T" 'my-split-shell)
-
 (setq comint-prompt-read-only t)
 (define-key shell-mode-map (kbd "M-_") 'comint-insert-previous-argument)
 (define-key shell-mode-map (kbd "C-r") 'comint-history-isearch-backward)
@@ -1630,14 +1625,17 @@ return the project path instead"
 
 (add-hook 'sh-mode-hook 'my-syntax-entry)
 
+(global-set-key (kbd "C-c v") 'shell)
+(global-set-key (kbd "C-c V") 'my-split-shell)
+
 ;; ----------------------------------------------------------------------------
 ;* Term
 ;; ----------------------------------------------------------------------------
 
 (if (and (display-graphic-p)
 	 (require 'vterm "vterm" t))
-    (global-set-key (kbd "C-c v") 'vterm)
-  (global-set-key (kbd "C-c v") 'ansi-term))
+    (global-set-key (kbd "C-c t") 'vterm)
+  (global-set-key (kbd "C-c t") 'ansi-term))
 
 (defun expose-global-binding-in-term (binding)
   (define-key term-raw-map binding
