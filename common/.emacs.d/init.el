@@ -931,6 +931,9 @@
 (setq helm-highlight-only-all-matches t)
 (setq helm-highlight-matches-around-point-max-lines '(25 . 25))
 
+;;; no new frames
+(setq helm-show-completion-display-function #'helm-show-completion-default-display-function)
+
 ;; ----------------------------------------------------------------------------
 ;* Calc
 ;; ----------------------------------------------------------------------------
@@ -1641,6 +1644,22 @@ return the project path instead"
     (lookup-key (current-global-map) binding)))
 (with-eval-after-load 'term
   (expose-global-binding-in-term (kbd "M-o")))
+
+;; ----------------------------------------------------------------------------
+;* Eshell
+;; ----------------------------------------------------------------------------
+
+(defun my-eshell-hook ()
+  (fancy-dabbrev-mode -1)
+  (visual-line-mode 0)
+  (toggle-truncate-lines 1)
+  (define-key eshell-hist-mode-map (kbd "M-r") #'move-to-window-line-top-bottom)
+  (define-key eshell-hist-mode-map (kbd "C-r") #'helm-eshell-history)
+  (define-key eshell-mode-map (kbd "M-m") 'eshell-bol))
+
+(add-hook 'eshell-mode-hook 'my-eshell-hook)
+
+(global-set-key (kbd "C-c b") 'eshell)
 
 ;; ----------------------------------------------------------------------------
 ;* Tags
