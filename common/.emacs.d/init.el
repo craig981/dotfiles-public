@@ -1647,13 +1647,20 @@ return the project path instead"
 ;* Eshell
 ;; ----------------------------------------------------------------------------
 
+(defun my-eshell-last-arg ()
+  "Insert last argument of previous command"
+  (interactive)
+  (insert (car (last (split-string-shell-command (eshell-previous-input-string 0))))))
+
 (defun my-eshell-hook ()
   (fancy-dabbrev-mode -1)
   (visual-line-mode 0)
   (toggle-truncate-lines 1)
   (define-key eshell-hist-mode-map (kbd "M-r") #'move-to-window-line-top-bottom)
   (define-key eshell-hist-mode-map (kbd "C-r") #'helm-eshell-history)
-  (define-key eshell-mode-map (kbd "M-m") 'eshell-bol))
+  (define-key eshell-hist-mode-map (kbd "C-c C-l") #'eshell/clear)
+  (define-key eshell-mode-map (kbd "M-m") 'eshell-bol)
+  (local-set-key (kbd "M-_") 'my-eshell-last-arg))
 
 (add-hook 'eshell-mode-hook 'my-eshell-hook)
 
