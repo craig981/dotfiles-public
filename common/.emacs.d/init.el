@@ -883,11 +883,13 @@
 
 (require 'consult)
 
-(global-set-key (kbd "C-j") 'evil-switch-to-windows-last-buffer)
+(global-set-key (kbd "C-j") 'consult-buffer)
 (global-set-key (kbd "C-x b") 'consult-buffer)
 (global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window)
 
-(setq consult-preview-key (kbd "C-j"))	; stop preview when any key is pressed
+(define-key consult-narrow-map (kbd "C-j") 'vertico-exit)
+
+(setq consult-preview-key nil)	; stop preview when any key is pressed
 (consult-customize
  consult-buffer consult-buffer-other-window consult-theme
  :preview-key (kbd "C-j"))
