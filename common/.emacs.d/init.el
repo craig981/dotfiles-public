@@ -2076,11 +2076,12 @@ current project instead. Visit the tags file."
   (cond
    (x
     (require 'reykjavik-theme)
-    (load-theme 'reykjavik))
+    (load-theme 'reykjavik)
+    (load-theme 'my-override-dark))
    (t
-    (load-theme 'ef-night)))
+    (load-theme 'ef-night)
+    (load-theme 'my-override-dark2)))
 
-  (load-theme 'my-override-dark)
   (set-cursor-color "white")
   (setq evil-normal-state-cursor '(box "white"))
   (setq evil-insert-state-cursor '(box "orange")))
