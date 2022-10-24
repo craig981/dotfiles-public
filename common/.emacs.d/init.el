@@ -61,6 +61,8 @@
 (global-set-key (kbd "C-c C-M-e") #'evil-local-mode)
 
 (defun my-find-file-hook ()
+  (if (file-remote-p (buffer-file-name))
+      (setq-local vc-handled-backends nil))
   (if (not (or (eq major-mode 'image-mode)
 	       (derived-mode-p 'bongo-mode)))
       (evil-local-mode 1)))
@@ -953,7 +955,8 @@
 ;; ----------------------------------------------------------------------------
 
 (with-eval-after-load "tramp"
-  (setq-default tramp-histfile-override "/tmp/.tramp_history"))
+  (setq-default tramp-histfile-override "/tmp/.tramp_history")
+  (setq remote-file-name-inhibit-locks t))
 
 ;; ----------------------------------------------------------------------------
 ;* Find file at point
