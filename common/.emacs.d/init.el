@@ -788,6 +788,17 @@
 
 (global-set-key (kbd "C-c M-t") #'my-wrap-org-link)
 
+(defun my-insert-org-src-block  ()
+  "Insert a src block with the same language as the previous block"
+  (interactive)
+  (let ((lang (save-excursion
+		(org-babel-previous-src-block)
+		(move-end-of-line 1)
+		(thing-at-point 'word t))))
+    (org-insert-structure-template (format "src %s" lang))))
+
+(evil-leader/set-key-for-mode 'org-mode "l" 'my-insert-org-src-block)
+
 ;; ----------------------------------------------------------------------------
 ;* Browser
 ;; ----------------------------------------------------------------------------
