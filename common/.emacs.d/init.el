@@ -799,6 +799,14 @@
 
 (evil-leader/set-key-for-mode 'org-mode "l" 'my-insert-org-src-block)
 
+(defun my-forward-before-insert (&rest args)
+  "Move the cursor forward before closing a tag or inserting a time stamp"
+  (when (and (eq evil-state 'normal)
+	     (not (eolp)))
+    (forward-char)))
+
+(advice-add 'org-time-stamp-inactive :before #'my-forward-before-insert)
+
 ;; ----------------------------------------------------------------------------
 ;* Browser
 ;; ----------------------------------------------------------------------------
@@ -827,12 +835,7 @@
 
 (add-hook 'html-mode-hook #'my-html-hook)
 
-(defun my-before-close-tag (&rest args)
-  "Move the cursor before closing the tag in normal mode"
-  (when (and (eq evil-state 'normal)
-	     (not (eolp)))
-    (forward-char)))
-(advice-add 'sgml-close-tag :before #'my-before-close-tag)
+(advice-add 'sgml-close-tag :before #'my-forward-before-insert)
 
 ;; ----------------------------------------------------------------------------
 ;* Which key
