@@ -40,4 +40,4 @@ bind '"\e/": dabbrev-expand'
 test -f ~/dotfiles-public/bash_zsh_alias && source ~/dotfiles-public/bash_zsh_alias
 test -f ~/dotfiles/bash_zsh_alias && source ~/dotfiles/bash_zsh_alias
 
-PS1='\u@\h \w \$ '
+PS1='\[\033[0;36m\]\u@\h \w \$\[\033[00m\] '
