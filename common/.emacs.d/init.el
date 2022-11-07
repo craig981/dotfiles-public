@@ -1453,6 +1453,8 @@ return the project path instead"
   (evil-define-key 'normal magit-mode-map (kbd "p") 'magit-section-backward)
   (evil-define-key 'normal magit-mode-map (kbd "n") 'magit-section-forward))
 
+(require 'magit)
+
 (with-eval-after-load 'magit-repos
 
   (add-hook 'magit-repolist-mode-hook #'my-magit-repolist-hook)
