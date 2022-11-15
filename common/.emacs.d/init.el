@@ -626,6 +626,8 @@
     ;; for pdf export
     (require 'ox-pandoc)))
 
+(require 'org)
+
 (when (eq system-type 'gnu/linux)
   (setq org-agenda-files (list "~/notes.org"))
   (setq org-default-notes-file "~/notes.org"))
