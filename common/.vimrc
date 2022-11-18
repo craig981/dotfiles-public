@@ -80,7 +80,7 @@ vnoremap <leader>\ :s/\s\+$//<CR>
 
 nnoremap <leader>r :silent grep '<c-r><c-w>' .<Left><Left><Left>
 if executable('ag')
-	set grepprg=ag\ --vimgrep\ -s\ --hidden\ $*
+	set grepprg=ag\ --vimgrep\ -s\ --ignore-dir\ .git\ --hidden\ $*
 	set grepformat^=%f:%l:%c:%m
 endif
 
