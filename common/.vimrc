@@ -49,12 +49,13 @@ endif
 let mapleader=" "
 nnoremap <leader>f :e <C-R>=expand('%:p:h') . '/'<CR>
 nnoremap <leader>h :sf<space>
+nnoremap <leader>v :vs<space>
 nnoremap <leader>u :set invwrap<CR>
-nnoremap <leader>j :b<space>
 nnoremap <leader>t :term<CR>
 nnoremap <leader>d :pwd<CR>
 nnoremap <leader>D :lcd %:p:h <bar> pwd<CR>
 nnoremap <leader>w :write<CR>
+nnoremap <C-j> :b<space>
 nnoremap <C-w>d :bd<CR>
 nnoremap <silent> <C-w><C-d> :Bclose<CR>
 "nnoremap <leader>i :30vs .<CR>
@@ -67,6 +68,7 @@ nmap <leader>; gcc
 
 " remove multiple adjacent blank lines
 nnoremap <leader>B :%!cat -s
+vnoremap <leader>' :!cat -s
 
 nnoremap <leader>l :setlocal spell!<CR>
 set spelllang=en_gb
@@ -155,13 +157,12 @@ if &diff
 	nnoremap <leader>1 :diffget LOCAL<CR>
 	nnoremap <leader>2 :diffget BASE<CR>
 	nnoremap <leader>3 :diffget REMOTE<CR>
-else
-	"next/previous in quickfix/buffer list
-	nnoremap <C-j> :cn<CR>
-	nnoremap <C-k> :cp<CR>
-	nnoremap ]b :bn<CR>
-	nnoremap [b :bp<CR>
 endif
+
+nnoremap <C-n> :cn<CR>
+nnoremap <C-p> :cp<CR>
+nnoremap ]b :bn<CR>
+nnoremap [b :bp<CR>
 
 function! ToggleQuickFix()
 	if getqflist({'winid' : 1}).winid
