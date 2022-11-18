@@ -173,6 +173,7 @@ function! ToggleQuickFix()
 	endif
 endfunction
 nnoremap <silent> <leader>q :call ToggleQuickFix()<CR>
+nnoremap <silent> <C-s> :call ToggleQuickFix()<CR>
 
 augroup qf_below
 	autocmd!
