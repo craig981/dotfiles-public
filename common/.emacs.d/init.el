@@ -577,7 +577,7 @@
         (window-height . 10))
       display-buffer-alist)
 
-(global-set-key (kbd "C-c M-c") 'calendar)
+(global-set-key (kbd "C-c C") 'calendar)
 
 ;; ----------------------------------------------------------------------------
 ;* Org
@@ -964,7 +964,7 @@
   (setq calc-multiplication-has-precedence nil)
   (advice-add #'calc-user-define-formula :around #'my-disable-vertico))
 
-(global-set-key (kbd "C-c C") (kbd "C-x * c"))
+(global-set-key (kbd "C-c M-c") (kbd "C-x * c"))
 
 ;; ----------------------------------------------------------------------------
 ;* Tramp
