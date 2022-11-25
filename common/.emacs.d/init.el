@@ -317,6 +317,11 @@
 		       'man))
 (add-hook #'Man-mode-hook #'my-man-page-hook)
 
+(when (eq system-type 'darwin)
+  ;; completion list for man pages is slow
+  (defun my-advise-man-completion (&rest args) '())
+  (advice-add #'Man-completion-table :override #'my-advise-man-completion))
+
 (global-set-key (kbd "C-c q") #'my-close-other-window)
 
 (evil-global-set-key 'motion (kbd "C-w d") 'my-kill-buffer)
