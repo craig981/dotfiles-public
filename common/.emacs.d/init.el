@@ -86,6 +86,7 @@
 (evil-declare-ignore-repeat 'hscroll-cursor-left)
 (evil-declare-ignore-repeat 'hscroll-cursor-right)
 (evil-declare-ignore-repeat 'recenter-top-bottom)
+(evil-declare-ignore-repeat 'other-window)
 
 ;;; emacs end-of-line behaviour for M-e, C-M-f on S-expressions;
 ;;; vim end-of-line behaviour for $, l.
