@@ -490,6 +490,8 @@
 	 (cond
 	  ((and cc sym (string-match-p "^gl[A-Z][^\s-]+$" sym))
 	   (concat "https://docs.gl/" (read-string "OpenGL: " (concat "gl4/" sym))))
+	  ((and cc sym (string-match-p "^Q[^\s-]+$" sym))
+	   (format "https://doc.qt.io/qt-5/%s.html" (downcase (read-string "Qt: " sym))))
 	  ((and cc sym (string-match-p "^M[A-Z][^\s-]+$" sym))
 	   (format "https://help.autodesk.com/view/MAYAUL/2020/ENU/?query=%s&cg=Developer%%27s%%20Documentation"
 		   (read-string "Maya API: " sym)))
