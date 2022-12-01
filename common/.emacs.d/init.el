@@ -1656,7 +1656,10 @@ return the project path instead"
 
 (add-hook 'sh-mode-hook 'my-syntax-entry)
 
-(global-set-key (kbd "C-c v") 'shell)
+(global-set-key (kbd "C-c v") (lambda ()
+				(interactive)
+				(let ((current-prefix-arg 4)) ;; emulate C-u
+				  (call-interactively 'shell))))
 (global-set-key (kbd "C-c V") 'my-split-shell)
 
 ;; ----------------------------------------------------------------------------
