@@ -1695,7 +1695,7 @@ return the project path instead"
 
 (add-hook 'eshell-mode-hook 'my-eshell-hook)
 
-(global-set-key (kbd "C-c b") 'eshell)
+(global-set-key (kbd "C-c T") 'eshell)
 
 ;; ----------------------------------------------------------------------------
 ;* Tags
