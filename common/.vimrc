@@ -286,6 +286,8 @@ else
 		set formatoptions+=j
 	endif
 endif
+" stop adding comment when opening a new line
+set formatoptions-=o
 
 " tcsh startup slow at work
 if &shell == "/bin/tcsh"
