@@ -288,7 +288,7 @@ else
 	endif
 endif
 " stop adding comment when opening a new line
-set formatoptions-=o
+autocmd FileType,BufNewFile,BufRead * set formatoptions-=o
 
 " tcsh startup slow at work
 if &shell == "/bin/tcsh"
