@@ -1506,6 +1506,7 @@ return the project path instead"
 ;* Compilation
 ;; ----------------------------------------------------------------------------
 
+(setq-default compile-command "make")
 (setq-default compilation-ask-about-save nil)
 (setq-default compilation-scroll-output t)
 (setq-default compilation-skip-threshold 2) ;; skip warnings
