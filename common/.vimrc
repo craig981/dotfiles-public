@@ -26,7 +26,7 @@ set splitbelow splitright
 set laststatus=2
 
 set nohlsearch
-"set incsearch
+set incsearch
 nnoremap <C-h> :set invhlsearch<CR>
 nnoremap <C-l> zz
 vnoremap <C-l> zz
