@@ -940,7 +940,6 @@
 ;;     (add-to-list 'load-path dir)))
 
 (require 'helm)
-(require 'helm-config)
 
 (helm-minibuffer-history-mode)
 
