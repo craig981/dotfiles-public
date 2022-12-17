@@ -920,17 +920,6 @@
  consult-buffer consult-buffer-other-window consult-theme
  :preview-key (kbd "C-j"))
 
-(require 'consult-dir)
-
-(global-set-key (kbd "C-x C-d") #'consult-dir)
-(define-key vertico-map (kbd "C-x C-d") #'consult-dir)
-
-;;; insert directory name into buffer
-(setq consult-dir-default-command
-      (lambda ()
-	(interactive)
-	(insert default-directory)))
-
 ;; ----------------------------------------------------------------------------
 ;* Helm
 ;; ----------------------------------------------------------------------------
@@ -2307,7 +2296,6 @@ current project instead. Visit the tags file."
    '(bongo
      cmake-mode
      consult
-     consult-dir
      eglot
      evil
      evil-leader
