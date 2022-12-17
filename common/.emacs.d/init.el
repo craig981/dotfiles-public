@@ -1770,8 +1770,6 @@ current project instead. Visit the tags file."
 
 (defun my-python-mode-hook ()
   (my-syntax-entry)
-  ;; (anaconda-mode)
-  ;; (anaconda-eldoc-mode)
   (setq-local tab-width 4)
   (setq-local evil-shift-width 4))
 
@@ -2306,8 +2304,7 @@ current project instead. Visit the tags file."
  '(org-imenu-depth 3)
  '(org-refile-targets '((org-agenda-files :maxlevel . 2)))
  '(package-selected-packages
-   '(anaconda-mode
-     bongo
+   '(bongo
      cmake-mode
      consult
      consult-dir
