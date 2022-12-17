@@ -932,14 +932,6 @@
 	(insert default-directory)))
 
 ;; ----------------------------------------------------------------------------
-;* Embark
-;; ----------------------------------------------------------------------------
-
-(require 'embark)
-
-(define-key minibuffer-local-map (kbd "C-o") 'embark-act)
-
-;; ----------------------------------------------------------------------------
 ;* Helm
 ;; ----------------------------------------------------------------------------
 
@@ -2321,7 +2313,6 @@ current project instead. Visit the tags file."
      consult
      consult-dir
      eglot
-     embark
      evil
      evil-leader
      evil-collection
