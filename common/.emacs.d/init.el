@@ -1588,10 +1588,11 @@ return the project path instead"
 
 (setq comint-prompt-read-only t)
 (define-key shell-mode-map (kbd "M-_") 'comint-insert-previous-argument)
-(define-key shell-mode-map (kbd "C-r")
-  ;; 'consult-history
-  'comint-history-isearch-backward
-  )
+(define-key shell-mode-map (kbd "C-r") (lambda (&optional prefix)
+					 (interactive "P")
+					 (if prefix
+					     (consult-history)
+					   (comint-history-isearch-backward))))
 (define-key shell-mode-map (kbd "SPC") 'comint-magic-space)
 (define-key shell-mode-map (kbd "C-c C-l") 'comint-clear-buffer)
 (define-key comint-mode-map (kbd "C-r") 'comint-history-isearch-backward)
