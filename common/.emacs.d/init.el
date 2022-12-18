@@ -2251,6 +2251,13 @@ current project instead. Visit the tags file."
       (sit-for 0.2))
     (my-bongo-set-volume))
 
+  ;; stop asking for confirmation to stop player before killing buffer
+  (defun my-bongo-confirm-player-stop ()
+    (or (not bongo-player)
+	(bongo-player-stop bongo-player)
+	t))
+  (advice-add 'bongo-confirm-player-stop :override 'my-bongo-confirm-player-stop)
+
   (add-hook 'bongo-player-started-hook 'my-bongo-start-hook)
   (add-hook 'bongo-mode-hook 'my-bongo-mode-hook))
 
