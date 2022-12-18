@@ -194,7 +194,7 @@
 ;; tabs+spaces instead of all tabs
 (setq-default align-to-tab-stop nil)
 
-(setq-default tab-always-indent t)
+(setq-default tab-always-indent nil)
 
 (electric-indent-mode 1)
 
@@ -448,19 +448,12 @@
 
 (global-fancy-dabbrev-mode)
 
-(defun my-insert-mode-tab (&optional arg)
-  (interactive "P")
-  (if (not evil-input-method)
-      (fancy-dabbrev-expand-or-indent)
-    (insert-tab arg)))
-
-(evil-global-set-key 'insert (kbd "TAB") 'my-insert-mode-tab)
 (global-set-key (kbd "M-/") 'fancy-dabbrev-expand)
 (global-set-key (kbd "<backtab>") 'fancy-dabbrev-backward)
 (setq-default fancy-dabbrev-menu-height 15)
 (setq-default fancy-dabbrev-preview-context 'everywhere)
 (setq-default fancy-dabbrev-preview-delay 0.25)
-(push 'evil-input-method fancy-dabbrev-no-preview-for)
+;; (push 'evil-input-method fancy-dabbrev-no-preview-for)
 
 ;; ----------------------------------------------------------------------------
 ;* Lang
@@ -1877,7 +1870,7 @@ current project instead. Visit the tags file."
 		(topmost-intro . 0))))
 
 (setq-default c-default-style "my-c-style")
-(setq-default c-tab-always-indent t)
+(setq-default c-tab-always-indent nil)
 
 
 ;;grey out between #if 0 #endif
@@ -1906,7 +1899,6 @@ current project instead. Visit the tags file."
 (defun my-c-cpp-settings()
   (local-set-key (kbd my-compile-key) #'my-compile-project)
   (evil-local-set-key 'normal (kbd "[#") 'c-up-conditional)
-  (local-set-key (kbd "TAB") #'fancy-dabbrev-expand-or-indent)
   ;; don't want c-submit-bug-report
   (local-set-key (kbd "C-c C-b") nil)
   (auto-fill-mode -1)
