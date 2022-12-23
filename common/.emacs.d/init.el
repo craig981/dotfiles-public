@@ -1301,15 +1301,16 @@ return the project path instead"
     (setq deactivate-mark t)
     (isearch-yank-string search)))
 
+(defun my-isearch-C-w ()
+  (interactive)
+  (if (use-region-p)
+      (my-isearch-yank-region)
+    (if (version< emacs-version "27.1")
+	(isearch-yank-word-or-char)
+      (isearch-yank-word-or-char 1))))
+
 ;; C-w yanks region if active, otherwise default behaviour (word)
-(define-key isearch-mode-map (kbd "C-w")
-  (lambda ()
-    (interactive)
-    (if (use-region-p)
-	(my-isearch-yank-region)
-      (if (version< emacs-version "27.1")
-	  (isearch-yank-word-or-char)
-	(isearch-yank-word-or-char 1)))))
+(define-key isearch-mode-map (kbd "C-w") 'my-isearch-C-w)
 
 (defun my-isearch-remove-failed-part ()
   "Remove failed part of search string, or last char if successful."
