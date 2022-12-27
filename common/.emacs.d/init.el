@@ -304,6 +304,7 @@
 (evil-leader/set-key "\\" #'my-delete-trailing-whitespace)
 (evil-leader/set-key "m" #'my-mirror-buffer)
 (evil-leader/set-key "d" 'pwd)
+(evil-leader/set-key "SPC" (kbd "=i{"))
 
 (global-set-key (kbd "M-\\") #'my-delete-space)
 
@@ -492,7 +493,6 @@
 	  (t (concat google (url-hexify-string (read-string "Search Google: " sym))))))))))
 
 (global-set-key (kbd "M-s M-w") #'my-lookup)
-(evil-leader/set-key "SPC" #'my-lookup)
 
 ;; ----------------------------------------------------------------------------
 ;* Keyboard
