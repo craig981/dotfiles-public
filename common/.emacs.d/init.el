@@ -248,6 +248,14 @@
       (my-delete-trailing-whitespace)
     (delete-horizontal-space)))
 
+(defun my-delete-empty-lines-or-spaces ()
+  (interactive)
+  (if (save-excursion
+	(beginning-of-line)
+	(looking-at-p "[[:space:]]*$"))
+      (delete-blank-lines)
+    (my-delete-space)))
+
 (defun my-align-regexp ()
   (interactive)
   (if (region-active-p)
@@ -306,6 +314,7 @@
 (evil-leader/set-key "d" 'pwd)
 (evil-leader/set-key "SPC" (kbd "=i{"))
 
+(global-set-key (kbd "M-'") 'my-delete-empty-lines-or-spaces)
 (global-set-key (kbd "M-\\") #'my-delete-space)
 
 (evil-global-set-key 'insert (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
@@ -344,7 +353,6 @@
 (global-set-key (kbd "M-o") (kbd "C-x o"))
 (global-set-key (kbd "M-j") (lambda () (interactive) (join-line 1)))
 (global-set-key (kbd "M-=") 'count-words)
-(global-set-key (kbd "M-'") #'delete-blank-lines)
 
 (global-set-key (kbd "C-c w h") #'evil-window-move-far-left)
 (global-set-key (kbd "C-c w l") #'evil-window-move-far-right)
