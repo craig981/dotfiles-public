@@ -1105,6 +1105,11 @@
 	  (delete-char (- (length end)))
 	(insert end)))))
 
+(define-key helm-occur-map (kbd "M-w")
+  (lambda ()
+    (interactive)
+    (my-toggle-symbol-boundary "\\<" "\\>" "\\\\<")))
+
 (define-key helm-ag-map (kbd "M-w")
   (lambda ()
     (interactive)
