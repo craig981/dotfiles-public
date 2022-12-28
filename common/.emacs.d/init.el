@@ -468,6 +468,13 @@
 ;* Lang
 ;; ----------------------------------------------------------------------------
 
+(defun my-advise-toggle-input-method (func &rest args)
+  (if (evil-normal-state-p)
+      (evil-with-state 'emacs (apply func args))
+    (apply func args)))
+
+(advice-add #'toggle-input-method :around 'my-advise-toggle-input-method)
+
 (defun my-lookup ()
   (interactive)
   (let* ((google "https://www.google.com/search?ie=utf-8&oe=utf-8&q=")
@@ -2277,6 +2284,7 @@ current project instead. Visit the tags file."
  '(dabbrev-backward-only t)
  '(dabbrev-case-distinction nil)
  '(dabbrev-case-fold-search nil)
+ '(default-input-method "swedish-postfix")
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
  '(eldoc-echo-area-use-multiline-p nil)
  '(eldoc-idle-delay 0.25)
@@ -2333,8 +2341,6 @@ current project instead. Visit the tags file."
  '(read-quoted-char-radix 16)
  '(safe-local-variable-values
    '((tab-always-indent)
-     (evil-input-method . swedish-postfix)
-     (evil-input-method . german-postfix)
      (indent-tabs-mode nil)
      (evil-shift-width . 2)
      (evil-shift-width . 4)))
