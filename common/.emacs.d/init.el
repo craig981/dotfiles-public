@@ -71,12 +71,9 @@
 (add-hook 'evil-command-window-mode-hook 'evil-local-mode)
 
 (when (fboundp 'evil-set-undo-system)
-  (if (version< emacs-version "28.1")
-      (progn
-	(require 'undo-tree)
-	(global-undo-tree-mode)
-	(evil-set-undo-system 'undo-tree))
-    (evil-set-undo-system 'undo-redo)))
+  (require 'undo-tree)
+  (global-undo-tree-mode)
+  (evil-set-undo-system 'undo-tree))
 (evil-declare-ignore-repeat 'evil-undo)
 
 (evil-leader/set-leader "<SPC>")
