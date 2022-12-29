@@ -1535,6 +1535,11 @@ return the project path instead"
 
 (add-hook 'compilation-mode-hook 'my-compilation-mode-hook)
 
+(defun my-compilation-filter-hook ()
+ (ansi-color-apply-on-region compilation-filter-start (point)))
+
+(add-hook 'compilation-filter-hook 'my-compilation-filter-hook)
+
 (defun my-jump-compilation ()
   (interactive)
   (let ((w (get-buffer-window "*compilation*")))
