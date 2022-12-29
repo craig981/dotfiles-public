@@ -362,6 +362,7 @@
 (global-set-key (kbd "C-h C-c") nil) ;; disable describe-copying
 
 (global-set-key (kbd "C-c j") 'jump-to-register)
+(global-set-key (kbd "C-x w") 'subword-mode)
 
 (setq register-preview-delay 0.5)
 
