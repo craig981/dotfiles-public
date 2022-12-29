@@ -298,6 +298,12 @@
 (defun my-man-page-hook ()
   (evil-local-mode))
 
+(defun my-jump-buffer (name)
+  (interactive)
+  (let ((w (get-buffer-window name)))
+      (if w
+	  (select-window w)
+	(switch-to-buffer name))))
 
 (evil-leader/set-key "s" #'my-substitute) ; substitute whole buffer
 (evil-leader/set-key "S" ; substitute from current line to end of buffer
@@ -400,6 +406,8 @@
   (evil-local-set-key 'normal (kbd "q") 'quit-window))
 
 (add-hook 'messages-buffer-mode-hook 'my-messages-mode-hook)
+
+(global-set-key (kbd "C-c G") (lambda () (interactive) (my-jump-buffer "*Help*")))
 
 (defun my-list-all-keymaps ()
   (let (maps)
@@ -1542,13 +1550,6 @@ return the project path instead"
 
 (add-hook 'compilation-filter-hook 'my-compilation-filter-hook)
 
-(defun my-jump-compilation ()
-  (interactive)
-  (let ((w (get-buffer-window "*compilation*")))
-      (if w
-	  (select-window w)
-	(switch-to-buffer "*compilation*"))))
-
 (defun my-compile-project ()
   (interactive)
   (let ((d (my-find-project-root)))
@@ -1561,7 +1562,7 @@ return the project path instead"
 (global-set-key (kbd my-compile-key) #'my-compile-project)
 (global-set-key (kbd "C-c C-,") #'recompile)
 (global-set-key (kbd "C-c ,") #'recompile)
-(global-set-key (kbd "C-c g") #'my-jump-compilation)
+(global-set-key (kbd "C-c g") (lambda () (interactive) (my-jump-buffer "*compilation*")))
 (define-key compilation-mode-map (kbd "SPC") evil-leader--default-map)
 (define-key compilation-mode-map (kbd "C-w") 'evil-window-map)
 (define-key compilation-mode-map (kbd "?") nil)
