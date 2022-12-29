@@ -311,11 +311,20 @@
     (interactive)
     (my-substitute ".,$")))
 
+(defun my-select-last-pasted ()
+  (interactive)
+  (let ((a (save-excursion (evil-goto-mark ?\[) (point)))
+	(b (save-excursion (evil-goto-mark ?\]) (point))))
+    (goto-char b)
+    (evil-visual-char)
+    (push-mark a)))
+
 (evil-leader/set-key "=" #'my-align-regexp)
 (evil-leader/set-key "\\" #'my-delete-trailing-whitespace)
 (evil-leader/set-key "m" #'my-mirror-buffer)
 (evil-leader/set-key "d" 'pwd)
 (evil-leader/set-key "SPC" (kbd "=i{"))
+(evil-global-set-key 'normal (kbd "gp") 'my-select-last-pasted)
 
 (global-set-key (kbd "M-'") 'my-delete-empty-lines-or-spaces)
 (global-set-key (kbd "M-\\") #'my-delete-space)

@@ -116,6 +116,8 @@ endif
 "paste last deleted text
 cnoremap <C-y> <C-r>"
 inoremap <C-y> <C-r>"
+" select last pasted text
+nnoremap gp `[v`]
 
 "delete to end of command line like emacs
 function! KillLine()
