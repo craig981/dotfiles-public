@@ -1777,6 +1777,8 @@ current project instead. Visit the tags file."
 (define-key paredit-mode-map (kbd "C-j") #'my-lisp-ctrl-j)
 (define-key paredit-mode-map (kbd "M-s") nil)
 (define-key paredit-mode-map (kbd "M-s s") 'paredit-splice-sexp)
+(define-key paredit-mode-map (kbd "M-s r") 'paredit-raise-sexp)
+(define-key paredit-mode-map (kbd "M-r") nil)
 
 (defun my-lisp-common-hook ()
   (enable-paredit-mode)
