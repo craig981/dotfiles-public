@@ -1388,6 +1388,7 @@ return the project path instead"
 (require 'dired)
 (require 'dired-x)
 (setq dired-dwim-target t)
+(put 'dired-find-alternate-file 'disabled nil)
 
 ;; kill dired buffer instead of burying it
 (define-key dired-mode-map (kbd "q")
