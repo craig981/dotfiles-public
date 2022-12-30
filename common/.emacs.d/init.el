@@ -459,7 +459,10 @@
 (define-global-abbrev "retrun" "return")
 (define-global-abbrev "cosnt" "const")
 (define-global-abbrev "conat" "const")
+(define-global-abbrev "co" "const")
 (define-global-abbrev "trinagle" "triangle")
+(define-global-abbrev "trl" "translate")
+(define-global-abbrev "trm" "transform")
 
 ;;; want C-x C-l to expand line first
 (push 'try-expand-line hippie-expand-try-functions-list)
