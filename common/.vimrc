@@ -282,6 +282,7 @@ else
 	nnoremap <Esc>o <C-W><C-W>
 	if v:version >= 801
 		tnoremap <Esc>o <C-\><C-n><C-W><C-W>
+		tnoremap <C-W><C-Y> <C-W>""
 	endif
 
 	" Ctrl-[ quicker
