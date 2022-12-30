@@ -76,6 +76,9 @@
   (evil-set-undo-system 'undo-tree))
 (evil-declare-ignore-repeat 'evil-undo)
 
+(evil-global-set-key 'normal (kbd "C-r") nil)
+(evil-global-set-key 'normal (kbd "C-M-r") 'evil-redo)
+
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key "w" 'evil-write)
 
