@@ -1767,8 +1767,8 @@ current project instead. Visit the tags file."
 	   (path (and dir (expand-file-name (file-name-as-directory dir)))))
       (if (not path)
 	  (message (format "No existing TAGS file found above %s" default-directory))
-	(when (y-or-n-p (format "Run make TAGS in %s" path))
-	  (message (format "Running make -C %s TAGS" path))
+	(when (y-or-n-p (format "Run 'make TAGS' in %s" path))
+	  (message (format "Running 'make -C %s TAGS'" path))
 	  (call-process "make" nil nil nil "-C" path "TAGS")
 	  (visit-tags-table (concat path "TAGS")))))))
 
