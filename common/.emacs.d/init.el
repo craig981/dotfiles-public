@@ -1398,15 +1398,6 @@ return the project path instead"
 (setq search-upper-case t)
 
 ;; ----------------------------------------------------------------------------
-;* Yasnippet
-;; ----------------------------------------------------------------------------
-
-(require 'yasnippet)
-(setq-default yas-snippet-dirs '("~/.emacs.d/snippets"))
-(yas-reload-all)
-(evil-global-set-key 'insert (kbd "C-]") #'yas-expand)
-
-;; ----------------------------------------------------------------------------
 ;* Dired
 ;; ----------------------------------------------------------------------------
 
@@ -1969,8 +1960,7 @@ current project instead. Visit the tags file."
   (auto-fill-mode -1)
   (setq-local fill-column 80)
   (cpp-highlight-if-0/1)
-  (add-hook 'after-save-hook 'cpp-highlight-if-0/1 'append 'local)
-  (yas-minor-mode))
+  (add-hook 'after-save-hook 'cpp-highlight-if-0/1 'append 'local))
 
 (defvar my-cc-path)
 
@@ -2008,6 +1998,71 @@ current project instead. Visit the tags file."
 				  (c++-mode . ((tab-width . 4)
 					       (evil-shift-width . 4)
 					       (indent-tabs-mode . nil)))))
+
+
+
+(define-skeleton my-cpp-include "" nil
+  "#include \"" - "\"")
+
+(define-skeleton my-cpp-include-sys "" nil
+  "#include <" - ">")
+
+(define-skeleton my-cpp-for "" nil
+  > "for ("
+  (skeleton-read "Type: " "int") " "
+  (setq v1 (skeleton-read "Variable: " "i")) "="
+  (skeleton-read "Start: " "0") "; "
+  v1 "<"
+  (skeleton-read "End: " "3") "; ++" v1 ") {\n"
+  > - "\n"
+  > -1 "}\n")
+
+(define-skeleton my-cpp-for-iter "" nil
+  > "for (\t"
+  (skeleton-read "Container Type: " "std::vector<int>") "::"
+  (skeleton-read "Iterator: " "const_iterator") "\n"
+  > -1 (setq v1 (skeleton-read "Variable: " "it")) "="
+  (setq v2 (skeleton-read "Container: " "")) ".begin(); " v1 "!=" v2 ".end(); ++" v1 "\n"
+  > -2 ") {\n"
+  > - "\n"
+  > -1 "}\n")
+
+(define-skeleton my-cpp-print-vec "" "Variable: "
+  "<< " str "[0] << \" \" <<\n"
+  > str "[1] << \" \" <<\n"
+  > str "[2] << \" \" <<" -)
+
+(define-skeleton my-cpp-include-guard "" nil
+  "#ifndef INCLUDED_" (setq v1 (upcase
+				(let ((name (buffer-file-name)))
+				  (if name
+				      (file-name-nondirectory
+				       (file-name-sans-extension name))
+				    (skeleton-read "Name: "))))) "_H\n"
+  "#define INCLUDED_" v1 "_H\n\n"
+  "namespace " (skeleton-read "Namespace: ") " {\n\n"
+  -
+  "\n\n} // end namespace\n\n"
+  "#endif\n")
+
+(define-skeleton my-cpp-main "" nil
+  "#include <iostream>\n\n"
+  "using std::cerr;\n\n"
+  "int main(int argc, const char *argv[]) {\n"
+  > - "\n"
+  > "return 0;\n}\n")
+
+
+(with-eval-after-load "cc-mode"
+  (dolist (table (list c-mode-abbrev-table c++-mode-abbrev-table))
+    (define-abbrev table "incg" "" 'my-cpp-include-guard)
+    (define-abbrev table "incs" "" 'my-cpp-include)
+    (define-abbrev table "inc"  "" 'my-cpp-include-sys)
+    (define-abbrev table "for"  "" 'my-cpp-for)
+    (define-abbrev table "fori" "" 'my-cpp-for-iter)
+    (define-abbrev table "pv"   "" 'my-cpp-print-vec)
+    (define-abbrev table "main" "" 'my-cpp-main)))
+
 
 ;; ----------------------------------------------------------------------------
 ;* Rust
@@ -2387,8 +2442,7 @@ current project instead. Visit the tags file."
      undo-tree
      vertico
      which-key
-     yaml-mode
-     yasnippet))
+     yaml-mode))
  '(read-quoted-char-radix 16)
  '(safe-local-variable-values
    '((tab-always-indent)
