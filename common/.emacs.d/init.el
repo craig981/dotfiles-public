@@ -58,7 +58,7 @@
 (global-evil-leader-mode)
 (evil-esc-mode 1)			; make C-[ escape
 
-(global-set-key (kbd "C-c C-M-e") #'evil-local-mode)
+(global-set-key (kbd "C-c M-e") #'evil-local-mode)
 
 (defun my-find-file-hook ()
   (if (file-remote-p (buffer-file-name))
@@ -1451,6 +1451,7 @@ return the project path instead"
 	(call-interactively 'image-dired-display-thumbnail-original-image)))))
 
 (global-set-key (kbd "C-x C-j") 'dired-jump)
+(global-set-key (kbd "C-c F") 'find-dired)
 
 ;;; stop opening multiple image buffers
 (push '((lambda (buf actions)
@@ -1747,9 +1748,6 @@ return the project path instead"
 
 (evil-set-initial-state 'xref--xref-buffer-mode 'emacs)
 
-(evil-global-set-key 'normal (kbd "C-w .") (kbd "C-x 4 ."))
-(evil-global-set-key 'normal (kbd "C-w C-.") (kbd "C-x 4 ."))
-
 (defun my-rebuild-and-load-tags (&optional one-project)
   "Find a TAGS file above the default-directory, invoke make TAGS
 in that directory. If run with a prefix arg, generate tags in the
@@ -1774,7 +1772,7 @@ current project instead. Visit the tags file."
 	  (call-process "make" nil nil nil "-C" path "TAGS")
 	  (visit-tags-table (concat path "TAGS")))))))
 
-(global-set-key (kbd "C-c C-]") #'my-rebuild-and-load-tags)
+(global-set-key (kbd "C-c M-.") #'my-rebuild-and-load-tags)
 
 ;; ----------------------------------------------------------------------------
 ;* Lisp
