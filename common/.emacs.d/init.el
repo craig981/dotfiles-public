@@ -202,7 +202,7 @@
 ;* Convenience
 ;; ----------------------------------------------------------------------------
 
-(fset 'yes-or-no-p 'y-or-n-p)
+(defalias 'yes-or-no-p 'y-or-n-p)
 (column-number-mode t)
 
 (show-paren-mode)
@@ -219,10 +219,9 @@
 (recentf-mode 1)
 (save-place-mode 1)
 (setq save-place-forget-unreadable-files nil)
-(when (eq system-type 'gnu/linux)
-  (setq history-length 1000)
-  (setq history-delete-duplicates t)
-  (savehist-mode 1))
+(setq history-length 1000)
+(setq history-delete-duplicates t)
+(savehist-mode 1)
 
 (require 'thingatpt)
 
@@ -287,12 +286,8 @@
       (recenter-top-bottom))))
 
 (defun my-kill-buffer ()
-  "Kill unmodified buffers without asking"
   (interactive)
-  (if (or buffer-read-only
-	  (not (buffer-modified-p)))
-      (kill-this-buffer)
-    (call-interactively 'kill-buffer)))
+  (kill-buffer (current-buffer)))
 
 (defun my-close-other-window ()
   (interactive)
@@ -323,7 +318,6 @@
     (push-mark a)))
 
 (evil-leader/set-key "=" #'my-align-regexp)
-(evil-leader/set-key "\\" #'my-delete-trailing-whitespace)
 (evil-leader/set-key "m" #'my-mirror-buffer)
 (evil-leader/set-key "d" 'pwd)
 (evil-leader/set-key "SPC" (kbd "=i{"))
@@ -348,7 +342,6 @@
   (advice-add #'Man-completion-table :override #'my-advise-man-completion))
 
 (global-set-key (kbd "C-c q") #'my-close-other-window)
-
 (evil-global-set-key 'motion (kbd "C-w d") 'my-kill-buffer)
 (evil-global-set-key 'motion (kbd "C-w C-d") 'my-kill-buffer)
 (global-set-key (kbd "C-x k") 'my-kill-buffer)
