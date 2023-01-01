@@ -277,6 +277,8 @@
 (defun my-mirror-buffer ()
   "Mirror current buffer to other window"
   (interactive)
+  (when (= 1 (count-windows))
+    (split-window-right))
   (let ((buf (current-buffer))
 	(line (line-number-at-pos)))
     (save-selected-window
