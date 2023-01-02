@@ -76,9 +76,6 @@
   (evil-set-undo-system 'undo-tree))
 (evil-declare-ignore-repeat 'evil-undo)
 
-(evil-global-set-key 'normal (kbd "C-r") nil)
-(evil-global-set-key 'normal (kbd "C-M-r") 'evil-redo)
-
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key "w" 'evil-write)
 
@@ -374,6 +371,7 @@
 (global-unset-key (kbd "C-h h")) ;; stop accidentally opening hello file
 (global-set-key (kbd "C-h C-c") nil) ;; disable describe-copying
 
+(global-set-key (kbd "C-M-r") 'isearch-backward)
 (global-set-key (kbd "C-c j") 'jump-to-register)
 (global-set-key (kbd "C-x w") 'subword-mode)
 
@@ -650,6 +648,7 @@
 				 (gnuplot . t)))
 
   (define-key org-mode-map (kbd "C-j") nil)
+  (define-key org-mode-map (kbd "C-c C-j") 'counsel-org-goto)
 
   (when (eq system-type 'darwin)
 
