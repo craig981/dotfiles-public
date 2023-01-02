@@ -640,7 +640,8 @@
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "M-n") 'forward-paragraph)
   (define-key org-mode-map (kbd "M-p") 'backward-paragraph)
-  (define-key org-mode-map (kbd "C-c C-x l") 'org-toggle-link-display)
+  (define-key org-mode-map (kbd "C-c [") 'org-toggle-link-display)
+  (define-key org-mode-map (kbd "C-c ]") 'org-toggle-link-display)
 
   (org-babel-do-load-languages 'org-babel-load-languages
 			       '((shell . t)
