@@ -677,9 +677,9 @@
 (setq org-src-fontify-natively t)
 (setq org-startup-folded nil)
 (setq org-confirm-babel-evaluate nil)
-(when (eq system-type 'gnu/linux)
-  (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)")
-			    (sequence "|" "CANCELLED(c)"))))
+;; (when (eq system-type 'gnu/linux)
+;;   (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)")
+;; 			    (sequence "|" "CANCELLED(c)"))))
 
 (setq org-capture-templates
       '(("b" "Bookmark" entry (file+headline org-default-notes-file "Bookmarks")
