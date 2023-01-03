@@ -2226,8 +2226,8 @@ current project instead. Visit the tags file."
 	(my-theme-dark (not x))
       (my-theme-light (not x)))))
 
-(global-set-key (kbd "<f5>") (lambda () (interactive) (my-color-theme-toggle t)))
-(global-set-key (kbd "<f6>") (lambda () (interactive) (my-color-theme-toggle nil)))
+(global-set-key (kbd "C-c h") (lambda () (interactive) (my-color-theme-toggle t)))
+(global-set-key (kbd "C-c H") (lambda () (interactive) (my-color-theme-toggle nil)))
 
 ;; ----------------------------------------------------------------------------
 ;* Font
