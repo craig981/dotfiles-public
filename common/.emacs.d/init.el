@@ -1759,6 +1759,8 @@ current project instead. Visit the tags file."
 	  (visit-tags-table (concat path "TAGS")))))))
 
 (global-set-key (kbd "C-c M-.") #'my-rebuild-and-load-tags)
+(evil-global-set-key 'motion (kbd "C-w .") (kbd "C-x 4 ."))
+(evil-global-set-key 'motion (kbd "C-w C-.") (kbd "C-x 4 ."))
 
 ;; ----------------------------------------------------------------------------
 ;* Lisp
