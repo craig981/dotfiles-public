@@ -141,9 +141,9 @@
 (evil-global-set-key 'normal (kbd "g C-a") 'evil-numbers/inc-at-pt-incremental)
 (evil-global-set-key 'normal (kbd "g C-p") 'evil-numbers/dec-at-pt-incremental)
 
-(defun my-advise-window-rotate ()
-  (other-window 1))
-(advice-add 'evil-window-rotate-downwards :after #'my-advise-window-rotate)
+;; (defun my-advise-window-rotate ()
+;;   (other-window 1))
+;; (advice-add 'evil-window-rotate-downwards :after #'my-advise-window-rotate)
 
 (defun my-advise-window-new (func &rest args)
   "Use evil-local-mode and the same major mode in the new buffer"
