@@ -459,6 +459,7 @@
 (define-global-abbrev "trinagle" "triangle")
 (define-global-abbrev "trl" "translate")
 (define-global-abbrev "trm" "transform")
+(define-global-abbrev "bec" "because")
 
 ;;; want C-x C-l to expand line first
 (push 'try-expand-line hippie-expand-try-functions-list)
@@ -2228,8 +2229,8 @@ current project instead. Visit the tags file."
 	(my-theme-dark (not x))
       (my-theme-light (not x)))))
 
-(global-set-key (kbd "C-c h") (lambda () (interactive) (my-color-theme-toggle t)))
-(global-set-key (kbd "C-c H") (lambda () (interactive) (my-color-theme-toggle nil)))
+(global-set-key (kbd "C-c w d") (lambda () (interactive) (my-color-theme-toggle t)))
+(global-set-key (kbd "C-c w o") (lambda () (interactive) (my-color-theme-toggle nil)))
 
 ;; ----------------------------------------------------------------------------
 ;* Font
