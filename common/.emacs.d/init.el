@@ -451,6 +451,7 @@
 ;* Abbreviations
 ;; ----------------------------------------------------------------------------
 
+(setq save-abbrevs nil)
 (add-hook 'text-mode-hook #'abbrev-mode)
 (define-global-abbrev "retrun" "return")
 (define-global-abbrev "cosnt" "const")
