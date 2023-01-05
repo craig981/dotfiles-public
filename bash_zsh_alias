@@ -12,13 +12,15 @@ if [[ "$(uname -s)" = "Darwin" ]]; then
   export CLICOLOR=1
   export LSCOLORS=GxFxCxDxBxegedabagaced
 
-  if [ "$TERM" = dumb ] && [ "$INSIDE_EMACS" ]; then
-      export TERM=dumb-emacs-ansi COLORTERM=1
-  fi
-
   alias vim=~/tools/vim9/bin/vim
 
 else
+
+  if [ "$INSIDE_EMACS" ]; then
+    export LS_COLORS='no=00:fi=00:di=1;36:ow=1;36:ln=01;33:pi=04;33:*.dylib=04;03;31:so=01;35:bd=03;32;03:cd=03;36;02:or=30;01;31:ex=01;32'
+  else
+    export LS_COLORS='no=00:fi=00:di=1;34:ow=1;34:ln=01;33:pi=04;33:*.dylib=04;03;31:so=01;35:bd=03;32;03:cd=03;36;02:or=30;01;31:ex=01;32'
+  fi
 
   alias ls='/bin/ls --color=auto'
   alias ll='/bin/ls -lrth --color=auto'
@@ -28,6 +30,10 @@ else
   alias ke='killall -s 9 emacs'
   alias km='killall -s 9 maya.bin'
 
+fi
+
+if [ "$TERM" = dumb ] && [ "$INSIDE_EMACS" ]; then
+  export TERM=dumb-emacs-ansi COLORTERM=1
 fi
 
 export EDITOR=vim

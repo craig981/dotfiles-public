@@ -33,6 +33,8 @@ alias ga 'git add -p'
 alias gc 'git commit'
 alias gl 'git lo'
 
+setenv LS_COLORS 'no=00:fi=00:di=38;5;69:ow=38;5;69:ln=01;33:pi=04;33:*.dylib=04;03;31:so=01;35:bd=03;32;03:cd=03;36;02:or=30;01;31:ex=01;32'
+
 if ( $?prompt ) then
   # if ( "$TERM" == "dumb" ) then
     # set prompt='$ '
@@ -40,6 +42,14 @@ if ( $?prompt ) then
     set PROMPT_COLOR='38;5;242'
     set prompt='%B%m%B %{^[[%$PROMPT_COLOR;1m%}%c2%{^[[0m%} > '
   # endif
+
+    if ( $?INSIDE_EMACS ) then
+	if ( "$TERM" == "dumb" ) then
+		setenv TERM dumb-emacs-ansi
+		setenv COLORTERM 1
+	endif
+	setenv LS_COLORS 'no=00:fi=00:di=1;34:ow=1;34:ln=01;33:pi=04;33:*.dylib=04;03;31:so=01;35:bd=03;32;03:cd=03;36;02:or=30;01;31:ex=01;32'
+    endif
 endif
 
 # make ctrl-D exit
@@ -49,5 +59,3 @@ set history=10000
 
 # treat . and _ as punctuation for word delete
 set wordchars=
-
-setenv LS_COLORS 'no=00:fi=00:di=38;5;69:ow=38;5;69:ln=01;33:pi=04;33:*.dylib=04;03;31:so=01;35:bd=03;32;03:cd=03;36;02:or=30;01;31:ex=01;32'
