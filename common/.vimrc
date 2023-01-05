@@ -226,7 +226,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 		autocmd ColorScheme reykjavik hi WarningMsg guifg='#ffffff'
 		autocmd ColorScheme reykjavik hi IncSearch guifg='#ffffff' guibg=NONE
 		autocmd ColorScheme reykjavik hi CurSearch guifg='#000000' guibg='#ffffff'
-		autocmd ColorScheme reykjavik hi Search guibg='#b1b1b1' guifg='#000000'
+		autocmd ColorScheme reykjavik hi Search guibg='#909090' guifg='#000000'
 	augroup END
 
 	"autocmd VimEnter * colorscheme gruvbox

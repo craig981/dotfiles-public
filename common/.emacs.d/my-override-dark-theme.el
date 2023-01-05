@@ -4,8 +4,8 @@
 (custom-theme-set-faces
  'my-override-dark
  '(highlight ((t (:background "#37464a" :foreground "#959595"))))
- '(isearch ((t (:background "white" :foreground "black"))))
- '(lazy-highlight ((t (:background "#b1b1b1" :foreground "black" ))))
+ '(isearch ((t (:background "white" :foreground "#050505"))))
+ '(lazy-highlight ((t (:background "#909090" :foreground "black" ))))
  '(helm-match ((t (:inherit region))))
  '(font-lock-warning-face ((t (:background "#243539" :foreground "#e81050"))))
  '(show-paren-match ((t (:weight bold :background nil :foreground "#dddddd")))))
