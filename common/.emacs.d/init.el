@@ -2008,9 +2008,9 @@ current project instead. Visit the tags file."
 (define-skeleton my-cpp-for "" nil
   > "for ("
   (skeleton-read "Type: " "int") " "
-  (setq v1 (skeleton-read "Variable: " "i")) "=0; "
+  (setq v1 (skeleton-read "Variable: " "")) "=0; "
   v1 "<"
-  (skeleton-read "End: " "3") "; ++" v1 ") {\n"
+  (skeleton-read "End: " "") "; ++" v1 ") {\n"
   > - "\n"
   > -1 "}\n")
 
