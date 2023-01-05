@@ -12,6 +12,7 @@ alias tmux	'tmux -2'
 alias abcll	'abcls -almrstv'
 alias km	'killall -s 9 maya.bin'
 alias kf	'killall -s 9 firefox-bin'
+alias ke	'killall -s 9 emacs'
 
 setenv EDITOR vim
 setenv SVN_EDITOR vim
