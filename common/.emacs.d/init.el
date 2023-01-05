@@ -619,13 +619,11 @@
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-'") 'org-cycle-agenda-files)
 
 (evil-leader/set-key "g" (lambda ()
 			   (interactive)
 			   (org-agenda nil "g")))
-(evil-leader/set-key "n" (lambda ()
-			   (interactive)
-			   (find-file org-default-notes-file)))
 (evil-leader/set-key-for-mode 'org-mode "," 'org-insert-structure-template)
 
 (with-eval-after-load 'org-agenda
