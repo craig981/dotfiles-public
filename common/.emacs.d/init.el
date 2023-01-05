@@ -884,8 +884,8 @@
 ;; ----------------------------------------------------------------------------
 
 (winner-mode 1)
-(global-set-key (kbd "M-[") 'winner-undo)
-(global-set-key (kbd "M-]") 'winner-redo)
+(global-set-key (kbd "C-c h") 'winner-undo)
+(global-set-key (kbd "C-c H") 'winner-redo)
 
 ;; ----------------------------------------------------------------------------
 ;* Vertico, orderless, marginalia
