@@ -453,6 +453,7 @@
 
 (setq save-abbrevs nil)
 (add-hook 'text-mode-hook #'abbrev-mode)
+(add-hook 'prog-mode-hook #'abbrev-mode)
 (define-global-abbrev "retrun" "return")
 (define-global-abbrev "cosnt" "const")
 (define-global-abbrev "conat" "const")
