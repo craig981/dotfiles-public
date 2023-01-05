@@ -34,8 +34,10 @@ fi
 
 export PATH=$HOME/tools/bin:$HOME/dotfiles-public/bin:/usr/local/bin:${PATH}
 
-bind -u complete-filename
-bind '"\e/": dabbrev-expand'
+if [ "$TERM" != "dumb" ]; then
+    bind -u complete-filename
+    bind '"\e/": dabbrev-expand'
+fi
 
 test -f ~/dotfiles-public/bash_zsh_alias && source ~/dotfiles-public/bash_zsh_alias
 test -f ~/dotfiles/bash_zsh_alias && source ~/dotfiles/bash_zsh_alias
