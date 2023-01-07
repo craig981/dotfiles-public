@@ -400,15 +400,16 @@
 ;;   (evil-local-set-key 'motion (kbd "TAB") #'forward-button)
 ;;   (evil-local-set-key 'motion (kbd "q") 'quit-window))
 
-;; (defun my-man-page-hook ()
-;;   (evil-local-mode))
+(defun my-man-page-hook ()
+  ;; (evil-local-mode)
+  (define-key Man-mode-map (kbd "k") nil))
 
 ;; (defun my-messages-mode-hook ()
 ;;   (evil-local-mode)
 ;;   (evil-local-set-key 'normal (kbd "q") 'quit-window))
 
 ;; (add-hook 'help-mode-hook #'my-help-mode-hook)
-;; (add-hook #'Man-mode-hook #'my-man-page-hook)
+(add-hook #'Man-mode-hook #'my-man-page-hook)
 ;; (add-hook 'messages-buffer-mode-hook 'my-messages-mode-hook)
 
 (global-set-key (kbd "C-c G") (lambda () (interactive) (my-jump-buffer "*Help*")))
