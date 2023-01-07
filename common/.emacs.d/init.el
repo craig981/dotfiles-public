@@ -649,7 +649,7 @@
 				 (gnuplot . t)))
 
   (define-key org-mode-map (kbd "C-j") nil)
-  (define-key org-mode-map (kbd "C-c C-j") 'counsel-org-goto)
+  (define-key org-mode-map (kbd "C-c C-j") 'consult-outline)
 
   (when (eq system-type 'darwin)
 
