@@ -400,18 +400,25 @@
 ;;   (evil-local-mode)
 ;;   (evil-local-set-key 'motion (kbd "TAB") #'forward-button)
 ;;   (evil-local-set-key 'motion (kbd "q") 'quit-window))
-
-;; (defun my-messages-mode-hook ()
-;;   (evil-local-mode)
-;;   (evil-local-set-key 'normal (kbd "q") 'quit-window))
-
 ;; (add-hook 'help-mode-hook #'my-help-mode-hook)
-;; (add-hook 'messages-buffer-mode-hook 'my-messages-mode-hook)
 
-(defun my-man-page-hook ()
-  ;; (evil-local-mode)
-  (define-key Man-mode-map (kbd "k") nil))
-(add-hook #'Man-mode-hook #'my-man-page-hook)
+;; (defun my-man-page-hook ()
+;;   (evil-local-mode))
+;; (add-hook #'Man-mode-hook #'my-man-page-hook)
+
+(define-key help-mode-map (kbd "C-w") 'evil-window-map)
+(define-key help-mode-map (kbd "SPC") evil-leader--default-map)
+
+(with-eval-after-load "info"
+  (define-key Info-mode-map (kbd "C-w") 'evil-window-map)
+  (define-key Info-mode-map (kbd "SPC") evil-leader--default-map))
+
+(with-eval-after-load "man"
+  (define-key Man-mode-map (kbd "k") nil)
+  (define-key Man-mode-map (kbd "M-n") nil)
+  (define-key Man-mode-map (kbd "M-p") nil)
+  (define-key Man-mode-map (kbd "C-w") 'evil-window-map)
+  (define-key Man-mode-map (kbd "SPC") evil-leader--default-map))
 
 (global-set-key (kbd "C-c G") (lambda () (interactive) (my-jump-buffer "*Help*")))
 
