@@ -322,16 +322,17 @@
 (global-set-key (kbd "M-'") 'my-delete-empty-lines-or-spaces)
 (global-set-key (kbd "M-\\") #'my-delete-space)
 
+(push 'try-expand-line hippie-expand-try-functions-list)
 (evil-global-set-key 'insert (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
-(evil-global-set-key 'motion (kbd "K")
-		     (if (eq system-type 'darwin)
-			 ;; skip slow vertico minibuffer prompt for man pages
-			 (lambda ()
-			   (interactive)
-			   (man (thing-at-point 'word t)))
-		       'man))
+
+(when (eq system-type 'gnu/linux)
+  (evil-global-set-key 'motion (kbd "K") 'man))
 
 (when (eq system-type 'darwin)
+  ;; skip slow vertico minibuffer prompt for man pages
+  (evil-global-set-key 'motion (kbd "K") (lambda ()
+					   (interactive)
+					   (man (thing-at-point 'word t))))
   ;; completion list for man pages is slow
   (defun my-advise-man-completion (&rest args) '())
   (advice-add #'Man-completion-table :override #'my-advise-man-completion))
@@ -463,8 +464,6 @@
 (define-global-abbrev "trm" "transform")
 (define-global-abbrev "bec" "because")
 
-;;; want C-x C-l to expand line first
-(push 'try-expand-line hippie-expand-try-functions-list)
 (evil-global-set-key 'insert (kbd "C-]") 'expand-abbrev)
 
 ;; ----------------------------------------------------------------------------
