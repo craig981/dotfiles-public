@@ -292,9 +292,6 @@
   (interactive)
   (quit-window nil (next-window)))
 
-(defun my-man-page-hook ()
-  (evil-local-mode))
-
 (defun my-jump-buffer (name)
   (interactive)
   (let ((w (get-buffer-window name)))
@@ -333,7 +330,6 @@
 			   (interactive)
 			   (man (thing-at-point 'word t)))
 		       'man))
-(add-hook #'Man-mode-hook #'my-man-page-hook)
 
 (when (eq system-type 'darwin)
   ;; completion list for man pages is slow
@@ -399,18 +395,21 @@
 ;* Help
 ;; ----------------------------------------------------------------------------
 
-(defun my-help-mode-hook ()
-  (evil-local-mode)
-  (evil-local-set-key 'motion (kbd "TAB") #'forward-button)
-  (evil-local-set-key 'motion (kbd "q") 'quit-window))
+;; (defun my-help-mode-hook ()
+;;   (evil-local-mode)
+;;   (evil-local-set-key 'motion (kbd "TAB") #'forward-button)
+;;   (evil-local-set-key 'motion (kbd "q") 'quit-window))
 
-(add-hook 'help-mode-hook #'my-help-mode-hook)
+;; (defun my-man-page-hook ()
+;;   (evil-local-mode))
 
-(defun my-messages-mode-hook ()
-  (evil-local-mode)
-  (evil-local-set-key 'normal (kbd "q") 'quit-window))
+;; (defun my-messages-mode-hook ()
+;;   (evil-local-mode)
+;;   (evil-local-set-key 'normal (kbd "q") 'quit-window))
 
-(add-hook 'messages-buffer-mode-hook 'my-messages-mode-hook)
+;; (add-hook 'help-mode-hook #'my-help-mode-hook)
+;; (add-hook #'Man-mode-hook #'my-man-page-hook)
+;; (add-hook 'messages-buffer-mode-hook 'my-messages-mode-hook)
 
 (global-set-key (kbd "C-c G") (lambda () (interactive) (my-jump-buffer "*Help*")))
 
