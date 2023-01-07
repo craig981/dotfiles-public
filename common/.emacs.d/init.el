@@ -626,8 +626,6 @@
 (evil-leader/set-key-for-mode 'org-mode "," 'org-insert-structure-template)
 
 (with-eval-after-load 'org-agenda
-  (define-key org-agenda-mode-map "j" (kbd "n"))
-  (define-key org-agenda-mode-map "k" (kbd "p"))
   (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map)
   (define-key org-agenda-mode-map (kbd "h") (lambda () (interactive)))
   ;; (setq org-agenda-sorting-strategy
@@ -1406,10 +1404,6 @@ return the project path instead"
     (interactive)
     (quit-window t)))
 
-(define-key dired-mode-map (kbd "j") 'dired-next-line)
-(define-key dired-mode-map (kbd "k") 'dired-previous-line)
-(define-key dired-mode-map (kbd "J") 'dired-goto-file)
-(define-key dired-mode-map (kbd "K") 'dired-do-kill-lines)
 (define-key dired-mode-map (kbd "SPC") evil-leader--default-map)
 (define-key dired-mode-map (kbd "C-w") 'evil-window-map)
 
