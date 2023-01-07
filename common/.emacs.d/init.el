@@ -1096,21 +1096,20 @@
 (setq-default helm-ag-ignore-patterns '("build/"))
 (setq-default helm-ag-base-command "ag --nocolor --nogroup --ignore-case --hidden")
 
-(defun my-ag ()
-  (interactive)
-  (let ((current-prefix-arg 4)) ;; emulate C-u
-    (call-interactively 'helm-ag)))
+(defun my-search (&optional prefix)
+  "Search project. With prefix arg, choose directory instead."
+  (interactive "P")
+  (if prefix
+      (let ((current-prefix-arg 4)) ;; emulate C-u
+	(call-interactively 'helm-ag))
+    ;; search current project
+    (if (file-remote-p default-directory)
+	(helm-ag-project-root)
+      (helm-do-ag-project-root))))
 
-(defun my-search-project ()
-  (interactive)
-  (if (file-remote-p default-directory)
-      (helm-ag-project-root)
-    (helm-do-ag-project-root)))
-
-(global-set-key (kbd "C-c s") 'my-ag)
 (global-set-key (kbd "C-c o") 'helm-occur)
-(global-set-key (kbd "C-c r") 'my-search-project)
-(evil-leader/set-key "r" 'my-search-project)
+(global-set-key (kbd "C-c r") 'my-search)
+(evil-leader/set-key "r" 'my-search)
 ;; M-n grabs symbol under point. swiper slow to start on 3K line buffer
 (evil-leader/set-key "o" 'helm-occur)
 
@@ -1309,7 +1308,7 @@ return the project path instead"
 
 (defun my-choose-project-and-search ()
   (interactive)
-  (my-choose-project-and-invoke #'my-search-project))
+  (my-choose-project-and-invoke #'my-search))
 
 (defun my-choose-project-and-magit ()
   (interactive)
