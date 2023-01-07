@@ -465,6 +465,7 @@
 
 ;;; want C-x C-l to expand line first
 (push 'try-expand-line hippie-expand-try-functions-list)
+(evil-global-set-key 'insert (kbd "C-]") 'expand-abbrev)
 
 ;; ----------------------------------------------------------------------------
 ;* Fancy dabbrev
