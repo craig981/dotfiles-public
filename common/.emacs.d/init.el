@@ -1798,6 +1798,13 @@ current project instead. Visit the tags file."
 
 (advice-add 'paredit-comment-dwim :after 'my-advise-comment)
 
+(defun my-reindent-lisp-defun ()
+  (interactive)
+  (save-excursion
+    (evil-previous-open-paren 20)
+    (indent-sexp)))
+(define-key lisp-mode-shared-map (kbd "C-c C-q") 'my-reindent-lisp-defun)
+
 ;; ----------------------------------------------------------------------------
 ;* Python
 ;; ----------------------------------------------------------------------------
