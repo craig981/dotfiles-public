@@ -60,12 +60,15 @@
 
 (global-set-key (kbd "C-c M-e") #'evil-local-mode)
 
+(setq my-input-method nil)
 (defun my-find-file-hook ()
   (if (file-remote-p (buffer-file-name))
       (setq-local vc-handled-backends nil))
   (if (not (or (eq major-mode 'image-mode)
 	       (derived-mode-p 'bongo-mode)))
-      (evil-local-mode 1)))
+      (evil-local-mode 1))
+  (if my-input-method
+      (set-input-method my-input-method)))
 
 (add-hook 'find-file-hook 'my-find-file-hook)
 (add-hook 'evil-command-window-mode-hook 'evil-local-mode)
@@ -2443,7 +2446,9 @@ current project instead. Visit the tags file."
      yaml-mode))
  '(read-quoted-char-radix 16)
  '(safe-local-variable-values
-   '((tab-always-indent)
+   '((my-input-method . swedish-postfix)
+     (my-input-method . german-postfix)
+     (tab-always-indent)
      (indent-tabs-mode nil)
      (evil-shift-width . 2)
      (evil-shift-width . 4)))
