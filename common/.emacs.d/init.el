@@ -1468,13 +1468,18 @@ return the project path instead"
       (push `(,dir . 0) magit-repository-directories)))
   (magit-list-repositories))
 
+(defun my-git-commit-mode-hook ()
+  ;; want completion on elisp symbols
+  (modify-syntax-entry ?- "_")
+  (evil-insert-state))
+
+(add-hook 'git-commit-mode-hook 'my-git-commit-mode-hook)
+
 (with-eval-after-load 'magit
 
   (evil-collection-magit-setup)
 
   (add-hook 'magit-mode-hook #'my-magit-hook)
-
-  (advice-add 'git-commit-mode :after 'evil-insert-state)
 
   (setq magit-delete-by-moving-to-trash nil)
 
