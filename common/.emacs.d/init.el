@@ -639,8 +639,6 @@
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "M-n") 'forward-paragraph)
   (define-key org-mode-map (kbd "M-p") 'backward-paragraph)
-  (define-key org-mode-map (kbd "C-c [") 'org-toggle-link-display)
-  (define-key org-mode-map (kbd "C-c ]") 'org-toggle-link-display)
 
   (org-babel-do-load-languages 'org-babel-load-languages
 			       '((shell . t)
@@ -762,6 +760,7 @@
 	     (not (version< emacs-version "28.1")))
     (evil-local-set-key 'normal (kbd "TAB") 'org-cycle))
 
+  (evil-local-set-key 'normal (kbd "[[") #'org-toggle-link-display)
   (evil-local-set-key 'insert (kbd "<backtab>") #'fancy-dabbrev-backward)
   (evil-local-set-key 'insert (kbd "C-t") (lambda ()
 					    (interactive)
