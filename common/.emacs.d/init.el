@@ -2183,32 +2183,6 @@ current project instead. Visit the tags file."
 ;;   (apply orig-fn beg end args))
 ;; (advice-add 'evil-yank :around #'my-highlight-yanked-region)
 
-(defun my-window-setup-hook ()
-  (when (and (display-graphic-p)
-	     (file-exists-p "~/Pictures/splash"))
-    (require 'seq)
-    (setq fancy-splash-image
-	  (let ((choices (seq-filter
-			  (lambda (fn)
-			    (let ((ext (file-name-extension fn)))
-			      (or (string= ext "jpg")
-				  (string= ext "jpeg")
-				  (string= ext "png"))))
-			  (directory-files "~/Pictures/splash"
-					   t "^\\([^.]\\|\\.[^.]\\|\\.\\..\\)"))))
-	    (elt choices (random (length choices))))))
-  (unless (display-graphic-p)
-    ;; see terminal background colour/image
-    (set-face-background 'default "unspecified-bg" (selected-frame)))
-  (if (< (decoded-time-hour (decode-time)) 13)
-      (my-theme-light t)
-    (my-theme-dark t)))
-
-(add-hook 'window-setup-hook 'my-window-setup-hook)
-
-(with-eval-after-load "evil-leader"
-  (define-key splash-screen-keymap (kbd "SPC") evil-leader--default-map))
-
 (defun my-theme-dark (x)
   (cond
    (x
@@ -2246,6 +2220,32 @@ current project instead. Visit the tags file."
 
 (global-set-key (kbd "C-c w d") (lambda () (interactive) (my-color-theme-toggle t)))
 (global-set-key (kbd "C-c w o") (lambda () (interactive) (my-color-theme-toggle nil)))
+
+(defun my-window-setup-hook ()
+  (when (and (display-graphic-p)
+	     (file-exists-p "~/Pictures/splash"))
+    (require 'seq)
+    (setq fancy-splash-image
+	  (let ((choices (seq-filter
+			  (lambda (fn)
+			    (let ((ext (file-name-extension fn)))
+			      (or (string= ext "jpg")
+				  (string= ext "jpeg")
+				  (string= ext "png"))))
+			  (directory-files "~/Pictures/splash"
+					   t "^\\([^.]\\|\\.[^.]\\|\\.\\..\\)"))))
+	    (elt choices (random (length choices))))))
+  (unless (display-graphic-p)
+    ;; see terminal background colour/image
+    (set-face-background 'default "unspecified-bg" (selected-frame)))
+  (if (< (decoded-time-hour (decode-time)) 13)
+      (my-theme-light t)
+    (my-theme-dark t)))
+
+(add-hook 'window-setup-hook 'my-window-setup-hook)
+
+(with-eval-after-load "evil-leader"
+  (define-key splash-screen-keymap (kbd "SPC") evil-leader--default-map))
 
 ;; ----------------------------------------------------------------------------
 ;* Font
