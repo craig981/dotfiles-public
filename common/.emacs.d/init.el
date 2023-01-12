@@ -634,6 +634,7 @@
 (with-eval-after-load 'org-agenda
   (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map)
   (define-key org-agenda-mode-map (kbd "h") (lambda () (interactive)))
+  (define-key org-agenda-mode-map (kbd "o") 'org-agenda-show-and-scroll-up)
   ;; (setq org-agenda-sorting-strategy
   ;;     (cons '(agenda tag-up habit-down time-up priority-down category-keep)
   ;; 	    org-agenda-sorting-strategy))
