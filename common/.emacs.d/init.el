@@ -2199,7 +2199,10 @@ current project instead. Visit the tags file."
 	    (elt choices (random (length choices))))))
   (unless (display-graphic-p)
     ;; see terminal background colour/image
-    (set-face-background 'default "unspecified-bg" (selected-frame))))
+    (set-face-background 'default "unspecified-bg" (selected-frame)))
+  (if (< (decoded-time-hour (decode-time)) 13)
+      (my-theme-light t)
+    (my-theme-dark t)))
 
 (add-hook 'window-setup-hook 'my-window-setup-hook)
 
@@ -2475,6 +2478,4 @@ current project instead. Visit the tags file."
  '(message-cited-text-1 ((t (:foreground "#878787"))))
  '(success ((t (:foreground "#00DD00" :weight bold)))))
 
-(if (< (decoded-time-hour (decode-time)) 13)
-    (my-theme-light t)
-  (my-theme-dark t))
+
