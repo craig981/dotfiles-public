@@ -2165,6 +2165,31 @@ current project instead. Visit the tags file."
   (set-window-configuration global-config-editing))
 
 ;; ----------------------------------------------------------------------------
+;* Font
+;; ----------------------------------------------------------------------------
+
+(defun my-font-config ()
+  (interactive)
+
+  (when (display-graphic-p)
+
+    ;; linux: install to ~/.fonts/  then fc-cache -v ~/.fonts
+    (when (eq system-type 'gnu/linux)
+
+      (set-face-attribute 'default nil :font "Menlo:pixelsize=14:weight=normal:slant=normal:width=normal:spacing=100:scalable=true")
+
+      (if (string= (string-trim (shell-command-to-string
+				 "xrandr | awk '/^HDMI-1/{print $2}'"))
+		   "connected")
+	  ;; external monitor
+	  (set-face-attribute 'default nil :height 105)
+	;; laptop screen
+	(set-face-attribute 'default nil :height 110)))
+
+    (when (eq system-type 'darwin)
+      (set-face-attribute 'default nil :height 150))))
+
+;; ----------------------------------------------------------------------------
 ;* Colours and splash screen
 ;; ----------------------------------------------------------------------------
 
@@ -2238,41 +2263,17 @@ current project instead. Visit the tags file."
   (unless (display-graphic-p)
     ;; see terminal background colour/image
     (set-face-background 'default "unspecified-bg" (selected-frame)))
+
   (if (< (decoded-time-hour (decode-time)) 13)
       (my-theme-light t)
-    (my-theme-dark t)))
+    (my-theme-dark t))
+
+  (my-font-config))
 
 (add-hook 'window-setup-hook 'my-window-setup-hook)
 
 (with-eval-after-load "evil-leader"
   (define-key splash-screen-keymap (kbd "SPC") evil-leader--default-map))
-
-;; ----------------------------------------------------------------------------
-;* Font
-;; ----------------------------------------------------------------------------
-
-;; linux: install to ~/.fonts/  then fc-cache -v ~/.fonts
-(when (and (eq system-type 'gnu/linux)
-	   (display-graphic-p))
-
-  (defun my-font-config ()
-    (interactive)
-
-    (set-face-attribute 'default nil :font "Menlo:pixelsize=14:weight=normal:slant=normal:width=normal:spacing=100:scalable=true")
-
-    (if (string= (string-trim (shell-command-to-string
-			       "xrandr | awk '/^HDMI-1/{print $2}'"))
-		 "connected")
-	;; external monitor
-	(set-face-attribute 'default nil :height 105)
-      ;; laptop screen
-      (set-face-attribute 'default nil :height 110)))
-
-  (my-font-config)
-  (global-set-key (kbd "C-c F") #'my-font-config))
-
-(when (eq system-type 'darwin)
-  (set-face-attribute 'default nil :height 150))
 
 ;; ----------------------------------------------------------------------------
 ;* Menu toolbar
