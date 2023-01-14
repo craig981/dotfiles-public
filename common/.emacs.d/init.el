@@ -372,7 +372,7 @@
 (global-unset-key (kbd "C-h h")) ;; stop accidentally opening hello file
 (global-set-key (kbd "C-h C-c") nil) ;; disable describe-copying
 
-(global-set-key (kbd "C-M-r") 'isearch-backward)
+(evil-leader/set-key "r" 'isearch-backward)
 (global-set-key (kbd "C-c j") 'jump-to-register)
 (global-set-key (kbd "C-x w") 'subword-mode)
 
@@ -1113,7 +1113,7 @@
 
 (global-set-key (kbd "C-c o") 'helm-occur)
 (global-set-key (kbd "C-c r") 'my-search)
-(evil-leader/set-key "r" 'my-search)
+(evil-leader/set-key "f" 'my-search)
 ;; M-n grabs symbol under point. swiper slow to start on 3K line buffer
 (evil-leader/set-key "o" 'helm-occur)
 
