@@ -103,6 +103,7 @@
 (dolist (func '(forward-sentence
 		forward-sexp
 		forward-list
+		forward-word
 		kill-sentence
 		paredit-forward
 		paredit-forward-up))
