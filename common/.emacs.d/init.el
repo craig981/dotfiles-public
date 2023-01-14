@@ -290,7 +290,12 @@
 
 (defun my-kill-buffer ()
   (interactive)
-  (kill-buffer (current-buffer)))
+  (if (not (buffer-file-name))
+      (call-interactively 'kill-buffer)
+    (if (or buffer-read-only
+	    (not (buffer-modified-p)))
+	(kill-buffer (current-buffer))
+      (kill-this-buffer))))
 
 (defun my-close-other-window ()
   (interactive)
