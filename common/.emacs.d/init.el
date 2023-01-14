@@ -164,14 +164,6 @@
 ;* Syntax and indent
 ;; ----------------------------------------------------------------------------
 
-;; treat symbol as word, so we include underscores in C++ identifiers
-;; http://emacs.stackexchange.com/a/20717
-(with-eval-after-load 'evil
-  (defalias #'forward-evil-word #'forward-evil-symbol))
-;; the above doesn't work for evil-forward-search, so...
-(add-hook 'c-mode-common-hook
-	  (lambda () (modify-syntax-entry ?_ "w")))
-
 (defun my-syntax-entry ()
   ;; - + are punctuation
   (modify-syntax-entry ?- ".")
@@ -239,7 +231,7 @@
   (let* ((sym (thing-at-point 'symbol t))
 	 ;; want @ by default so dabbrev-expand works
 	 (delim (if (string-match-p "@" sym) "#" "@")))
-    (evil-ex (format "%ss%s\\<%s\\>%s" (or range "%") delim sym delim))))
+    (evil-ex (format "%ss%s\\_<%s\\_>%s" (or range "%") delim sym delim))))
 
 (defun my-delete-trailing-whitespace ()
   (interactive)
@@ -1978,6 +1970,7 @@ current project instead. Visit the tags file."
   (cpp-highlight-buffer t))
 
 (defun my-c-cpp-settings()
+  (my-syntax-entry)
   (local-set-key (kbd my-compile-key) #'my-compile-project)
   (evil-local-set-key 'normal (kbd "[#") 'c-up-conditional)
   ;; don't want c-submit-bug-report
