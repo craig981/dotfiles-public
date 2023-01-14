@@ -226,6 +226,14 @@
 
 (require 'thingatpt)
 
+(defun my-search-replace-symbol (&optional prefix)
+  (interactive "P")
+  (isearch-forward-symbol-at-point)
+  (when (not prefix)
+    (isearch-beginning-of-buffer))
+  (isearch-toggle-case-fold)
+  (isearch-query-replace))
+
 (defun my-substitute (&optional range)
   (interactive)
   (let* ((sym (thing-at-point 'symbol t))
@@ -308,6 +316,7 @@
 	  (select-window w)
 	(switch-to-buffer name))))
 
+(global-set-key (kbd "M-s M-s") 'my-search-replace-symbol)
 (evil-leader/set-key "s" #'my-substitute) ; substitute whole buffer
 (evil-leader/set-key "S" ; substitute from current line to end of buffer
   (lambda ()
