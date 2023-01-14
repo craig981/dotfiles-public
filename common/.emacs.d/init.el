@@ -2420,6 +2420,7 @@ current project instead. Visit the tags file."
  '(evil-flash-delay 60)
  '(evil-motion-state-modes
    '(apropos-mode Buffer-menu-mode calendar-mode color-theme-mode command-history-mode dictionary-mode ert-results-mode help-mode Info-mode Man-mode speedbar-mode undo-tree-visualizer-mode view-mode woman-mode))
+ '(evil-symbol-word-search t)
  '(helm-ag-insert-at-point 'symbol)
  '(helm-candidate-number-limit 10000)
  '(helm-follow-mode-persistent t)
