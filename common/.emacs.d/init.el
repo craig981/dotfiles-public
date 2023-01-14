@@ -1797,7 +1797,8 @@ current project instead. Visit the tags file."
 
 (defun my-lisp-common-hook ()
   (enable-paredit-mode)
-  (evil-local-mode 1))
+  (evil-local-mode 1)
+  (setq-local evil-symbol-word-search t))
 
 (add-hook 'emacs-lisp-mode-hook       'my-lisp-common-hook 'append)
 (add-hook 'lisp-mode-hook             'my-lisp-common-hook 'append)
@@ -2420,7 +2421,6 @@ current project instead. Visit the tags file."
  '(evil-flash-delay 60)
  '(evil-motion-state-modes
    '(apropos-mode Buffer-menu-mode calendar-mode color-theme-mode command-history-mode dictionary-mode ert-results-mode help-mode Info-mode Man-mode speedbar-mode undo-tree-visualizer-mode view-mode woman-mode))
- '(evil-symbol-word-search t)
  '(helm-ag-insert-at-point 'symbol)
  '(helm-candidate-number-limit 10000)
  '(helm-follow-mode-persistent t)
