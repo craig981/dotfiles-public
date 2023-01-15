@@ -39,6 +39,7 @@ vnoremap <C-l> zz
 nnoremap <C-p> <C-x>
 
 nnoremap Y yy
+nnoremap U <C-r>
 
 "format paragraph like emacs M-q
 if has("nvim")
