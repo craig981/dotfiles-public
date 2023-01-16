@@ -1972,7 +1972,7 @@ current project instead. Visit the tags file."
   (cpp-highlight-buffer t))
 
 (defun my-c-cpp-settings()
-  (my-syntax-entry)
+  (modify-syntax-entry ?_ "w")
   (local-set-key (kbd my-compile-key) #'my-compile-project)
   (evil-local-set-key 'normal (kbd "[#") 'c-up-conditional)
   ;; don't want c-submit-bug-report
