@@ -474,7 +474,7 @@
 (define-global-abbrev "co" "const")
 (define-global-abbrev "trinagle" "triangle")
 (define-global-abbrev "trl" "translate")
-(define-global-abbrev "trm" "transform")
+(define-global-abbrev "trn" "transform")
 (define-global-abbrev "bec" "because")
 
 (evil-global-set-key 'insert (kbd "C-]") 'expand-abbrev)
