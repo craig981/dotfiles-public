@@ -379,7 +379,8 @@
 (global-set-key (kbd "C-h C-c") nil) ;; disable describe-copying
 
 (evil-global-set-key 'normal (kbd "U") 'evil-redo)
-(evil-global-set-key 'normal (kbd "C-r") 'isearch-backward)
+(evil-leader/set-key (kbd "C-r") 'isearch-backward)
+(global-set-key (kbd "C-M-r") 'isearch-backward)
 (global-set-key (kbd "C-c j") 'jump-to-register)
 (global-set-key (kbd "C-x w") 'subword-mode)
 
