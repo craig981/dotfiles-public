@@ -353,7 +353,6 @@
 (global-set-key (kbd "C-x k") 'my-kill-buffer)
 
 (evil-leader/set-key "%" #'my-copy-filename)
-(global-set-key (kbd "C-c %") #'my-copy-filename)
 (global-set-key (kbd "C-c u") #'my-toggle-wrap)
 (when (not (display-graphic-p))
   (global-set-key (kbd "C-x ;") (kbd "C-x C-;")))
@@ -378,8 +377,6 @@
 (global-unset-key (kbd "C-h h")) ;; stop accidentally opening hello file
 (global-set-key (kbd "C-h C-c") nil) ;; disable describe-copying
 
-(evil-global-set-key 'normal (kbd "U") 'evil-redo)
-(evil-leader/set-key (kbd "C-r") 'isearch-backward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 (global-set-key (kbd "C-c j") 'jump-to-register)
 (global-set-key (kbd "C-x w") 'subword-mode)
@@ -874,7 +871,7 @@
 
 (defun my-html-hook ()
   (define-key html-mode-map (kbd "M-o") nil)
-  (evil-local-set-key 'normal (kbd "g SPC")
+  (evil-local-set-key 'normal (kbd "gb")
 		      (lambda ()
 			(interactive)
 			(save-buffer)
@@ -1740,8 +1737,6 @@ return the project path instead"
   (local-set-key (kbd "M-_") 'my-eshell-last-arg))
 
 (add-hook 'eshell-mode-hook 'my-eshell-hook)
-
-(global-set-key (kbd "C-c T") 'eshell)
 
 ;; ----------------------------------------------------------------------------
 ;* Tags
