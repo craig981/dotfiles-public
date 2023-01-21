@@ -1,16 +1,14 @@
 set encoding=utf-8
+
+set novb
+set noerrorbells
+set nocompatible
+set nobackup
+set noswapfile
 set nohidden
 if has("nvim") || v:version >= 800
 	set nofixendofline
 endif
-
-"stop annoying flashing of screen
-set novb
-set noerrorbells
-
-set nocompatible
-set nobackup
-set noswapfile
 
 set t_Co=256
 set backspace=indent,start
@@ -28,30 +26,9 @@ set laststatus=2
 set nohlsearch
 set incsearch
 nnoremap <C-h> :set invhlsearch<CR>
-nnoremap <C-l> zz
-vnoremap <C-l> zz
-
-" nnoremap j gj
-" nnoremap k gk
-" nnoremap gj j
-" nnoremap gk k
-
-nnoremap <C-p> <C-x>
-
-nnoremap Y yy
-nnoremap U <C-r>
-
-"format paragraph like emacs M-q
-if has("nvim")
-	nnoremap <A-q> gwip
-else
-	nnoremap <Esc>q gwip
-endif
 
 let mapleader=" "
 nnoremap <leader>f :e <C-R>=expand('%:p:h') . '/'<CR>
-nnoremap <leader>h :sf<space>
-nnoremap <leader>v :vs<space>
 nnoremap <leader>u :set invwrap<CR>
 nnoremap <leader>t :term<CR>
 nnoremap <leader>d :pwd<CR>
@@ -62,20 +39,16 @@ nnoremap <C-w>d :bd<CR>
 nnoremap <silent> <C-w><C-d> :Bclose<CR>
 "nnoremap <leader>i :30vs .<CR>
 nnoremap <leader>i :Vex <bar> :vertical resize 30<CR>
-nnoremap <leader>z :e ~/.vimrc<CR>
 nnoremap <leader>s :%s/\<<c-r><c-w>\>//gI<Left><Left><Left>
 "toggle redraw during macro exec
 nnoremap <leader>L :set invlazyredraw<CR>:set lazyredraw?<CR>
-nmap <leader>; gcc
-
-" remove multiple adjacent blank lines
-nnoremap <leader>B :%!cat -s
-vnoremap <leader>' :!cat -s
 
 nnoremap <leader>l :setlocal spell!<CR>
 set spelllang=en_gb
 
-"align selection in a table
+" remove multiple adjacent blank lines
+vnoremap <leader>' :!cat -s
+" align selection in a table
 vnoremap <leader>= :!column -t<CR>gv
 " remove trailing whitespace in selection
 vnoremap <leader>\ :s/\s\+$//<CR>
@@ -92,6 +65,13 @@ nnoremap <leader>o :vimgrep /\<<c-r><c-w>\>/ %<CR>:cope<CR><C-w><C-p>
 " search for all chars as normal text, e.g. paths with /
 command! -nargs=1 SS let @/ = '\V'.escape(<q-args>, '\')
 nnoremap <leader>/ :SS <C-R><C-A>
+
+"format paragraph like emacs M-q
+if has("nvim")
+	nnoremap <A-q> gwip
+else
+	nnoremap <Esc>q gwip
+endif
 
 "command line emacs keys
 cnoremap <c-n> <down>
@@ -113,12 +93,19 @@ else
 	cnoremap <Esc><Backspace> <c-w>
 	inoremap <Esc><Backspace> <c-w>
 endif
-
-"paste last deleted text
+" recenter like emacs
+nnoremap <C-l> zz
+vnoremap <C-l> zz
+" paste last deleted text
 cnoremap <C-y> <C-r>"
 inoremap <C-y> <C-r>"
+
+nnoremap <C-p> <C-x>
+
 " select last pasted text
 nnoremap gp `[v`]
+
+nnoremap Y yy
 
 "delete to end of command line like emacs
 function! KillLine()
@@ -177,7 +164,6 @@ function! ToggleQuickFix()
 	endif
 endfunction
 nnoremap <silent> <leader>q :call ToggleQuickFix()<CR>
-nnoremap <silent> <C-s> :call ToggleQuickFix()<CR>
 
 augroup qf_below
 	autocmd!
