@@ -18,7 +18,7 @@
 ; http://elpa.gnu.org/packages/gnu-elpa-keyring-update.html
 
 ;; ----------------------------------------------------------------------------
-;* Package
+;;| Package
 ;; ----------------------------------------------------------------------------
 
 (require 'package)
@@ -28,7 +28,7 @@
 ;; (package-initialize)
 
 ;; ----------------------------------------------------------------------------
-;* Paths
+;;| Paths
 ;; ----------------------------------------------------------------------------
 
 (if (eq system-type 'windows-nt)
@@ -45,7 +45,7 @@
       (setq exec-path (split-string path-from-shell path-separator)))))
 
 ;; ----------------------------------------------------------------------------
-;* Evil mode
+;;| Evil mode
 ;; ----------------------------------------------------------------------------
 
 (setq evil-want-integration t
@@ -161,7 +161,7 @@
 (advice-add 'evil-window-new :around #'my-advise-window-new)
 
 ;; ----------------------------------------------------------------------------
-;* Syntax and indent
+;;| Syntax and indent
 ;; ----------------------------------------------------------------------------
 
 (defun my-syntax-entry ()
@@ -192,7 +192,7 @@
 (electric-indent-mode 1)
 
 ;; ----------------------------------------------------------------------------
-;* Convenience
+;;| Convenience
 ;; ----------------------------------------------------------------------------
 
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -402,7 +402,7 @@
 (advice-add 'comment-dwim :after 'my-advise-comment)
 
 ;; ----------------------------------------------------------------------------
-;* Help
+;;| Help
 ;; ----------------------------------------------------------------------------
 
 (defun my-help-mode-hook ()
@@ -460,7 +460,7 @@
 (global-set-key (kbd "C-h M-v") 'my-describe-keymap)
 
 ;; ----------------------------------------------------------------------------
-;* Abbreviations
+;;| Abbreviations
 ;; ----------------------------------------------------------------------------
 
 (setq save-abbrevs nil)
@@ -478,7 +478,7 @@
 (evil-global-set-key 'insert (kbd "C-]") 'expand-abbrev)
 
 ;; ----------------------------------------------------------------------------
-;* Fancy dabbrev
+;;| Fancy dabbrev
 ;; ----------------------------------------------------------------------------
 
 (require 'fancy-dabbrev)
@@ -493,7 +493,7 @@
 ;; (push 'evil-input-method fancy-dabbrev-no-preview-for)
 
 ;; ----------------------------------------------------------------------------
-;* Lang
+;;| Lang
 ;; ----------------------------------------------------------------------------
 
 (defun my-advise-toggle-input-method (func &rest args)
@@ -538,7 +538,7 @@
 (global-set-key (kbd "M-s M-w") #'my-lookup)
 
 ;; ----------------------------------------------------------------------------
-;* Keyboard
+;;| Keyboard
 ;; ----------------------------------------------------------------------------
 
 (when (eq system-type 'darwin)
@@ -551,7 +551,7 @@
   (setq-default mac-option-modifier 'alt))
 
 ;; ----------------------------------------------------------------------------
-;* Clipboard
+;;| Clipboard
 ;; ----------------------------------------------------------------------------
 
 (defun my-copy-to-xclipboard ()
@@ -568,7 +568,7 @@
   (evil-global-set-key 'visual (kbd "Y") 'my-copy-to-xclipboard))
 
 ;; ----------------------------------------------------------------------------
-;* Scrolling
+;;| Scrolling
 ;; ----------------------------------------------------------------------------
 
 ;; http://emacs.stackexchange.com/questions/8126/zs-and-ze-from-vim
@@ -591,7 +591,7 @@
 	      hscroll-step 5)
 
 ;; ----------------------------------------------------------------------------
-;* Text
+;;| Text
 ;; ----------------------------------------------------------------------------
 
 (defun my-after-evil-buffer-new (&rest args)
@@ -611,7 +611,7 @@
 (add-hook 'text-mode-hook 'my-text-mode-hook)
 
 ;; ----------------------------------------------------------------------------
-;* Calendar
+;;| Calendar
 ;; ----------------------------------------------------------------------------
 
 (setq-default calendar-week-start-day 1) ;; start on monday
@@ -624,7 +624,7 @@
 (global-set-key (kbd "C-c C-M-c") 'calendar)
 
 ;; ----------------------------------------------------------------------------
-;* Org
+;;| Org
 ;; ----------------------------------------------------------------------------
 
 (global-set-key (kbd "C-c l") 'org-store-link)
@@ -852,7 +852,7 @@
 (advice-add 'org-time-stamp-inactive :before #'my-forward-before-insert)
 
 ;; ----------------------------------------------------------------------------
-;* Browser
+;;| Browser
 ;; ----------------------------------------------------------------------------
 
 (when (eq system-type 'gnu/linux)
@@ -866,7 +866,7 @@
 		      ("\\.pdf\\'" . default)))
 
 ;; ----------------------------------------------------------------------------
-;* HTML
+;;| HTML
 ;; ----------------------------------------------------------------------------
 
 (defun my-html-hook ()
@@ -882,14 +882,14 @@
 (advice-add 'sgml-close-tag :before #'my-forward-before-insert)
 
 ;; ----------------------------------------------------------------------------
-;* Which key
+;;| Which key
 ;; ----------------------------------------------------------------------------
 
 (require 'which-key)
 (which-key-mode)
 
 ;; ----------------------------------------------------------------------------
-;* Winner
+;;| Winner
 ;; ----------------------------------------------------------------------------
 
 (winner-mode 1)
@@ -897,7 +897,7 @@
 (global-set-key (kbd "C-c H") 'winner-redo)
 
 ;; ----------------------------------------------------------------------------
-;* Vertico, orderless, marginalia
+;;| Vertico, orderless, marginalia
 ;; ----------------------------------------------------------------------------
 
 ;; popup the completion buffer at the bottom
@@ -938,7 +938,7 @@
 (advice-add #'completion-at-point :around #'my-disable-marginalia)
 
 ;; ----------------------------------------------------------------------------
-;* Consult
+;;| Consult
 ;; ----------------------------------------------------------------------------
 
 (require 'consult)
@@ -973,7 +973,7 @@
 	 (vertico-buffer-display-action . (display-buffer-pop-up-window)))))
 
 ;; ----------------------------------------------------------------------------
-;* Helm
+;;| Helm
 ;; ----------------------------------------------------------------------------
 
 ;; (let ((dir "~/dev/helm"))
@@ -995,7 +995,7 @@
 (setq helm-show-completion-display-function #'helm-show-completion-default-display-function)
 
 ;; ----------------------------------------------------------------------------
-;* Calc
+;;| Calc
 ;; ----------------------------------------------------------------------------
 
 (with-eval-after-load "calc-ext"
@@ -1007,7 +1007,7 @@
 (global-set-key (kbd "C-c M-c") (kbd "C-x * c"))
 
 ;; ----------------------------------------------------------------------------
-;* Tramp
+;;| Tramp
 ;; ----------------------------------------------------------------------------
 
 (with-eval-after-load "tramp"
@@ -1015,7 +1015,7 @@
   (setq remote-file-name-inhibit-locks t))
 
 ;; ----------------------------------------------------------------------------
-;* Find file at point
+;;| Find file at point
 ;; ----------------------------------------------------------------------------
 
 (require 'ffap)
@@ -1039,7 +1039,7 @@
 		       (my-find-file-at-point)))
 
 ;; ----------------------------------------------------------------------------
-;* Complete filenames
+;;| Complete filenames
 ;; ----------------------------------------------------------------------------
 
 ;; match a filename before the point. from company-files.
@@ -1093,7 +1093,7 @@
       (vertico-exit))))
 
 ;; ----------------------------------------------------------------------------
-;* Helm Ag and Occur
+;;| Helm Ag and Occur
 ;; ----------------------------------------------------------------------------
 
 (require 'helm-ag)
@@ -1185,21 +1185,21 @@
 (advice-add 'helm-occur :around #'my-advise-propagate-input-method)
 
 ;; ----------------------------------------------------------------------------
-;* Imenu
+;;| Imenu
 ;; ----------------------------------------------------------------------------
 
 (defun my-imenu ()
   (interactive)
   (let ((f (buffer-file-name)))
     (if (and f (file-equal-p f user-init-file))
-	(helm-multi-occur-1 (list (current-buffer)) "^;\\* ")
+	(helm-multi-occur-1 (list (current-buffer)) "^;;| ")
       (helm-imenu))))
 
 (global-set-key (kbd "C-c i") 'my-imenu)
 (evil-leader/set-key "i" 'my-imenu)
 
 ;; ----------------------------------------------------------------------------
-;* Projects
+;;| Projects
 ;; ----------------------------------------------------------------------------
 
 (defun my-find-project-root ()
@@ -1360,7 +1360,7 @@ return the project path instead"
 (evil-leader/set-key "u" 'my-find-file-in-project-other-window)
 
 ;; ----------------------------------------------------------------------------
-;* Isearch
+;;| Isearch
 ;; ----------------------------------------------------------------------------
 
 ;; (defun my-isearch-yank-region ()
@@ -1404,7 +1404,7 @@ return the project path instead"
 (setq search-upper-case t)
 
 ;; ----------------------------------------------------------------------------
-;* Dired
+;;| Dired
 ;; ----------------------------------------------------------------------------
 
 (require 'dired)
@@ -1460,7 +1460,7 @@ return the project path instead"
       display-buffer-alist)
 
 ;; ----------------------------------------------------------------------------
-;* Magit
+;;| Magit
 ;; ----------------------------------------------------------------------------
 
 (defun my-magit-hook ()
@@ -1530,7 +1530,7 @@ return the project path instead"
 (global-set-key (kbd "C-c M") #'my-magit-list-repos)
 
 ;; ----------------------------------------------------------------------------
-;* Ediff
+;;| Ediff
 ;; ----------------------------------------------------------------------------
 
 (setq-default ediff-custom-diff-options "-u")
@@ -1543,7 +1543,7 @@ return the project path instead"
 (add-hook 'diff-mode-hook #'my-diff-mode-hook)
 
 ;; ----------------------------------------------------------------------------
-;* Compilation
+;;| Compilation
 ;; ----------------------------------------------------------------------------
 
 (setq-default compile-command "make")
@@ -1585,7 +1585,7 @@ return the project path instead"
 (define-key compilation-mode-map (kbd "0") 'evil-beginning-of-line)
 
 ;; ----------------------------------------------------------------------------
-;* Makefile
+;;| Makefile
 ;; ----------------------------------------------------------------------------
 
 (defun my-makefile-hook ()
@@ -1607,7 +1607,7 @@ return the project path instead"
 (add-to-list 'auto-mode-alist '("\\.log\\'" . my-log-settings))
 
 ;; ----------------------------------------------------------------------------
-;* Yaml
+;;| Yaml
 ;; ----------------------------------------------------------------------------
 
 (defun my-yaml-hook ()
@@ -1619,7 +1619,7 @@ return the project path instead"
 (add-hook 'yaml-mode-hook 'my-yaml-hook)
 
 ;; ----------------------------------------------------------------------------
-;* Shell
+;;| Shell
 ;; ----------------------------------------------------------------------------
 
 (defun my-spawn-shell ()
@@ -1703,7 +1703,7 @@ return the project path instead"
 (global-set-key (kbd "C-c v") 'my-split-shell)
 
 ;; ----------------------------------------------------------------------------
-;* Term
+;;| Term
 ;; ----------------------------------------------------------------------------
 
 (if (and (display-graphic-p)
@@ -1718,7 +1718,7 @@ return the project path instead"
   (expose-global-binding-in-term (kbd "M-o")))
 
 ;; ----------------------------------------------------------------------------
-;* Eshell
+;;| Eshell
 ;; ----------------------------------------------------------------------------
 
 (defun my-eshell-last-arg ()
@@ -1739,7 +1739,7 @@ return the project path instead"
 (add-hook 'eshell-mode-hook 'my-eshell-hook)
 
 ;; ----------------------------------------------------------------------------
-;* Tags
+;;| Tags
 ;; ----------------------------------------------------------------------------
 
 (evil-set-initial-state 'xref--xref-buffer-mode 'emacs)
@@ -1773,7 +1773,7 @@ current project instead. Visit the tags file."
 (evil-global-set-key 'motion (kbd "C-w C-.") (kbd "C-x 4 ."))
 
 ;; ----------------------------------------------------------------------------
-;* Lisp
+;;| Lisp
 ;; ----------------------------------------------------------------------------
 
 (require 'paredit)
@@ -1812,7 +1812,7 @@ current project instead. Visit the tags file."
 (define-key lisp-mode-shared-map (kbd "C-c C-q") 'my-reindent-lisp-defun)
 
 ;; ----------------------------------------------------------------------------
-;* Python
+;;| Python
 ;; ----------------------------------------------------------------------------
 
 (defvar my-python-interp "python3")
@@ -1847,7 +1847,7 @@ current project instead. Visit the tags file."
 (add-to-list 'auto-mode-alist '("/SConscript\\'" . python-mode))
 
 ;; ----------------------------------------------------------------------------
-;* Eglot
+;;| Eglot
 ;; ----------------------------------------------------------------------------
 
 (require 'eglot)
@@ -1857,7 +1857,7 @@ current project instead. Visit the tags file."
 (setq eglot-autoshutdown t)
 
 ;; ----------------------------------------------------------------------------
-;* C++
+;;| Cpp
 ;; ----------------------------------------------------------------------------
 
 (defun my-wrap-if-endif (x &optional else)
@@ -2080,7 +2080,7 @@ current project instead. Visit the tags file."
 
 
 ;; ----------------------------------------------------------------------------
-;* Rust
+;;| Rust
 ;; ----------------------------------------------------------------------------
 
 (defun my-rust-mode-hook ()
@@ -2091,7 +2091,7 @@ current project instead. Visit the tags file."
 (add-hook 'rust-mode-hook 'my-rust-mode-hook)
 
 ;; ----------------------------------------------------------------------------
-;* Maya, Houdini, Arnold
+;;| Maya, Houdini, Arnold
 ;; ----------------------------------------------------------------------------
 
 ;; maya mel
@@ -2108,7 +2108,7 @@ current project instead. Visit the tags file."
 (add-to-list 'auto-mode-alist '("\\.ass\\'" . my-arnold-settings))
 
 ;; ----------------------------------------------------------------------------
-;* Debug, gdb
+;;| Debug, gdb
 ;; ----------------------------------------------------------------------------
 
 (defun my-gdb-mode-hook ()
@@ -2171,7 +2171,7 @@ current project instead. Visit the tags file."
   (set-window-configuration global-config-editing))
 
 ;; ----------------------------------------------------------------------------
-;* Font
+;;| Font
 ;; ----------------------------------------------------------------------------
 
 (defun my-font-config ()
@@ -2196,7 +2196,7 @@ current project instead. Visit the tags file."
       (set-face-attribute 'default nil :height 150))))
 
 ;; ----------------------------------------------------------------------------
-;* Colours and splash screen
+;;| Colours and splash screen
 ;; ----------------------------------------------------------------------------
 
 (require 'font-lock)
@@ -2282,7 +2282,7 @@ current project instead. Visit the tags file."
   (define-key splash-screen-keymap (kbd "SPC") evil-leader--default-map))
 
 ;; ----------------------------------------------------------------------------
-;* Menu toolbar
+;;| Menu toolbar
 ;; ----------------------------------------------------------------------------
 
 (when (display-graphic-p)
@@ -2293,7 +2293,7 @@ current project instead. Visit the tags file."
   (menu-bar-mode -1))
 
 ;; ----------------------------------------------------------------------------
-;* Email
+;;| Email
 ;; ----------------------------------------------------------------------------
 
 (defun my-scratch-mail-buffer ()
@@ -2322,7 +2322,7 @@ current project instead. Visit the tags file."
 (global-set-key (kbd "C-x m") #'my-scratch-mail-buffer)
 
 ;; ----------------------------------------------------------------------------
-;* Music
+;;| Music
 ;; ----------------------------------------------------------------------------
 
 (when (or (eq system-type 'darwin)
@@ -2393,7 +2393,7 @@ current project instead. Visit the tags file."
   (add-hook 'bongo-mode-hook 'my-bongo-mode-hook))
 
 ;; ----------------------------------------------------------------------------
-;* Customs
+;;| Customs
 ;; ----------------------------------------------------------------------------
 
 (load "~/dotfiles/init.el" t)
