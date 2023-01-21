@@ -1,4 +1,3 @@
-;;; -*- mode: emacs-lisp; -*-
 
 (let ((trustfile
        (cond
@@ -25,7 +24,6 @@
 (setq package-archives
       '(("melpa" . "https://melpa.org/packages/")
 	("gnu"   . "https://elpa.gnu.org/packages/")))
-;; (package-initialize)
 
 ;; ----------------------------------------------------------------------------
 ;;| Paths
@@ -144,10 +142,6 @@
 (evil-global-set-key 'normal (kbd "C-p") 'evil-numbers/dec-at-pt)
 (evil-global-set-key 'normal (kbd "g C-a") 'evil-numbers/inc-at-pt-incremental)
 (evil-global-set-key 'normal (kbd "g C-p") 'evil-numbers/dec-at-pt-incremental)
-
-;; (defun my-advise-window-rotate ()
-;;   (other-window 1))
-;; (advice-add 'evil-window-rotate-downwards :after #'my-advise-window-rotate)
 
 (defun my-advise-window-new (func &rest args)
   "Use evil-local-mode and the same major mode in the new buffer"
@@ -640,11 +634,7 @@
 (with-eval-after-load 'org-agenda
   (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map)
   (define-key org-agenda-mode-map (kbd "h") (lambda () (interactive)))
-  (define-key org-agenda-mode-map (kbd "o") 'org-agenda-show)
-  ;; (setq org-agenda-sorting-strategy
-  ;;     (cons '(agenda tag-up habit-down time-up priority-down category-keep)
-  ;; 	    org-agenda-sorting-strategy))
-  )
+  (define-key org-agenda-mode-map (kbd "o") 'org-agenda-show))
 
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "M-n") 'forward-paragraph)
@@ -975,10 +965,6 @@
 ;; ----------------------------------------------------------------------------
 ;;| Helm
 ;; ----------------------------------------------------------------------------
-
-;; (let ((dir "~/dev/helm"))
-;;   (when (file-directory-p dir)
-;;     (add-to-list 'load-path dir)))
 
 (require 'helm)
 
@@ -1339,10 +1325,6 @@ return the project path instead"
 (global-set-key (kbd "C-c e") 'my-find-file-in-project)
 (global-set-key (kbd "C-c d") 'my-jump-project-dired)
 
-(global-set-key (kbd "C-c X") (lambda ()
-				(interactive)
-				(let ((default-directory "~/dotfiles-public"))
-				  (my-find-file-in-project))))
 (global-set-key (kbd "C-c x") (lambda ()
 				(interactive)
 				(find-file user-init-file)))
@@ -1353,7 +1335,6 @@ return the project path instead"
   (interactive)
   (let ((default-directory "~/notefiles"))
     (my-find-file-in-project)))
-(global-set-key (kbd "C-c n") 'my-jump-notefiles)
 (evil-leader/set-key "n" 'my-jump-notefiles)
 
 (evil-leader/set-key "e" 'my-find-file-in-project)
@@ -1716,27 +1697,6 @@ return the project path instead"
     (lookup-key (current-global-map) binding)))
 (with-eval-after-load 'term
   (expose-global-binding-in-term (kbd "M-o")))
-
-;; ----------------------------------------------------------------------------
-;;| Eshell
-;; ----------------------------------------------------------------------------
-
-(defun my-eshell-last-arg ()
-  "Insert last argument of previous command"
-  (interactive)
-  (insert (car (last (split-string-shell-command (eshell-previous-input-string 0))))))
-
-(defun my-eshell-hook ()
-  (fancy-dabbrev-mode -1)
-  (visual-line-mode 0)
-  (toggle-truncate-lines 1)
-  (define-key eshell-hist-mode-map (kbd "M-r") #'move-to-window-line-top-bottom)
-  (define-key eshell-hist-mode-map (kbd "C-r") #'helm-eshell-history)
-  (define-key eshell-hist-mode-map (kbd "C-c C-l") #'eshell/clear)
-  (define-key eshell-mode-map (kbd "M-m") 'eshell-bol)
-  (local-set-key (kbd "M-_") 'my-eshell-last-arg))
-
-(add-hook 'eshell-mode-hook 'my-eshell-hook)
 
 ;; ----------------------------------------------------------------------------
 ;;| Tags
@@ -2205,14 +2165,6 @@ current project instead. Visit the tags file."
 
 (blink-cursor-mode 0)
 (setq-default cursor-type 'box)
-
-;; (defun my-highlight-yanked-region (orig-fn beg end &rest args)
-;;   "Highlight yanked region. https://blog.meain.io/2020/emacs-highlight-yanked/"
-;;   (let ((pulse-delay 0.2)
-;; 	(pulse-iterations 1))
-;;     (pulse-momentary-highlight-region beg end 'highlight))
-;;   (apply orig-fn beg end args))
-;; (advice-add 'evil-yank :around #'my-highlight-yanked-region)
 
 (defun my-theme-dark (x)
   (cond
