@@ -2167,6 +2167,7 @@ current project instead. Visit the tags file."
 (setq-default cursor-type 'box)
 
 (defun my-theme-dark (x)
+  (mapcar #'disable-theme custom-enabled-themes)
   (cond
    (x
     (require 'reykjavik-theme)
@@ -2175,31 +2176,27 @@ current project instead. Visit the tags file."
    (t
     (load-theme 'ef-night)
     (load-theme 'my-override-dark2)))
-
   (set-cursor-color "white")
   (setq evil-normal-state-cursor '(box "white"))
   (setq evil-insert-state-cursor '(box "orange")))
 
 (defun my-theme-light (x)
+  (mapcar #'disable-theme custom-enabled-themes)
   (cond
    (x
     (require 'soft-morning-theme)
     (load-theme 'soft-morning))
    (t
     (load-theme 'ef-day)))
-
   (load-theme 'my-override-light)
   (setq evil-normal-state-cursor '(box "black"))
   (setq evil-insert-state-cursor '(box "orange")))
 
 (defun my-color-theme-toggle (dark)
   (interactive)
-  (let ((x (or (memq 'soft-morning custom-enabled-themes)
-	       (memq 'reykjavik custom-enabled-themes))))
-    (mapcar #'disable-theme custom-enabled-themes)
-    (if dark
-	(my-theme-dark (not x))
-      (my-theme-light (not x)))))
+  (if dark
+      (my-theme-dark (not (memq 'reykjavik custom-enabled-themes)))
+    (my-theme-light (not (memq 'soft-morning custom-enabled-themes)))))
 
 (global-set-key (kbd "C-c w d") (lambda () (interactive) (my-color-theme-toggle t)))
 (global-set-key (kbd "C-c w o") (lambda () (interactive) (my-color-theme-toggle nil)))
