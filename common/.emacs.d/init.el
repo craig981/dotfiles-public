@@ -375,6 +375,8 @@
 (global-set-key (kbd "C-c j") 'jump-to-register)
 (global-set-key (kbd "C-x w") 'subword-mode)
 
+(evil-leader/set-key "l" 'flyspell-buffer)
+
 (setq register-preview-delay 0.5)
 
 (define-key minibuffer-local-map (kbd "<escape>") 'abort-recursive-edit)
@@ -956,7 +958,6 @@
 (consult-customize consult-line my-consult-line :preview-key 'any)
 
 (global-set-key (kbd "M-s l") 'my-consult-line)
-(evil-leader/set-key "l" 'my-consult-line)
 (define-key isearch-mode-map (kbd "M-s l") 'consult-line)
 (define-key vertico-map (kbd "C-c C-k") 'vertico-save)
 
