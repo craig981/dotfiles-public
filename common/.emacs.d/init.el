@@ -838,7 +838,7 @@
 		(thing-at-point 'word t))))
     (org-insert-structure-template (format "src %s" lang))))
 
-(evil-leader/set-key-for-mode 'org-mode "l" 'my-insert-org-src-block)
+(evil-leader/set-key-for-mode 'org-mode "c" 'my-insert-org-src-block)
 
 (defun my-forward-before-insert (&rest args)
   "Move the cursor forward before closing a tag or inserting a time stamp"
