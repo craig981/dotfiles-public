@@ -714,7 +714,7 @@
 	;;  (concat org-agenda-hide-tags-regexp "\\|ARCHIVE"))
 	(org-agenda-start-on-weekday 1)))
 
-(let ((tag (if (eq system-type 'darwin) "READ|PROJECT" "NEXT")))
+(let ((tag (if (eq system-type 'darwin) "READ|PROJECT")))
   (setq org-agenda-custom-commands
 	`(("d" "Done stuff" todo "DONE" )
 	  ("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
@@ -726,10 +726,11 @@
 			   '(org-agenda-skip-entry-if 'scheduled 'deadline))
 			  (org-agenda-sorting-strategy
 			   '((todo priority-down alpha-up)))))
-	    (tags ,tag ((org-agenda-skip-function
-			 '(org-agenda-skip-entry-if 'todo '("DONE")))
-			(org-agenda-sorting-strategy
-			 '((tags tag-up alpha-up))))))
+	    ,@(if tag
+		  `((tags ,tag ((org-agenda-skip-function
+				 '(org-agenda-skip-entry-if 'todo '("DONE")))
+				(org-agenda-sorting-strategy
+				 '((tags tag-up alpha-up))))))))
 	   ((org-agenda-start-with-log-mode nil)
 	    (org-tags-match-list-sublevels nil)))
 	  ("w" "This week"
