@@ -1686,6 +1686,7 @@ return the project path instead"
     (other-window 1)))
 
 (defun my-shell-hook ()
+  (undo-tree-mode -1)			; don't shadow M-_
   (fancy-dabbrev-mode -1)
   (visual-line-mode 0)
   (toggle-truncate-lines 0)
