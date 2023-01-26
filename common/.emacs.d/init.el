@@ -2006,6 +2006,10 @@ current project instead. Visit the tags file."
 (define-skeleton my-cpp-include-sys "" nil
   "#include <" - ">")
 
+(define-skeleton my-cpp-if "" nil
+  > "if (" - ") {\n"
+  > -1 "}\n")
+
 (define-skeleton my-cpp-for "" nil
   > "for ("
   (skeleton-read "Type: " "int") " "
@@ -2058,6 +2062,7 @@ current project instead. Visit the tags file."
     (define-abbrev table "inc"  "" 'my-cpp-include-sys)
     (define-abbrev table "forr" "" 'my-cpp-for)
     (define-abbrev table "fori" "" 'my-cpp-for-iter)
+    (define-abbrev table "if"   "" 'my-cpp-if)
     (define-abbrev table "pv"   "" 'my-cpp-print-vec)
     (define-abbrev table "main" "" 'my-cpp-main)))
 
