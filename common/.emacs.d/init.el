@@ -1092,22 +1092,33 @@
 (require 'helm-ag)
 (require 'helm-occur)
 
+(defvar my-helm-ignore '("build/"))
+(defvar my-helm-ignore-extra '("*.html" "*.css" "glew/"))
+
 ;; display relative paths in grep results
 (setq-default helm-grep-file-path-style 'relative)
 (setq-default helm-ag-use-grep-ignore-list t)
-(setq-default helm-ag-ignore-patterns '("build/"))
+(setq-default helm-ag-ignore-patterns my-helm-ignore)
 (setq-default helm-ag-base-command "ag --nocolor --nogroup --ignore-case --hidden")
 
-(defun my-search (&optional prefix)
-  "Search project. With prefix arg, choose directory instead."
-  (interactive "P")
-  (if prefix
-      (let ((current-prefix-arg 4)) ;; emulate C-u
-	(call-interactively 'helm-ag))
-    ;; search current project
-    (if (file-remote-p default-directory)
+(defun my-search-project ()
+  "Search current project"
+  (if (file-remote-p default-directory)
 	(helm-ag-project-root)
-      (helm-do-ag-project-root))))
+      (helm-do-ag-project-root)))
+
+(defun my-search (&optional prefix)
+  "Search project. With prefix arg, ignore extra file types. With
+double-prefix arg, choose directory instead."
+  (interactive "p")
+  (cond
+   ((eq prefix 16)
+    (let ((current-prefix-arg 4)) ;; emulate C-u
+      (call-interactively 'helm-ag)))
+   ((eq prefix 4)
+    (let ((helm-ag-ignore-patterns (append my-helm-ignore my-helm-ignore-extra)))
+      (my-search-project)))
+   (t (my-search-project))))
 
 (global-set-key (kbd "C-c o") 'helm-occur)
 (global-set-key (kbd "C-c r") 'my-search)
@@ -1310,9 +1321,12 @@ return the project path instead"
   (interactive)
   (my-choose-project-and-invoke #'my-find-file-in-project-other-window))
 
-(defun my-choose-project-and-search ()
-  (interactive)
-  (my-choose-project-and-invoke #'my-search))
+(defun my-choose-project-and-search (&optional prefix)
+  (interactive "P")
+  (my-choose-project-and-invoke (lambda ()
+				  (if prefix
+				      (my-search 4)
+				    (my-search)))))
 
 (defun my-choose-project-and-magit ()
   (interactive)
