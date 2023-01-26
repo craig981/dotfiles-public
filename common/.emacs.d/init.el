@@ -414,7 +414,8 @@
 
 (with-eval-after-load "info"
   (define-key Info-mode-map (kbd "C-w") 'evil-window-map)
-  (define-key Info-mode-map (kbd "SPC") evil-leader--default-map))
+  (define-key Info-mode-map (kbd "SPC") evil-leader--default-map)
+  (define-key Info-mode-map (kbd "M-n") nil))
 
 (with-eval-after-load "man"
   (define-key Man-mode-map (kbd "M-n") 'Man-next-section)
