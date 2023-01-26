@@ -1203,6 +1203,8 @@
     (or (and dir (expand-file-name (file-name-as-directory dir)))
 	default-directory)))
 
+(setq project-vc-ignores '("./build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
+
 (defvar my-override-initial-input)
 
 (defun my-complete-with-initial-input (func &rest args)
