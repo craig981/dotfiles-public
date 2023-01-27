@@ -285,7 +285,9 @@
 (defun my-kill-buffer ()
   (interactive)
   (if (not (buffer-file-name))
-      (call-interactively 'kill-buffer)
+      (if (eq major-mode 'dired-mode)
+	  (kill-buffer (current-buffer))
+	(call-interactively 'kill-buffer))
     (if (or buffer-read-only
 	    (not (buffer-modified-p)))
 	(kill-buffer (current-buffer))
