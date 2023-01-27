@@ -71,6 +71,14 @@
 (add-hook 'find-file-hook 'my-find-file-hook)
 (add-hook 'evil-command-window-mode-hook 'evil-local-mode)
 
+(defun my-insert-enter-hook ()
+  (show-paren-mode -1))
+(defun my-insert-exit-hook ()
+  (show-paren-mode 1))
+
+(add-hook 'evil-insert-state-entry-hook 'my-insert-enter-hook)
+(add-hook 'evil-insert-state-exit-hook 'my-insert-exit-hook)
+
 (when (fboundp 'evil-set-undo-system)
   (require 'undo-tree)
   (global-undo-tree-mode)
