@@ -2413,7 +2413,7 @@ current project instead. Visit the tags file."
    '(magit-insert-error-header magit-insert-diff-filter-header magit-insert-repo-header magit-insert-head-branch-header magit-insert-upstream-branch-header magit-insert-push-branch-header magit-insert-tags-header))
  '(org-blank-before-new-entry '((heading . auto) (plain-list-item)))
  '(org-imenu-depth 3)
- '(org-refile-targets '((org-agenda-files :maxlevel . 2)))
+ '(org-refile-targets '((org-agenda-files :maxlevel . 2) (nil :maxlevel . 2)))
  '(package-selected-packages
    '(bongo
      cmake-mode
