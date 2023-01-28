@@ -636,7 +636,7 @@
 
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c c") 'org-capture)
+(global-set-key (kbd "C-c x") 'org-capture)
 (global-set-key (kbd "C-'") 'org-cycle-agenda-files)
 
 (evil-leader/set-key "g" (lambda ()
@@ -696,10 +696,10 @@
 (setq org-capture-templates
       '(("b" "Bookmark" entry (file+headline org-default-notes-file "Bookmarks")
 	 "* %?\n")
-	("t" "Task" entry (file+headline org-default-notes-file "Tasks")
+	("x" "Task" entry (file+headline org-default-notes-file "Tasks")
 	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")))
 (when (eq system-type 'darwin)
-    (push '("B" "Book" entry (file+headline org-default-notes-file "Books")
+    (push '("o" "Book" entry (file+headline org-default-notes-file "Books")
 	    "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
 	  org-capture-templates)
     (push '("r" "Read/watch" entry (file+headline org-default-notes-file "Tasks")
@@ -707,10 +707,6 @@
 	  org-capture-templates)
     (push '("p" "Project" entry (file+headline org-default-notes-file "Tasks")
 	    "* %? :PROJECT:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
-	  org-capture-templates))
-(when (eq system-type 'gnu/linux)
-    (push '("n" "Next" entry (file+headline org-default-notes-file "Tasks")
-	    "* %? :NEXT:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
 	  org-capture-templates))
 
 (setq my-org-agenda-common-review-settings
@@ -1358,10 +1354,6 @@ return the project path instead"
 
 (global-set-key (kbd "C-c e") 'my-find-file-in-project)
 (global-set-key (kbd "C-c d") 'my-jump-project-dired)
-
-(global-set-key (kbd "C-c x") (lambda ()
-				(interactive)
-				(find-file user-init-file)))
 (global-set-key (kbd "C-c z") (lambda ()
 				(interactive)
 				(magit "~/dotfiles-public")))
