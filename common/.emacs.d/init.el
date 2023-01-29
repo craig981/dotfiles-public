@@ -1361,6 +1361,7 @@ return the project path instead"
   (interactive)
   (let ((default-directory "~/notefiles"))
     (my-find-file-in-project)))
+(global-set-key (kbd "C-c n") 'my-jump-notefiles)
 (evil-leader/set-key "n" 'my-jump-notefiles)
 
 (evil-leader/set-key "e" 'my-find-file-in-project)
