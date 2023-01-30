@@ -134,6 +134,7 @@
 (evil-global-set-key 'insert (kbd "C-y") nil)
 (evil-global-set-key 'insert (kbd "C-n") nil)
 (evil-global-set-key 'insert (kbd "C-p") nil)
+(evil-global-set-key 'insert (kbd "C-o") nil)
 (evil-global-set-key 'insert (kbd "C-d") 'my-delete-or-indent-left)
 
 (define-key evil-ex-completion-map (kbd "C-a") 'move-beginning-of-line)
