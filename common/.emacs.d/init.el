@@ -1727,6 +1727,48 @@ return the project path instead"
   (expose-global-binding-in-term (kbd "M-o")))
 
 ;; ----------------------------------------------------------------------------
+;;| Eshell
+;; ----------------------------------------------------------------------------
+
+(require 'eshell)
+
+(defun my-eshell-last-arg ()
+  "Insert last argument of previous command"
+  (interactive)
+  (insert (car (last (split-string-shell-command (eshell-previous-input-string 0))))))
+
+(defun my-eshell-ctrl-d ()
+  "If the input line is blank, close the shell, otherwise delete-char"
+  (interactive)
+  (if (not (string= "" (eshell-get-old-input)))
+      (call-interactively 'delete-char)
+    (kill-buffer)
+    (if (> (count-windows) 2)
+	(delete-window))))
+
+(defun my-eshell-hook ()
+  (undo-tree-mode -1)			; don't shadow M-_
+  (fancy-dabbrev-mode -1)
+  (visual-line-mode 0)
+  (toggle-truncate-lines 1)
+  (define-key eshell-hist-mode-map (kbd "M-r") #'move-to-window-line-top-bottom)
+  (define-key eshell-hist-mode-map (kbd "C-r") #'helm-eshell-history)
+  (define-key eshell-hist-mode-map (kbd "C-c C-l") #'eshell/clear)
+  (define-key eshell-mode-map (kbd "M-m") 'eshell-bol)
+  (local-set-key (kbd "M-_") 'my-eshell-last-arg)
+  (local-set-key (kbd "C-d") 'my-eshell-ctrl-d))
+
+(add-hook 'eshell-mode-hook 'my-eshell-hook)
+
+(defun my-split-eshell ()
+  (interactive)
+  (let ((evil-split-window-below t))
+    (evil-window-split))
+  (eshell))
+
+(global-set-key (kbd "C-c V") 'my-split-eshell)
+
+;; ----------------------------------------------------------------------------
 ;;| Tags
 ;; ----------------------------------------------------------------------------
 
