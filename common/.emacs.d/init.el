@@ -661,7 +661,6 @@
 				 (gnuplot . t)))
 
   (define-key org-mode-map (kbd "C-j") nil)
-  (define-key org-mode-map (kbd "C-c C-j") 'consult-outline)
 
   (when (eq system-type 'darwin)
 
@@ -1202,10 +1201,12 @@ double-prefix arg, choose directory instead."
 
 (defun my-imenu ()
   (interactive)
-  (let ((f (buffer-file-name)))
-    (if (and f (file-equal-p f user-init-file))
-	(helm-multi-occur-1 (list (current-buffer)) "^;;| ")
-      (helm-imenu))))
+  (cond
+   ((let ((f (buffer-file-name)))
+      (and f (file-equal-p f user-init-file)))
+    (helm-multi-occur-1 (list (current-buffer)) "^;;| "))
+   ((eq major-mode 'org-mode) (consult-outline))
+   (t (helm-imenu))))
 
 (global-set-key (kbd "C-c i") 'my-imenu)
 (evil-leader/set-key "i" 'my-imenu)
