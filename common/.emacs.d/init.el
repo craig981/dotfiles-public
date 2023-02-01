@@ -1632,20 +1632,30 @@ return the project path instead"
 ;;| Shell
 ;; ----------------------------------------------------------------------------
 
+(defun my-shell-name ()
+  "Return a name for a shell buffer"
+  (let* ((dir  (directory-file-name (expand-file-name default-directory)))
+	 (name (file-name-nondirectory dir)))
+    (if (or (string-empty-p name)
+	    (string= dir (expand-file-name "~")))
+	"*shell*"
+      (format "*shell:%s*" name))))
+
 (defun my-spawn-shell ()
   (interactive)
-  (let* ((dir        (directory-file-name (expand-file-name default-directory)))
-	 (name       (file-name-nondirectory dir))
-	 (currentbuf (get-buffer-window (current-buffer)))
-	 (newbuf     (generate-new-buffer-name
-		      (if (or (string-empty-p name)
-			      (string= dir (expand-file-name "~")))
-			  "*shell*"
-			(format "*shell:%s*" name)))))
+  (let* ((currentbuf (get-buffer-window (current-buffer)))
+	 (newbuf     (generate-new-buffer-name (my-shell-name))))
     (generate-new-buffer newbuf)
     (set-window-dedicated-p currentbuf nil)
     (set-window-buffer currentbuf newbuf)
     (shell newbuf)))
+
+(defun my-switch-shell ()
+  (interactive)
+  (let ((name (my-shell-name)))
+    (if (get-buffer name)
+	(switch-to-buffer name)
+      (my-spawn-shell))))
 
 (defun my-split-shell ()
   (interactive)
@@ -1709,7 +1719,7 @@ return the project path instead"
 
 (add-hook 'sh-mode-hook 'my-syntax-entry)
 
-(global-set-key (kbd "C-c s") 'my-spawn-shell)
+(global-set-key (kbd "C-c s") 'my-switch-shell)
 (global-set-key (kbd "C-c v") 'my-split-shell)
 
 ;; ----------------------------------------------------------------------------
