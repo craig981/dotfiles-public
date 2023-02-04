@@ -362,7 +362,6 @@
 (when (not (display-graphic-p))
   (global-set-key (kbd "C-x ;") (kbd "C-x C-;")))
 
-(global-set-key (kbd "C-x C-b") 'ibuffer)
 (with-eval-after-load 'ibuffer
   (define-key ibuffer-mode-map (kbd "M-o") nil))
 
@@ -948,8 +947,21 @@
 
 (require 'consult)
 
-(global-set-key (kbd "C-j") 'consult-buffer)
+(defun my-invoke-without-vertico (func)
+  (let ((v vertico-mode)
+	(m marginalia-mode))
+    (vertico-mode 0)
+    (marginalia-mode 0)
+    (unwind-protect
+	(call-interactively func)
+      (vertico-mode v)
+      (marginalia-mode m))))
+
+(global-set-key (kbd "C-j") (lambda ()
+			      (interactive)
+			      (my-invoke-without-vertico #'switch-to-buffer)))
 (global-set-key (kbd "C-x b") 'consult-buffer)
+(global-set-key (kbd "C-x C-b") 'consult-buffer)
 (global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window)
 
 (define-key consult-narrow-map (kbd "C-j") 'vertico-exit)
