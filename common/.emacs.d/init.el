@@ -1442,8 +1442,17 @@ return the project path instead"
  (setq dired-guess-shell-alist-user '(("" "open"))))
 
 (setq-default image-dired-dir "/tmp/image-dired") ; where to store thumbnails
-(setq-default image-dired-thumb-width 200)
-(setq-default image-dired-thumb-height 200)
+(setq-default image-dired-thumb-width 100)
+(setq-default image-dired-thumb-height 100)
+
+(defun my-advise-image-dired (&optional args)
+  (when (eq major-mode 'dired-mode)
+    (dired-hide-details-mode)
+    (when (= 1 (count-windows))
+      (split-window-right))
+    (evil-window-set-width 25)))
+
+(advice-add 'image-dired-display-thumbs :before 'my-advise-image-dired)
 
 (with-eval-after-load "image-dired"
   ;; show full size
@@ -1466,7 +1475,7 @@ return the project path instead"
 (push '((lambda (buf actions)
 	  (eq 'image-dired-thumbnail-mode (with-current-buffer buf major-mode)))
         (display-buffer-reuse-window display-buffer-at-bottom)
-        (window-height . 10))
+        (window-height . 6))
       display-buffer-alist)
 
 ;; ----------------------------------------------------------------------------
