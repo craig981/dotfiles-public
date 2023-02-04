@@ -291,17 +291,6 @@
       (goto-line line)
       (recenter-top-bottom))))
 
-(defun my-kill-buffer ()
-  (interactive)
-  (if (not (buffer-file-name))
-      (cond
-       ((eq major-mode 'dired-mode) (kill-buffer (current-buffer)))
-       (t (call-interactively 'kill-buffer)))
-    (if (or buffer-read-only
-	    (not (buffer-modified-p)))
-	(kill-buffer (current-buffer))
-      (kill-this-buffer))))
-
 (defun my-close-other-window ()
   (interactive)
   (quit-window nil (next-window)))
@@ -353,9 +342,6 @@
   (advice-add #'Man-completion-table :override #'my-advise-man-completion))
 
 (global-set-key (kbd "C-c q") #'my-close-other-window)
-(evil-global-set-key 'motion (kbd "C-w d") 'my-kill-buffer)
-(evil-global-set-key 'motion (kbd "C-w C-d") 'my-kill-buffer)
-(global-set-key (kbd "C-x k") 'my-kill-buffer)
 
 (evil-leader/set-key "%" #'my-copy-filename)
 (global-set-key (kbd "C-c u") #'my-toggle-wrap)
@@ -944,28 +930,6 @@
         (window-height . 10))
       display-buffer-alist)
 
-(defun my-invoke-without-vertico (func)
-  (let ((v vertico-mode)
-	(m marginalia-mode))
-    (vertico-mode 0)
-    (marginalia-mode 0)
-    (unwind-protect
-	(call-interactively func)
-      (vertico-mode v)
-      (marginalia-mode m))))
-
-(defun my-switch-buffer ()
-  (interactive)
-  (ido-mode 1)
-  (unwind-protect
-      (my-invoke-without-vertico #'ido-switch-buffer)
-    (ido-mode 0)))
-
-(with-eval-after-load "ido"
-  (define-key ido-buffer-completion-map (kbd "C-j") 'ido-exit-minibuffer))
-
-(global-set-key (kbd "C-j") 'my-switch-buffer)
-
 ;; ----------------------------------------------------------------------------
 ;;| Consult
 ;; ----------------------------------------------------------------------------
@@ -1000,6 +964,43 @@
 	 buffer
 	 (vertico-buffer-display-action . (display-buffer-pop-up-window)))))
 
+;; ----------------------------------------------------------------------------
+;;| Ido
+;; ----------------------------------------------------------------------------
+
+(defun my-invoke-with-ido (func)
+  (let ((v vertico-mode)
+	(m marginalia-mode))
+    (vertico-mode 0)
+    (marginalia-mode 0)
+    (ido-mode 1)
+    (unwind-protect
+	(call-interactively func)
+      (ido-mode 0)
+      (vertico-mode v)
+      (marginalia-mode m))))
+
+(defun my-kill-buffer ()
+  (interactive)
+  (if (not (buffer-file-name))
+      (cond
+       ((eq major-mode 'dired-mode) (kill-buffer (current-buffer)))
+       (t (my-invoke-with-ido #'kill-this-buffer)))
+    (if (or buffer-read-only
+	    (not (buffer-modified-p)))
+	(kill-buffer (current-buffer))
+      (kill-this-buffer))))
+
+(evil-global-set-key 'motion (kbd "C-w d") 'my-kill-buffer)
+(evil-global-set-key 'motion (kbd "C-w C-d") 'my-kill-buffer)
+(global-set-key (kbd "C-x k") 'my-kill-buffer)
+
+(with-eval-after-load "ido"
+  (define-key ido-buffer-completion-map (kbd "C-j") 'ido-exit-minibuffer))
+
+(global-set-key (kbd "C-j") (lambda ()
+			      (interactive)
+			      (my-invoke-with-ido #'ido-switch-buffer)))
 ;; ----------------------------------------------------------------------------
 ;;| Helm
 ;; ----------------------------------------------------------------------------
