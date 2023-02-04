@@ -1001,6 +1001,7 @@
 (global-set-key (kbd "C-j") (lambda ()
 			      (interactive)
 			      (my-invoke-with-ido #'ido-switch-buffer)))
+
 ;; ----------------------------------------------------------------------------
 ;;| Helm
 ;; ----------------------------------------------------------------------------
@@ -2491,6 +2492,8 @@ current project instead. Visit the tags file."
  '(helm-candidate-number-limit 10000)
  '(helm-follow-mode-persistent t)
  '(helm-source-names-using-follow '("Imenu" "AG" "Helm occur"))
+ '(ido-max-window-height 1)
+ '(ido-use-virtual-buffers t)
  '(initial-frame-alist '((fullscreen . maximized)))
  '(ispell-program-name "aspell")
  '(magit-log-arguments '("--graph" "--color" "--decorate" "-n256"))
