@@ -2509,6 +2509,8 @@ current project instead. Visit the tags file."
  '(tramp-ssh-controlmaster-options
    "-o ControlMaster=auto -o ControlPath=tramp.%%C -o ControlPersist=60m" t)
  '(undo-tree-auto-save-history nil)
+ '(vertico-count-format nil)
+ '(vertico-group-format nil)
  '(warning-suppress-types '((comp))))
 
 (custom-set-faces
