@@ -2492,6 +2492,7 @@ current project instead. Visit the tags file."
  '(helm-candidate-number-limit 10000)
  '(helm-follow-mode-persistent t)
  '(helm-source-names-using-follow '("Imenu" "AG" "Helm occur"))
+ '(ido-ignore-buffers '("^magit\\>" "\\` "))
  '(ido-max-window-height 1)
  '(ido-use-virtual-buffers t)
  '(initial-frame-alist '((fullscreen . maximized)))
