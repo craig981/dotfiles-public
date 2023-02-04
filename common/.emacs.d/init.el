@@ -954,9 +954,17 @@
       (vertico-mode v)
       (marginalia-mode m))))
 
-(global-set-key (kbd "C-j") (lambda ()
-			      (interactive)
-			      (my-invoke-without-vertico #'switch-to-buffer)))
+(defun my-switch-buffer ()
+  (interactive)
+  (ido-mode 1)
+  (unwind-protect
+      (my-invoke-without-vertico #'ido-switch-buffer)
+    (ido-mode 0)))
+
+(with-eval-after-load "ido"
+  (define-key ido-buffer-completion-map (kbd "C-j") 'ido-exit-minibuffer))
+
+(global-set-key (kbd "C-j") 'my-switch-buffer)
 
 ;; ----------------------------------------------------------------------------
 ;;| Consult
