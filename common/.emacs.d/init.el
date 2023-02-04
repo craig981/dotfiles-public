@@ -904,12 +904,6 @@
 ;;| Vertico, orderless, marginalia
 ;; ----------------------------------------------------------------------------
 
-;; popup the completion buffer at the bottom
-(push '("\\*Completions\\*"
-        (display-buffer-reuse-window display-buffer-at-bottom)
-        (window-height . 10))
-      display-buffer-alist)
-
 (require 'vertico)
 (require 'orderless)
 (require 'marginalia)
@@ -926,26 +920,29 @@
     (describe-function (intern (vertico--candidate)))))
 
 (defun my-disable-vertico (func &rest args)
-  (vertico-mode -1)
-  (unwind-protect
-      (apply func args)
-    (vertico-mode)))
+  (let ((v vertico-mode))
+    (vertico-mode 0)
+    (unwind-protect
+	(apply func args)
+      (vertico-mode v))))
 
 (defun my-disable-marginalia (func &rest args)
-  (marginalia-mode -1)
-  (unwind-protect
-      (apply func args)
-    (marginalia-mode)))
+  (let ((m marginalia-mode))
+    (marginalia-mode 0)
+    (unwind-protect
+	(apply func args)
+      (marginalia-mode m))))
+
 ;; Don't want marginalia in *Completions* buffer when hitting TAB in
 ;; shell mode. Completion candidates are in a grid, and some are
 ;; pushed off-screen.
 (advice-add #'completion-at-point :around #'my-disable-marginalia)
 
-;; ----------------------------------------------------------------------------
-;;| Consult
-;; ----------------------------------------------------------------------------
-
-(require 'consult)
+;; popup the completion buffer at the bottom
+(push '("\\*Completions\\*"
+        (display-buffer-reuse-window display-buffer-at-bottom)
+        (window-height . 10))
+      display-buffer-alist)
 
 (defun my-invoke-without-vertico (func)
   (let ((v vertico-mode)
@@ -960,6 +957,13 @@
 (global-set-key (kbd "C-j") (lambda ()
 			      (interactive)
 			      (my-invoke-without-vertico #'switch-to-buffer)))
+
+;; ----------------------------------------------------------------------------
+;;| Consult
+;; ----------------------------------------------------------------------------
+
+(require 'consult)
+
 (global-set-key (kbd "C-x b") 'consult-buffer)
 (global-set-key (kbd "C-x C-b") 'consult-buffer)
 (global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window)
