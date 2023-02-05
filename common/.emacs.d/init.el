@@ -2348,6 +2348,11 @@ current project instead. Visit the tags file."
 
 (add-hook 'window-setup-hook 'my-window-setup-hook)
 
+;; splash screen disappears sometimes
+(defun my-override-use-splash-screens (&rest args)
+  (display-graphic-p))
+(advice-add 'use-fancy-splash-screens-p :override 'my-override-use-splash-screens)
+
 (with-eval-after-load "evil-leader"
   (define-key splash-screen-keymap (kbd "SPC") evil-leader--default-map))
 
