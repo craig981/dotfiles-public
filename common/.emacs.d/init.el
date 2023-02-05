@@ -2308,14 +2308,12 @@ current project instead. Visit the tags file."
     (load-theme 'ef-tritanopia-light)))
   (load-theme 'my-override-light))
 
-(defun my-color-theme-toggle (dark)
-  (interactive)
-  (if dark
-      (my-theme-dark (not (memq 'reykjavik custom-enabled-themes)))
-    (my-theme-light (not (memq 'soft-morning custom-enabled-themes)))))
-
-(global-set-key (kbd "C-c w d") (lambda () (interactive) (my-color-theme-toggle t)))
-(global-set-key (kbd "C-c w o") (lambda () (interactive) (my-color-theme-toggle nil)))
+(global-set-key (kbd "C-c w d") (lambda ()
+				  (interactive)
+				  (my-theme-dark (not (memq 'reykjavik custom-enabled-themes)))))
+(global-set-key (kbd "C-c w o") (lambda ()
+				  (interactive)
+				  (my-theme-light (not (memq 'soft-morning custom-enabled-themes)))))
 
 (defun my-window-setup-hook ()
   (when (and (display-graphic-p)
