@@ -599,7 +599,8 @@
 (defun my-text-mode-hook ()
   (turn-on-auto-fill)
   (my-syntax-entry)
-  (evil-local-mode))
+  (when (not (buffer-file-name))
+    (evil-local-mode)))
 
 (add-hook 'text-mode-hook 'my-text-mode-hook)
 
