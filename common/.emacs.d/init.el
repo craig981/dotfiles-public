@@ -62,9 +62,11 @@
 (defun my-find-file-hook ()
   (if (file-remote-p (buffer-file-name))
       (setq-local vc-handled-backends nil))
-  (if (not (or (eq major-mode 'image-mode)
-	       (derived-mode-p 'bongo-mode)))
-      (evil-local-mode 1))
+  (when (not (or (eq major-mode 'image-mode)
+		 (derived-mode-p 'bongo-mode)))
+    (evil-local-mode 1)
+    (if (string= (file-name-nondirectory (buffer-file-name)) "COMMIT_EDITMSG")
+      (evil-insert-state)))
   (if my-input-method
       (set-input-method my-input-method)))
 
@@ -1528,8 +1530,7 @@ return the project path instead"
 
 (defun my-git-commit-mode-hook ()
   ;; want completion on elisp symbols
-  (modify-syntax-entry ?- "_")
-  (evil-insert-state))
+  (modify-syntax-entry ?- "_"))
 
 (add-hook 'git-commit-mode-hook 'my-git-commit-mode-hook)
 
