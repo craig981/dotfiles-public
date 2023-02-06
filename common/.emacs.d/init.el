@@ -945,7 +945,7 @@
 (setq consult-preview-key nil)	; stop preview when any key is pressed
 (consult-customize
  consult-buffer consult-buffer-other-window consult-theme
- :preview-key (kbd "C-j"))
+ :preview-key "C-j")
 
 (defun my-consult-line ()
   (interactive)
