@@ -999,6 +999,7 @@
 (global-set-key (kbd "C-x k") 'my-kill-buffer)
 
 (with-eval-after-load "ido"
+  (setq ido-enable-flex-matching t)
   (define-key ido-buffer-completion-map (kbd "C-j") 'ido-exit-minibuffer))
 
 (global-set-key (kbd "C-j") (lambda ()
