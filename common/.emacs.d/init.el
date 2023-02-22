@@ -1462,7 +1462,8 @@ return the project path instead"
 
 ;; make q work when viewing a file with v
 (defun my-view-mode-hook ()
-  (evil-emacs-state))
+  (define-key view-mode-map (kbd "C-j") nil)
+  (evil-local-set-key 'normal (kbd "q") 'quit-window))
 
 (add-hook 'view-mode-hook 'my-view-mode-hook)
 
