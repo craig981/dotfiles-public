@@ -1,4 +1,5 @@
 common/.vim/autoload/plug.vim
 common/.vim/plugged
 common/.vim/.netrwhist
+*.~undo-tree~
 
