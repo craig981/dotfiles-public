@@ -716,7 +716,7 @@
 	  ("g" ,(format "Agenda and %s" tag)
 	   ((agenda "" )
 	    ,@(if (eq system-type 'gnu/linux) '((tags "PIN")))
-	    (todo "TODO" ((org-agenda-overriding-header "Unscheduled TODO:")
+	    (todo "TODO|WAIT" ((org-agenda-overriding-header "Unscheduled TODO|WAIT:")
 			  (org-agenda-skip-function
 			   '(org-agenda-skip-entry-if 'scheduled 'deadline))
 			  (org-agenda-sorting-strategy
