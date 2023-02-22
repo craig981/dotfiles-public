@@ -2525,6 +2525,7 @@ current project instead. Visit the tags file."
      gnuplot-mode
      helm
      helm-ag
+     ledger-mode
      magit
      marginalia
      markdown-mode

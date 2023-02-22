@@ -37,6 +37,7 @@ macports-install:
 		git \
 		gnuplot \
 		htop \
+		ledger \
 		pandoc \
 		stow \
 		the_silver_searcher \
