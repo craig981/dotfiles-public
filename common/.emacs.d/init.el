@@ -677,9 +677,8 @@
 (setq org-src-fontify-natively t)
 (setq org-startup-folded nil)
 (setq org-confirm-babel-evaluate nil)
-;; (when (eq system-type 'gnu/linux)
-;;   (setq org-todo-keywords '((sequence "TODO(t)" "WAITING(w)" "|" "DONE(d)")
-;; 			    (sequence "|" "CANCELLED(c)"))))
+(setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w@)" "|" "DONE(d)")
+			  (sequence "|" "CANCELLED(c)")))
 
 (setq org-capture-templates
       '(("b" "Bookmark" entry (file+headline org-default-notes-file "Bookmarks")
@@ -2509,6 +2508,7 @@ current project instead. Visit the tags file."
  '(org-blank-before-new-entry '((heading . auto) (plain-list-item)))
  '(org-imenu-depth 3)
  '(org-refile-targets '((org-agenda-files :maxlevel . 2) (nil :maxlevel . 2)))
+ '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
    '(bongo
      cmake-mode
