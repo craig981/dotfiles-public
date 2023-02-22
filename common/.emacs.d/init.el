@@ -644,6 +644,7 @@
 
   (org-babel-do-load-languages 'org-babel-load-languages
 			       '((shell . t)
+				 (awk . t)
 				 (python .t)
 				 (emacs-lisp . t)
 				 (gnuplot . t)))
