@@ -464,7 +464,6 @@
 (define-global-abbrev "retrun" "return")
 (define-global-abbrev "cosnt" "const")
 (define-global-abbrev "conat" "const")
-(define-global-abbrev "co" "const")
 (define-global-abbrev "trinagle" "triangle")
 (define-global-abbrev "trl" "translate")
 (define-global-abbrev "trn" "transform")
