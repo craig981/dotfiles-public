@@ -998,6 +998,27 @@
 			      (my-invoke-with-ido #'ido-switch-buffer)))
 
 ;; ----------------------------------------------------------------------------
+;;| Icomplete
+;; ----------------------------------------------------------------------------
+
+;; (icomplete-vertical-mode 1)
+
+;; (defun my-icomplete-hook ()
+;;   (let ((inhibit-message t))
+;;     (toggle-truncate-lines 1)))
+;; (add-hook 'icomplete-minibuffer-setup-hook 'my-icomplete-hook)
+
+;; (setq icomplete-compute-delay 0.0)
+;; (setq icomplete-matches-format nil)
+;; (setq icomplete-show-matches-on-no-input t)
+;; (setq completion-pcm-word-delimiters "-_./:|")
+
+;; (define-key icomplete-vertical-mode-minibuffer-map (kbd "RET") 'icomplete-force-complete-and-exit)
+;; (define-key icomplete-minibuffer-map (kbd "RET") 'icomplete-force-complete-and-exit)
+;; (define-key icomplete-minibuffer-map (kbd "C-s") 'icomplete-forward-completions)
+;; (define-key icomplete-minibuffer-map (kbd "C-r") 'icomplete-backward-completions)
+
+;; ----------------------------------------------------------------------------
 ;;| Helm
 ;; ----------------------------------------------------------------------------
 
