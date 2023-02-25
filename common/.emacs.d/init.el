@@ -932,6 +932,7 @@
 ;; shell mode. Completion candidates are in a grid, and some are
 ;; pushed off-screen.
 (advice-add #'completion-at-point :around #'my-disable-marginalia)
+(advice-add #'minibuffer-complete :around #'my-disable-marginalia)
 
 ;; popup the completion buffer at the bottom
 (push '("\\*Completions\\*"
