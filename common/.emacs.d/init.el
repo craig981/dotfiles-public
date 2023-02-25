@@ -896,18 +896,16 @@
 (global-set-key (kbd "C-c H") 'winner-redo)
 
 ;; ----------------------------------------------------------------------------
-;;| Vertico, orderless, marginalia
+;;| Vertico
 ;; ----------------------------------------------------------------------------
 
 (require 'vertico)
-(require 'orderless)
-(require 'marginalia)
-
 (vertico-mode)
-(marginalia-mode)
-(setq completion-styles '(orderless flex))
-(setq completion-ignore-case t)
 
+(setq vertico-count-format nil)
+(setq vertico-group-format nil)
+
+(define-key vertico-map (kbd "C-c C-k") 'vertico-save)
 (define-key vertico-map (kbd "C-j") nil)
 (define-key vertico-map (kbd "C-h f")
   (lambda ()
@@ -921,6 +919,13 @@
 	(apply func args)
       (vertico-mode v))))
 
+;; ----------------------------------------------------------------------------
+;;| Marginalia
+;; ----------------------------------------------------------------------------
+
+(require 'marginalia)
+(marginalia-mode)
+
 (defun my-disable-marginalia (func &rest args)
   (let ((m marginalia-mode))
     (marginalia-mode 0)
@@ -933,6 +938,14 @@
 ;; pushed off-screen.
 (advice-add #'completion-at-point :around #'my-disable-marginalia)
 (advice-add #'minibuffer-complete :around #'my-disable-marginalia)
+
+;; ----------------------------------------------------------------------------
+;;| Orderless
+;; ----------------------------------------------------------------------------
+
+(require 'orderless)
+(setq completion-styles '(orderless flex))
+(setq completion-ignore-case t)
 
 ;; popup the completion buffer at the bottom
 (push '("\\*Completions\\*"
@@ -954,9 +967,6 @@
 (consult-customize
  consult-buffer consult-buffer-other-window consult-theme
  :preview-key "C-j")
-
-(define-key vertico-map (kbd "C-c C-k") 'vertico-save)
-
 
 ;; ----------------------------------------------------------------------------
 ;;| Ido
@@ -2558,8 +2568,6 @@ current project instead. Visit the tags file."
  '(tramp-ssh-controlmaster-options
    "-o ControlMaster=auto -o ControlPath=tramp.%%C -o ControlPersist=60m" t)
  '(undo-tree-auto-save-history nil)
- '(vertico-count-format nil)
- '(vertico-group-format nil)
  '(warning-suppress-types '((comp))))
 
 (custom-set-faces
