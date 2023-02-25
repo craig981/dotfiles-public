@@ -950,29 +950,13 @@
 (global-set-key (kbd "C-x C-b") 'consult-buffer)
 (global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window)
 
-(define-key consult-narrow-map (kbd "C-j") 'vertico-exit)
-
 (setq consult-preview-key nil)	; stop preview when any key is pressed
 (consult-customize
  consult-buffer consult-buffer-other-window consult-theme
  :preview-key "C-j")
 
-(defun my-consult-line ()
-  (interactive)
-  (consult-line (thing-at-point 'symbol t)))
-
-(consult-customize consult-line my-consult-line :preview-key 'any)
-
-(global-set-key (kbd "M-s l") 'my-consult-line)
-(define-key isearch-mode-map (kbd "M-s l") 'consult-line)
 (define-key vertico-map (kbd "C-c C-k") 'vertico-save)
 
-(require 'vertico-multiform)
-(vertico-multiform-mode)
-(setq vertico-multiform-commands
-      '((my-consult-line
-	 buffer
-	 (vertico-buffer-display-action . (display-buffer-pop-up-window)))))
 
 ;; ----------------------------------------------------------------------------
 ;;| Ido
@@ -1206,12 +1190,6 @@ double-prefix arg, choose directory instead."
   (lambda ()
     (interactive)
     (my-toggle-symbol-boundary "\\b" "\\b" "\\\\b")))
-
-;;; for consult-line
-(define-key vertico-map (kbd "M-w")
-  (lambda ()
-    (interactive)
-    (my-toggle-symbol-boundary "\\_<" "\\_>" "\\\\_<")))
 
 (define-key helm-ag-map (kbd "C-c C-o") (kbd "C-c o"))
 
