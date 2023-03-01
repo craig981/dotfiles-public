@@ -657,8 +657,6 @@
     ;; for pdf export
     (require 'ox-pandoc)))
 
-(require 'org)
-
 (when (eq system-type 'gnu/linux)
   (setq org-agenda-files (list "~/notes.org"))
   (setq org-default-notes-file "~/notes.org"))
@@ -1568,8 +1566,6 @@ return the project path instead"
   (evil-define-key 'normal magit-mode-map (kbd "p") 'magit-section-backward)
   (evil-define-key 'normal magit-mode-map (kbd "n") 'magit-section-forward))
 
-(require 'magit)
-
 (with-eval-after-load 'magit-repos
 
   (add-hook 'magit-repolist-mode-hook #'my-magit-repolist-hook)
@@ -1795,8 +1791,6 @@ return the project path instead"
 ;; ----------------------------------------------------------------------------
 ;;| Eshell
 ;; ----------------------------------------------------------------------------
-
-(require 'eshell)
 
 (defun my-eshell-last-arg ()
   "Insert last argument of previous command"
