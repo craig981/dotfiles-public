@@ -957,9 +957,7 @@
 
 (require 'consult)
 
-(global-set-key (kbd "C-x b") 'consult-buffer)
 (global-set-key (kbd "C-x C-b") 'consult-buffer)
-(global-set-key (kbd "C-x 4 b") 'consult-buffer-other-window)
 
 (setq consult-preview-key nil)	; stop preview when any key is pressed
 (consult-customize
@@ -993,6 +991,10 @@
 	(kill-buffer (current-buffer))
       (kill-this-buffer))))
 
+(defun my-switch-buffer ()
+  (interactive)
+  (my-invoke-with-ido #'ido-switch-buffer))
+
 (evil-global-set-key 'motion (kbd "C-w d") 'my-kill-buffer)
 (evil-global-set-key 'motion (kbd "C-w C-d") 'my-kill-buffer)
 (global-set-key (kbd "C-x k") 'my-kill-buffer)
@@ -1001,9 +1003,12 @@
   (setq ido-enable-flex-matching t)
   (define-key ido-buffer-completion-map (kbd "C-j") 'ido-exit-minibuffer))
 
-(global-set-key (kbd "C-j") (lambda ()
-			      (interactive)
-			      (my-invoke-with-ido #'ido-switch-buffer)))
+(global-set-key (kbd "C-j")   'my-switch-buffer)
+(global-set-key (kbd "C-x b") 'my-switch-buffer)
+(global-set-key (kbd "C-x 4 b")
+		(lambda ()
+		  (interactive)
+		  (my-invoke-with-ido #'ido-switch-buffer-other-window)))
 
 ;; ----------------------------------------------------------------------------
 ;;| Icomplete
