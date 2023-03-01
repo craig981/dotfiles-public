@@ -1021,10 +1021,11 @@
 ;; (setq icomplete-show-matches-on-no-input t)
 ;; (setq completion-pcm-word-delimiters "-_./:|")
 
-;; (define-key icomplete-vertical-mode-minibuffer-map (kbd "RET") 'icomplete-force-complete-and-exit)
-;; (define-key icomplete-minibuffer-map (kbd "RET") 'icomplete-force-complete-and-exit)
-;; (define-key icomplete-minibuffer-map (kbd "C-s") 'icomplete-forward-completions)
-;; (define-key icomplete-minibuffer-map (kbd "C-r") 'icomplete-backward-completions)
+;; (with-eval-after-load 'icomplete
+;;   (define-key icomplete-vertical-mode-minibuffer-map (kbd "RET") 'icomplete-force-complete-and-exit)
+;;   (define-key icomplete-minibuffer-map (kbd "RET") 'icomplete-force-complete-and-exit)
+;;   (define-key icomplete-minibuffer-map (kbd "C-s") 'icomplete-forward-completions)
+;;   (define-key icomplete-minibuffer-map (kbd "C-r") 'icomplete-backward-completions))
 
 ;; ----------------------------------------------------------------------------
 ;;| Helm
