@@ -1402,7 +1402,7 @@ return the project path instead"
 (global-set-key (kbd "C-c p r") #'my-choose-project-and-search)
 (global-set-key (kbd "C-c p s") #'my-choose-project-and-search)
 (global-set-key (kbd "C-c p m") #'my-choose-project-and-magit)
-(global-set-key (kbd "C-c p d") #'my-choose-project-and-dired)
+(global-set-key (kbd "C-c p z") #'my-choose-project-and-dired)
 
 (global-set-key (kbd "C-c e") 'my-find-file-in-project)
 (global-set-key (kbd "C-c z") 'my-jump-project-dired)
