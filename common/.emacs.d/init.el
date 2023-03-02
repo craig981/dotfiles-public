@@ -1405,10 +1405,8 @@ return the project path instead"
 (global-set-key (kbd "C-c p d") #'my-choose-project-and-dired)
 
 (global-set-key (kbd "C-c e") 'my-find-file-in-project)
-(global-set-key (kbd "C-c d") 'my-jump-project-dired)
-(global-set-key (kbd "C-c z") (lambda ()
-				(interactive)
-				(magit "~/dotfiles-public")))
+(global-set-key (kbd "C-c z") 'my-jump-project-dired)
+
 (defun my-jump-notefiles ()
   (interactive)
   (let ((default-directory "~/notefiles"))
