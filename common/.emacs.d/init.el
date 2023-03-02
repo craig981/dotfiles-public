@@ -1774,7 +1774,7 @@ return the project path instead"
 
 (add-hook 'sh-mode-hook 'my-syntax-entry)
 
-(global-set-key (kbd "C-c s") 'my-switch-shell)
+(global-set-key (kbd "C-c V") 'my-switch-shell)
 (global-set-key (kbd "C-c v") 'my-split-shell)
 
 ;; ----------------------------------------------------------------------------
