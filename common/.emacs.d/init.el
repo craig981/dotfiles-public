@@ -1830,7 +1830,7 @@ return the project path instead"
     (evil-window-split))
   (eshell))
 
-(global-set-key (kbd "C-c V") 'my-split-eshell)
+(global-set-key (kbd "C-c E") 'my-split-eshell)
 
 ;; ----------------------------------------------------------------------------
 ;;| Tags
