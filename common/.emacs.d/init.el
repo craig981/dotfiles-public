@@ -2519,7 +2519,6 @@ current project instead. Visit the tags file."
  '(magit-section-visibility-indicator '("" . t))
  '(magit-status-headers-hook
    '(magit-insert-error-header magit-insert-diff-filter-header magit-insert-repo-header magit-insert-head-branch-header magit-insert-upstream-branch-header magit-insert-push-branch-header magit-insert-tags-header))
- '(marginalia-align 'center)
  '(org-agenda-show-future-repeats nil)
  '(org-blank-before-new-entry '((heading . auto) (plain-list-item)))
  '(org-imenu-depth 3)
