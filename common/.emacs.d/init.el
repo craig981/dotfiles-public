@@ -346,7 +346,6 @@
 (global-set-key (kbd "M-n") (kbd "M-}"))
 (global-set-key (kbd "M-o") (kbd "C-x o"))
 (global-set-key (kbd "M-j") (lambda () (interactive) (join-line 1)))
-(global-set-key (kbd "M-=") 'count-words)
 
 (global-set-key (kbd "C-c w h") #'evil-window-move-far-left)
 (global-set-key (kbd "C-c w l") #'evil-window-move-far-right)
@@ -875,8 +874,8 @@
 ;; ----------------------------------------------------------------------------
 
 (winner-mode 1)
-(global-set-key (kbd "C-c h") 'winner-undo)
-(global-set-key (kbd "C-c H") 'winner-redo)
+(global-set-key (kbd "M-=") 'winner-undo)
+(global-set-key (kbd "M-+") 'winner-redo)
 
 ;; ----------------------------------------------------------------------------
 ;;| Vertico
