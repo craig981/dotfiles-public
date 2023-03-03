@@ -154,17 +154,6 @@
 (evil-global-set-key 'normal (kbd "g C-a") 'evil-numbers/inc-at-pt-incremental)
 (evil-global-set-key 'normal (kbd "g C-p") 'evil-numbers/dec-at-pt-incremental)
 
-(defun my-advise-window-new (func &rest args)
-  "Use evil-local-mode and the same major mode in the new buffer"
-  (let ((mode (if (or (derived-mode-p 'prog-mode)
-		      (eq major-mode 'org-mode))
-		  major-mode
-		'text-mode)))
-    (apply func args)
-    (evil-local-mode 1)
-    (funcall mode)))
-(advice-add 'evil-window-new :around #'my-advise-window-new)
-
 ;; ----------------------------------------------------------------------------
 ;;| Syntax and indent
 ;; ----------------------------------------------------------------------------
@@ -369,8 +358,6 @@
 (global-unset-key (kbd "C-h h")) ;; stop accidentally opening hello file
 (global-set-key (kbd "C-h C-c") nil) ;; disable describe-copying
 
-(global-set-key (kbd "C-M-r") 'isearch-backward)
-(global-set-key (kbd "C-c j") 'jump-to-register)
 (global-set-key (kbd "C-x w") 'subword-mode)
 
 (evil-leader/set-key "l" 'flyspell-buffer)
@@ -468,8 +455,6 @@
 (define-global-abbrev "trl" "translate")
 (define-global-abbrev "trn" "transform")
 (define-global-abbrev "bec" "because")
-
-(evil-global-set-key 'insert (kbd "C-]") 'expand-abbrev)
 
 ;; ----------------------------------------------------------------------------
 ;;| Fancy dabbrev
@@ -903,7 +888,6 @@
 (setq vertico-count-format nil)
 (setq vertico-group-format nil)
 
-(define-key vertico-map (kbd "C-c C-k") 'vertico-save)
 (define-key vertico-map (kbd "C-j") nil)
 (define-key vertico-map (kbd "C-h f")
   (lambda ()
@@ -1074,16 +1058,11 @@
 ;;| Find file at point
 ;; ----------------------------------------------------------------------------
 
-(require 'ffap)
-
 (defun my-find-file-at-point ()
-  "Like find-file-at-point but without prompt"
+  "Remove prompt from find-file-at-point, and print filename"
   (interactive)
-  (let ((f (ffap-file-at-point)))
-    (if (and f (file-exists-p f))
-	(find-file f)
-      (find-file-at-point f))
-    (princ (buffer-file-name))))
+  (find-file-at-point (ffap-file-at-point))
+  (princ (buffer-file-name)))
 
 (global-set-key (kbd "C-c f") 'my-find-file-at-point)
 (evil-global-set-key 'normal (kbd "gf") 'my-find-file-at-point)
@@ -1100,9 +1079,7 @@
 
 ;; match a filename before the point. from company-files.
 (defvar my-file-regexps
-  (let* ((root (if (eq system-type 'windows-nt)
-                   "[a-zA-Z]:/"
-                 "/"))
+  (let* ((root (if (eq system-type 'windows-nt) "[a-zA-Z]:/" "/"))
          (begin (concat "\\(?:\\.\\{1,2\\}/\\|~/\\|" root "\\)")))
     (list (concat "\"\\(" begin "[^\"\n]*\\)")
 	  (concat "\"\\(" "[^\"\n]*\\)")
@@ -1131,12 +1108,9 @@
 			     (format "Complete in %s/: "
 				     (directory-file-name dir))
 			     candlist nil t file)))
-
 	    (delete-region (- (point) (length file)) (point))
 	    (insert selection)
-
 	    (setq my-completing-filename (eq my-completing-filename 'continue)))))
-
     (setq my-completing-filename nil)))
 
 (evil-global-set-key 'insert (kbd "C-x C-f") 'my-complete-filename)
@@ -1411,7 +1385,6 @@ return the project path instead"
   (interactive)
   (let ((default-directory "~/notefiles"))
     (my-find-file-in-project)))
-(global-set-key (kbd "C-c n") 'my-jump-notefiles)
 (evil-leader/set-key "n" 'my-jump-notefiles)
 
 (evil-leader/set-key "e" 'my-find-file-in-project)
@@ -1512,7 +1485,6 @@ return the project path instead"
 	(call-interactively 'image-dired-display-thumbnail-original-image)))))
 
 (global-set-key (kbd "C-x C-j") 'dired-jump)
-(global-set-key (kbd "C-c F") 'find-dired)
 
 ;;; stop opening multiple image buffers
 (push '((lambda (buf actions)
@@ -1781,10 +1753,7 @@ return the project path instead"
 ;;| Term
 ;; ----------------------------------------------------------------------------
 
-(if (and (display-graphic-p)
-	 (require 'vterm "vterm" t))
-    (global-set-key (kbd "C-c t") 'vterm)
-  (global-set-key (kbd "C-c t") 'ansi-term))
+(global-set-key (kbd "C-c t") 'ansi-term)
 
 (defun expose-global-binding-in-term (binding)
   (define-key term-raw-map binding
@@ -1796,41 +1765,41 @@ return the project path instead"
 ;;| Eshell
 ;; ----------------------------------------------------------------------------
 
-(defun my-eshell-last-arg ()
-  "Insert last argument of previous command"
-  (interactive)
-  (insert (car (last (split-string-shell-command (eshell-previous-input-string 0))))))
+;; (defun my-eshell-last-arg ()
+;;   "Insert last argument of previous command"
+;;   (interactive)
+;;   (insert (car (last (split-string-shell-command (eshell-previous-input-string 0))))))
 
-(defun my-eshell-ctrl-d ()
-  "If the input line is blank, close the shell, otherwise delete-char"
-  (interactive)
-  (if (not (string= "" (eshell-get-old-input)))
-      (call-interactively 'delete-char)
-    (kill-buffer)
-    (if (> (count-windows) 2)
-	(delete-window))))
+;; (defun my-eshell-ctrl-d ()
+;;   "If the input line is blank, close the shell, otherwise delete-char"
+;;   (interactive)
+;;   (if (not (string= "" (eshell-get-old-input)))
+;;       (call-interactively 'delete-char)
+;;     (kill-buffer)
+;;     (if (> (count-windows) 2)
+;; 	(delete-window))))
 
-(defun my-eshell-hook ()
-  (undo-tree-mode -1)			; don't shadow M-_
-  (fancy-dabbrev-mode -1)
-  (visual-line-mode 0)
-  (toggle-truncate-lines 1)
-  (define-key eshell-hist-mode-map (kbd "M-r") #'move-to-window-line-top-bottom)
-  (define-key eshell-hist-mode-map (kbd "C-r") #'helm-eshell-history)
-  (define-key eshell-hist-mode-map (kbd "C-c C-l") #'eshell/clear)
-  (define-key eshell-mode-map (kbd "M-m") 'eshell-bol)
-  (local-set-key (kbd "M-_") 'my-eshell-last-arg)
-  (local-set-key (kbd "C-d") 'my-eshell-ctrl-d))
+;; (defun my-eshell-hook ()
+;;   (undo-tree-mode -1)			; don't shadow M-_
+;;   (fancy-dabbrev-mode -1)
+;;   (visual-line-mode 0)
+;;   (toggle-truncate-lines 1)
+;;   (define-key eshell-hist-mode-map (kbd "M-r") #'move-to-window-line-top-bottom)
+;;   (define-key eshell-hist-mode-map (kbd "C-r") #'helm-eshell-history)
+;;   (define-key eshell-hist-mode-map (kbd "C-c C-l") #'eshell/clear)
+;;   (define-key eshell-mode-map (kbd "M-m") 'eshell-bol)
+;;   (local-set-key (kbd "M-_") 'my-eshell-last-arg)
+;;   (local-set-key (kbd "C-d") 'my-eshell-ctrl-d))
 
-(add-hook 'eshell-mode-hook 'my-eshell-hook)
+;; (add-hook 'eshell-mode-hook 'my-eshell-hook)
 
-(defun my-split-eshell ()
-  (interactive)
-  (let ((evil-split-window-below t))
-    (evil-window-split))
-  (eshell))
+;; (defun my-split-eshell ()
+;;   (interactive)
+;;   (let ((evil-split-window-below t))
+;;     (evil-window-split))
+;;   (eshell))
 
-(global-set-key (kbd "C-c E") 'my-split-eshell)
+;; (global-set-key (kbd "C-c E") 'my-split-eshell)
 
 ;; ----------------------------------------------------------------------------
 ;;| Tags
