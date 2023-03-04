@@ -753,6 +753,8 @@
 					    (interactive)
 					    (my-org-shift t)))
 
+  (setq-local search-invisible nil)
+
   ;; / is punctuation, so evil * works on path components
   (modify-syntax-entry ?/ ".")
   (auto-fill-mode 1)
