@@ -969,7 +969,7 @@
   (interactive)
   (if (buffer-modified-p)
       (my-invoke-with-ido #'ido-kill-buffer)
-    (kill-this-buffer))))
+    (kill-this-buffer)))
 
 (defun my-switch-buffer ()
   (interactive)
