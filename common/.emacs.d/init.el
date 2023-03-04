@@ -967,33 +967,29 @@
 
 (defun my-kill-buffer ()
   (interactive)
-  (if (not (buffer-file-name))
-      (cond
-       ((eq major-mode 'dired-mode) (kill-buffer (current-buffer)))
-       (t (my-invoke-with-ido #'kill-this-buffer)))
-    (if (or buffer-read-only
-	    (not (buffer-modified-p)))
-	(kill-buffer (current-buffer))
-      (kill-this-buffer))))
+  (if (buffer-modified-p)
+      (my-invoke-with-ido #'ido-kill-buffer)
+    (kill-this-buffer))))
 
 (defun my-switch-buffer ()
   (interactive)
   (my-invoke-with-ido #'ido-switch-buffer))
 
-(evil-global-set-key 'motion (kbd "C-w d") 'my-kill-buffer)
+(defun my-switch-buffer-other-window ()
+  (interactive)
+  (my-invoke-with-ido #'ido-switch-buffer-other-window))
+
+(evil-global-set-key 'motion (kbd "C-w d")   'my-kill-buffer)
 (evil-global-set-key 'motion (kbd "C-w C-d") 'my-kill-buffer)
 (global-set-key (kbd "C-x k") 'my-kill-buffer)
+
+(global-set-key (kbd "C-j")     'my-switch-buffer)
+(global-set-key (kbd "C-x b")   'my-switch-buffer)
+(global-set-key (kbd "C-x 4 b") 'my-switch-buffer-other-window)
 
 (with-eval-after-load "ido"
   (setq ido-enable-flex-matching t)
   (define-key ido-buffer-completion-map (kbd "C-j") 'ido-exit-minibuffer))
-
-(global-set-key (kbd "C-j")   'my-switch-buffer)
-(global-set-key (kbd "C-x b") 'my-switch-buffer)
-(global-set-key (kbd "C-x 4 b")
-		(lambda ()
-		  (interactive)
-		  (my-invoke-with-ido #'ido-switch-buffer-other-window)))
 
 ;; ----------------------------------------------------------------------------
 ;;| Icomplete
