@@ -937,6 +937,35 @@
       display-buffer-alist)
 
 ;; ----------------------------------------------------------------------------
+;;| Corfu
+;; ----------------------------------------------------------------------------
+
+;; (require 'corfu)
+;; (require 'cape)
+
+;; (global-corfu-mode)
+;; (corfu-history-mode)
+
+;; (setq corfu-cycle t)
+;; (setq corfu-auto t)
+;; (setq corfu-auto-prefix 2)
+;; (setq corfu-auto-delay 0.0)
+
+;; (define-key corfu-map (kbd "RET") nil)
+
+;; (add-to-list 'completion-at-point-functions #'cape-dabbrev t)
+;; (add-to-list 'completion-at-point-functions #'cape-file)
+
+;; (add-hook 'evil-insert-state-exit-hook 'corfu-quit)
+
+;; (defun my-corfu-move-to-minibuffer ()
+;;   (interactive)
+;;   (let ((completion-extra-properties corfu--extra)
+;;         completion-cycle-threshold completion-cycling)
+;;     (apply #'consult-completion-in-region completion-in-region--data)))
+;; (define-key corfu-map (kbd "M-m") #'my-corfu-move-to-minibuffer)
+
+;; ----------------------------------------------------------------------------
 ;;| Consult
 ;; ----------------------------------------------------------------------------
 
@@ -1853,6 +1882,8 @@ current project instead. Visit the tags file."
 (define-key paredit-mode-map (kbd "M-r") nil)
 
 (defun my-lisp-common-hook ()
+  ;; (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  ;; (add-to-list 'completion-at-point-functions #'cape-file)
   (enable-paredit-mode)
   (evil-local-mode 1)
   (setq-local evil-symbol-word-search t))
