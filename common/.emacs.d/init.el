@@ -1230,7 +1230,7 @@ double-prefix arg, choose directory instead."
 (define-key helm-occur-map (kbd "M-w")
   (lambda ()
     (interactive)
-    (my-toggle-symbol-boundary "\\<" "\\>" "\\\\<")))
+    (my-toggle-symbol-boundary "\\_<" "\\_>" "\\\\_<")))
 
 (define-key helm-ag-map (kbd "M-w")
   (lambda ()
