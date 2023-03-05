@@ -919,7 +919,7 @@
 ;; Don't want marginalia in *Completions* buffer when hitting TAB in
 ;; shell mode. Completion candidates are in a grid, and some are
 ;; pushed off-screen.
-(advice-add #'completion-at-point :around #'my-disable-marginalia)
+(advice-add #'completion--in-region :around #'my-disable-marginalia)
 (advice-add #'minibuffer-complete :around #'my-disable-marginalia)
 
 ;; ----------------------------------------------------------------------------
@@ -979,6 +979,15 @@
 (consult-customize
  consult-buffer consult-buffer-other-window consult-theme
  :preview-key "C-j")
+
+;;; use vertico for completion-at-point, but not makefile targets or
+;;; in shell buffers
+(setq completion-in-region-function
+      (lambda (&rest args)
+        (apply (if (and vertico-mode (derived-mode-p 'prog-mode))
+		   #'consult-completion-in-region
+		 #'completion--in-region)
+	       args)))
 
 ;; ----------------------------------------------------------------------------
 ;;| Ido
