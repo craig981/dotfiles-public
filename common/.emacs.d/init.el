@@ -973,6 +973,8 @@
 
 (global-set-key (kbd "C-x C-b") 'consult-buffer)
 
+(define-key minibuffer-local-map (kbd "C-r") 'consult-history)
+
 (setq consult-preview-key nil)	; stop preview when any key is pressed
 (consult-customize
  consult-buffer consult-buffer-other-window consult-theme
@@ -1048,7 +1050,7 @@
 
 (require 'helm)
 
-(helm-minibuffer-history-mode)
+;; (helm-minibuffer-history-mode)
 
 (define-key helm-map (kbd "C-c C-u") 'kill-whole-line)
 (define-key helm-map (kbd "<escape>") 'helm-keyboard-quit)
