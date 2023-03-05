@@ -197,6 +197,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 	Plug 'gruvbox-community/gruvbox'
 	Plug 'adlawson/vim-sorcerer'
 	Plug 'mswift42/vim-themes'
+	Plug 'arcticicestudio/nord-vim'
 	Plug 'ctrlpvim/ctrlp.vim'
 	call plug#end()
 
@@ -224,7 +225,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 		if !has("nvim")
 			set term=xterm-256color
 		endif
-		colorscheme reykjavik
+		" colorscheme reykjavik
+		colorscheme nord
 	else
 		colorscheme sorcerer
 	endif
