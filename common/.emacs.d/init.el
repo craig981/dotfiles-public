@@ -1152,12 +1152,18 @@
 
 (evil-global-set-key 'insert (kbd "C-x C-f") 'my-complete-filename)
 
-(define-key vertico-map (kbd "C-x C-f") ;; keep completing into directory
+;; keep completing into directory
+(define-key (if vertico-mode
+		vertico-map
+	      icomplete-minibuffer-map)
+  (kbd "C-x C-f")
   (lambda ()
     (interactive)
     (when my-completing-filename
       (setq my-completing-filename 'continue)
-      (vertico-exit))))
+      (if vertico-mode
+	  (vertico-exit)
+	(icomplete-force-complete-and-exit)))))
 
 ;; ----------------------------------------------------------------------------
 ;;| Helm Ag and Occur
