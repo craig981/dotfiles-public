@@ -1029,6 +1029,7 @@
 ;;   (define-key icomplete-vertical-mode-minibuffer-map (kbd "RET") 'icomplete-force-complete-and-exit)
 ;;   (define-key icomplete-minibuffer-map (kbd "RET") 'icomplete-force-complete-and-exit)
 ;;   (define-key icomplete-minibuffer-map (kbd "TAB") 'icomplete-force-complete)
+;;   (define-key icomplete-minibuffer-map (kbd "C-j") 'ignore)
 ;;   (define-key icomplete-minibuffer-map (kbd "C-s") 'icomplete-forward-completions)
 ;;   (define-key icomplete-minibuffer-map (kbd "C-r") 'icomplete-backward-completions))
 
