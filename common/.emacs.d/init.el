@@ -1046,6 +1046,7 @@
 ;; (setq icomplete-matches-format nil)
 ;; (setq icomplete-show-matches-on-no-input t)
 ;; (setq completion-pcm-word-delimiters "-_./:|")
+;; (setq icomplete-scroll t)
 
 ;; (with-eval-after-load 'icomplete
 ;;   (define-key icomplete-vertical-mode-minibuffer-map (kbd "RET") 'icomplete-force-complete-and-exit)
