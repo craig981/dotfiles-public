@@ -1466,11 +1466,11 @@ return the project path instead"
 (setq dired-dwim-target t)
 (put 'dired-find-alternate-file 'disabled nil)
 
-;; kill dired buffer instead of burying it
-(define-key dired-mode-map (kbd "q")
-  (lambda ()
-    (interactive)
-    (quit-window t)))
+;; ;; kill dired buffer instead of burying it
+;; (define-key dired-mode-map (kbd "q")
+;;   (lambda ()
+;;     (interactive)
+;;     (quit-window t)))
 
 (define-key dired-mode-map (kbd "SPC") evil-leader--default-map)
 (define-key dired-mode-map (kbd "C-w") 'evil-window-map)
