@@ -445,8 +445,6 @@
 ;; ----------------------------------------------------------------------------
 
 (setq save-abbrevs nil)
-(add-hook 'text-mode-hook #'abbrev-mode)
-(add-hook 'prog-mode-hook #'abbrev-mode)
 (define-global-abbrev "retrun" "return")
 (define-global-abbrev "cosnt" "const")
 (define-global-abbrev "conat" "const")
@@ -454,6 +452,19 @@
 (define-global-abbrev "trl" "translate")
 (define-global-abbrev "trn" "transform")
 (define-global-abbrev "bec" "because")
+
+(defun my-abbrev-expand ()
+  "Don't expand in strings or comments"
+  (if (not (nth 8 (syntax-ppss)))
+      (abbrev--default-expand)))
+
+(defun my-prog-mode-hook ()
+  (abbrev-mode)
+  (setq-local abbrev-expand-function #'my-abbrev-expand))
+
+(add-hook 'prog-mode-hook #'my-prog-mode-hook)
+
+(add-hook 'text-mode-hook #'abbrev-mode)
 
 ;; ----------------------------------------------------------------------------
 ;;| Fancy dabbrev
