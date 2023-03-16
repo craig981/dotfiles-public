@@ -644,6 +644,7 @@
 				 (gnuplot . t)))
 
   (define-key org-mode-map (kbd "C-j") nil)
+  (define-key org-mode-map (kbd "C-c C-j") nil)
 
   (when (eq system-type 'darwin)
 
