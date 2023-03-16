@@ -1870,6 +1870,8 @@ current project instead. Visit the tags file."
 (evil-global-set-key 'motion (kbd "C-w .") (kbd "C-x 4 ."))
 (evil-global-set-key 'motion (kbd "C-w C-.") (kbd "C-x 4 ."))
 
+(setq xref-show-definitions-function #'xref-show-definitions-completing-read)
+
 ;; ----------------------------------------------------------------------------
 ;;| Lisp
 ;; ----------------------------------------------------------------------------
