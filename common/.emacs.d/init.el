@@ -1264,7 +1264,7 @@ double-prefix arg, choose directory instead."
    ((let ((f (buffer-file-name)))
       (and f (file-equal-p f user-init-file)))
     (helm-multi-occur-1 (list (current-buffer)) "^;;| "))
-   ((eq major-mode 'org-mode) (consult-outline))
+   ((eq major-mode 'org-mode) (consult-org-heading))
    (t (helm-imenu))))
 
 (global-set-key (kbd "C-c i") 'my-imenu)
