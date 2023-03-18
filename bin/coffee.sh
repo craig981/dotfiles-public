@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [[ $(uname) == "Darwin" ]]; then
+    sleep $(( 5*60 ))
+    osascript -e "display notification \"$(date +%H:%M:%S)\" with title \"Coffee\""
+    exit 0
+fi
+
 future=$((`date +%s` + 5*60));
 while [[ "$future" -ge `date +%s` ]]; do
     clear
