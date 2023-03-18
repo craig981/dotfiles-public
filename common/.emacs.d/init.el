@@ -56,30 +56,7 @@
 (global-evil-leader-mode)
 (evil-esc-mode 1)			; make C-[ escape
 
-(global-set-key (kbd "C-c M-e") #'evil-local-mode)
-
-(setq my-input-method nil)
-(defun my-find-file-hook ()
-  (if (file-remote-p (buffer-file-name))
-      (setq-local vc-handled-backends nil))
-  (when (not (or (eq major-mode 'image-mode)
-		 (derived-mode-p 'bongo-mode)))
-    (evil-local-mode 1)
-    (if (string= (file-name-nondirectory (buffer-file-name)) "COMMIT_EDITMSG")
-      (evil-insert-state)))
-  (if my-input-method
-      (set-input-method my-input-method)))
-
-(add-hook 'find-file-hook 'my-find-file-hook)
 (add-hook 'evil-command-window-mode-hook 'evil-local-mode)
-
-(defun my-insert-enter-hook ()
-  (show-paren-mode -1))
-(defun my-insert-exit-hook ()
-  (show-paren-mode 1))
-
-(add-hook 'evil-insert-state-entry-hook 'my-insert-enter-hook)
-(add-hook 'evil-insert-state-exit-hook 'my-insert-exit-hook)
 
 (when (fboundp 'evil-set-undo-system)
   (require 'undo-tree)
@@ -87,6 +64,10 @@
   (evil-set-undo-system 'undo-tree))
 (evil-declare-ignore-repeat 'evil-undo)
 
+(setq-default evil-ex-search-case 'sensitive)
+;;(setq-default evil-search-module 'evil-search)
+
+(global-set-key (kbd "C-c M-e") #'evil-local-mode)
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key "w" 'evil-write)
 
@@ -117,18 +98,22 @@
 		paredit-forward-up))
 	(advice-add func :before #'my-enable-eol))
 
-(setq-default evil-ex-search-case 'sensitive)
-;;(setq-default evil-search-module 'evil-search)
-(define-key evil-normal-state-map (kbd "M-.") nil)
-(define-key evil-normal-state-map (kbd "M-,") nil)
+(defun my-forward-before-insert (&rest args)
+  "Move the cursor forward before closing a tag or inserting a time stamp"
+  (when (and (eq evil-state 'normal)
+	     (not (eolp)))
+    (forward-char)))
 
 (defun my-delete-or-indent-left ()
   (interactive)
   (if (eolp)
       (evil-shift-left-line 1)
     (delete-char 1)))
+(evil-global-set-key 'insert (kbd "C-d") 'my-delete-or-indent-left)
 
 ;; fall through to emacs keys, C/M-f/b and M-d M-m already works in insert mode
+(define-key evil-normal-state-map (kbd "M-.") nil)
+(define-key evil-normal-state-map (kbd "M-,") nil)
 (evil-global-set-key 'motion (kbd "C-a") nil)
 (evil-global-set-key 'insert (kbd "C-a") nil)
 (evil-global-set-key 'insert (kbd "C-e") nil)
@@ -137,17 +122,16 @@
 (evil-global-set-key 'insert (kbd "C-n") nil)
 (evil-global-set-key 'insert (kbd "C-p") nil)
 (evil-global-set-key 'insert (kbd "C-o") nil)
-(evil-global-set-key 'insert (kbd "C-d") 'my-delete-or-indent-left)
 
 (define-key evil-ex-completion-map (kbd "C-a") 'move-beginning-of-line)
 (define-key evil-ex-completion-map (kbd "C-f") 'forward-char)
 (define-key evil-ex-completion-map (kbd "C-b") 'backward-char)
 (define-key evil-ex-completion-map (kbd "C-k") 'kill-line)
 
-(evil-global-set-key 'insert (kbd "C-c") 'evil-normal-state)
-(evil-global-set-key 'visual (kbd "C-c") 'evil-normal-state)
+(evil-global-set-key 'insert   (kbd "C-c") 'evil-normal-state)
+(evil-global-set-key 'visual   (kbd "C-c") 'evil-normal-state)
 (evil-global-set-key 'operator (kbd "C-c") 'evil-normal-state)
-(evil-global-set-key 'replace (kbd "C-c") 'evil-normal-state)
+(evil-global-set-key 'replace  (kbd "C-c") 'evil-normal-state)
 
 (evil-global-set-key 'normal (kbd "C-a") 'evil-numbers/inc-at-pt)
 (evil-global-set-key 'normal (kbd "C-p") 'evil-numbers/dec-at-pt)
@@ -174,22 +158,52 @@
 (setq-default tab-width 8)         ; set ts=8
 (setq-default evil-shift-width 8)
 (setq-default indent-tabs-mode t)  ; set noexpandtab
-;; M-x make-variable-buffer-local tab-width
-;; M-x set-variable tab-width 4
-;; C-u M-x untabify to convert tabs to spaces
-
-;; tabs+spaces instead of all tabs
-(setq-default align-to-tab-stop nil)
-
+(setq-default align-to-tab-stop nil) ; tabs+spaces instead of all tabs
 (setq-default tab-always-indent nil)
 
 (electric-indent-mode 1)
+
+;; ----------------------------------------------------------------------------
+;;| Find file
+;; ----------------------------------------------------------------------------
+
+(setq my-input-method nil)
+
+(defun my-find-file-hook ()
+  (if (file-remote-p (buffer-file-name))
+      (setq-local vc-handled-backends nil))
+  (when (not (or (eq major-mode 'image-mode)
+		 (derived-mode-p 'bongo-mode)))
+    (evil-local-mode 1)
+    (if (string= (file-name-nondirectory (buffer-file-name)) "COMMIT_EDITMSG")
+      (evil-insert-state)))
+  (if my-input-method
+      (set-input-method my-input-method)))
+
+(add-hook 'find-file-hook 'my-find-file-hook)
+
+(with-eval-after-load "tramp"
+  (setq remote-file-name-inhibit-locks t))
+
+;; ----------------------------------------------------------------------------
+;;| Find file at point
+;; ----------------------------------------------------------------------------
+
+(defun my-find-file-at-point ()
+  "Remove prompt from find-file-at-point, and print filename"
+  (interactive)
+  (find-file-at-point (ffap-file-at-point))
+  (princ (buffer-file-name)))
+
+(global-set-key (kbd "C-c f") 'my-find-file-at-point)
+(evil-global-set-key 'normal (kbd "gf") 'my-find-file-at-point)
 
 ;; ----------------------------------------------------------------------------
 ;;| Convenience
 ;; ----------------------------------------------------------------------------
 
 (defalias 'yes-or-no-p 'y-or-n-p)
+
 (column-number-mode t)
 
 (show-paren-mode)
@@ -197,7 +211,16 @@
  show-paren-when-point-inside-paren t
  show-paren-when-point-in-periphery t)
 
+(defun my-insert-enter-hook ()
+  (show-paren-mode -1))
+(defun my-insert-exit-hook ()
+  (show-paren-mode 1))
+(add-hook 'evil-insert-state-entry-hook 'my-insert-enter-hook)
+(add-hook 'evil-insert-state-exit-hook 'my-insert-exit-hook)
+
+(setq next-error-highlight-no-select t) ;; leave highlight for occur
 (setq ring-bell-function 'ignore) ;; stop binging noise on C-g
+(setq register-preview-delay 0.5)
 
 (setq-default vc-follow-symlinks t)
 (setq-default backup-inhibited t)    ;; disable backup
@@ -210,15 +233,25 @@
 (setq history-delete-duplicates t)
 (savehist-mode 1)
 
-(require 'thingatpt)
+;; don't save context strings
+(setq-default bookmark-make-record-function
+      (lambda (&optional no-file no-context posn)
+	(funcall 'bookmark-make-record-default no-file t posn)))
 
-(defun my-search-replace-symbol (&optional prefix)
-  (interactive "P")
-  (isearch-forward-symbol-at-point)
-  (when (not prefix)
-    (isearch-beginning-of-buffer))
-  (isearch-toggle-case-fold)
-  (isearch-query-replace))
+(when (not (version< emacs-version "28.1"))
+  (setq-default bookmark-set-fringe-mark nil))
+
+(put 'narrow-to-region 'disabled nil)
+
+(when (display-graphic-p)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1))
+
+(when (not (eq system-type 'darwin))
+  (menu-bar-mode -1))
+
+
+(require 'thingatpt)
 
 (defun my-substitute (&optional range)
   (interactive)
@@ -227,28 +260,14 @@
 	 (delim (if (string-match-p "@" sym) "#" "@")))
     (evil-ex (format "%ss%s\\_<%s\\_>%s" (or range "%") delim sym delim))))
 
-(defun my-delete-trailing-whitespace ()
+(defun my-delete-whitespace ()
   (interactive)
   (if (region-active-p)
       (progn
 	(call-interactively 'delete-trailing-whitespace)
 	(deactivate-mark)
 	(message "Deleted trailing whitespace"))
-    (message "No region active")))
-
-(defun my-delete-space ()
-  (interactive)
-  (if (region-active-p)
-      (my-delete-trailing-whitespace)
     (delete-horizontal-space)))
-
-(defun my-delete-empty-lines-or-spaces ()
-  (interactive)
-  (if (save-excursion
-	(beginning-of-line)
-	(looking-at-p "[[:space:]]*$"))
-      (delete-blank-lines)
-    (my-delete-space)))
 
 (defun my-align-regexp ()
   (interactive)
@@ -293,13 +312,6 @@
 	  (select-window w)
 	(switch-to-buffer name))))
 
-(global-set-key (kbd "M-s M-s") 'my-search-replace-symbol)
-(evil-leader/set-key "s" #'my-substitute) ; substitute whole buffer
-(evil-leader/set-key "S" ; substitute from current line to end of buffer
-  (lambda ()
-    (interactive)
-    (my-substitute ".,$")))
-
 (defun my-select-last-pasted ()
   (interactive)
   (let ((a (save-excursion (evil-goto-mark ?\[) (point)))
@@ -308,17 +320,19 @@
     (evil-visual-char)
     (push-mark a)))
 
+
+(evil-leader/set-key "s" #'my-substitute) ; substitute whole buffer
+(evil-leader/set-key "S" ; substitute from current line to end of buffer
+  (lambda ()
+    (interactive)
+    (my-substitute ".,$")))
+
+(evil-leader/set-key "%" #'my-copy-filename)
 (evil-leader/set-key "=" #'my-align-regexp)
 (evil-leader/set-key "m" #'my-mirror-buffer)
 (evil-leader/set-key "d" 'pwd)
 (evil-leader/set-key "SPC" (kbd "=i{"))
 (evil-global-set-key 'normal (kbd "gp") 'my-select-last-pasted)
-
-(global-set-key (kbd "M-'") 'my-delete-empty-lines-or-spaces)
-(global-set-key (kbd "M-\\") #'my-delete-space)
-
-(push 'try-expand-line hippie-expand-try-functions-list)
-(evil-global-set-key 'insert (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
 
 (when (eq system-type 'gnu/linux)
   (evil-global-set-key 'motion (kbd "K") 'man))
@@ -333,19 +347,21 @@
   (advice-add #'Man-completion-table :override #'my-advise-man-completion))
 
 (global-set-key (kbd "C-c q") #'my-close-other-window)
-
-(evil-leader/set-key "%" #'my-copy-filename)
 (global-set-key (kbd "C-c u") #'my-toggle-wrap)
-(when (not (display-graphic-p))
-  (global-set-key (kbd "C-x ;") (kbd "C-x C-;")))
 
 (with-eval-after-load 'ibuffer
   (define-key ibuffer-mode-map (kbd "M-o") nil))
+
+(winner-mode 1)
+(global-set-key (kbd "M-=") 'winner-undo)
+(global-set-key (kbd "M-+") 'winner-redo)
 
 (global-set-key (kbd "M-p") (kbd "M-{"))
 (global-set-key (kbd "M-n") (kbd "M-}"))
 (global-set-key (kbd "M-o") (kbd "C-x o"))
 (global-set-key (kbd "M-j") (lambda () (interactive) (join-line 1)))
+(global-set-key (kbd "M-'") #'delete-blank-lines)
+(global-set-key (kbd "M-\\") #'my-delete-whitespace)
 
 (global-set-key (kbd "C-c w h") #'evil-window-move-far-left)
 (global-set-key (kbd "C-c w l") #'evil-window-move-far-right)
@@ -355,25 +371,16 @@
 (global-set-key (kbd "C-c w =") #'balance-windows)
 
 (global-unset-key (kbd "C-h h")) ;; stop accidentally opening hello file
-(global-set-key (kbd "C-h C-c") nil) ;; disable describe-copying
+(global-unset-key (kbd "C-h C-c")) ;; disable describe-copying
 
-(global-set-key (kbd "C-x w") 'subword-mode)
+(push 'try-expand-line hippie-expand-try-functions-list)
+(evil-global-set-key 'insert (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
+
+(global-set-key (kbd "C-x C-o") 'subword-mode)
 
 (evil-leader/set-key "l" 'flyspell-buffer)
 
-(setq register-preview-delay 0.5)
-
 (define-key minibuffer-local-map (kbd "<escape>") 'abort-recursive-edit)
-
-(put 'narrow-to-region 'disabled nil)
-
-;; don't save context strings
-(setq-default bookmark-make-record-function
-      (lambda (&optional no-file no-context posn)
-	(funcall 'bookmark-make-record-default no-file t posn)))
-
-(when (not (version< emacs-version "28.1"))
-  (setq-default bookmark-set-fringe-mark nil))
 
 (defun my-advise-comment (&rest args)
   (when (evil-normal-state-p)
@@ -381,9 +388,15 @@
 
 (advice-add 'comment-dwim :after 'my-advise-comment)
 
+(when (not (display-graphic-p))
+  (global-set-key (kbd "C-x ;") (kbd "C-x C-;")))
+
 ;; ----------------------------------------------------------------------------
 ;;| Help
 ;; ----------------------------------------------------------------------------
+
+(require 'which-key)
+(which-key-mode)
 
 (defun my-help-mode-hook ()
   (evil-local-mode)
@@ -404,8 +417,6 @@
 (with-eval-after-load "man"
   (define-key Man-mode-map (kbd "M-n") 'Man-next-section)
   (define-key Man-mode-map (kbd "M-p") 'Man-previous-section))
-
-(global-set-key (kbd "C-c G") (lambda () (interactive) (my-jump-buffer "*Help*")))
 
 (defun my-list-all-keymaps ()
   (let (maps)
@@ -601,6 +612,35 @@
 (add-hook 'text-mode-hook 'my-text-mode-hook)
 
 ;; ----------------------------------------------------------------------------
+;;| Message
+;; ----------------------------------------------------------------------------
+
+(defun my-scratch-message-buffer ()
+  (interactive)
+  (let ((buf (generate-new-buffer "untitled")))
+    (switch-to-buffer buf)
+    (setq buffer-offer-save t)
+    (message-mode)))
+
+(defun my-message-mode-hook ()
+  (my-syntax-entry)
+  ;; = is punctuation, so evil * works on key and val separately for key=val
+  (modify-syntax-entry ?= ".")
+  (setq-local fill-column 72)
+  ;; stop paragraph lines after the first being extra indented by M-q
+  (setq-local fill-paragraph-function nil)
+  (define-key message-mode-map (kbd "C-c C-c") nil)
+  (define-key message-mode-map (kbd "C-c C-s") nil))
+
+(add-hook 'message-mode-hook 'my-message-mode-hook)
+
+(setq-default message-auto-save-directory nil)
+
+(setq compose-mail-user-agent-warnings nil)
+
+(global-set-key (kbd "C-x m") #'my-scratch-message-buffer)
+
+;; ----------------------------------------------------------------------------
 ;;| Calendar
 ;; ----------------------------------------------------------------------------
 
@@ -617,48 +657,13 @@
 ;;| Org
 ;; ----------------------------------------------------------------------------
 
-(global-set-key (kbd "C-c l") 'org-store-link)
-(global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c x") 'org-capture)
-(global-set-key (kbd "C-'") 'org-cycle-agenda-files)
-
-(evil-leader/set-key "g" (lambda ()
-			   (interactive)
-			   (org-agenda nil "g")))
-(evil-leader/set-key-for-mode 'org-mode "," 'org-insert-structure-template)
-
-(with-eval-after-load 'org-agenda
-  (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map)
-  (define-key org-agenda-mode-map (kbd "h") (lambda () (interactive)))
-  (define-key org-agenda-mode-map (kbd "o") 'org-agenda-show))
-
-(with-eval-after-load 'org
-  (define-key org-mode-map (kbd "M-n") 'forward-paragraph)
-  (define-key org-mode-map (kbd "M-p") 'backward-paragraph)
-
-  (org-babel-do-load-languages 'org-babel-load-languages
-			       '((shell . t)
-				 (awk . t)
-				 (python .t)
-				 (emacs-lisp . t)
-				 (gnuplot . t)))
-
-  (define-key org-mode-map (kbd "C-j") nil)
-  (define-key org-mode-map (kbd "C-c C-j") nil)
-
-  (when (eq system-type 'darwin)
-
-    (setq org-babel-python-command "python3")
-
-    ;; for pdf export
-    (require 'ox-pandoc)))
-
 (when (eq system-type 'gnu/linux)
   (setq org-agenda-files (list "~/notes.org"))
   (setq org-default-notes-file "~/notes.org"))
 (when (eq system-type 'darwin)
   (setq org-agenda-files (list "~/notes.org.gpg"))
   (setq org-default-notes-file "~/notes.org.gpg"))
+
 (setq org-directory "~/org")
 (setq org-log-done t)
 (setq org-agenda-start-on-weekday nil)
@@ -679,6 +684,7 @@
 	 "* %?\n")
 	("x" "Task" entry (file+headline org-default-notes-file "Tasks")
 	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")))
+
 (when (eq system-type 'darwin)
     (push '("o" "Book" entry (file+headline org-default-notes-file "Books")
 	    "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
@@ -758,23 +764,18 @@
 
   (evil-local-set-key 'normal (kbd "[[") #'org-toggle-link-display)
   (evil-local-set-key 'insert (kbd "<backtab>") #'fancy-dabbrev-backward)
-  (evil-local-set-key 'insert (kbd "C-t") (lambda ()
-					    (interactive)
-					    (my-org-shift nil)))
-  (evil-local-set-key 'insert (kbd "C-d") (lambda ()
-					    (interactive)
-					    (my-org-shift t)))
-
-  (setq-local search-invisible nil)
+  (evil-local-set-key 'insert (kbd "C-t") (lambda () (interactive) (my-org-shift nil)))
+  (evil-local-set-key 'insert (kbd "C-d") (lambda () (interactive) (my-org-shift t)))
 
   ;; / is punctuation, so evil * works on path components
   (modify-syntax-entry ?/ ".")
   (auto-fill-mode 1)
   (setq-local indent-tabs-mode nil)
   (setq-local evil-shift-width 2)
-  (setq-local tab-width 2))
+  (setq-local tab-width 2)
+  (setq-local search-invisible nil))
 
-(defun my-org-capture ()
+(defun my-org-capture-hook ()
   (interactive)
   (my-org-mode-hook)
   (evil-insert-state))
@@ -783,15 +784,13 @@
   (evil-local-mode 1))
 
 (add-hook 'org-mode-hook 'my-org-mode-hook)
-(add-hook 'org-capture-mode-hook 'my-org-capture)
+(add-hook 'org-capture-mode-hook 'my-org-capture-hook)
 (add-hook 'org-src-mode-hook 'my-org-src-hook)
 
 (defun my-org-clock-jump ()
   (interactive)
   (push-mark (point))
   (org-clock-jump-to-current-clock))
-(global-set-key (kbd "C-c C-x C-j") 'my-org-clock-jump)
-
 
 (defun my-www-get-page-title (url)
   (with-current-buffer (url-retrieve-synchronously url)
@@ -818,8 +817,6 @@
       (forward-char)
       (insert (format "][%s]]" title)))))
 
-(global-set-key (kbd "C-c M-t") #'my-wrap-org-link)
-
 (defun my-insert-org-src-block  ()
   "Insert a src block with the same language as the previous block"
   (interactive)
@@ -829,15 +826,44 @@
 		(thing-at-point 'word t))))
     (org-insert-structure-template (format "src %s" lang))))
 
-(evil-leader/set-key-for-mode 'org-mode "c" 'my-insert-org-src-block)
-
-(defun my-forward-before-insert (&rest args)
-  "Move the cursor forward before closing a tag or inserting a time stamp"
-  (when (and (eq evil-state 'normal)
-	     (not (eolp)))
-    (forward-char)))
-
 (advice-add 'org-time-stamp-inactive :before #'my-forward-before-insert)
+
+(with-eval-after-load 'org-agenda
+  (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map)
+  (define-key org-agenda-mode-map (kbd "h") (lambda () (interactive)))
+  (define-key org-agenda-mode-map (kbd "o") 'org-agenda-show))
+
+(with-eval-after-load 'org
+  (define-key org-mode-map (kbd "M-n") 'forward-paragraph)
+  (define-key org-mode-map (kbd "M-p") 'backward-paragraph)
+  (define-key org-mode-map (kbd "C-j") nil)
+  (define-key org-mode-map (kbd "C-c C-j") nil)
+
+  (org-babel-do-load-languages 'org-babel-load-languages
+			       '((shell . t)
+				 (awk . t)
+				 (python .t)
+				 (emacs-lisp . t)
+				 (gnuplot . t)))
+
+  (when (eq system-type 'darwin)
+    (setq org-babel-python-command "python3")
+    ;; for pdf export
+    (require 'ox-pandoc)))
+
+(global-set-key (kbd "C-'") 'org-cycle-agenda-files)
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-c x") 'org-capture)
+(global-set-key (kbd "C-c M-t") #'my-wrap-org-link)
+(global-set-key (kbd "C-c C-x C-j") 'my-org-clock-jump)
+
+(evil-leader/set-key "g" (lambda ()
+			   (interactive)
+			   (org-agenda nil "g")))
+
+(evil-leader/set-key-for-mode 'org-mode "," 'org-insert-structure-template)
+(evil-leader/set-key-for-mode 'org-mode "c" 'my-insert-org-src-block)
 
 ;; ----------------------------------------------------------------------------
 ;;| Ledger
@@ -845,6 +871,18 @@
 
 (when (eq system-type 'darwin)
   (setq ledger-binary-path (expand-file-name "~/dotfiles-public/bin/ledger.bash")))
+
+;; ----------------------------------------------------------------------------
+;;| Calc
+;; ----------------------------------------------------------------------------
+
+(with-eval-after-load "calc-ext"
+  (define-key calc-mode-map (kbd "C-c r") #'calc-reset)
+  (define-key calc-mode-map (kbd "C-c C-r") #'calc-reset)
+  (setq calc-multiplication-has-precedence nil)
+  (advice-add #'calc-user-define-formula :around #'my-disable-vertico))
+
+(global-set-key (kbd "C-c M-c") (kbd "C-x * c"))
 
 ;; ----------------------------------------------------------------------------
 ;;| Browser
@@ -875,21 +913,6 @@
 (add-hook 'html-mode-hook #'my-html-hook)
 
 (advice-add 'sgml-close-tag :before #'my-forward-before-insert)
-
-;; ----------------------------------------------------------------------------
-;;| Which key
-;; ----------------------------------------------------------------------------
-
-(require 'which-key)
-(which-key-mode)
-
-;; ----------------------------------------------------------------------------
-;;| Winner
-;; ----------------------------------------------------------------------------
-
-(winner-mode 1)
-(global-set-key (kbd "M-=") 'winner-undo)
-(global-set-key (kbd "M-+") 'winner-redo)
 
 ;; ----------------------------------------------------------------------------
 ;;| Vertico
@@ -1046,63 +1069,6 @@
 ;;   (define-key icomplete-minibuffer-map (kbd "C-r") 'icomplete-backward-completions))
 
 ;; ----------------------------------------------------------------------------
-;;| Helm
-;; ----------------------------------------------------------------------------
-
-(require 'helm)
-
-;; (helm-minibuffer-history-mode)
-
-(define-key helm-map (kbd "C-c C-u") 'kill-whole-line)
-(define-key helm-map (kbd "<escape>") 'helm-keyboard-quit)
-(global-set-key (kbd "M-y") 'helm-show-kill-ring)
-
-(setq helm-highlight-only-all-matches t)
-(setq helm-highlight-matches-around-point-max-lines '(25 . 25))
-
-;;; no new frames
-(setq helm-show-completion-display-function #'helm-show-completion-default-display-function)
-
-;; ----------------------------------------------------------------------------
-;;| Calc
-;; ----------------------------------------------------------------------------
-
-(with-eval-after-load "calc-ext"
-  (define-key calc-mode-map (kbd "C-c r") #'calc-reset)
-  (define-key calc-mode-map (kbd "C-c C-r") #'calc-reset)
-  (setq calc-multiplication-has-precedence nil)
-  (advice-add #'calc-user-define-formula :around #'my-disable-vertico))
-
-(global-set-key (kbd "C-c M-c") (kbd "C-x * c"))
-
-;; ----------------------------------------------------------------------------
-;;| Tramp
-;; ----------------------------------------------------------------------------
-
-(with-eval-after-load "tramp"
-  (setq-default tramp-histfile-override "/tmp/.tramp_history")
-  (setq remote-file-name-inhibit-locks t))
-
-;; ----------------------------------------------------------------------------
-;;| Find file at point
-;; ----------------------------------------------------------------------------
-
-(defun my-find-file-at-point ()
-  "Remove prompt from find-file-at-point, and print filename"
-  (interactive)
-  (find-file-at-point (ffap-file-at-point))
-  (princ (buffer-file-name)))
-
-(global-set-key (kbd "C-c f") 'my-find-file-at-point)
-(evil-global-set-key 'normal (kbd "gf") 'my-find-file-at-point)
-
-(evil-global-set-key 'motion (kbd "C-w f")
-		     (lambda ()
-		       (interactive)
-		       (evil-window-split)
-		       (my-find-file-at-point)))
-
-;; ----------------------------------------------------------------------------
 ;;| Complete filenames
 ;; ----------------------------------------------------------------------------
 
@@ -1158,9 +1124,10 @@
 	(icomplete-force-complete-and-exit)))))
 
 ;; ----------------------------------------------------------------------------
-;;| Helm Ag and Occur
+;;| Helm
 ;; ----------------------------------------------------------------------------
 
+(require 'helm)
 (require 'helm-ag)
 (require 'helm-occur)
 
@@ -1172,6 +1139,25 @@
 (setq-default helm-ag-use-grep-ignore-list t)
 (setq-default helm-ag-ignore-patterns my-helm-ignore)
 (setq-default helm-ag-base-command "ag --nocolor --nogroup --ignore-case --hidden")
+
+(setq helm-highlight-only-all-matches t)
+(setq helm-highlight-matches-around-point-max-lines '(25 . 25))
+;;; no new frames
+(setq helm-show-completion-display-function #'helm-show-completion-default-display-function)
+
+(defun my-advise-propagate-input-method (func &rest args)
+  "Allow func to use evil-input-method in minibuffer"
+  (if (and (bound-and-true-p evil-local-mode)
+	   evil-input-method)
+      (evil-without-input-method-hooks
+       (let ((input-method current-input-method))
+	 (set-input-method evil-input-method)
+	 (unwind-protect
+	     (apply func args)
+	   (set-input-method input-method))))
+    (apply func args)))
+
+(advice-add 'helm-occur :around #'my-advise-propagate-input-method)
 
 (defun my-search-project ()
   "Search current project"
@@ -1191,12 +1177,6 @@ double-prefix arg, choose directory instead."
     (let ((helm-ag-ignore-patterns (append my-helm-ignore my-helm-ignore-extra)))
       (my-search-project)))
    (t (my-search-project))))
-
-(global-set-key (kbd "C-c o") 'helm-occur)
-(global-set-key (kbd "C-c r") 'my-search)
-(evil-leader/set-key "r" 'my-search)
-;; M-n grabs symbol under point. swiper slow to start on 3K line buffer
-(evil-leader/set-key "o" 'helm-occur)
 
 ;;; C-c C-e in helm-ag to enter editable mode
 (defun my-after-helm-ag-edit (&rest args)
@@ -1225,34 +1205,24 @@ double-prefix arg, choose directory instead."
 	  (delete-char (- (length end)))
 	(insert end)))))
 
-(define-key helm-occur-map (kbd "M-w")
-  (lambda ()
-    (interactive)
-    (my-toggle-symbol-boundary "\\_<" "\\_>" "\\\\_<")))
+(define-key helm-occur-map (kbd "M-w") (lambda ()
+					 (interactive)
+					 (my-toggle-symbol-boundary "\\_<" "\\_>" "\\\\_<")))
 
-(define-key helm-ag-map (kbd "M-w")
-  (lambda ()
-    (interactive)
-    (my-toggle-symbol-boundary "\\b" "\\b" "\\\\b")))
+(define-key helm-ag-map (kbd "M-w") (lambda ()
+				      (interactive)
+				      (my-toggle-symbol-boundary "\\b" "\\b" "\\\\b")))
 
 (define-key helm-ag-map (kbd "C-c C-o") (kbd "C-c o"))
 
-;;; leave the highlight for occur
-(setq next-error-highlight-no-select t)
+(define-key helm-map (kbd "C-c C-u") 'kill-whole-line)
+(define-key helm-map (kbd "<escape>") 'helm-keyboard-quit)
 
-(defun my-advise-propagate-input-method (func &rest args)
-  "Allow func to use evil-input-method in minibuffer"
-  (if (and (bound-and-true-p evil-local-mode)
-	   evil-input-method)
-      (evil-without-input-method-hooks
-       (let ((input-method current-input-method))
-	 (set-input-method evil-input-method)
-	 (unwind-protect
-	     (apply func args)
-	   (set-input-method input-method))))
-    (apply func args)))
-
-(advice-add 'helm-occur :around #'my-advise-propagate-input-method)
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
+(global-set-key (kbd "C-c r") 'my-search)
+(global-set-key (kbd "C-c o") 'helm-occur)
+(evil-leader/set-key "r" 'my-search)
+(evil-leader/set-key "o" 'helm-occur) ;; M-n grabs symbol under point
 
 ;; ----------------------------------------------------------------------------
 ;;| Imenu
@@ -1406,48 +1376,27 @@ return the project path instead"
 		       (dired path)
 		       (pwd))))
 
+(defun my-jump-notefiles ()
+  (interactive)
+  (let ((default-directory "~/notefiles"))
+    (my-find-file-in-project)))
+
 (global-set-key (kbd "C-c p e") #'my-choose-project-and-find-file)
 (global-set-key (kbd "C-c p u") #'my-choose-project-and-find-file-other-window)
 (global-set-key (kbd "C-c p r") #'my-choose-project-and-search)
-(global-set-key (kbd "C-c p s") #'my-choose-project-and-search)
 (global-set-key (kbd "C-c p m") #'my-choose-project-and-magit)
 (global-set-key (kbd "C-c p z") #'my-choose-project-and-dired)
 
 (global-set-key (kbd "C-c e") 'my-find-file-in-project)
 (global-set-key (kbd "C-c z") 'my-jump-project-dired)
 
-(defun my-jump-notefiles ()
-  (interactive)
-  (let ((default-directory "~/notefiles"))
-    (my-find-file-in-project)))
-(evil-leader/set-key "n" 'my-jump-notefiles)
-
 (evil-leader/set-key "e" 'my-find-file-in-project)
 (evil-leader/set-key "u" 'my-find-file-in-project-other-window)
+(evil-leader/set-key "n" 'my-jump-notefiles)
 
 ;; ----------------------------------------------------------------------------
 ;;| Isearch
 ;; ----------------------------------------------------------------------------
-
-;; (defun my-isearch-yank-region ()
-;;   "Use region as search pattern"
-;;   (let ((search (buffer-substring-no-properties
-;; 		 (region-beginning)
-;; 		 (region-end)))
-;; 	(isearch-case-fold-search nil))
-;;     (setq deactivate-mark t)
-;;     (isearch-yank-string search)))
-
-;; (defun my-isearch-C-w ()
-;;   (interactive)
-;;   (if (use-region-p)
-;;       (my-isearch-yank-region)
-;;     (if (version< emacs-version "27.1")
-;; 	(isearch-yank-word-or-char)
-;;       (isearch-yank-word-or-char 1))))
-
-;; ;; C-w yanks region if active, otherwise default behaviour (word)
-;; (define-key isearch-mode-map (kbd "C-w") 'my-isearch-C-w)
 
 (defun my-isearch-remove-failed-part ()
   "Remove failed part of search string, or last char if successful."
@@ -1460,6 +1409,7 @@ return the project path instead"
 	  (isearch-delete-char)
 	(while (isearch-fail-pos) (isearch-pop-state)))
       (isearch-update))))
+
 (define-key isearch-mode-map (kbd "DEL") 'my-isearch-remove-failed-part)
 
 ;; space in search is a wildcard. 'M-s space' to toggle
@@ -1477,12 +1427,6 @@ return the project path instead"
 (require 'dired-x)
 (setq dired-dwim-target t)
 (put 'dired-find-alternate-file 'disabled nil)
-
-;; ;; kill dired buffer instead of burying it
-;; (define-key dired-mode-map (kbd "q")
-;;   (lambda ()
-;;     (interactive)
-;;     (quit-window t)))
 
 (define-key dired-mode-map (kbd "SPC") evil-leader--default-map)
 (define-key dired-mode-map (kbd "C-w") 'evil-window-map)
@@ -1949,6 +1893,17 @@ current project instead. Visit the tags file."
 (add-to-list 'auto-mode-alist '("/SConscript\\'" . python-mode))
 
 ;; ----------------------------------------------------------------------------
+;;| Rust
+;; ----------------------------------------------------------------------------
+
+(defun my-rust-mode-hook ()
+  (auto-fill-mode -1)
+  (setq-local indent-tabs-mode nil)
+  (setq-local evil-shift-width 4))
+
+(add-hook 'rust-mode-hook 'my-rust-mode-hook)
+
+;; ----------------------------------------------------------------------------
 ;;| Eglot
 ;; ----------------------------------------------------------------------------
 
@@ -2185,18 +2140,6 @@ current project instead. Visit the tags file."
     (define-abbrev table "pv"   "" 'my-cpp-print-vec)
     (define-abbrev table "main" "" 'my-cpp-main)))
 
-
-;; ----------------------------------------------------------------------------
-;;| Rust
-;; ----------------------------------------------------------------------------
-
-(defun my-rust-mode-hook ()
-  (auto-fill-mode -1)
-  (setq-local indent-tabs-mode nil)
-  (setq-local evil-shift-width 4))
-
-(add-hook 'rust-mode-hook 'my-rust-mode-hook)
-
 ;; ----------------------------------------------------------------------------
 ;;| Maya, Houdini, Arnold
 ;; ----------------------------------------------------------------------------
@@ -2303,15 +2246,12 @@ current project instead. Visit the tags file."
       (set-face-attribute 'default nil :height 160))))
 
 ;; ----------------------------------------------------------------------------
-;;| Colours and splash screen
+;;| Colour theme
 ;; ----------------------------------------------------------------------------
 
 (require 'font-lock)
 (global-font-lock-mode t)
 (setq font-lock-maximum-decoration t)
-
-(blink-cursor-mode 0)
-(setq-default cursor-type 'box)
 
 (defun my-theme-dark (x)
   (mapcar #'disable-theme custom-enabled-themes)
@@ -2348,6 +2288,13 @@ current project instead. Visit the tags file."
 						   ((memq 'modus-operandi custom-enabled-themes) 2)
 						   (t 0)))))
 
+(blink-cursor-mode -1)
+(setq-default cursor-type 'box)
+
+;; ----------------------------------------------------------------------------
+;;| Splash screen
+;; ----------------------------------------------------------------------------
+
 (defun my-window-setup-hook ()
   (when (and (display-graphic-p)
 	     (file-exists-p "~/Pictures/splash"))
@@ -2362,6 +2309,7 @@ current project instead. Visit the tags file."
 			  (directory-files "~/Pictures/splash"
 					   t "^\\([^.]\\|\\.[^.]\\|\\.\\..\\)"))))
 	    (elt choices (random (length choices))))))
+
   (unless (display-graphic-p)
     ;; see terminal background colour/image
     (set-face-background 'default "unspecified-bg" (selected-frame)))
@@ -2381,46 +2329,6 @@ current project instead. Visit the tags file."
 
 (with-eval-after-load "evil-leader"
   (define-key splash-screen-keymap (kbd "SPC") evil-leader--default-map))
-
-;; ----------------------------------------------------------------------------
-;;| Menu toolbar
-;; ----------------------------------------------------------------------------
-
-(when (display-graphic-p)
-  (tool-bar-mode -1)
-  (scroll-bar-mode -1))
-
-(when (not (eq system-type 'darwin))
-  (menu-bar-mode -1))
-
-;; ----------------------------------------------------------------------------
-;;| Email
-;; ----------------------------------------------------------------------------
-
-(defun my-scratch-mail-buffer ()
-  (interactive)
-  (let ((buf (generate-new-buffer "untitled")))
-    (switch-to-buffer buf)
-    (setq buffer-offer-save t)
-    (message-mode)))
-
-(defun my-message-mode-hook ()
-  (my-syntax-entry)
-  ;; = is punctuation, so evil * works on key and val separately for key=val
-  (modify-syntax-entry ?= ".")
-  (setq-local fill-column 72)
-  ;; stop paragraph lines after the first being extra indented by M-q
-  (setq-local fill-paragraph-function nil)
-  (define-key message-mode-map (kbd "C-c C-c") nil)
-  (define-key message-mode-map (kbd "C-c C-s") nil))
-
-(add-hook 'message-mode-hook 'my-message-mode-hook)
-
-(setq-default message-auto-save-directory nil)
-
-(setq compose-mail-user-agent-warnings nil)
-
-(global-set-key (kbd "C-x m") #'my-scratch-mail-buffer)
 
 ;; ----------------------------------------------------------------------------
 ;;| Music
@@ -2578,6 +2486,7 @@ current project instead. Visit the tags file."
      (indent-tabs-mode nil)
      (evil-shift-width . 2)
      (evil-shift-width . 4)))
+ '(tramp-histfile-override "/tmp/.tramp_history")
  '(tramp-ssh-controlmaster-options
    "-o ControlMaster=auto -o ControlPath=tramp.%%C -o ControlPersist=60m" t)
  '(undo-tree-auto-save-history nil)
