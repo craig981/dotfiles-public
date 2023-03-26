@@ -37,6 +37,7 @@ macports-install:
 		git \
 		gnuplot \
 		htop \
+		jq \
 		ledger \
 		pandoc \
 		stow \
