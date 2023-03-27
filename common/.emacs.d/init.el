@@ -2243,7 +2243,7 @@ current project instead. Visit the tags file."
 	(set-face-attribute 'default nil :height 130)))
 
     (when (eq system-type 'darwin)
-      (set-face-attribute 'default nil :height 160))))
+      (set-face-attribute 'default nil :family "Menlo" :height 160))))
 
 ;; ----------------------------------------------------------------------------
 ;;| Colour theme
