@@ -2272,10 +2272,8 @@ current project instead. Visit the tags file."
     (load-theme 'soft-morning)
     (load-theme 'my-override-light))
    ((= x 1)
-    (load-theme 'modus-operandi)
-    ;; (load-theme 'doom-nord-light)
-    ;; (load-theme 'my-override-light2)
-    )
+    (load-theme 'doom-nord-light)
+    (load-theme 'my-override-light2))
    (t (load-theme 'ef-day))))
 
 (global-set-key (kbd "C-c w d") (lambda ()
@@ -2285,7 +2283,7 @@ current project instead. Visit the tags file."
 				  (interactive)
 				  (my-theme-light (cond
 						   ((memq 'soft-morning custom-enabled-themes) 1)
-						   ((memq 'modus-operandi custom-enabled-themes) 2)
+						   ((memq 'doom-nord-light custom-enabled-themes) 2)
 						   (t 0)))))
 
 (blink-cursor-mode -1)
