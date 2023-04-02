@@ -2132,7 +2132,7 @@ current project instead. Visit the tags file."
 (with-eval-after-load "cc-mode"
   (dolist (table (list c-mode-abbrev-table c++-mode-abbrev-table))
     (define-abbrev table "incg" "" 'my-cpp-include-guard)
-    (define-abbrev table "incs" "" 'my-cpp-include)
+    (define-abbrev table "incl" "" 'my-cpp-include)
     (define-abbrev table "inc"  "" 'my-cpp-include-sys)
     (define-abbrev table "forr" "" 'my-cpp-for)
     (define-abbrev table "fori" "" 'my-cpp-for-iter)
