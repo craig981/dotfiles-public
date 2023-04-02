@@ -1265,22 +1265,22 @@ double-prefix arg, choose directory instead."
 ;; C-u opens in other window
 (defun my-find-file-in-project (&optional open-in-other-window initial-input)
   (interactive "P")
-  (let ((read-file-name-completion-ignore-case t))
+  (let ((func (lambda ()
+		(let ((read-file-name-completion-ignore-case t))
+		  (if initial-input
+		      ;; override initial-input arg to completing-read
+		      (let ((my-override-initial-input initial-input))
+			(advice-add 'completing-read :around 'my-complete-with-initial-input)
+			(unwind-protect
+			    (call-interactively 'project-find-file)
+			  (advice-remove 'completing-read 'my-complete-with-initial-input)))
+		    (call-interactively 'project-find-file))))))
     (if open-in-other-window
 	(let* ((switch-to-buffer-obey-display-actions t)
 	       (display-buffer-overriding-action '((display-buffer-pop-up-window)
 						   (inhibit-same-window . t))))
-	  (if initial-input
-	      ;; override initial-input arg to completing-read
-	      (let ((my-override-initial-input initial-input))
-		(advice-add 'completing-read :around 'my-complete-with-initial-input)
-		(unwind-protect
-		    (call-interactively 'project-find-file)
-		  (advice-remove 'completing-read 'my-complete-with-initial-input)))
-
-	    (call-interactively 'project-find-file)))
-
-      (call-interactively 'project-find-file))))
+	  (funcall func))
+      (funcall func))))
 
 (defun my-find-file-in-project-other-window ()
   (interactive)
@@ -1974,14 +1974,15 @@ current project instead. Visit the tags file."
   "3" (lambda () (interactive) (my-wrap-if-endif 1))
   "2" (lambda () (interactive) (my-wrap-if-endif 1 t)))
 
-(defun my-jump-to-header ()
-  (interactive)
+(defun my-jump-to-header (&optional open-in-other-window)
+  (interactive "P")
   (let ((fn (buffer-file-name)))
     (if (not fn)
 	(message "Buffer has no filename")
       (let ((ext (file-name-extension fn)))
-	(my-find-file-in-project t (concat (file-name-base fn) "."
-					   (if (string= ext "h") "c" "h")))
+	(my-find-file-in-project open-in-other-window
+				 (concat (file-name-base fn) "."
+					 (if (string= ext "h") "c" "h")))
 	(message (buffer-file-name))))))
 
 (evil-leader/set-key "h" #'my-jump-to-header)
