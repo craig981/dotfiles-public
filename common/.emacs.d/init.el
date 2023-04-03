@@ -1811,8 +1811,8 @@ current project instead. Visit the tags file."
 	  (visit-tags-table (concat path "TAGS")))))))
 
 (global-set-key (kbd "C-c M-.") #'my-rebuild-and-load-tags)
-(evil-global-set-key 'motion (kbd "C-w .") (kbd "C-x 4 ."))
-(evil-global-set-key 'motion (kbd "C-w C-.") (kbd "C-x 4 ."))
+(evil-global-set-key 'motion (kbd "C-w .")   #'xref-find-definitions-other-window)
+(evil-global-set-key 'motion (kbd "C-w C-.") #'xref-find-definitions-other-window)
 
 (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
 
