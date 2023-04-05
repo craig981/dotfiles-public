@@ -2498,6 +2498,7 @@ current project instead. Visit the tags file."
  ;; If there is more than one, they won't work right.
  '(flyspell-duplicate ((t (:background "Magenta" :foreground "white"))))
  '(flyspell-incorrect ((t (:background "red" :foreground "white"))))
+ '(makefile-space ((t nil)))
  '(message-cited-text-1 ((t (:foreground "#878787"))))
  '(success ((t (:foreground "#00DD00" :weight bold)))))
 
