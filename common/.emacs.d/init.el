@@ -492,6 +492,8 @@
 (setq-default fancy-dabbrev-preview-delay 0.25)
 ;; (push 'evil-input-method fancy-dabbrev-no-preview-for)
 
+(define-key minibuffer-local-map (kbd "M-/") 'dabbrev-expand)
+
 ;; ----------------------------------------------------------------------------
 ;;| Lang
 ;; ----------------------------------------------------------------------------
