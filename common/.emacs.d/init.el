@@ -1134,7 +1134,7 @@
 (require 'helm-occur)
 
 (defvar my-helm-ignore '("build/"))
-(defvar my-helm-ignore-extra '("*.html" "*.css" "glew/" "testsuite/"))
+(defvar my-helm-ignore-extra '("*.html" "*.css" "*.ma" "glew/" "testsuite/"))
 
 ;; display relative paths in grep results
 (setq-default helm-grep-file-path-style 'relative)
