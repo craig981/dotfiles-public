@@ -774,8 +774,7 @@
   (auto-fill-mode 1)
   (setq-local indent-tabs-mode nil)
   (setq-local evil-shift-width 2)
-  (setq-local tab-width 2)
-  (setq-local search-invisible nil))
+  (setq-local tab-width 2))
 
 (defun my-org-capture-hook ()
   (interactive)
