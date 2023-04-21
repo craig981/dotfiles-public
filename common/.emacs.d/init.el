@@ -1679,6 +1679,21 @@ return the project path instead"
     (evil-window-split))
   (my-spawn-shell))
 
+(defun my-jump-to-shell ()
+  (interactive)
+  (let ((target (get-buffer "*Async Shell Command*")))
+    (when (not target)
+      (dolist (buf (buffer-list))
+        (when (and (not target)
+                   (string-match-p "^\*shell.*\*$" (buffer-name buf)))
+          (setq target buf))))
+    (if target
+	(let ((w (get-buffer-window target)))
+          (if w
+              (select-window w)
+            (switch-to-buffer target)))
+      (message "No shell to jump to"))))
+
 (setq comint-prompt-read-only t)
 (define-key shell-mode-map (kbd "M-_") 'comint-insert-previous-argument)
 (define-key shell-mode-map (kbd "C-r") (lambda (&optional prefix)
@@ -1737,6 +1752,7 @@ return the project path instead"
 
 (global-set-key (kbd "C-c V") 'my-switch-shell)
 (global-set-key (kbd "C-c v") 'my-split-shell)
+(global-set-key (kbd "C-c h") 'my-jump-to-shell)
 
 ;; ----------------------------------------------------------------------------
 ;;| Term
