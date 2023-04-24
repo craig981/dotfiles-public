@@ -1695,16 +1695,18 @@ return the project path instead"
       (message "No shell to jump to"))))
 
 (setq comint-prompt-read-only t)
-(define-key shell-mode-map (kbd "M-_") 'comint-insert-previous-argument)
-(define-key shell-mode-map (kbd "C-r") (lambda (&optional prefix)
-					 (interactive "P")
-					 (if prefix
-					     (consult-history)
-					   (comint-history-isearch-backward))))
-(define-key shell-mode-map (kbd "SPC") 'comint-magic-space)
-(define-key shell-mode-map (kbd "C-c C-l") 'comint-clear-buffer)
-(define-key comint-mode-map (kbd "C-r") 'comint-history-isearch-backward)
-(define-key comint-mode-map (kbd "M-r") 'move-to-window-line-top-bottom)
+
+(with-eval-after-load 'shell
+  (define-key shell-mode-map (kbd "M-_") 'comint-insert-previous-argument)
+  (define-key shell-mode-map (kbd "C-r") (lambda (&optional prefix)
+					   (interactive "P")
+					   (if prefix
+					       (consult-history)
+					     (comint-history-isearch-backward))))
+  (define-key shell-mode-map (kbd "SPC") 'comint-magic-space)
+  (define-key shell-mode-map (kbd "C-c C-l") 'comint-clear-buffer)
+  (define-key comint-mode-map (kbd "C-r") 'comint-history-isearch-backward)
+  (define-key comint-mode-map (kbd "M-r") 'move-to-window-line-top-bottom))
 
 ;; When the cursor is in the middle of the shell output, stop the
 ;; return key from pasting the whole lot back and executing it
