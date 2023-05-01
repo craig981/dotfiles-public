@@ -855,6 +855,12 @@
 				 (emacs-lisp . t)
 				 (gnuplot . t)))
 
+  (defun my-update-inline-images ()
+    (when org-inline-image-overlays
+      (org-redisplay-inline-images)))
+
+  (add-hook 'org-babel-after-execute-hook 'my-update-inline-images)
+
   (when (eq system-type 'darwin)
     (setq org-babel-python-command "python3")
     ;; for pdf export
