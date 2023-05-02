@@ -1679,14 +1679,19 @@ return the project path instead"
     (evil-window-split))
   (my-spawn-shell))
 
+(defun my-find-buffer-by-regex (regex)
+  (let ((target))
+    (dolist (buf (buffer-list))
+      (when (and (not target)
+		 (string-match-p regex (buffer-name buf)))
+	(setq target buf)))
+    target))
+
 (defun my-jump-to-shell ()
   (interactive)
-  (let ((target (get-buffer "*Async Shell Command*")))
-    (when (not target)
-      (dolist (buf (buffer-list))
-        (when (and (not target)
-                   (string-match-p "^\*shell.*\*$" (buffer-name buf)))
-          (setq target buf))))
+  (let ((target (or (my-find-buffer-by-regex "^\\*gud-.*\\*$")
+		    (get-buffer "*Async Shell Command*")
+		    (my-find-buffer-by-regex "^\\*shell.*\\*$"))))
     (if target
 	(let ((w (get-buffer-window target)))
           (if w
@@ -2205,13 +2210,18 @@ current project instead. Visit the tags file."
 
 ;; TODO override gdb-setup-windows instead
 
+(defun my-gdb-inferior-io-hook ()
+  (evil-local-mode 1)
+  (evil-normal-state 1))
+
+(add-hook 'gdb-inferior-io-mode-hook 'my-gdb-inferior-io-hook)
+
 ;;; https://stackoverflow.com/a/41326527
 (defun my-set-gdb-layout(&optional c-buffer)
 
   (if (not c-buffer)
       (setq c-buffer (window-buffer (selected-window)))) ;; save current buffer
 
-  (set-window-dedicated-p (selected-window) nil) ;; unset dedicate state if needed
   (switch-to-buffer gud-comint-buffer)
   (delete-other-windows)
 
@@ -2220,11 +2230,12 @@ current project instead. Visit the tags file."
 	 (w-locals (split-window w-gdb nil 'above))				     ;; right middle bottom
 	 (w-stack (split-window w-locals nil 'above))				     ;; right middle top
 	 ;; (w-breakpoints (split-window w-stack nil 'above))			     ;; right top
-	 (w-io (split-window w-source (floor (* 0.66 (window-body-height))) 'below)) ;; left bottom
+	 (w-io (split-window w-source (floor (* 0.5 (window-body-height))) 'below))  ;; left bottom
 	 )
 
-    (set-window-buffer w-io (or (get-buffer "*compilation*")
-				(get-buffer "*shell*")
+    (set-window-buffer w-io (or (my-find-buffer-by-regex "^\\*input/output of .*\\*$")
+				(get-buffer "*compilation*")
+				(get-buffer "")
 				(gdb-get-buffer-create 'gdb-inferior-io)))
     ;; (set-window-buffer w-breakpoints (gdb-get-buffer-create 'gdb-breakpoints-buffer))
     (set-window-buffer w-locals (gdb-get-buffer-create 'gdb-locals-buffer))
@@ -2235,6 +2246,8 @@ current project instead. Visit the tags file."
     ;; (set-window-dedicated-p w-breakpoints t)
     (set-window-dedicated-p w-locals t)
     (set-window-dedicated-p w-stack t)
+    (set-window-dedicated-p w-gdb t)
+    (set-window-dedicated-p w-source nil)
 
     (select-window w-source)
     (set-window-buffer w-source c-buffer)))
