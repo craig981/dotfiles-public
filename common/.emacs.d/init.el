@@ -1401,10 +1401,13 @@ return the project path instead"
 (global-set-key (kbd "C-c p u") #'my-choose-project-and-find-file-other-window)
 (global-set-key (kbd "C-c p r") #'my-choose-project-and-search)
 (global-set-key (kbd "C-c p m") #'my-choose-project-and-magit)
-(global-set-key (kbd "C-c p z") #'my-choose-project-and-dired)
+(global-set-key (kbd "C-c p d") #'my-choose-project-and-dired)
 
 (global-set-key (kbd "C-c e") 'my-find-file-in-project)
-(global-set-key (kbd "C-c z") 'my-jump-project-dired)
+(global-set-key (kbd "C-x C-d") 'my-jump-project-dired)
+(global-set-key (kbd "C-c z") (lambda ()
+				(interactive)
+				(find-file user-init-file)))
 
 (evil-leader/set-key "e" 'my-find-file-in-project)
 (evil-leader/set-key "u" 'my-find-file-in-project-other-window)
