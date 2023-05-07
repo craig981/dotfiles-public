@@ -1182,17 +1182,12 @@
       (helm-do-ag-project-root)))
 
 (defun my-search (&optional prefix)
-  "Search project. With prefix arg, ignore extra file types. With
-double-prefix arg, choose directory instead."
-  (interactive "p")
-  (cond
-   ((eq prefix 16)
-    (let ((current-prefix-arg 4)) ;; emulate C-u
-      (call-interactively 'helm-ag)))
-   ((eq prefix 4)
-    (let ((helm-ag-ignore-patterns (append my-helm-ignore my-helm-ignore-extra)))
-      (my-search-project)))
-   (t (my-search-project))))
+  "Search project. With prefix arg, ignore extra file types."
+  (interactive "P")
+  (if prefix
+      (let ((helm-ag-ignore-patterns (append my-helm-ignore my-helm-ignore-extra)))
+	(my-search-project))
+    (my-search-project)))
 
 ;;; C-c C-e in helm-ag to enter editable mode
 (defun my-after-helm-ag-edit (&rest args)
@@ -1237,6 +1232,10 @@ double-prefix arg, choose directory instead."
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-c r") 'my-search)
 (global-set-key (kbd "C-c o") 'helm-occur)
+(global-set-key (kbd "M-s g") (lambda ()
+				(interactive)
+				(let ((current-prefix-arg 4)) ;; emulate C-u
+				  (call-interactively 'helm-ag))))
 (evil-leader/set-key "r" 'my-search)
 (evil-leader/set-key "o" 'helm-occur) ;; M-n grabs symbol under point
 
