@@ -77,26 +77,20 @@
 (evil-declare-ignore-repeat 'recenter-top-bottom)
 (evil-declare-ignore-repeat 'other-window)
 
-;;; emacs end-of-line behaviour for M-e, C-M-f on S-expressions;
-;;; vim end-of-line behaviour for $, l.
-;;; :around advice on these functions doesn't work.
-(defun my-disable-eol (&rest args)
-  (setq evil-move-beyond-eol nil))
-(defun my-enable-eol (&rest args)
-  (setq evil-move-beyond-eol t))
-(dolist (func '(evil-end-of-line
-		evil-next-line
-		evil-previous-line
-		evil-forward-char))
-	(advice-add func :before #'my-disable-eol))
-(dolist (func '(forward-sentence
-		forward-sexp
-		forward-list
-		forward-word
-		kill-sentence
-		paredit-forward
-		paredit-forward-up))
-	(advice-add func :before #'my-enable-eol))
+(setq evil-move-beyond-eol t)
+
+(defun my-wrap-eol (func &rest args)
+  "Temporarily disable evil-move-beyond-eol for evil commands,
+leave it at 't' for Emacs commands"
+  (if (and real-this-command
+	   (symbolp real-this-command)
+	   (string-match-p "^evil-" (symbol-name real-this-command)))
+      (let ((evil-move-beyond-eol nil))
+	(apply func args))
+    (apply func args)))
+
+(dolist (func '(evil-normal-post-command evil-eolp))
+  (advice-add func :around #'my-wrap-eol))
 
 (defun my-forward-before-insert (&rest args)
   "Move the cursor forward before closing a tag or inserting a time stamp"
