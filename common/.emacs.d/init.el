@@ -348,6 +348,9 @@
 
 (global-set-key (kbd "C-c q") #'my-close-other-window)
 (global-set-key (kbd "C-c u") #'my-toggle-wrap)
+(global-set-key (kbd "C-c z") (lambda ()
+				(interactive)
+				(find-file user-init-file)))
 
 (with-eval-after-load 'ibuffer
   (define-key ibuffer-mode-map (kbd "M-o") nil))
@@ -653,7 +656,7 @@
         (window-height . 10))
       display-buffer-alist)
 
-(global-set-key (kbd "C-c C-M-c") 'calendar)
+(global-set-key (kbd "C-c M-c") 'calendar)
 
 ;; ----------------------------------------------------------------------------
 ;;| Org
@@ -897,8 +900,6 @@
   (define-key calc-mode-map (kbd "C-c C-r") #'calc-reset)
   (setq calc-multiplication-has-precedence nil)
   (advice-add #'calc-user-define-formula :around #'my-disable-vertico))
-
-(global-set-key (kbd "C-c M-c") (kbd "C-x * c"))
 
 ;; ----------------------------------------------------------------------------
 ;;| Browser
@@ -1404,9 +1405,6 @@ return the project path instead"
 
 (global-set-key (kbd "C-c e") 'my-find-file-in-project)
 (global-set-key (kbd "C-x C-d") 'my-jump-project-dired)
-(global-set-key (kbd "C-c z") (lambda ()
-				(interactive)
-				(find-file user-init-file)))
 
 (evil-leader/set-key "e" 'my-find-file-in-project)
 (evil-leader/set-key "u" 'my-find-file-in-project-other-window)
