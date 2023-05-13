@@ -2007,12 +2007,6 @@ current project instead. Visit the tags file."
       (evil-open-above 1)
       (indent-to the-indent))))
 
-(evil-leader/set-key
-  "0" (lambda () (interactive) (my-wrap-if-endif 0))
-  "1" (lambda () (interactive) (my-wrap-if-endif 1))
-  "3" (lambda () (interactive) (my-wrap-if-endif 1))
-  "2" (lambda () (interactive) (my-wrap-if-endif 1 t)))
-
 (defun my-jump-to-header (&optional open-in-other-window)
   (interactive "P")
   (let ((fn (buffer-file-name)))
@@ -2024,25 +2018,7 @@ current project instead. Visit the tags file."
 					 (if (string= ext "h") "c" "h")))
 	(message (buffer-file-name))))))
 
-(evil-leader/set-key "h" #'my-jump-to-header)
-
-;; https://www.gnu.org/software/emacs/manual/html_node/efaq/Customizing-C-and-C_002b_002b-indentation.html
-(c-add-style "my-c-style"
-	     '("linux"
-	       (c-offsets-alist
-		;; when a closing bracket is on it's own line don't
-		;; indent more
-		(arglist-close . 0)
-		;; stop indenting function inside namespace
-		(innamespace . 0)
-		(topmost-intro . 0))))
-
-(setq-default c-default-style "my-c-style")
-(setq-default c-tab-always-indent nil)
-
-
-;;grey out between #if 0 #endif
-;;https://stackoverflow.com/questions/7189742/c-c-mode-in-emacs-change-color-of-code-within-if-0-endif-block
+;; https://stackoverflow.com/questions/7189742/c-c-mode-in-emacs-change-color-of-code-within-if-0-endif-block
 (defun cpp-highlight-if-0/1 ()
   "Modify the face of text in between #if 0 ... #endif."
   (interactive)
@@ -2064,39 +2040,55 @@ current project instead. Visit the tags file."
 	   both nil)))
   (cpp-highlight-buffer t))
 
-(defun my-c-cpp-settings()
-  (modify-syntax-entry ?_ "w")
-  (local-set-key (kbd my-compile-key) #'my-compile-project)
-  (evil-local-set-key 'normal (kbd "[#") 'c-up-conditional)
-  ;; don't want c-submit-bug-report
-  (local-set-key (kbd "C-c C-b") nil)
-  (auto-fill-mode -1)
-  (setq-local fill-column 80)
-  (cpp-highlight-if-0/1)
-  (add-hook 'after-save-hook 'cpp-highlight-if-0/1 'append 'local))
+;; https://www.gnu.org/software/emacs/manual/html_node/efaq/Customizing-C-and-C_002b_002b-indentation.html
+(c-add-style "my-c-style"
+	     '("linux"
+	       (c-offsets-alist
+		;; when a closing bracket is on it's own line don't
+		;; indent more
+		(arglist-close . 0)
+		;; stop indenting function inside namespace
+		(innamespace . 0)
+		(topmost-intro . 0))))
+
+(setq c-default-style "my-c-style")
+(setq c-tab-always-indent nil)
 
 (defvar my-cc-path)
 
-(defun my-cpp-mode-hook ()
-  (my-c-cpp-settings)
-  (make-local-variable 'ffap-c++-path)
+(defun my-cc-settings (path)
+  (modify-syntax-entry ?_ "w")
+  (evil-local-set-key 'normal (kbd "[#") 'c-up-conditional)
+  (local-set-key (kbd my-compile-key) #'my-compile-project)
+  (local-set-key (kbd "C-c C-b") nil) ; don't want c-submit-bug-report
+  (auto-fill-mode -1)
+  (cpp-highlight-if-0/1)
+  (add-hook 'after-save-hook 'cpp-highlight-if-0/1 'append 'local)
+
+  (make-local-variable path)
   (when (bound-and-true-p my-cc-path)
     (dolist (x my-cc-path)
-      (add-to-list 'ffap-c++-path x)))
+      (add-to-list path x)))
   (vc-refresh-state)
-  (add-to-list 'ffap-c++-path (my-find-project-root)))
+  (add-to-list path (my-find-project-root)))
+
+(require 'ffap)
+
+(defun my-cpp-mode-hook ()
+  (my-cc-settings 'ffap-c++-path))
 
 (defun my-c-mode-hook ()
-  (my-c-cpp-settings)
-  (make-local-variable 'ffap-c-path)
-  (when (bound-and-true-p my-cc-path)
-    (dolist (x my-cc-path)
-      (add-to-list 'ffap-c-path x)))
-  (vc-refresh-state)
-  (add-to-list 'ffap-c-path (my-find-project-root)))
+  (my-cc-settings 'ffap-c-path))
 
 (add-hook 'c++-mode-hook 'my-cpp-mode-hook t)
 (add-hook 'c-mode-hook 'my-c-mode-hook t)
+
+(dolist (mode '(c++-mode c-mode))
+  (evil-leader/set-key-for-mode mode
+    "0" (lambda () (interactive) (my-wrap-if-endif 0))
+    "1" (lambda () (interactive) (my-wrap-if-endif 1))
+    "2" (lambda () (interactive) (my-wrap-if-endif 1 t))
+    "h" #'my-jump-to-header))
 
 ;; 4 character tabs or spaces for some projects
 (dir-locals-set-class-variables 'fourchartabs
@@ -2112,17 +2104,11 @@ current project instead. Visit the tags file."
 					       (evil-shift-width . 4)
 					       (indent-tabs-mode . nil)))))
 
-
-
 (define-skeleton my-cpp-include "" nil
   "#include \"" - "\"")
 
 (define-skeleton my-cpp-include-sys "" nil
   "#include <" - ">")
-
-(define-skeleton my-cpp-if "" nil
-  > "if (" - ") {\n"
-  > -1 "}\n")
 
 (define-skeleton my-cpp-for "" nil
   > "for ("
@@ -2168,15 +2154,13 @@ current project instead. Visit the tags file."
   > - "\n"
   > "return 0;\n}\n")
 
-
 (with-eval-after-load "cc-mode"
   (dolist (table (list c-mode-abbrev-table c++-mode-abbrev-table))
     (define-abbrev table "incg" "" 'my-cpp-include-guard)
     (define-abbrev table "incl" "" 'my-cpp-include)
     (define-abbrev table "inc"  "" 'my-cpp-include-sys)
-    (define-abbrev table "forr" "" 'my-cpp-for)
+    (define-abbrev table "for"  "" 'my-cpp-for)
     (define-abbrev table "fori" "" 'my-cpp-for-iter)
-    ;; (define-abbrev table "if"   "" 'my-cpp-if)
     (define-abbrev table "pv"   "" 'my-cpp-print-vec)
     (define-abbrev table "main" "" 'my-cpp-main)))
 
