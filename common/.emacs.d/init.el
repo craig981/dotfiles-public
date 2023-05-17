@@ -2081,7 +2081,7 @@ current project instead. Visit the tags file."
 (dolist (mode '(c++-mode c-mode))
   (evil-leader/set-key-for-mode mode
     "0" (lambda () (interactive) (my-wrap-if-endif 0))
-    "1" (lambda () (interactive) (my-wrap-if-endif 1))
+    "3" (lambda () (interactive) (my-wrap-if-endif 1))
     "2" (lambda () (interactive) (my-wrap-if-endif 1 t))
     "h" #'my-jump-to-header))
 
