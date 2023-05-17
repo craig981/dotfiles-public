@@ -6,6 +6,7 @@ all:
 	[ -d $(HOME)/dotfiles ] && $(MAKE) -C $(HOME)/dotfiles all
 
 	stow -v common
+	stow -v emacs
 
 ifeq ($(osuname),Linux)
 	stow -v gtk
