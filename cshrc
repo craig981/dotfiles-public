@@ -6,6 +6,7 @@
 alias d		'imf_disp'
 alias ls	'/bin/ls --color=auto'
 alias ll	'/bin/ls -lrth --color=auto'
+alias la	'/bin/ls -lrthA --color=auto'
 alias e		'emacs -nw'
 alias tmux	'tmux -2'
 
@@ -28,10 +29,10 @@ bindkey ' ' magic-space
 complete git 'p@1@`~/dotfiles-public/bin/list_git_cmds.csh`@@'
 
 alias g 'git st'
-alias gd 'git di'
-alias gdc 'git di --cached'
-alias ga 'git add -p'
-alias gc 'git commit'
+# alias gd 'git di'
+# alias gdc 'git di --cached'
+# alias ga 'git add -p'
+# alias gc 'git commit'
 alias gl 'git lo'
 
 setenv LS_COLORS 'no=00:fi=00:di=38;5;69:ow=38;5;69:ln=01;33:pi=04;33:*.dylib=04;03;31:so=01;35:bd=03;32;03:cd=03;36;02:or=30;01;31:ex=01;32'

@@ -5,6 +5,7 @@
 if [[ "$(uname -s)" = "Darwin" ]]; then
 
   alias ll='/bin/ls -lrthG'
+  alias la='/bin/ls -lrthGA'
   alias ls='/bin/ls -G'
 
   alias e='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
@@ -24,6 +25,7 @@ else
 
   alias ls='/bin/ls --color=auto'
   alias ll='/bin/ls -lrth --color=auto'
+  alias la='/bin/ls -lrthA --color=auto'
 
   alias e='emacs -nw'
   alias ee='emacs'
@@ -44,17 +46,16 @@ function lt() {
 }
 
 # alias m='vim "+set filetype=mail"'
-alias f='feh'
 alias d='imf_disp'
 alias p='mplayer -really-quiet -loop 0 -fixed-vo'
 alias mu='cmus'
 alias abcll='abcls -almrstv'
 
 alias g='git st'
-alias gd='git di'
-alias gdc='git di --cached'
-alias ga='git add -p'
-alias gc='git commit'
+# alias gd='git di'
+# alias gdc='git di --cached'
+# alias ga='git add -p'
+# alias gc='git commit'
 alias gl='git lo'
 
 alias c='coffee.sh'
