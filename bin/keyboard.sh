@@ -7,7 +7,7 @@ setxkbmap -option
 setxkbmap -option caps:ctrl_modifier
 setxkbmap -option ctrl:ralt_rctrl
 setxkbmap -option altwin:menu_win
-setxkbmap -option shift:both_capslock
+# setxkbmap -option shift:both_capslock
 
 for id in $(xinput list | sed -e '1,/Virtual core keyboard/d' | grep -e 'Keychron' -e 'PCoIP.*Keyboard' -e 'RGS keyboard' | sed -e 's/.*id=\([0-9]\+\).*/\1/')
 do
@@ -15,7 +15,7 @@ do
 	setxkbmap -device "${id}" -option caps:ctrl_modifier
 	setxkbmap -device "${id}" -option ctrl:swap_rwin_rctl
 	setxkbmap -device "${id}" -option altwin:swap_lalt_lwin
-	setxkbmap -device "${id}" -option shift:both_capslock
+	# setxkbmap -device "${id}" -option shift:both_capslock
 done
 
 if [[ "$XDG_CURRENT_DESKTOP" = "MATE" ]]; then
