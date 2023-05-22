@@ -373,7 +373,7 @@ leave it at 't' for Emacs commands"
 (push 'try-expand-line hippie-expand-try-functions-list)
 (evil-global-set-key 'insert (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
 
-(global-set-key (kbd "C-x C-o") 'subword-mode)
+(global-set-key (kbd "C-x w") 'subword-mode)
 
 (evil-leader/set-key "l" 'flyspell-buffer)
 
