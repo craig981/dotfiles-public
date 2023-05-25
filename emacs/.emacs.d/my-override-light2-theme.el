@@ -10,6 +10,7 @@
  '(diff-refine-added ((t (:foreground "#134c4c" :background "#83bcbc"))))
  '(diff-removed ((t (:foreground "#502750" :background "#c0a0c0"))))
  '(diff-added ((t (:foreground "#134c4c" :background "#83bcbc"))))
+ '(org-checkbox ((t (:foreground "#000010" :background nil :box nil))))
  )
 
 (set-cursor-color "black")
