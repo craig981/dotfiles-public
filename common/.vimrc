@@ -53,11 +53,11 @@ vnoremap <leader>= :!column -t<CR>gv
 " remove trailing whitespace in selection
 vnoremap <leader>\ :s/\s\+$//<CR>
 
-nnoremap <leader>r :silent grep '<c-r><c-w>' .<Left><Left><Left>
-if executable('ag')
-	set grepprg=ag\ --vimgrep\ -s\ --ignore-dir\ .git\ --hidden\ $*
-	set grepformat^=%f:%l:%c:%m
-endif
+" nnoremap <leader>r :silent grep '<c-r><c-w>' .<Left><Left><Left>
+" if executable('ag')
+" 	set grepprg=ag\ --vimgrep\ -s\ --ignore-dir\ .git\ --hidden\ $*
+" 	set grepformat^=%f:%l:%c:%m
+" endif
 
 "occurrences in current file
 nnoremap <leader>o :vimgrep /\<<c-r><c-w>\>/ %<CR>:cope<CR><C-w><C-p>
@@ -199,6 +199,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 	Plug 'mswift42/vim-themes'
 	Plug 'arcticicestudio/nord-vim'
 	Plug 'ctrlpvim/ctrlp.vim'
+	Plug 'wincent/ferret'
 	call plug#end()
 
 	augroup change_the_colours
@@ -252,7 +253,12 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 		nnoremap <leader>e :find<space>
 	endif
 
-
+	nnoremap <leader>r :Ack <c-r><c-w> -w
+	let g:FerretHlsearch=1
+	let g:FerretExecutable='ag,rg'
+	let g:FerretExecutableArguments = {
+				\ 'ag': '--vimgrep -s --ignore-dir .git --hidden'
+				\ }
 endif
 
 if has("nvim")
