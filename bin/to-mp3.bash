@@ -1,8 +1,13 @@
 #!/bin/bash
 
-if [[ "$#" -ne 1 ]]; then
-    echo "usage: $0 file.mkv"
+if [[ "$#" -lt 1 ]]; then
+    echo "usage: $(basename $0) file.mkv [start]"
     exit 1
+fi
+
+start=
+if [[ "$#" -eq 2 ]]; then
+    start="-ss $2"
 fi
 
 mp3="${1%.*}.mp3"
@@ -13,4 +18,4 @@ fi
 
 set -xe
 
-ffmpeg -i "${1}" -vn -c:a mp3 "${mp3}"
+ffmpeg ${start} -i "${1}" -vn -c:a mp3 "${mp3}"
