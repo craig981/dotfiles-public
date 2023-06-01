@@ -1235,6 +1235,7 @@ leave it at 't' for Emacs commands"
 				  (call-interactively 'helm-ag))))
 (evil-leader/set-key "r" 'my-search)
 (evil-leader/set-key "o" 'helm-occur) ;; M-n grabs symbol under point
+(global-set-key (kbd "C-x g") 'rgrep)
 
 ;; ----------------------------------------------------------------------------
 ;;| Imenu
