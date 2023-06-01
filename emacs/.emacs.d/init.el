@@ -895,6 +895,8 @@ leave it at 't' for Emacs commands"
   (setq calc-multiplication-has-precedence nil)
   (advice-add #'calc-user-define-formula :around #'my-disable-vertico))
 
+(setq calc-angle-mode 'rad)
+
 ;; ----------------------------------------------------------------------------
 ;;| Browser
 ;; ----------------------------------------------------------------------------
