@@ -994,8 +994,6 @@ leave it at 't' for Emacs commands"
 
 (require 'consult)
 
-(global-set-key (kbd "C-x C-b") 'consult-buffer)
-
 (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
 
 (setq consult-preview-key nil)	; stop preview when any key is pressed
@@ -1055,6 +1053,7 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "C-j")     'my-switch-buffer)
 (global-set-key (kbd "C-x b")   'my-switch-buffer)
 (global-set-key (kbd "C-x 4 b") 'my-switch-buffer-other-window)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (with-eval-after-load "ido"
   (setq ido-enable-flex-matching t)
