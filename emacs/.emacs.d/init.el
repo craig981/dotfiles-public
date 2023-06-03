@@ -996,6 +996,8 @@ leave it at 't' for Emacs commands"
 
 (require 'consult)
 
+(global-set-key (kbd "C-c t") 'consult-recent-file)
+
 (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
 
 (setq consult-preview-key nil)	; stop preview when any key is pressed
@@ -1777,8 +1779,6 @@ return the project path instead"
 ;; ----------------------------------------------------------------------------
 ;;| Term
 ;; ----------------------------------------------------------------------------
-
-(global-set-key (kbd "C-c t") 'ansi-term)
 
 (defun expose-global-binding-in-term (binding)
   (define-key term-raw-map binding
