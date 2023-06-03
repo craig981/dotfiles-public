@@ -2372,6 +2372,11 @@ current project instead. Visit the tags file."
 ;;| Music
 ;; ----------------------------------------------------------------------------
 
+(defun my-add-dired-to-bongo ()
+  (interactive)
+  (dolist (fn (dired-get-marked-files))
+    (bongo-insert-file fn)))
+
 (when (or (eq system-type 'darwin)
 	  (and (eq system-type 'gnu/linux)
 	       (display-graphic-p)
@@ -2380,6 +2385,7 @@ current project instead. Visit the tags file."
   (require 'bongo) ;; need this before opening a playlist
 
   (evil-leader/set-key "b" #'bongo)
+  (define-key dired-mode-map (kbd "b") 'my-add-dired-to-bongo)
 
   (setq bongo-logo nil)
   (setq bongo-display-track-icons nil)
