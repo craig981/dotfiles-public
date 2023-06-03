@@ -312,6 +312,13 @@ leave it at 't' for Emacs commands"
     (evil-visual-char)
     (push-mark a)))
 
+(defun my-join-line ()
+  (interactive)
+  (join-line 1))
+
+(defun my-switch-other-buffer ()
+  (interactive)
+  (switch-to-buffer (other-buffer)))
 
 (evil-leader/set-key "s" #'my-substitute) ; substitute whole buffer
 (evil-leader/set-key "S" ; substitute from current line to end of buffer
@@ -354,11 +361,8 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "M-p") (kbd "M-{"))
 (global-set-key (kbd "M-n") (kbd "M-}"))
 (global-set-key (kbd "M-o") (kbd "C-x o"))
-(global-set-key (kbd "M-j") (lambda ()
-				(interactive)
-				(if (eq evil-state 'insert)
-				    (join-line 1)
-				  (switch-to-buffer (other-buffer)))))
+(global-set-key (kbd "M-j") #'my-switch-other-buffer)
+(evil-global-set-key 'insert (kbd "M-j") #'my-join-line)
 (global-set-key (kbd "M-'") #'delete-blank-lines)
 (global-set-key (kbd "M-\\") #'my-delete-whitespace)
 
