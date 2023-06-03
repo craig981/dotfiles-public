@@ -21,9 +21,7 @@
 ;; ----------------------------------------------------------------------------
 
 (require 'package)
-(setq package-archives
-      '(("melpa" . "https://melpa.org/packages/")
-	("gnu"   . "https://elpa.gnu.org/packages/")))
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 
 ;; ----------------------------------------------------------------------------
 ;;| Paths
