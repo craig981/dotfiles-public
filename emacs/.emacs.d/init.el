@@ -1015,10 +1015,14 @@ leave it at 't' for Emacs commands"
 	       args)))
 
 ;; ----------------------------------------------------------------------------
-;;| Ido
+;;| Buffers, Ido or Icomplete
 ;; ----------------------------------------------------------------------------
 
-(defun my-invoke-with-ido (func)
+(defvar my-use-ido nil)
+
+(setq read-buffer-completion-ignore-case t)
+
+(defun my-invoke-with-completion (func)
   (let ((v vertico-mode)
 	(m marginalia-mode)
 	(ic icomplete-mode)
@@ -1026,29 +1030,39 @@ leave it at 't' for Emacs commands"
     (vertico-mode 0)
     (marginalia-mode 0)
     (icomplete-vertical-mode -1)
-    (icomplete-mode -1)
-    (ido-mode 1)
+    (if (not my-use-ido)
+	(icomplete-mode 1)
+      (icomplete-mode -1)
+      (ido-mode 1))
     (unwind-protect
 	(call-interactively func)
-      (ido-mode 0)
+      (if (not my-use-ido)
+	  (icomplete-mode -1)
+	(ido-mode 0)
+	(when ic (icomplete-mode 1)))
       (when v (vertico-mode 1))
       (when m (marginalia-mode 1))
-      (when ic (icomplete-mode 1))
       (when icv (icomplete-vertical-mode 1)))))
 
 (defun my-kill-buffer ()
   (interactive)
   (if (buffer-modified-p)
-      (my-invoke-with-ido #'ido-kill-buffer)
+      (if my-use-ido
+	  (my-invoke-with-completion #'ido-kill-buffer)
+	(my-invoke-with-completion #'kill-buffer))
     (kill-this-buffer)))
 
 (defun my-switch-buffer ()
   (interactive)
-  (my-invoke-with-ido #'ido-switch-buffer))
+  (if my-use-ido
+      (my-invoke-with-completion #'ido-switch-buffer)
+    (my-invoke-with-completion #'switch-to-buffer)))
 
 (defun my-switch-buffer-other-window ()
   (interactive)
-  (my-invoke-with-ido #'ido-switch-buffer-other-window))
+  (if my-use-ido
+      (my-invoke-with-completion #'ido-switch-buffer-other-window)
+    (my-invoke-with-completion #'switch-to-buffer-other-window)))
 
 (evil-global-set-key 'motion (kbd "C-w d")   'my-kill-buffer)
 (evil-global-set-key 'motion (kbd "C-w C-d") 'my-kill-buffer)
@@ -1068,25 +1082,27 @@ leave it at 't' for Emacs commands"
 ;; ----------------------------------------------------------------------------
 
 ;; (icomplete-vertical-mode 1)
-
-;; (defun my-icomplete-hook ()
-;;   (let ((inhibit-message t))
-;;     (toggle-truncate-lines 1)))
-;; (add-hook 'icomplete-minibuffer-setup-hook 'my-icomplete-hook)
-
-;; (setq icomplete-compute-delay 0.0)
-;; (setq icomplete-matches-format nil)
-;; (setq icomplete-show-matches-on-no-input t)
-;; (setq completion-pcm-word-delimiters "-_./:|")
 ;; (setq icomplete-scroll t)
 
-;; (with-eval-after-load 'icomplete
-;;   (define-key icomplete-vertical-mode-minibuffer-map (kbd "RET") 'icomplete-force-complete-and-exit)
-;;   (define-key icomplete-minibuffer-map (kbd "RET") 'icomplete-force-complete-and-exit)
-;;   (define-key icomplete-minibuffer-map (kbd "TAB") 'icomplete-force-complete)
-;;   (define-key icomplete-minibuffer-map (kbd "C-j") 'ignore)
-;;   (define-key icomplete-minibuffer-map (kbd "C-s") 'icomplete-forward-completions)
-;;   (define-key icomplete-minibuffer-map (kbd "C-r") 'icomplete-backward-completions))
+(defun my-icomplete-hook ()
+  (let ((inhibit-message t))
+    (toggle-truncate-lines 1)))
+(add-hook 'icomplete-minibuffer-setup-hook 'my-icomplete-hook)
+
+(setq icomplete-compute-delay 0.0)
+(setq icomplete-matches-format nil)
+(setq icomplete-show-matches-on-no-input t)
+;; (setq completion-pcm-word-delimiters "-_./:|")
+
+(with-eval-after-load 'icomplete
+  (define-key icomplete-vertical-mode-minibuffer-map (kbd "RET") 'icomplete-force-complete-and-exit)
+  (define-key icomplete-minibuffer-map (kbd "RET") 'icomplete-force-complete-and-exit)
+  ;; (define-key icomplete-minibuffer-map (kbd "TAB") 'icomplete-force-complete)
+  ;; (define-key icomplete-minibuffer-map (kbd "C-j") 'ignore)
+  (define-key icomplete-minibuffer-map (kbd "SPC") 'self-insert-command) ;; allow orderless to work
+  (define-key icomplete-minibuffer-map (kbd "C-j") 'icomplete-force-complete-and-exit)
+  (define-key icomplete-minibuffer-map (kbd "C-s") 'icomplete-forward-completions)
+  (define-key icomplete-minibuffer-map (kbd "C-r") 'icomplete-backward-completions))
 
 ;; ----------------------------------------------------------------------------
 ;;| Complete filenames
