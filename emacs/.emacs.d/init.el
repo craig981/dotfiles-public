@@ -1459,6 +1459,28 @@ return the project path instead"
 (setq search-upper-case t)
 
 ;; ----------------------------------------------------------------------------
+;;| Occur
+;; ----------------------------------------------------------------------------
+
+;; (defun my-occur-find-hook ()
+;;   (global-hl-line-mode 1)
+;;   (recenter-top-bottom))
+
+;; (add-hook 'occur-mode-find-occurrence-hook 'my-occur-find-hook)
+
+;; ;;; Turn off line highlight, unless we hit 'n' or 'p' in occur buffer
+;; (defun my-disable-hl-line (func &rest args)
+;;   (apply func args)
+;;   (when (not (and real-this-command
+;; 		  (symbolp real-this-command)
+;; 		  (or (eq real-this-command 'next-error-no-select)
+;; 		      (eq real-this-command 'previous-error-no-select))))
+;;     (global-hl-line-mode -1)))
+
+;; (advice-add 'occur-mode-goto-occurrence-other-window :around #'my-disable-hl-line)
+;; (advice-add 'occur-mode-goto-occurrence :around #'my-disable-hl-line)
+
+;; ----------------------------------------------------------------------------
 ;;| Dired
 ;; ----------------------------------------------------------------------------
 
