@@ -2214,13 +2214,15 @@ current project instead. Visit the tags file."
 
 (with-eval-after-load "cc-mode"
   (dolist (table (list c-mode-abbrev-table c++-mode-abbrev-table))
-    (define-abbrev table "incg" "" 'my-cpp-include-guard)
     (define-abbrev table "incl" "" 'my-cpp-include)
     (define-abbrev table "inc"  "" 'my-cpp-include-sys)
     (define-abbrev table "forr"  "" 'my-cpp-for)
     (define-abbrev table "fori" "" 'my-cpp-for-iter)
     (define-abbrev table "pv"   "" 'my-cpp-print-vec)
     (define-abbrev table "main" "" 'my-cpp-main)))
+
+(auto-insert-mode 1)
+(define-auto-insert "\\.h\\'" 'my-cpp-include-guard)
 
 ;; ----------------------------------------------------------------------------
 ;;| Maya, Houdini, Arnold
