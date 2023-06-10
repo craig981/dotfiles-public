@@ -1004,6 +1004,7 @@ leave it at 't' for Emacs commands"
 (consult-customize
  consult-buffer consult-buffer-other-window consult-theme
  :preview-key "C-j")
+(consult-customize consult-line :preview-key 'any)
 
 ;;; use vertico for completion-at-point, but not makefile targets or
 ;;; in shell buffers
