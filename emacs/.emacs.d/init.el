@@ -1878,6 +1878,16 @@ current project instead. Visit the tags file."
 
 (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
 
+(require 'dumb-jump)
+
+(defun my-dumb-jump-activate ()
+  "Activate dumb-jump, unless a tags table is loaded"
+  (if tags-table-list
+      nil
+    (dumb-jump-xref-activate)))
+
+(add-hook 'xref-backend-functions #'my-dumb-jump-activate)
+
 ;; ----------------------------------------------------------------------------
 ;;| Lisp
 ;; ----------------------------------------------------------------------------
@@ -2514,6 +2524,7 @@ current project instead. Visit the tags file."
      bongo
      cmake-mode
      consult
+     dumb-jump
      eglot
      evil
      evil-leader
