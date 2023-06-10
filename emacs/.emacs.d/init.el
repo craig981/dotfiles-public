@@ -1451,7 +1451,7 @@ return the project path instead"
 (define-key isearch-mode-map (kbd "DEL") 'my-isearch-remove-failed-part)
 
 ;; space in search is a wildcard. 'M-s space' to toggle
-(setq search-whitespace-regexp ".*"
+(setq search-whitespace-regexp ".*" ; ".*?" for non-greedy
       isearch-lax-whitespace t
       isearch-regexp-lax-whitespace nil)
 ;; stop downcasing when symbol searching with M-s .
