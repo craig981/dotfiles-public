@@ -2541,6 +2541,7 @@ current project instead. Visit the tags file."
      which-key
      yaml-mode))
  '(read-quoted-char-radix 16)
+ '(recentf-max-saved-items 1000)
  '(safe-local-variable-values
    '((my-input-method . swedish-postfix)
      (my-input-method . german-postfix)
