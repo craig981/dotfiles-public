@@ -1236,6 +1236,11 @@ leave it at 't' for Emacs commands"
 	  (delete-char (- (length end)))
 	(insert end)))))
 
+(defun my-helm-ag-with-dir ()
+  (interactive)
+  (let ((current-prefix-arg 4)) ;; emulate C-u
+    (call-interactively 'helm-ag)))
+
 (define-key helm-occur-map (kbd "M-w") (lambda ()
 					 (interactive)
 					 (my-toggle-symbol-boundary "\\_<" "\\_>" "\\\\_<")))
@@ -1252,13 +1257,10 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-c r") 'my-search)
 (global-set-key (kbd "C-c o") 'helm-occur)
-(global-set-key (kbd "M-s g") (lambda ()
-				(interactive)
-				(let ((current-prefix-arg 4)) ;; emulate C-u
-				  (call-interactively 'helm-ag))))
 (evil-leader/set-key "r" 'my-search)
 (evil-leader/set-key "o" 'helm-occur) ;; M-n grabs symbol under point
-(global-set-key (kbd "C-x g") 'rgrep)
+(global-set-key (kbd "M-s g") 'my-helm-ag-with-dir)
+(global-set-key (kbd "M-s M-g") 'rgrep)
 
 ;; ----------------------------------------------------------------------------
 ;;| Imenu
