@@ -2544,6 +2544,7 @@ current project instead. Visit the tags file."
  '(initial-frame-alist '((fullscreen . maximized)))
  '(ispell-program-name "aspell")
  '(magit-log-arguments '("--graph" "--color" "--decorate" "-n256"))
+ '(magit-log-auto-more t)
  '(magit-merge-arguments '("--no-ff"))
  '(magit-section-initial-visibility-alist '((stashes . show) (upstream . show)))
  '(magit-section-visibility-indicator '("" . t))
