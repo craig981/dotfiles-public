@@ -1509,6 +1509,12 @@ return the project path instead"
 (when (eq system-type 'darwin)
  (setq dired-guess-shell-alist-user '(("" "open"))))
 
+(global-set-key (kbd "C-x C-j") 'dired-jump)
+
+;; ----------------------------------------------------------------------------
+;;| Image dired
+;; ----------------------------------------------------------------------------
+
 (setq-default image-dired-dir "/tmp/image-dired") ; where to store thumbnails
 (setq-default image-dired-thumb-width 100)
 (setq-default image-dired-thumb-height 100)
@@ -1524,13 +1530,11 @@ return the project path instead"
 
 (with-eval-after-load "image-dired"
   ;; show full size
-  (define-key image-dired-thumbnail-mode-map (kbd "C-<return>")
+  (define-key image-dired-thumbnail-mode-map (kbd "M-<return>")
     (lambda ()
       (interactive)
       (let ((current-prefix-arg 4)) ;; emulate C-u
 	(call-interactively 'image-dired-display-thumbnail-original-image)))))
-
-(global-set-key (kbd "C-x C-j") 'dired-jump)
 
 ;;; stop opening multiple image buffers
 (push '((lambda (buf actions)
