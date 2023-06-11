@@ -56,14 +56,15 @@
 
 (add-hook 'evil-command-window-mode-hook 'evil-local-mode)
 
+(require 'undo-tree)
+(global-undo-tree-mode)
+
 (when (fboundp 'evil-set-undo-system)
-  (require 'undo-tree)
-  (global-undo-tree-mode)
   (evil-set-undo-system 'undo-tree))
 (evil-declare-ignore-repeat 'evil-undo)
 
 (setq-default evil-ex-search-case 'sensitive)
-;;(setq-default evil-search-module 'evil-search)
+(setq-default evil-search-module 'evil-search)
 
 (global-set-key (kbd "C-c M-e") #'evil-local-mode)
 (evil-leader/set-leader "<SPC>")
