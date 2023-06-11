@@ -1493,6 +1493,11 @@ return the project path instead"
 (define-key dired-mode-map (kbd "SPC") evil-leader--default-map)
 (define-key dired-mode-map (kbd "C-w") 'evil-window-map)
 
+(defun my-dired-hook ()
+  (auto-revert-mode 1))
+
+(add-hook 'dired-mode-hook 'my-dired-hook)
+
 ;; make q work when viewing a file with v
 (defun my-view-mode-hook ()
   (define-key view-mode-map (kbd "C-j") nil)
