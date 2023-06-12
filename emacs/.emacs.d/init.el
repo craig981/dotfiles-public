@@ -905,6 +905,14 @@ leave it at 't' for Emacs commands"
 
 (setq calc-angle-mode 'rad)
 
+(defun my-calc-yank ()
+  "Yank number at point into calc stack"
+  (interactive)
+  (calc-yank-internal nil (format "%s" (number-at-point))))
+
+(global-set-key (kbd "C-x y") 'my-calc-yank)
+(global-set-key (kbd "C-x C-y") 'my-calc-yank)
+
 ;; ----------------------------------------------------------------------------
 ;;| Browser
 ;; ----------------------------------------------------------------------------
