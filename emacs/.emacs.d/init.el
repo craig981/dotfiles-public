@@ -897,9 +897,10 @@ leave it at 't' for Emacs commands"
 ;; ----------------------------------------------------------------------------
 
 (with-eval-after-load "calc-ext"
-  (define-key calc-mode-map (kbd "C-c r") #'calc-reset)
-  (define-key calc-mode-map (kbd "C-c C-r") #'calc-reset)
+  (define-key calc-mode-map (kbd "C-c e")   #'calc-reset)
+  (define-key calc-mode-map (kbd "C-c C-e") #'calc-reset)
   (setq calc-multiplication-has-precedence nil)
+  (setq calc-make-windows-dedicated t)
   (advice-add #'calc-user-define-formula :around #'my-disable-vertico))
 
 (setq calc-angle-mode 'rad)
