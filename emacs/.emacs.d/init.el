@@ -362,8 +362,9 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "M-p") (kbd "M-{"))
 (global-set-key (kbd "M-n") (kbd "M-}"))
 (global-set-key (kbd "M-o") (kbd "C-x o"))
-(global-set-key (kbd "M-j") #'my-switch-other-buffer)
-(evil-global-set-key 'insert (kbd "M-j") #'my-join-line)
+(global-set-key (kbd "M-j") #'my-join-line)
+(global-set-key (kbd "M-i") #'my-switch-other-buffer)
+(evil-global-set-key 'insert (kbd "M-i") #'tab-to-tab-stop)
 (global-set-key (kbd "M-'") #'delete-blank-lines)
 (global-set-key (kbd "M-\\") #'my-delete-whitespace)
 
