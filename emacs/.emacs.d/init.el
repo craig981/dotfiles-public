@@ -363,10 +363,10 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "M-n") (kbd "M-}"))
 (global-set-key (kbd "M-o") (kbd "C-x o"))
 (global-set-key (kbd "M-j") #'my-join-line)
-(global-set-key (kbd "M-i") #'my-switch-other-buffer)
-(evil-global-set-key 'insert (kbd "M-i") #'tab-to-tab-stop)
 (global-set-key (kbd "M-'") #'delete-blank-lines)
 (global-set-key (kbd "M-\\") #'my-delete-whitespace)
+(global-set-key (kbd "C-M-j") #'my-switch-other-buffer)
+(evil-global-set-key 'insert (kbd "C-M-j") #'default-indent-new-line)
 
 (global-set-key (kbd "C-c w h") #'evil-window-move-far-left)
 (global-set-key (kbd "C-c w l") #'evil-window-move-far-right)
