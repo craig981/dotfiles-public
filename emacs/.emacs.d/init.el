@@ -317,10 +317,6 @@ leave it at 't' for Emacs commands"
   (interactive)
   (join-line 1))
 
-(defun my-switch-other-buffer ()
-  (interactive)
-  (switch-to-buffer (other-buffer)))
-
 (evil-leader/set-key "s" #'my-substitute) ; substitute whole buffer
 (evil-leader/set-key "S" ; substitute from current line to end of buffer
   (lambda ()
@@ -365,7 +361,7 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "M-j") #'my-join-line)
 (global-set-key (kbd "M-'") #'delete-blank-lines)
 (global-set-key (kbd "M-\\") #'my-delete-whitespace)
-(global-set-key (kbd "C-M-j") #'my-switch-other-buffer)
+(global-set-key (kbd "C-M-j") #'mode-line-other-buffer)
 (evil-global-set-key 'insert (kbd "C-M-j") #'default-indent-new-line)
 
 (global-set-key (kbd "C-c w h") #'evil-window-move-far-left)
