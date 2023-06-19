@@ -1645,6 +1645,7 @@ return the project path instead"
 (setq-default compilation-skip-threshold 2) ;; skip warnings
 
 (defun my-compilation-mode-hook ()
+  (modify-syntax-entry ?_ "w") ;; _ is word constituent, so * and # works
   (visual-line-mode)
   (evil-local-mode)
   (setq-local split-width-threshold 1000)
