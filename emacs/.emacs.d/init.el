@@ -900,6 +900,11 @@ leave it at 't' for Emacs commands"
   (setq calc-make-windows-dedicated t)
   (advice-add #'calc-user-define-formula :around #'my-disable-vertico))
 
+(defun my-calc-hook ()
+  (calc-trail-display 0))
+
+(add-hook 'calc-mode-hook 'my-calc-hook)
+
 (setq calc-angle-mode 'rad)
 
 (defun my-calc-yank ()
