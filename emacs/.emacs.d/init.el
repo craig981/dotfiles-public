@@ -1831,7 +1831,6 @@ return the project path instead"
 	      completion-ignore-case nil))
 
 (add-hook 'shell-mode-hook 'my-shell-hook)
-(evil-set-initial-state 'shell-mode 'emacs)
 
 (add-hook 'sh-mode-hook 'my-syntax-entry)
 
