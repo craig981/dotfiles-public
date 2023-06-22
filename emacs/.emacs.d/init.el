@@ -2354,7 +2354,7 @@ current project instead. Visit the tags file."
 	  ;; external monitor
 	  (set-face-attribute 'default nil :height 105)
 	;; laptop screen
-	(set-face-attribute 'default nil :height 130)))
+	(set-face-attribute 'default nil :height 115)))
 
     (when (eq system-type 'darwin)
       (set-face-attribute 'default nil :family "Menlo" :height 160))))
