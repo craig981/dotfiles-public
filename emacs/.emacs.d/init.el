@@ -585,14 +585,14 @@ leave it at 't' for Emacs commands"
 ;;| Text
 ;; ----------------------------------------------------------------------------
 
-(defun my-after-evil-buffer-new (&rest args)
-  (let ((buffer (window-buffer)))
-    (when buffer
-      (with-current-buffer buffer
-	(text-mode)))))
+;; (defun my-after-evil-buffer-new (&rest args)
+;;   (let ((buffer (window-buffer)))
+;;     (when buffer
+;;       (with-current-buffer buffer
+;; 	(text-mode)))))
 
-;;; make :enew edit in text-mode
-(advice-add 'evil-buffer-new :after #'my-after-evil-buffer-new)
+;; ;;; make :enew edit in text-mode
+;; (advice-add 'evil-buffer-new :after #'my-after-evil-buffer-new)
 
 (defun my-text-mode-hook ()
   (turn-on-auto-fill)
@@ -1276,7 +1276,6 @@ leave it at 't' for Emacs commands"
    ((eq major-mode 'org-mode) (consult-org-heading))
    (t (helm-imenu))))
 
-(global-set-key (kbd "C-c i") 'my-imenu)
 (evil-leader/set-key "i" 'my-imenu)
 
 ;; ----------------------------------------------------------------------------
