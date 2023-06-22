@@ -399,16 +399,13 @@ leave it at 't' for Emacs commands"
 (require 'which-key)
 (which-key-mode)
 
-(defun my-help-mode-hook ()
-  (evil-local-mode)
-  (evil-local-set-key 'motion (kbd "TAB") #'forward-button)
-  (evil-local-set-key 'motion (kbd "q") 'quit-window))
-(add-hook 'help-mode-hook #'my-help-mode-hook)
+(global-set-key (kbd "C-h M-k") 'describe-keymap)
 
-(defun my-man-page-hook ()
-  (evil-local-mode)
-  (evil-local-set-key 'motion (kbd "q") 'quit-window))
-(add-hook #'Man-mode-hook #'my-man-page-hook)
+;; (defun my-help-mode-hook ()
+;;   (evil-local-mode)
+;;   (evil-local-set-key 'motion (kbd "TAB") #'forward-button)
+;;   (evil-local-set-key 'motion (kbd "q") 'quit-window))
+;; (add-hook 'help-mode-hook #'my-help-mode-hook)
 
 (with-eval-after-load "info"
   (define-key Info-mode-map (kbd "C-w") 'evil-window-map)
@@ -419,38 +416,29 @@ leave it at 't' for Emacs commands"
   (define-key Man-mode-map (kbd "M-n") 'Man-next-section)
   (define-key Man-mode-map (kbd "M-p") 'Man-previous-section))
 
-(defun my-list-all-keymaps ()
-  (let (maps)
-    (mapatoms (lambda (sym)
-		(and (boundp sym)
-		     (keymapp (symbol-value sym))
-		     (push sym maps))))
-    (seq-sort (lambda (x y)
-		(string< (symbol-name x)
-			 (symbol-name y)))
-	      maps)))
+(defun my-man-page-hook ()
+  (evil-local-mode)
+  (evil-local-set-key 'motion (kbd "q") 'quit-window))
 
-;; (my-lookup-key-in-all-keymaps (kbd "C-j"))
-(defun my-lookup-key-in-all-keymaps (key)
-  (dolist (m (my-list-all-keymaps))
-    (let ((f (lookup-key (symbol-value m) key)))
-      (when f
-	(message (format "%-32S\t%S" m f))))))
+(add-hook #'Man-mode-hook #'my-man-page-hook)
 
-;;; https://stackoverflow.com/a/36994486
-(defun my-describe-keymap (keymap)
-  "Describe a keymap"
-  (interactive
-   (list (completing-read
-	  "Keymap: " (my-list-all-keymaps)
-	  nil t)))
-  (with-output-to-temp-buffer (format "*keymap: %s*" keymap)
-    (princ (format "%s\n\n" keymap))
-    (princ (substitute-command-keys (format "\\{%s}" keymap)))
-    (with-current-buffer standard-output ;; temp buffer
-      (setq help-xref-stack-item (list #'my-describe-keymap keymap)))))
+;; (defun my-list-all-keymaps ()
+;;   (let (maps)
+;;     (mapatoms (lambda (sym)
+;; 		(and (boundp sym)
+;; 		     (keymapp (symbol-value sym))
+;; 		     (push sym maps))))
+;;     (seq-sort (lambda (x y)
+;; 		(string< (symbol-name x)
+;; 			 (symbol-name y)))
+;; 	      maps)))
 
-(global-set-key (kbd "C-h M-v") 'my-describe-keymap)
+;; ;; (my-lookup-key-in-all-keymaps (kbd "C-j"))
+;; (defun my-lookup-key-in-all-keymaps (key)
+;;   (dolist (m (my-list-all-keymaps))
+;;     (let ((f (lookup-key (symbol-value m) key)))
+;;       (when f
+;; 	(message (format "%-32S\t%S" m f))))))
 
 ;; ----------------------------------------------------------------------------
 ;;| Abbreviations
