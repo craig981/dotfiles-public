@@ -1585,8 +1585,6 @@ return the project path instead"
   (evil-define-key 'normal magit-mode-map (kbd "<escape>") nil) ;; stop escape burying buffer
   (evil-define-key 'normal magit-mode-map (kbd "C-j") nil)
   (evil-define-key 'normal magit-mode-map (kbd "C-k") nil)
-  (evil-define-key 'normal magit-mode-map (kbd "C-p") (kbd "p"))
-  (evil-define-key 'normal magit-mode-map (kbd "C-n") (kbd "n"))
   (evil-define-key 'normal magit-mode-map (kbd "p") 'magit-section-backward)
   (evil-define-key 'normal magit-mode-map (kbd "n") 'magit-section-forward))
 
@@ -1622,8 +1620,7 @@ return the project path instead"
 
 (defun my-diff-mode-hook ()
   ;; stop overriding new window switch key
-  (define-key diff-mode-map (kbd "M-o") nil)
-  (define-key diff-mode-map (kbd "M-SPC") nil))
+  (define-key diff-mode-map (kbd "M-o") nil))
 
 (add-hook 'diff-mode-hook #'my-diff-mode-hook)
 
@@ -1640,7 +1637,6 @@ return the project path instead"
   (modify-syntax-entry ?_ "w") ;; _ is word constituent, so * and # works
   (visual-line-mode)
   (evil-local-mode)
-  (setq-local split-width-threshold 1000)
   (evil-local-set-key 'normal (kbd "q") 'quit-window))
 
 (defun my-grep-mode-hook ()
@@ -1662,8 +1658,7 @@ return the project path instead"
 	  (call-interactively 'compile))
       (message "Not in a git repo"))))
 
-(defvar my-compile-key "C-c C-SPC")
-(global-set-key (kbd my-compile-key) #'my-compile-project)
+(global-set-key (kbd "C-c C-SPC") #'my-compile-project)
 (global-set-key (kbd "C-c C-,") #'recompile)
 (global-set-key (kbd "C-c ,") #'recompile)
 (global-set-key (kbd "C-c g") (lambda () (interactive) (my-jump-buffer "*compilation*")))
@@ -1678,22 +1673,18 @@ return the project path instead"
 ;;| Makefile
 ;; ----------------------------------------------------------------------------
 
-(defun my-makefile-hook ()
-  (my-syntax-entry)
-  (local-set-key (kbd my-compile-key) #'my-compile-project))
-(add-hook 'makefile-mode-hook 'my-makefile-hook)
+(add-hook 'makefile-mode-hook 'my-syntax-entry)
 
 (defun my-makefile-no-warn-suspicious-lines ())
 (advice-add 'makefile-warn-suspicious-lines :override #'my-makefile-no-warn-suspicious-lines)
 
-(defun my-cmake-hook ()
-  (my-syntax-entry))
 (with-eval-after-load "cmake-mode"
-  (add-hook 'cmake-mode-hook 'my-cmake-hook))
+  (add-hook 'cmake-mode-hook 'my-syntax-entry))
 
 (defun my-log-settings ()
   (my-syntax-entry)
   (toggle-truncate-lines 0))
+
 (add-to-list 'auto-mode-alist '("\\.log\\'" . my-log-settings))
 
 ;; ----------------------------------------------------------------------------
@@ -2125,7 +2116,6 @@ current project instead. Visit the tags file."
 (defun my-cc-settings (path)
   (modify-syntax-entry ?_ "w")
   (evil-local-set-key 'normal (kbd "[#") 'c-up-conditional)
-  (local-set-key (kbd my-compile-key) #'my-compile-project)
   (local-set-key (kbd "C-c C-b") nil) ; don't want c-submit-bug-report
   (auto-fill-mode -1)
   (cpp-highlight-if-0/1)
