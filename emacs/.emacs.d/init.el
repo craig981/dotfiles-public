@@ -348,9 +348,6 @@ leave it at 't' for Emacs commands"
 				(interactive)
 				(find-file user-init-file)))
 
-(with-eval-after-load 'ibuffer
-  (define-key ibuffer-mode-map (kbd "M-o") nil))
-
 (winner-mode 1)
 (global-set-key (kbd "M-=") 'winner-undo)
 (global-set-key (kbd "M-+") 'winner-redo)
@@ -970,25 +967,12 @@ leave it at 't' for Emacs commands"
 	(apply func args)
       (marginalia-mode m))))
 
-;; Don't want marginalia in *Completions* buffer when hitting TAB in
-;; shell mode. Completion candidates are in a grid, and some are
-;; pushed off-screen.
-(advice-add #'completion--in-region :around #'my-disable-marginalia)
-(advice-add #'minibuffer-complete :around #'my-disable-marginalia)
-
 ;; ----------------------------------------------------------------------------
 ;;| Orderless
 ;; ----------------------------------------------------------------------------
 
 (require 'orderless)
 (setq completion-styles '(orderless flex))
-(setq completion-ignore-case t)
-
-;; popup the completion buffer at the bottom
-(push '("\\*Completions\\*"
-        (display-buffer-reuse-window display-buffer-at-bottom)
-        (window-height . 10))
-      display-buffer-alist)
 
 ;; ----------------------------------------------------------------------------
 ;;| Consult
@@ -1001,10 +985,26 @@ leave it at 't' for Emacs commands"
 (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
 
 (setq consult-preview-key nil)	; stop preview when any key is pressed
-(consult-customize
- consult-buffer consult-buffer-other-window consult-theme
- :preview-key "C-j")
+(consult-customize consult-buffer consult-buffer-other-window consult-theme :preview-key "C-j")
 (consult-customize consult-line :preview-key 'any)
+
+;; ----------------------------------------------------------------------------
+;;| Completion
+;; ----------------------------------------------------------------------------
+
+(setq completion-ignore-case t)
+
+;; Don't want marginalia in *Completions* buffer when hitting TAB in
+;; shell mode. Completion candidates are in a grid, and some are
+;; pushed off-screen.
+(advice-add #'completion--in-region :around #'my-disable-marginalia)
+(advice-add #'minibuffer-complete :around #'my-disable-marginalia)
+
+;;; popup the completion buffer at the bottom
+(push '("\\*Completions\\*"
+        (display-buffer-reuse-window display-buffer-at-bottom)
+        (window-height . 10))
+      display-buffer-alist)
 
 ;;; use vertico for completion-at-point, but not makefile targets or
 ;;; in shell buffers
@@ -1059,6 +1059,9 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "C-x b")   'my-switch-buffer)
 (global-set-key (kbd "C-x 4 b") 'my-switch-buffer-other-window)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
+
+(with-eval-after-load 'ibuffer
+  (define-key ibuffer-mode-map (kbd "M-o") nil))
 
 (defun my-icomplete-hook ()
   (let ((inhibit-message t))
