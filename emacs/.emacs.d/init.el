@@ -1016,10 +1016,8 @@ leave it at 't' for Emacs commands"
 	       args)))
 
 ;; ----------------------------------------------------------------------------
-;;| Buffers, Ido or Icomplete
+;;| Buffers, Icomplete
 ;; ----------------------------------------------------------------------------
-
-(defvar my-use-ido nil)
 
 (setq read-buffer-completion-ignore-case t)
 
@@ -1031,16 +1029,10 @@ leave it at 't' for Emacs commands"
     (vertico-mode 0)
     (marginalia-mode 0)
     (icomplete-vertical-mode -1)
-    (if (not my-use-ido)
-	(icomplete-mode 1)
-      (icomplete-mode -1)
-      (ido-mode 1))
+    (icomplete-mode 1)
     (unwind-protect
 	(call-interactively func)
-      (if (not my-use-ido)
-	  (icomplete-mode -1)
-	(ido-mode 0)
-	(when ic (icomplete-mode 1)))
+      (icomplete-mode -1)
       (when v (vertico-mode 1))
       (when m (marginalia-mode 1))
       (when icv (icomplete-vertical-mode 1)))))
@@ -1048,22 +1040,16 @@ leave it at 't' for Emacs commands"
 (defun my-kill-buffer ()
   (interactive)
   (if (buffer-modified-p)
-      (if my-use-ido
-	  (my-invoke-with-completion #'ido-kill-buffer)
-	(my-invoke-with-completion #'kill-buffer))
+      (my-invoke-with-completion #'kill-buffer)
     (kill-this-buffer)))
 
 (defun my-switch-buffer ()
   (interactive)
-  (if my-use-ido
-      (my-invoke-with-completion #'ido-switch-buffer)
-    (my-invoke-with-completion #'switch-to-buffer)))
+  (my-invoke-with-completion #'switch-to-buffer))
 
 (defun my-switch-buffer-other-window ()
   (interactive)
-  (if my-use-ido
-      (my-invoke-with-completion #'ido-switch-buffer-other-window)
-    (my-invoke-with-completion #'switch-to-buffer-other-window)))
+  (my-invoke-with-completion #'switch-to-buffer-other-window))
 
 (evil-global-set-key 'motion (kbd "C-w d")   'my-kill-buffer)
 (evil-global-set-key 'motion (kbd "C-w C-d") 'my-kill-buffer)
@@ -1074,17 +1060,6 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "C-x 4 b") 'my-switch-buffer-other-window)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-(with-eval-after-load "ido"
-  (setq ido-enable-flex-matching t)
-  (define-key ido-buffer-completion-map (kbd "C-j") 'ido-exit-minibuffer))
-
-;; ----------------------------------------------------------------------------
-;;| Icomplete
-;; ----------------------------------------------------------------------------
-
-;; (icomplete-vertical-mode 1)
-;; (setq icomplete-scroll t)
-
 (defun my-icomplete-hook ()
   (let ((inhibit-message t))
     (toggle-truncate-lines 1)))
@@ -1094,6 +1069,8 @@ leave it at 't' for Emacs commands"
 (setq icomplete-matches-format nil)
 (setq icomplete-show-matches-on-no-input t)
 ;; (setq completion-pcm-word-delimiters "-_./:|")
+;; (setq icomplete-scroll t)
+;; (icomplete-vertical-mode 1)
 
 (with-eval-after-load 'icomplete
   (define-key icomplete-vertical-mode-minibuffer-map (kbd "RET") 'icomplete-force-complete-and-exit)
@@ -2530,9 +2507,6 @@ current project instead. Visit the tags file."
  '(helm-candidate-number-limit 10000)
  '(helm-follow-mode-persistent t)
  '(helm-source-names-using-follow '("Imenu" "AG" "Helm occur"))
- '(ido-ignore-buffers '("^magit\\>" "\\` "))
- '(ido-max-window-height 1)
- '(ido-use-virtual-buffers t)
  '(initial-frame-alist '((fullscreen . maximized)))
  '(ispell-program-name "aspell")
  '(magit-log-arguments '("--graph" "--color" "--decorate" "-n256"))
