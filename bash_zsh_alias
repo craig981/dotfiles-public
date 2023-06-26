@@ -57,5 +57,6 @@ alias g='git st'
 # alias ga='git add -p'
 # alias gc='git commit'
 alias gl='git lo'
+alias gg='git log --patch -G'
 
 alias c='coffee.sh'
