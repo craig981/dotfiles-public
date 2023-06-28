@@ -298,6 +298,13 @@ leave it at 't' for Emacs commands"
   (interactive)
   (quit-window nil (next-window)))
 
+(defun my-window-toggle-dedicated ()
+  (interactive)
+  (let* ((w (selected-window))
+	 (flag (not (window-dedicated-p w))))
+    (set-window-dedicated-p w flag)
+    (message (format "Setting window dedicated %s" flag))))
+
 (defun my-jump-buffer (name)
   (interactive)
   (let ((w (get-buffer-window name)))
@@ -367,7 +374,7 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "C-c w j") #'evil-window-move-very-bottom)
 (global-set-key (kbd "C-c w k") #'evil-window-move-very-top)
 (global-set-key (kbd "C-c w r") #'evil-window-rotate-downwards)
-(global-set-key (kbd "C-c w =") #'balance-windows)
+(global-set-key (kbd "C-c w C-d") #'my-window-toggle-dedicated)
 
 (global-unset-key (kbd "C-h h")) ;; stop accidentally opening hello file
 (global-unset-key (kbd "C-h C-c")) ;; disable describe-copying
