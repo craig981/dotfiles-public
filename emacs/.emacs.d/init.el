@@ -582,14 +582,15 @@ leave it at 't' for Emacs commands"
 ;;| Text
 ;; ----------------------------------------------------------------------------
 
-;; (defun my-after-evil-buffer-new (&rest args)
-;;   (let ((buffer (window-buffer)))
-;;     (when buffer
-;;       (with-current-buffer buffer
-;; 	(text-mode)))))
+(defun my-after-evil-buffer-new (&rest args)
+  (let ((buffer (window-buffer)))
+    (when buffer
+      (with-current-buffer buffer
+	(my-syntax-entry)
+	(evil-local-mode)))))
 
-;; ;;; make :enew edit in text-mode
-;; (advice-add 'evil-buffer-new :after #'my-after-evil-buffer-new)
+;;; after :enew
+(advice-add 'evil-buffer-new :after #'my-after-evil-buffer-new)
 
 (defun my-text-mode-hook ()
   (turn-on-auto-fill)
