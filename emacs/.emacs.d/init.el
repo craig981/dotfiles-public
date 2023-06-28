@@ -349,7 +349,8 @@ leave it at 't' for Emacs commands"
   (defun my-advise-man-completion (&rest args) '())
   (advice-add #'Man-completion-table :override #'my-advise-man-completion))
 
-(global-set-key (kbd "C-c i") #'goto-last-change)
+(when (display-graphic-p)
+  (global-set-key (kbd "C-;") #'goto-last-change))
 (global-set-key (kbd "C-c q") #'my-close-other-window)
 (global-set-key (kbd "C-c u") #'my-toggle-wrap)
 (global-set-key (kbd "C-c z") (lambda ()
@@ -1266,6 +1267,7 @@ leave it at 't' for Emacs commands"
    (t (helm-imenu))))
 
 (evil-leader/set-key "i" 'my-imenu)
+(global-set-key (kbd "C-c i") 'my-imenu)
 
 ;; ----------------------------------------------------------------------------
 ;;| Projects
