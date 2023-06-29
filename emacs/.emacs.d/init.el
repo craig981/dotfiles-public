@@ -2534,7 +2534,7 @@ current project instead. Visit the tags file."
  '(org-blank-before-new-entry '((heading . auto) (plain-list-item)))
  '(org-imenu-depth 3)
  '(org-modules '(ol-docview ol-info))
- '(org-refile-targets '((org-agenda-files :maxlevel . 2) (nil :maxlevel . 2)))
+ '(org-refile-targets '((org-agenda-files :maxlevel . 3) (nil :maxlevel . 3)))
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
    '(anti-zenburn-theme
