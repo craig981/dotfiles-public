@@ -364,6 +364,9 @@ leave it at 't' for Emacs commands"
 				(find-file user-init-file)))
 (global-set-key (kbd "C-c SPC") 'my-mark-until-whitespace)
 
+(require 'expand-region)
+(global-set-key (kbd "M-*") 'er/expand-region)
+
 (winner-mode 1)
 (global-set-key (kbd "M-=") 'winner-undo)
 (global-set-key (kbd "M-+") 'winner-redo)
@@ -2555,6 +2558,7 @@ current project instead. Visit the tags file."
      evil-collection
      evil-numbers
      fancy-dabbrev
+     expand-region
      gandalf-theme
      gnuplot
      gnuplot-mode
