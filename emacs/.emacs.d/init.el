@@ -324,6 +324,12 @@ leave it at 't' for Emacs commands"
   (interactive)
   (join-line 1))
 
+(defun my-mark-until-whitespace ()
+  "Select until the next whitespace char"
+  (interactive)
+  (when (looking-at "[^[:space:]]+")
+    (push-mark (match-end 0) nil t)))
+
 (evil-leader/set-key "s" #'my-substitute) ; substitute whole buffer
 (evil-leader/set-key "S" ; substitute from current line to end of buffer
   (lambda ()
@@ -356,6 +362,7 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "C-c z") (lambda ()
 				(interactive)
 				(find-file user-init-file)))
+(global-set-key (kbd "C-c SPC") 'my-mark-until-whitespace)
 
 (winner-mode 1)
 (global-set-key (kbd "M-=") 'winner-undo)
