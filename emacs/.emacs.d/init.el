@@ -436,15 +436,7 @@ leave it at 't' for Emacs commands"
   ;; put the point in the lowest line and return
   (next-line arg))
 
-(defun my-copy-line ()
-  "Add the current line to the kill ring"
-  (interactive)
-  (kill-new (concat (buffer-substring (save-excursion (beginning-of-line) (point))
-				      (save-excursion (end-of-line) (point)))
-		    "\n")))
-
 (global-set-key (kbd "C-M-y") 'p/duplicate-line)
-(global-set-key (kbd "C-c M-w") 'my-copy-line)
 
 ;; ----------------------------------------------------------------------------
 ;;| Help
