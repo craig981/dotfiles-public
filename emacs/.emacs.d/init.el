@@ -377,8 +377,8 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "M-j") #'my-join-line)
 (global-set-key (kbd "M-'") #'delete-blank-lines)
 (global-set-key (kbd "M-\\") #'my-delete-whitespace)
-(global-set-key (kbd "C-M-j") #'mode-line-other-buffer)
-(evil-global-set-key 'insert (kbd "C-M-j") #'default-indent-new-line)
+;; (global-set-key (kbd "C-M-j") #'mode-line-other-buffer)
+;; (evil-global-set-key 'insert (kbd "C-M-j") #'default-indent-new-line)
 
 (global-set-key (kbd "C-c w h") #'evil-window-move-far-left)
 (global-set-key (kbd "C-c w l") #'evil-window-move-far-right)
