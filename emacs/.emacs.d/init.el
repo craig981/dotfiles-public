@@ -1766,7 +1766,7 @@ return the project path instead"
 
 (defun my-shell-name ()
   "Return a name for a shell buffer"
-  (let* ((dir  (directory-file-name (expand-file-name default-directory)))
+  (let* ((dir  (directory-file-name (expand-file-name (my-find-project-root))))
 	 (name (file-name-nondirectory dir)))
     (if (or (string-empty-p name)
 	    (string= dir (expand-file-name "~")))
@@ -1793,7 +1793,7 @@ return the project path instead"
   (interactive)
   (let ((evil-split-window-below t))
     (evil-window-split))
-  (my-spawn-shell))
+  (my-switch-shell))
 
 (defun my-find-buffer-by-regex (regex)
   (let ((target))
