@@ -312,6 +312,14 @@ leave it at 't' for Emacs commands"
 	  (select-window w)
 	(switch-to-buffer name))))
 
+(defun my-find-buffer-by-regex (regex)
+  (let ((target))
+    (dolist (buf (buffer-list))
+      (when (and (not target)
+		 (string-match-p regex (buffer-name buf)))
+	(setq target buf)))
+    target))
+
 ;; (defun my-select-last-pasted ()
 ;;   (interactive)
 ;;   (let ((a (save-excursion (evil-goto-mark ?\[) (point)))
@@ -1764,44 +1772,19 @@ return the project path instead"
   (define-key shell-mode-map (kbd "SPC") 'comint-magic-space)
   (define-key shell-mode-map (kbd "C-d") 'my-shell-ctrl-d))
 
-(defun my-shell-name ()
-  "Return a name for a shell buffer"
-  (let* ((dir  (directory-file-name (expand-file-name (my-find-project-root))))
-	 (name (file-name-nondirectory dir)))
-    (if (or (string-empty-p name)
-	    (string= dir (expand-file-name "~")))
-	"*shell*"
-      (format "*shell:%s*" name))))
+(defun my-project-buffer-name (mode)
+  (concat "*" (downcase mode)
+          ":" (file-name-nondirectory
+               (directory-file-name default-directory))
+          "*"))
 
-(defun my-spawn-shell ()
-  (interactive)
-  (let* ((currentbuf (get-buffer-window (current-buffer)))
-	 (newbuf     (generate-new-buffer-name (my-shell-name))))
-    (generate-new-buffer newbuf)
-    (set-window-dedicated-p currentbuf nil)
-    (set-window-buffer currentbuf newbuf)
-    (shell newbuf)))
-
-(defun my-switch-shell ()
-  (interactive)
-  (let ((name (my-shell-name)))
-    (if (get-buffer name)
-	(switch-to-buffer name)
-      (my-spawn-shell))))
+(advice-add 'project-prefixed-buffer-name :override 'my-project-buffer-name)
 
 (defun my-split-shell ()
   (interactive)
   (let ((evil-split-window-below t))
     (evil-window-split))
-  (my-switch-shell))
-
-(defun my-find-buffer-by-regex (regex)
-  (let ((target))
-    (dolist (buf (buffer-list))
-      (when (and (not target)
-		 (string-match-p regex (buffer-name buf)))
-	(setq target buf)))
-    target))
+  (project-shell))
 
 (defun my-jump-to-shell ()
   (interactive)
@@ -1848,7 +1831,7 @@ return the project path instead"
 
 (add-hook 'sh-mode-hook 'my-syntax-entry)
 
-(global-set-key (kbd "C-c M-v") 'my-switch-shell)
+(global-set-key (kbd "C-c M-v") 'project-shell)
 (global-set-key (kbd "C-c v") 'my-split-shell)
 (global-set-key (kbd "C-c h") 'my-jump-to-shell)
 
