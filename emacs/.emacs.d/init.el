@@ -1731,8 +1731,38 @@ return the project path instead"
 (add-hook 'yaml-mode-hook 'my-yaml-hook)
 
 ;; ----------------------------------------------------------------------------
+;;| Comint
+;; ----------------------------------------------------------------------------
+
+(setq comint-prompt-read-only t)
+
+(with-eval-after-load 'comint
+  (define-key comint-mode-map (kbd "C-c C-l") (lambda ()
+						(interactive)
+						(if vertico-mode
+						    (consult-history)
+						  (comint-dynamic-list-input-ring))))
+  (define-key comint-mode-map (kbd "M-r") 'move-to-window-line-top-bottom)
+  (define-key comint-mode-map (kbd "C-r") 'comint-history-isearch-backward)
+
+  ;; When the cursor is in the middle of the shell output, stop the
+  ;; return key from pasting the whole lot back and executing it
+  (define-key comint-mode-map
+    (kbd (if (display-graphic-p) "<return>" "RET"))
+    (lambda ()
+      (interactive)
+      (if (comint-after-pmark-p)
+	  (comint-send-input)
+	(message "Point is before process mark, NOT sending")))))
+
+;; ----------------------------------------------------------------------------
 ;;| Shell
 ;; ----------------------------------------------------------------------------
+
+(with-eval-after-load 'shell
+  (define-key shell-mode-map (kbd "M-_") 'comint-insert-previous-argument)
+  (define-key shell-mode-map (kbd "SPC") 'comint-magic-space)
+  (define-key shell-mode-map (kbd "C-d") 'my-shell-ctrl-d))
 
 (defun my-shell-name ()
   "Return a name for a shell buffer"
@@ -1786,30 +1816,6 @@ return the project path instead"
             (switch-to-buffer target)))
       (message "No shell to jump to"))))
 
-(setq comint-prompt-read-only t)
-
-(with-eval-after-load 'shell
-  (define-key shell-mode-map (kbd "M-_") 'comint-insert-previous-argument)
-  (define-key shell-mode-map (kbd "C-r") (lambda (&optional prefix)
-					   (interactive "P")
-					   (if prefix
-					       (consult-history)
-					     (comint-history-isearch-backward))))
-  (define-key shell-mode-map (kbd "SPC") 'comint-magic-space)
-  (define-key shell-mode-map (kbd "C-c C-l") 'comint-clear-buffer)
-  (define-key comint-mode-map (kbd "C-r") 'comint-history-isearch-backward)
-  (define-key comint-mode-map (kbd "M-r") 'move-to-window-line-top-bottom))
-
-;; When the cursor is in the middle of the shell output, stop the
-;; return key from pasting the whole lot back and executing it
-(define-key comint-mode-map
-  (kbd (if (display-graphic-p) "<return>" "RET"))
-  (lambda ()
-    (interactive)
-    (if (comint-after-pmark-p)
-	(comint-send-input)
-      (message "Point is before process mark, NOT sending"))))
-
 (defun my-shell-ctrl-d ()
   "first C-d ends the shell, second C-d deletes the buffer and
   closes the window"
@@ -1830,7 +1836,6 @@ return the project path instead"
   (fancy-dabbrev-mode -1)
   (visual-line-mode 0)
   (toggle-truncate-lines 0)
-  (define-key shell-mode-map (kbd "C-d") #'my-shell-ctrl-d)
 
   ;; fill out longest common part of filename first
   (setq-local completion-styles '(emacs21 flex))
@@ -1843,7 +1848,7 @@ return the project path instead"
 
 (add-hook 'sh-mode-hook 'my-syntax-entry)
 
-(global-set-key (kbd "C-c V") 'my-switch-shell)
+(global-set-key (kbd "C-c M-v") 'my-switch-shell)
 (global-set-key (kbd "C-c v") 'my-split-shell)
 (global-set-key (kbd "C-c h") 'my-jump-to-shell)
 
