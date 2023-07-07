@@ -107,6 +107,7 @@ leave it at 't' for Emacs commands"
 ;; fall through to emacs keys, C/M-f/b and M-d M-m already works in insert mode
 (define-key evil-normal-state-map (kbd "M-.") nil)
 (define-key evil-normal-state-map (kbd "M-,") nil)
+(define-key evil-visual-state-map (kbd "C-w") 'kill-region)
 (evil-global-set-key 'motion (kbd "C-a") nil)
 (evil-global-set-key 'insert (kbd "C-a") nil)
 (evil-global-set-key 'insert (kbd "C-e") nil)
