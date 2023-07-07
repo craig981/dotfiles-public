@@ -1780,11 +1780,17 @@ return the project path instead"
 
 (advice-add 'project-prefixed-buffer-name :override 'my-project-buffer-name)
 
+(defun my-shell ()
+  (interactive)
+  (if (project-current nil)
+      (project-shell)
+    (shell)))
+
 (defun my-split-shell ()
   (interactive)
   (let ((evil-split-window-below t))
     (evil-window-split))
-  (project-shell))
+  (my-shell))
 
 (defun my-jump-to-shell ()
   (interactive)
@@ -1831,7 +1837,7 @@ return the project path instead"
 
 (add-hook 'sh-mode-hook 'my-syntax-entry)
 
-(global-set-key (kbd "C-c M-v") 'project-shell)
+(global-set-key (kbd "C-c M-v") 'my-shell)
 (global-set-key (kbd "C-c v") 'my-split-shell)
 (global-set-key (kbd "C-c h") 'my-jump-to-shell)
 
