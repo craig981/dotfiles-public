@@ -306,14 +306,6 @@ leave it at 't' for Emacs commands"
 	  (select-window w)
 	(switch-to-buffer name))))
 
-(defun my-find-buffer-by-regex (regex)
-  (let ((target))
-    (dolist (buf (buffer-list))
-      (when (and (not target)
-		 (string-match-p regex (buffer-name buf)))
-	(setq target buf)))
-    target))
-
 ;; (defun my-window-toggle-dedicated ()
 ;;   (interactive)
 ;;   (let* ((w (selected-window))
@@ -1791,10 +1783,10 @@ return the project path instead"
 
 (defun my-jump-to-shell ()
   (interactive)
-  (let ((target (or (my-find-buffer-by-regex "^\\*gud-.*\\*$")
+  (let ((target (or (first (match-buffers "^\\*gud-.*\\*$"))
 		    (get-buffer "*compilation*<2>")
 		    (get-buffer "*Async Shell Command*")
-		    (my-find-buffer-by-regex "^\\*shell.*\\*$"))))
+		    (first (match-buffers "^\\*shell.*\\*$")))))
     (if target
 	(let ((w (get-buffer-window target)))
           (if w
@@ -2302,7 +2294,7 @@ current project instead. Visit the tags file."
 	 (w-io (split-window w-source (floor (* 0.5 (window-body-height))) 'below))  ;; left bottom
 	 )
 
-    (set-window-buffer w-io (or (my-find-buffer-by-regex "^\\*input/output of .*\\*$")
+    (set-window-buffer w-io (or (first (match-buffers "^\\*input/output of .*\\*$"))
 				(get-buffer "*compilation*")
 				(get-buffer "")
 				(gdb-get-buffer-create 'gdb-inferior-io)))
