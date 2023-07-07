@@ -226,10 +226,10 @@ leave it at 't' for Emacs commands"
 (setq history-delete-duplicates t)
 (savehist-mode 1)
 
-;; don't save context strings
-(setq-default bookmark-make-record-function
-      (lambda (&optional no-file no-context posn)
-	(funcall 'bookmark-make-record-default no-file t posn)))
+;; ;; don't save context strings
+;; (setq-default bookmark-make-record-function
+;;       (lambda (&optional no-file no-context posn)
+;; 	(funcall 'bookmark-make-record-default no-file t posn)))
 
 (when (not (version< emacs-version "28.1"))
   (setq-default bookmark-set-fringe-mark nil))
@@ -298,13 +298,6 @@ leave it at 't' for Emacs commands"
   (interactive)
   (quit-window nil (next-window)))
 
-(defun my-window-toggle-dedicated ()
-  (interactive)
-  (let* ((w (selected-window))
-	 (flag (not (window-dedicated-p w))))
-    (set-window-dedicated-p w flag)
-    (message (format "Setting window dedicated %s" flag))))
-
 (defun my-jump-buffer (name)
   (interactive)
   (let ((w (get-buffer-window name)))
@@ -319,6 +312,13 @@ leave it at 't' for Emacs commands"
 		 (string-match-p regex (buffer-name buf)))
 	(setq target buf)))
     target))
+
+;; (defun my-window-toggle-dedicated ()
+;;   (interactive)
+;;   (let* ((w (selected-window))
+;; 	 (flag (not (window-dedicated-p w))))
+;;     (set-window-dedicated-p w flag)
+;;     (message (format "Setting window dedicated %s" flag))))
 
 ;; (defun my-select-last-pasted ()
 ;;   (interactive)
@@ -363,8 +363,8 @@ leave it at 't' for Emacs commands"
   (defun my-advise-man-completion (&rest args) '())
   (advice-add #'Man-completion-table :override #'my-advise-man-completion))
 
-(when (display-graphic-p)
-  (global-set-key (kbd "C-;") #'goto-last-change))
+;; (when (display-graphic-p)
+;;   (global-set-key (kbd "C-;") #'goto-last-change))
 (global-set-key (kbd "C-c q") #'my-close-other-window)
 (global-set-key (kbd "C-c u") #'my-toggle-wrap)
 (global-set-key (kbd "C-c z") (lambda ()
@@ -393,7 +393,7 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "C-c w j") #'evil-window-move-very-bottom)
 (global-set-key (kbd "C-c w k") #'evil-window-move-very-top)
 (global-set-key (kbd "C-c w r") #'evil-window-rotate-downwards)
-(global-set-key (kbd "C-c w C-d") #'my-window-toggle-dedicated)
+;; (global-set-key (kbd "C-c w C-d") #'my-window-toggle-dedicated)
 
 (global-unset-key (kbd "C-h h")) ;; stop accidentally opening hello file
 (global-unset-key (kbd "C-h C-c")) ;; disable describe-copying
@@ -453,7 +453,7 @@ leave it at 't' for Emacs commands"
 (require 'which-key)
 (which-key-mode)
 
-(global-set-key (kbd "C-h M-k") 'describe-keymap)
+;; (global-set-key (kbd "C-h M-k") 'describe-keymap)
 
 ;; (defun my-help-mode-hook ()
 ;;   (evil-local-mode)
@@ -503,8 +503,6 @@ leave it at 't' for Emacs commands"
 (define-global-abbrev "cosnt" "const")
 (define-global-abbrev "conat" "const")
 (define-global-abbrev "trinagle" "triangle")
-(define-global-abbrev "trl" "translate")
-(define-global-abbrev "trn" "transform")
 (define-global-abbrev "bec" "because")
 
 (defun my-abbrev-expand ()
@@ -882,9 +880,7 @@ leave it at 't' for Emacs commands"
 (advice-add 'org-time-stamp-inactive :before #'my-forward-before-insert)
 
 (with-eval-after-load 'org-agenda
-  (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map)
-  (define-key org-agenda-mode-map (kbd "h") (lambda () (interactive)))
-  (define-key org-agenda-mode-map (kbd "o") 'org-agenda-show))
+  (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map))
 
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "M-n") 'forward-paragraph)
