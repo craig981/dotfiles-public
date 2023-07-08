@@ -979,8 +979,8 @@ leave it at 't' for Emacs commands"
 (require 'vertico)
 (vertico-mode)
 
-(setq vertico-count-format nil)
-(setq vertico-group-format nil)
+;; (setq vertico-count-format nil)
+;; (setq vertico-group-format nil)
 
 (define-key vertico-map (kbd "C-j") nil)
 (define-key vertico-map (kbd "C-h f")
