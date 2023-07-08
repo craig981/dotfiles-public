@@ -446,18 +446,13 @@ leave it at 't' for Emacs commands"
 (require 'which-key)
 (which-key-mode)
 
-;; (global-set-key (kbd "C-h M-k") 'describe-keymap)
-
-;; (defun my-help-mode-hook ()
-;;   (evil-local-mode)
-;;   (evil-local-set-key 'motion (kbd "TAB") #'forward-button)
-;;   (evil-local-set-key 'motion (kbd "q") 'quit-window))
-;; (add-hook 'help-mode-hook #'my-help-mode-hook)
+(with-eval-after-load "help"
+  (define-key help-mode-map (kbd "C-w") 'evil-window-map)
+  (define-key help-mode-map (kbd "SPC") evil-leader--default-map))
 
 (with-eval-after-load "info"
   (define-key Info-mode-map (kbd "C-w") 'evil-window-map)
-  (define-key Info-mode-map (kbd "SPC") evil-leader--default-map)
-  (define-key Info-mode-map (kbd "M-n") nil))
+  (define-key Info-mode-map (kbd "SPC") evil-leader--default-map))
 
 (with-eval-after-load "man"
   (define-key Man-mode-map (kbd "M-n") 'Man-next-section)
