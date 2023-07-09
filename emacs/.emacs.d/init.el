@@ -339,7 +339,6 @@ leave it at 't' for Emacs commands"
 
 (evil-leader/set-key "%" #'my-copy-filename)
 (evil-leader/set-key "=" #'my-align-regexp)
-(evil-leader/set-key "m" #'my-mirror-buffer)
 (evil-leader/set-key "d" 'pwd)
 (evil-leader/set-key "SPC" (kbd "=i{"))
 ;; (evil-global-set-key 'normal (kbd "gp") 'my-select-last-pasted)
@@ -364,6 +363,7 @@ leave it at 't' for Emacs commands"
 				(interactive)
 				(find-file user-init-file)))
 (global-set-key (kbd "C-c SPC") 'my-mark-until-whitespace)
+(global-set-key (kbd "C-c M-m") #'my-mirror-buffer)
 
 (require 'expand-region)
 (global-set-key (kbd "M-*") 'er/expand-region)
