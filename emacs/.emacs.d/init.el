@@ -295,6 +295,10 @@ leave it at 't' for Emacs commands"
       (goto-line line)
       (recenter-top-bottom))))
 
+(defun my-close-other-window ()
+  (interactive)
+  (quit-window nil (next-window)))
+
 (defun my-jump-buffer (name)
   (interactive)
   (let ((w (get-buffer-window name)))
@@ -354,6 +358,7 @@ leave it at 't' for Emacs commands"
 
 ;; (when (display-graphic-p)
 ;;   (global-set-key (kbd "C-;") #'goto-last-change))
+(global-set-key (kbd "C-c q") #'my-close-other-window)
 (global-set-key (kbd "C-c u") #'my-toggle-wrap)
 (global-set-key (kbd "C-c z") (lambda ()
 				(interactive)
