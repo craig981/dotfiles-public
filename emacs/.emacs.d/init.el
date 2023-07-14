@@ -328,7 +328,7 @@ leave it at 't' for Emacs commands"
 (defun my-mark-until-whitespace ()
   "Select until the next whitespace char"
   (interactive)
-  (when (looking-at "[^[:space:]]+")
+  (when (looking-at "[^[:space:]\n]+")
     (push-mark (match-end 0) nil t)))
 
 (evil-leader/set-key "s" #'my-substitute) ; substitute whole buffer
