@@ -1513,6 +1513,7 @@ return the project path instead"
 
 (define-key dired-mode-map (kbd "SPC") evil-leader--default-map)
 (define-key dired-mode-map (kbd "C-w") 'evil-window-map)
+(define-key dired-mode-map (kbd ";") 'dired-up-directory)
 
 (defun my-dired-hook ()
   (auto-revert-mode 1))
