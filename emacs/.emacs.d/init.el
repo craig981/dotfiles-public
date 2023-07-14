@@ -66,7 +66,6 @@
 (setq-default evil-ex-search-case 'sensitive)
 (setq-default evil-search-module 'evil-search)
 
-(global-set-key (kbd "C-c M-e") #'evil-local-mode)
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key "w" 'evil-write)
 
@@ -939,7 +938,6 @@ leave it at 't' for Emacs commands"
   (interactive)
   (calc-yank-internal nil (format "%s" (number-at-point))))
 
-(global-set-key (kbd "C-x y") 'my-calc-yank)
 (global-set-key (kbd "C-x C-y") 'my-calc-yank)
 
 ;; ----------------------------------------------------------------------------
@@ -1829,11 +1827,18 @@ return the project path instead"
 ;;| Term
 ;; ----------------------------------------------------------------------------
 
-(defun expose-global-binding-in-term (binding)
-  (define-key term-raw-map binding
-    (lookup-key (current-global-map) binding)))
+(defun my-expose-global-binding (map binding)
+  (define-key map binding (lookup-key (current-global-map) binding)))
+
 (with-eval-after-load 'term
-  (expose-global-binding-in-term (kbd "M-o")))
+  (my-expose-global-binding term-raw-map (kbd "M-o"))
+  (my-expose-global-binding term-raw-map (kbd "C-j")))
+
+(with-eval-after-load "vterm"
+  (my-expose-global-binding vterm-mode-map (kbd "C-j"))
+  (define-key vterm-mode-map (kbd "ESC ESC") 'vterm--self-insert))
+
+(global-set-key (kbd "C-c M-e") 'vterm)
 
 ;; ----------------------------------------------------------------------------
 ;;| Eshell

@@ -53,6 +53,11 @@ if [[ "$(uname -s)" = "Linux" ]]; then
     test -f ~/dotfiles-public/common/.zshenv && source ~/dotfiles-public/common/.zshenv
 fi
 
+if [ "$TERM" = "eterm-color" ] && [ "$INSIDE_EMACS" ]; then
+    # fix backspace in emacs ansi-term
+    stty erase '^?'
+fi
+
 autoload -U colors && colors
 
 PS1="%{$fg[cyan]%}%n@%m %2~ %#%{$reset_color%} "

@@ -18,6 +18,8 @@ ifeq ($(osuname),Darwin)
 	stow -v cmus
 	mkdir -p ~/Library/KeyBindings
 	cp -v mac/Library/KeyBindings/DefaultKeyBinding.dict ~/Library/KeyBindings/
+
+	# tic -o ~/.terminfo /Applications/Emacs.app/Contents/Resources/etc/e/eterm-color.ti
 endif
 
 	[ -f ~/.vim/autoload/plug.vim ] || \
