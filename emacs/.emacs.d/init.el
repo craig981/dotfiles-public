@@ -357,8 +357,7 @@ leave it at 't' for Emacs commands"
   (defun my-advise-man-completion (&rest args) '())
   (advice-add #'Man-completion-table :override #'my-advise-man-completion))
 
-;; (when (display-graphic-p)
-;;   (global-set-key (kbd "C-;") #'goto-last-change))
+(global-set-key (kbd "C-c j") #'goto-last-change)
 (global-set-key (kbd "C-c q") #'my-close-other-window)
 (global-set-key (kbd "C-c u") #'my-toggle-wrap)
 (global-set-key (kbd "C-c z") (lambda ()
