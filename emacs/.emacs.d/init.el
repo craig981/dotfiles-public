@@ -253,14 +253,14 @@ leave it at 't' for Emacs commands"
 	 (delim (if (string-match-p "@" sym) "#" "@")))
     (evil-ex (format "%ss%s\\_<%s\\_>%s" (or range "%") delim sym delim))))
 
-(defun my-delete-whitespace ()
-  (interactive)
+(defun my-delete-whitespace (&optional prefix)
+  (interactive "P")
   (if (region-active-p)
       (progn
 	(call-interactively 'delete-trailing-whitespace)
 	(deactivate-mark)
 	(message "Deleted trailing whitespace"))
-    (delete-horizontal-space)))
+    (delete-horizontal-space prefix)))
 
 (defun my-align-regexp ()
   (interactive)
