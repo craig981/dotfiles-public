@@ -1675,15 +1675,8 @@ return the project path instead"
 
 (add-hook 'compilation-filter-hook 'my-compilation-filter-hook)
 
-(defun my-compile-project ()
-  (interactive)
-  (let ((d (my-find-project-root)))
-    (if d
-	(let ((default-directory d))
-	  (call-interactively 'compile))
-      (message "Not in a git repo"))))
-
-(global-set-key (kbd "C-c C-SPC") #'my-compile-project)
+(global-set-key (kbd "C-c M-m") #'compile)
+(global-set-key (kbd "C-c C-SPC") #'project-compile)
 (global-set-key (kbd "C-c C-,") #'recompile)
 (global-set-key (kbd "C-c ,") #'recompile)
 (global-set-key (kbd "C-c g") (lambda () (interactive) (my-jump-buffer "*compilation*")))
