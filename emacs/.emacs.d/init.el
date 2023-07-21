@@ -168,7 +168,9 @@ leave it at 't' for Emacs commands"
   (when (not (or (eq major-mode 'image-mode)
 		 (derived-mode-p 'bongo-mode)))
     (evil-local-mode 1)
-    (if (string= (file-name-nondirectory (buffer-file-name)) "COMMIT_EDITMSG")
+    (when (and (string= (file-name-nondirectory (buffer-file-name))
+			"COMMIT_EDITMSG")
+	       (looking-at "^$"))
       (evil-insert-state)))
   (if my-input-method
       (set-input-method my-input-method)))
