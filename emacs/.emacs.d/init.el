@@ -371,6 +371,7 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "M-=") 'winner-undo)
 (global-set-key (kbd "M-+") 'winner-redo)
 
+(global-set-key (kbd "M-z") 'zap-up-to-char)
 (global-set-key (kbd "M-p") (kbd "M-{"))
 (global-set-key (kbd "M-n") (kbd "M-}"))
 (global-set-key (kbd "M-o") (kbd "C-x o"))
