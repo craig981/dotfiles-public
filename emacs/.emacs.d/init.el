@@ -367,7 +367,7 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "C-c SPC") 'my-mark-until-whitespace)
 
 (require 'expand-region)
-(global-set-key (kbd "M-*") 'er/expand-region)
+(global-set-key (kbd "C-M-o") 'er/expand-region)
 
 (winner-mode 1)
 (global-set-key (kbd "M-=") 'winner-undo)
