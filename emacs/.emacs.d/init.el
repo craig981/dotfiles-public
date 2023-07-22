@@ -1037,6 +1037,7 @@ leave it at 't' for Emacs commands"
 ;; ----------------------------------------------------------------------------
 
 (setq completion-ignore-case t)
+(setq completion-show-help nil)
 
 ;; Don't want marginalia in *Completions* buffer when hitting TAB in
 ;; shell mode. Completion candidates are in a grid, and some are
