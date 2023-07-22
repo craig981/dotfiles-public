@@ -979,11 +979,13 @@ leave it at 't' for Emacs commands"
 ;; ----------------------------------------------------------------------------
 
 (require 'vertico)
+(require 'vertico-directory)
 (vertico-mode)
 
 (setq vertico-count-format nil)
 (setq vertico-group-format nil)
 
+(define-key vertico-map (kbd "DEL") #'vertico-directory-delete-char)
 (define-key vertico-map (kbd "C-j") nil)
 (define-key vertico-map (kbd "C-h f")
   (lambda ()
