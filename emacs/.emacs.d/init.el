@@ -456,14 +456,16 @@ leave it at 't' for Emacs commands"
   (define-key Info-mode-map (kbd "SPC") evil-leader--default-map))
 
 (with-eval-after-load "man"
+  (define-key Man-mode-map (kbd "C-w") 'evil-window-map)
+  (define-key Man-mode-map (kbd "SPC") evil-leader--default-map)
   (define-key Man-mode-map (kbd "M-n") 'Man-next-section)
   (define-key Man-mode-map (kbd "M-p") 'Man-previous-section))
 
-(defun my-man-page-hook ()
-  (evil-local-mode)
-  (evil-local-set-key 'motion (kbd "q") 'quit-window))
+;; (defun my-man-page-hook ()
+;;   (evil-local-mode)
+;;   (evil-local-set-key 'motion (kbd "q") 'quit-window))
 
-(add-hook #'Man-mode-hook #'my-man-page-hook)
+;; (add-hook #'Man-mode-hook #'my-man-page-hook)
 
 ;; (defun my-list-all-keymaps ()
 ;;   (let (maps)
@@ -1660,14 +1662,14 @@ return the project path instead"
 (defun my-compilation-mode-hook ()
   (modify-syntax-entry ?_ "w") ;; _ is word constituent, so * and # works
   (visual-line-mode)
-  (evil-local-mode)
+  ;; (evil-local-mode)
   (evil-local-set-key 'normal (kbd "q") 'quit-window))
 
-(defun my-grep-mode-hook ()
-  (evil-local-mode -1))
+;; (defun my-grep-mode-hook ()
+;;   (evil-local-mode -1))
 
 (add-hook 'compilation-mode-hook 'my-compilation-mode-hook)
-(add-hook 'grep-mode-hook 'my-grep-mode-hook)
+;; (add-hook 'grep-mode-hook 'my-grep-mode-hook)
 
 (defun my-compilation-filter-hook ()
  (ansi-color-apply-on-region compilation-filter-start (point)))
@@ -1681,10 +1683,10 @@ return the project path instead"
 (global-set-key (kbd "C-c g") (lambda () (interactive) (my-jump-buffer "*compilation*")))
 (define-key compilation-mode-map (kbd "SPC") evil-leader--default-map)
 (define-key compilation-mode-map (kbd "C-w") 'evil-window-map)
-(define-key compilation-mode-map (kbd "?") nil)
-(define-key compilation-mode-map (kbd "h") nil)
+;; (define-key compilation-mode-map (kbd "?") nil)
+;; (define-key compilation-mode-map (kbd "h") nil)
 (define-key compilation-mode-map (kbd "g") nil)
-(define-key compilation-mode-map (kbd "0") 'evil-beginning-of-line)
+;; (define-key compilation-mode-map (kbd "0") 'evil-beginning-of-line)
 
 ;; ----------------------------------------------------------------------------
 ;;| Makefile
@@ -2267,11 +2269,11 @@ current project instead. Visit the tags file."
 
 ;; TODO override gdb-setup-windows instead
 
-(defun my-gdb-inferior-io-hook ()
-  (evil-local-mode 1)
-  (evil-normal-state 1))
+;; (defun my-gdb-inferior-io-hook ()
+;;   (evil-local-mode 1)
+;;   (evil-normal-state 1))
 
-(add-hook 'gdb-inferior-io-mode-hook 'my-gdb-inferior-io-hook)
+;; (add-hook 'gdb-inferior-io-mode-hook 'my-gdb-inferior-io-hook)
 
 ;;; https://stackoverflow.com/a/41326527
 (defun my-set-gdb-layout(&optional c-buffer)
