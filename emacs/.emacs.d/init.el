@@ -712,16 +712,16 @@ leave it at 't' for Emacs commands"
 (setq org-startup-folded nil)
 (setq org-confirm-babel-evaluate nil)
 (setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w@)" "|" "DONE(d)")
-			  (sequence "|" "CANCELLED(c)")))
+			  (sequence "|" "CANCELLED(c@)")))
 
 (setq org-capture-templates
-      '(("b" "Bookmark" entry (file+headline org-default-notes-file "Bookmarks")
+      '(("k" "Bookmark" entry (file+headline org-default-notes-file "Bookmarks")
 	 "* %?\n")
 	("x" "Task" entry (file+headline org-default-notes-file "Tasks")
 	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")))
 
 (when (eq system-type 'darwin)
-    (push '("o" "Book" entry (file+headline org-default-notes-file "Books")
+    (push '("b" "Book" entry (file+headline org-default-notes-file "Books")
 	    "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
 	  org-capture-templates)
     (push '("r" "Read/watch" entry (file+headline org-default-notes-file "Tasks")
