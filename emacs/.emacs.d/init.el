@@ -1546,7 +1546,7 @@ return the project path instead"
 ;;; stop opening multiple image buffers
 (push '((lambda (buf actions)
 	  (eq 'image-mode (with-current-buffer buf major-mode)))
-        (display-buffer-reuse-window display-buffer-use-some-window))
+        (display-buffer-reuse-window display-buffer-reuse-mode-window display-buffer-use-some-window))
       display-buffer-alist)
 
 ;; put the thumbnail buffer at the bottom
