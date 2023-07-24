@@ -1747,7 +1747,7 @@ return the project path instead"
   (interactive)
   (if (project-current nil)
       (project-shell)
-    (shell)))
+    (call-interactively 'shell)))
 
 (defun my-split-shell ()
   (interactive)
