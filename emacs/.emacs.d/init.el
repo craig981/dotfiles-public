@@ -452,6 +452,7 @@ leave it at 't' for Emacs commands"
   (define-key help-mode-map (kbd "SPC") evil-leader--default-map))
 
 (with-eval-after-load "info"
+  (define-key Info-mode-map (kbd "M-n") (kbd "M-}"))
   (define-key Info-mode-map (kbd "C-w") 'evil-window-map)
   (define-key Info-mode-map (kbd "SPC") evil-leader--default-map))
 
