@@ -1646,14 +1646,14 @@ return the project path instead"
 (defun my-compilation-mode-hook ()
   (modify-syntax-entry ?_ "w") ;; _ is word constituent, so * and # works
   (visual-line-mode)
-  ;; (evil-local-mode)
+  (evil-local-mode)
   (evil-local-set-key 'normal (kbd "q") 'quit-window))
 
-;; (defun my-grep-mode-hook ()
-;;   (evil-local-mode -1))
+(defun my-grep-mode-hook ()
+  (evil-local-mode -1))
 
 (add-hook 'compilation-mode-hook 'my-compilation-mode-hook)
-;; (add-hook 'grep-mode-hook 'my-grep-mode-hook)
+(add-hook 'grep-mode-hook 'my-grep-mode-hook)
 
 (defun my-compilation-filter-hook ()
  (ansi-color-apply-on-region compilation-filter-start (point)))
