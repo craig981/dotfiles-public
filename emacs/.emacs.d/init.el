@@ -146,7 +146,7 @@ leave it at 't' for Emacs commands"
   (modify-syntax-entry ?_ "w"))
 
 (setq-default sentence-end-double-space nil)
-(setq-default fill-column 80)      ; set tw=70
+(setq-default fill-column 70)      ; set tw=70
 (setq-default truncate-lines t)    ; set nowrap
 (setq-default tab-width 8)         ; set ts=8
 (setq-default evil-shift-width 8)
@@ -504,6 +504,7 @@ leave it at 't' for Emacs commands"
 
 (defun my-prog-mode-hook ()
   (abbrev-mode)
+  (setq-local fill-column 80)
   (setq-local abbrev-expand-function #'my-abbrev-expand))
 
 (add-hook 'prog-mode-hook #'my-prog-mode-hook)
