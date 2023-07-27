@@ -2186,14 +2186,17 @@ current project instead. Visit the tags file."
   > str "[2] << \" \" <<" -)
 
 (define-skeleton my-cpp-include-guard "" nil
-  "#ifndef INCLUDED_" (setq v1 (upcase
-				(let ((name (buffer-file-name)))
-				  (if name
-				      (file-name-nondirectory
-				       (file-name-sans-extension name))
-				    (skeleton-read "Name: "))))) "_H\n"
-  "#define INCLUDED_" v1 "_H\n\n"
-  "namespace " (skeleton-read "Namespace: ") " {\n\n"
+  "#ifndef INCLUDED_"
+  (upcase (setq v1 (skeleton-read "Namespace: ")))
+  "_"
+  (setq v2 (upcase
+	    (let ((name (buffer-file-name)))
+	      (if name
+		  (file-name-nondirectory
+		   (file-name-sans-extension name))
+		(skeleton-read "Name: "))))) "_H\n"
+  "#define INCLUDED_" (upcase v1) "_" v2 "_H\n\n"
+  "namespace " v1 " {\n\n"
   -
   "\n\n} // end namespace\n\n"
   "#endif\n")
