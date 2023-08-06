@@ -27,6 +27,13 @@
 ;;| Paths
 ;; ----------------------------------------------------------------------------
 
+(when (and (eq system-type 'darwin)
+	   (native-comp-available-p))
+  (setenv "LIBRARY_PATH" (concat
+			  (getenv "LIBRARY_PATH") ":"
+			  (string-trim (shell-command-to-string "xcrun --sdk macosx --show-sdk-path"))
+			  "/usr/lib")))
+
 (if (eq system-type 'windows-nt)
     (let ((path "C:/cygwin64/bin;C:/windows/system32;C:/Program Files/CMake/bin"))
       (setenv "PATH" path)
