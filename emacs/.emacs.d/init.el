@@ -1286,7 +1286,6 @@ leave it at 't' for Emacs commands"
    (t (helm-imenu))))
 
 (evil-leader/set-key "i" 'my-imenu)
-(global-set-key (kbd "C-c i") 'my-imenu)
 
 ;; ----------------------------------------------------------------------------
 ;;| Projects
