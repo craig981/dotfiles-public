@@ -1453,13 +1453,6 @@ return the project path instead"
 
 (add-hook 'dired-mode-hook 'my-dired-hook)
 
-;; make q work when viewing a file with v
-(defun my-view-mode-hook ()
-  (define-key view-mode-map (kbd "C-j") nil)
-  (evil-local-set-key 'normal (kbd "q") 'quit-window))
-
-(add-hook 'view-mode-hook 'my-view-mode-hook)
-
 (setq-default dired-listing-switches "-alh") ;; human-readable file sizes
 (when (eq system-type 'darwin)
  (setq dired-guess-shell-alist-user '(("" "open"))))
@@ -1513,7 +1506,6 @@ return the project path instead"
 
 (defun my-magit-repolist-hook ()
   (evil-local-mode 1)
-  (evil-local-set-key 'normal (kbd "q") 'quit-window)
   (beginning-of-buffer))
 
 (defun my-magit-list-repos ()
@@ -1875,8 +1867,6 @@ current project instead. Visit the tags file."
 (define-key paredit-mode-map (kbd "M-r") nil)
 
 (defun my-lisp-common-hook ()
-  ;; (add-to-list 'completion-at-point-functions #'cape-dabbrev)
-  ;; (add-to-list 'completion-at-point-functions #'cape-file)
   (enable-paredit-mode)
   (evil-local-mode 1)
   (setq-local evil-symbol-word-search t))
@@ -1929,17 +1919,6 @@ current project instead. Visit the tags file."
 
 (add-to-list 'auto-mode-alist '("/SConstruct\\'" . python-mode))
 (add-to-list 'auto-mode-alist '("/SConscript\\'" . python-mode))
-
-;; ----------------------------------------------------------------------------
-;;| Rust
-;; ----------------------------------------------------------------------------
-
-(defun my-rust-mode-hook ()
-  (auto-fill-mode -1)
-  (setq-local indent-tabs-mode nil)
-  (setq-local evil-shift-width 4))
-
-(add-hook 'rust-mode-hook 'my-rust-mode-hook)
 
 ;; ----------------------------------------------------------------------------
 ;;| Eglot
@@ -2518,7 +2497,6 @@ current project instead. Visit the tags file."
      paredit
      pyvenv
      reykjavik-theme
-     rust-mode
      soft-morning-theme
      undo-tree
      vertico
