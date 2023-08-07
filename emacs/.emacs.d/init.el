@@ -404,7 +404,9 @@ leave it at 't' for Emacs commands"
 
 (global-set-key (kbd "C-x w") 'subword-mode)
 
-(evil-leader/set-key "l" 'flyspell-buffer)
+(evil-leader/set-key "li" #'flyspell-mode)
+(evil-leader/set-key "lb" #'flyspell-buffer)
+(evil-leader/set-key "ls" #'ispell)
 
 (define-key minibuffer-local-map (kbd "<escape>") 'abort-recursive-edit)
 
