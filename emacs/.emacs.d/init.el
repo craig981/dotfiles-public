@@ -314,21 +314,6 @@ leave it at 't' for Emacs commands"
 	  (select-window w)
 	(switch-to-buffer name))))
 
-;; (defun my-window-toggle-dedicated ()
-;;   (interactive)
-;;   (let* ((w (selected-window))
-;; 	 (flag (not (window-dedicated-p w))))
-;;     (set-window-dedicated-p w flag)
-;;     (message (format "Setting window dedicated %s" flag))))
-
-;; (defun my-select-last-pasted ()
-;;   (interactive)
-;;   (let ((a (save-excursion (evil-goto-mark ?\[) (point)))
-;; 	(b (save-excursion (evil-goto-mark ?\]) (point))))
-;;     (goto-char b)
-;;     (evil-visual-char)
-;;     (push-mark a)))
-
 (defun my-join-line ()
   (interactive)
   (join-line 1))
@@ -350,7 +335,6 @@ leave it at 't' for Emacs commands"
 (evil-leader/set-key "m" #'my-mirror-buffer)
 (evil-leader/set-key "d" 'pwd)
 (evil-leader/set-key "SPC" (kbd "=i{"))
-;; (evil-global-set-key 'normal (kbd "gp") 'my-select-last-pasted)
 
 (when (eq system-type 'gnu/linux)
   (evil-global-set-key 'motion (kbd "K") 'man))
@@ -394,10 +378,6 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "C-c w j") #'evil-window-move-very-bottom)
 (global-set-key (kbd "C-c w k") #'evil-window-move-very-top)
 (global-set-key (kbd "C-c w r") #'evil-window-rotate-downwards)
-;; (global-set-key (kbd "C-c w C-d") #'my-window-toggle-dedicated)
-
-(global-unset-key (kbd "C-h h")) ;; stop accidentally opening hello file
-(global-unset-key (kbd "C-h C-c")) ;; disable describe-copying
 
 (push 'try-expand-line hippie-expand-try-functions-list)
 (evil-global-set-key 'insert (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
@@ -407,8 +387,6 @@ leave it at 't' for Emacs commands"
 (evil-leader/set-key "li" #'flyspell-mode)
 (evil-leader/set-key "lb" #'flyspell-buffer)
 (evil-leader/set-key "ls" #'ispell)
-
-(define-key minibuffer-local-map (kbd "<escape>") 'abort-recursive-edit)
 
 (defun my-advise-comment (&rest args)
   (when (evil-normal-state-p)
@@ -471,12 +449,6 @@ leave it at 't' for Emacs commands"
   (define-key Man-mode-map (kbd "M-n") 'Man-next-section)
   (define-key Man-mode-map (kbd "M-p") 'Man-previous-section))
 
-;; (defun my-man-page-hook ()
-;;   (evil-local-mode)
-;;   (evil-local-set-key 'motion (kbd "q") 'quit-window))
-
-;; (add-hook #'Man-mode-hook #'my-man-page-hook)
-
 ;; (defun my-list-all-keymaps ()
 ;;   (let (maps)
 ;;     (mapatoms (lambda (sym)
@@ -504,7 +476,6 @@ leave it at 't' for Emacs commands"
 (define-global-abbrev "cosnt" "const")
 (define-global-abbrev "conat" "const")
 (define-global-abbrev "trinagle" "triangle")
-(define-global-abbrev "bec" "because")
 
 (defun my-abbrev-expand ()
   "Don't expand in strings or comments"
@@ -1474,28 +1445,6 @@ return the project path instead"
       isearch-regexp-lax-whitespace nil)
 ;; stop downcasing when symbol searching with M-s .
 (setq search-upper-case t)
-
-;; ----------------------------------------------------------------------------
-;;| Occur
-;; ----------------------------------------------------------------------------
-
-;; (defun my-occur-find-hook ()
-;;   (global-hl-line-mode 1)
-;;   (recenter-top-bottom))
-
-;; (add-hook 'occur-mode-find-occurrence-hook 'my-occur-find-hook)
-
-;; ;;; Turn off line highlight, unless we hit 'n' or 'p' in occur buffer
-;; (defun my-disable-hl-line (func &rest args)
-;;   (apply func args)
-;;   (when (not (and real-this-command
-;; 		  (symbolp real-this-command)
-;; 		  (or (eq real-this-command 'next-error-no-select)
-;; 		      (eq real-this-command 'previous-error-no-select))))
-;;     (global-hl-line-mode -1)))
-
-;; (advice-add 'occur-mode-goto-occurrence-other-window :around #'my-disable-hl-line)
-;; (advice-add 'occur-mode-goto-occurrence :around #'my-disable-hl-line)
 
 ;; ----------------------------------------------------------------------------
 ;;| Dired
