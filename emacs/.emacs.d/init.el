@@ -191,14 +191,13 @@ leave it at 't' for Emacs commands"
 ;;| Find file at point
 ;; ----------------------------------------------------------------------------
 
-(defun my-find-file-at-point ()
-  "Remove prompt from find-file-at-point, and print filename"
-  (interactive)
-  (find-file-at-point (ffap-file-at-point))
+(global-set-key (kbd "C-c f") #'find-file-at-point)
+
+(defun my-print-filename (&rest args)
   (princ (buffer-file-name)))
 
-(global-set-key (kbd "C-c f") 'my-find-file-at-point)
-(evil-global-set-key 'normal (kbd "gf") 'my-find-file-at-point)
+(advice-add #'find-file-at-point :around #'my-disable-vertico)
+(advice-add #'find-file-at-point :after #'my-print-filename)
 
 ;; ----------------------------------------------------------------------------
 ;;| Convenience
