@@ -586,16 +586,6 @@ leave it at 't' for Emacs commands"
 ;;| Scrolling
 ;; ----------------------------------------------------------------------------
 
-;; http://emacs.stackexchange.com/questions/8126/zs-and-ze-from-vim
-(defun hscroll-cursor-left ()
-  (interactive "@")
-  (set-window-hscroll (selected-window) (current-column)))
-(defun hscroll-cursor-right ()
-  (interactive "@")
-  (set-window-hscroll (selected-window) (- (current-column) (window-width) -1)))
-(evil-global-set-key 'motion (kbd "zs") 'hscroll-cursor-left)
-(evil-global-set-key 'motion (kbd "ze") 'hscroll-cursor-right)
-
 ;; stop scrolling to centre when cursor is on first/last line and
 ;; moves up/down
 (setq-default scroll-up-aggressively 0.0)
