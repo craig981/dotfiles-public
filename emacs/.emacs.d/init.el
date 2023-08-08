@@ -663,6 +663,9 @@ leave it at 't' for Emacs commands"
 ;;| Org
 ;; ----------------------------------------------------------------------------
 
+;;; move slowdown to startup instead of when opening an org file
+(require 'org)
+
 (when (eq system-type 'gnu/linux)
   (setq org-agenda-files (list "~/notes.org"))
   (setq org-default-notes-file "~/notes.org"))
@@ -1556,6 +1559,8 @@ return the project path instead"
 				 ("B>U" 3 magit-repolist-column-unpushed-to-upstream
 				  ((:right-align t)
 				   (:help-echo "Local changes not in upstream"))))))
+
+(require 'magit)
 
 (evil-leader/set-key "v" 'magit-status)
 (global-set-key (kbd "C-c m") 'magit-status)
