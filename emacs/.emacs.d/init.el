@@ -851,6 +851,7 @@ leave it at 't' for Emacs commands"
   (define-key org-mode-map (kbd "M-p") 'backward-paragraph)
   (define-key org-mode-map (kbd "C-j") nil)
   (define-key org-mode-map (kbd "C-c C-j") nil)
+  (define-key org-mode-map (kbd "C-c [") 'org-toggle-link-display)
 
   (org-babel-do-load-languages 'org-babel-load-languages
 			       '((shell . t)
