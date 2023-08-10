@@ -175,9 +175,7 @@ leave it at 't' for Emacs commands"
   (when (not (or (eq major-mode 'image-mode)
 		 (derived-mode-p 'bongo-mode)))
     (evil-local-mode 1)
-    (when (and (string= (file-name-nondirectory (buffer-file-name))
-			"COMMIT_EDITMSG")
-	       (looking-at "^$"))
+    (when (and git-commit-mode (looking-at "^$"))
       (evil-insert-state)))
   (if my-input-method
       (set-input-method my-input-method)))
@@ -786,7 +784,7 @@ leave it at 't' for Emacs commands"
 (defun my-org-capture-hook ()
   (interactive)
   (my-org-mode-hook)
-  (evil-insert-state))
+  (evil-emacs-state))
 
 (defun my-org-src-hook ()
   (evil-local-mode 1))
