@@ -785,7 +785,7 @@ leave it at 't' for Emacs commands"
 (defun my-org-capture-hook ()
   (interactive)
   (my-org-mode-hook)
-  (evil-emacs-state))
+  (evil-insert-state))
 
 (defun my-org-src-hook ()
   (evil-local-mode 1))
