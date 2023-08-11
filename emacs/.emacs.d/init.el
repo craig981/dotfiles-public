@@ -269,14 +269,6 @@ leave it at 't' for Emacs commands"
 	(message "Deleted trailing whitespace"))
     (delete-horizontal-space prefix)))
 
-(defun my-align-regexp ()
-  (interactive)
-  (if (region-active-p)
-      (progn
-	(call-interactively 'align-regexp)
-	(deactivate-mark))
-    (message "No region active")))
-
 (defun my-copy-filename ()
   (interactive)
   (let ((x (or (buffer-file-name) default-directory)))
@@ -329,7 +321,7 @@ leave it at 't' for Emacs commands"
     (my-substitute ".,$")))
 
 (evil-leader/set-key "%" #'my-copy-filename)
-(evil-leader/set-key "=" #'my-align-regexp)
+(evil-leader/set-key "=" #'align-regexp)
 (evil-leader/set-key "m" #'my-mirror-buffer)
 (evil-leader/set-key "d" 'pwd)
 (evil-leader/set-key "SPC" (kbd "=i{"))
@@ -2043,6 +2035,7 @@ current project instead. Visit the tags file."
   (modify-syntax-entry ?_ "w")
   (evil-local-set-key 'normal (kbd "[#") 'c-up-conditional)
   (local-set-key (kbd "C-c C-b") nil) ; don't want c-submit-bug-report
+  (local-set-key (kbd "C-c C-i") #'my-jump-to-header)
   (auto-fill-mode -1)
   (cpp-highlight-if-0/1)
   (add-hook 'after-save-hook 'cpp-highlight-if-0/1 'append 'local)
@@ -2069,8 +2062,7 @@ current project instead. Visit the tags file."
   (evil-leader/set-key-for-mode mode
     "0" (lambda () (interactive) (my-wrap-if-endif 0))
     "3" (lambda () (interactive) (my-wrap-if-endif 1))
-    "2" (lambda () (interactive) (my-wrap-if-endif 1 t))
-    "h" #'my-jump-to-header))
+    "2" (lambda () (interactive) (my-wrap-if-endif 1 t))))
 
 ;; 4 character tabs or spaces for some projects
 (dir-locals-set-class-variables 'fourchartabs
