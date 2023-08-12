@@ -335,6 +335,7 @@ leave it at 't' for Emacs commands"
 
 (global-set-key (kbd "C-c j") #'goto-last-change)
 (global-set-key (kbd "C-c q") #'my-close-other-window)
+(global-set-key (kbd "C-c u") #'toggle-truncate-lines)
 (global-set-key (kbd "C-c z") (lambda ()
 				(interactive)
 				(find-file user-init-file)))
@@ -1393,7 +1394,6 @@ return the project path instead"
 (global-set-key (kbd "C-c p d") #'my-choose-project-and-dired)
 
 (global-set-key (kbd "C-c e") 'my-find-file-in-project)
-(global-set-key (kbd "C-c u") 'my-find-file-in-project-other-window)
 (global-set-key (kbd "C-x C-d") 'my-jump-project-dired)
 
 (evil-leader/set-key "e" 'my-find-file-in-project)
