@@ -7,6 +7,7 @@
  '(isearch ((t (:background "#ffffff" :foreground "#050505"))))
  '(lazy-highlight ((t (:background "#909090" :foreground "#050505"))))
  '(helm-match ((t (:inherit region))))
+ '(hide-ifdef-shadow ((t (:foreground "#686868"))))
  '(font-lock-warning-face ((t (:background "#243539" :foreground "#e81050"))))
  '(show-paren-match ((t (:weight bold :background nil :foreground "#dddddd")))))
 
