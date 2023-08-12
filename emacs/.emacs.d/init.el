@@ -354,8 +354,6 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "M-j") #'my-join-line)
 (global-set-key (kbd "M-'") #'delete-blank-lines)
 (global-set-key (kbd "M-\\") #'my-delete-whitespace)
-;; (global-set-key (kbd "C-M-j") #'mode-line-other-buffer)
-;; (evil-global-set-key 'insert (kbd "C-M-j") #'default-indent-new-line)
 
 (global-set-key (kbd "C-c w h") #'evil-window-move-far-left)
 (global-set-key (kbd "C-c w l") #'evil-window-move-far-right)
@@ -619,11 +617,13 @@ leave it at 't' for Emacs commands"
   (modify-syntax-entry ?= ".")
   (setq-local fill-column 72)
   ;; stop paragraph lines after the first being extra indented by M-q
-  (setq-local fill-paragraph-function nil)
-  (define-key message-mode-map (kbd "C-c C-c") nil)
-  (define-key message-mode-map (kbd "C-c C-s") nil))
+  (setq-local fill-paragraph-function nil))
 
 (add-hook 'message-mode-hook 'my-message-mode-hook)
+
+(with-eval-after-load "message"
+  (define-key message-mode-map (kbd "C-c C-c") nil)
+  (define-key message-mode-map (kbd "C-c C-s") nil))
 
 (setq-default message-auto-save-directory nil)
 
@@ -1591,17 +1591,13 @@ return the project path instead"
 
 (add-hook 'compilation-filter-hook 'my-compilation-filter-hook)
 
-(global-set-key (kbd "C-c M-m") #'compile)
 (global-set-key (kbd "C-c C-SPC") #'project-compile)
 (global-set-key (kbd "C-c C-,") #'recompile)
 (global-set-key (kbd "C-c ,") #'recompile)
 (global-set-key (kbd "C-c g") (lambda () (interactive) (my-jump-buffer "*compilation*")))
 (define-key compilation-mode-map (kbd "SPC") evil-leader--default-map)
 (define-key compilation-mode-map (kbd "C-w") 'evil-window-map)
-;; (define-key compilation-mode-map (kbd "?") nil)
-;; (define-key compilation-mode-map (kbd "h") nil)
 (define-key compilation-mode-map (kbd "g") nil)
-;; (define-key compilation-mode-map (kbd "0") 'evil-beginning-of-line)
 
 ;; ----------------------------------------------------------------------------
 ;;| Makefile
@@ -2007,9 +2003,8 @@ current project instead. Visit the tags file."
 (defun my-cc-settings (path)
   (modify-syntax-entry ?_ "w")
   (evil-local-set-key 'normal (kbd "[#") 'c-up-conditional)
-  (local-set-key (kbd "C-c C-b") nil) ; don't want c-submit-bug-report
-  (local-set-key (kbd "C-c C-i") #'my-jump-to-header)
   (auto-fill-mode -1)
+
   (hide-ifdef-mode 1)
   (add-hook 'after-save-hook 'hide-ifdefs 'append 'local)
 
@@ -2105,6 +2100,9 @@ current project instead. Visit the tags file."
   > "return 0;\n}\n")
 
 (with-eval-after-load "cc-mode"
+  (define-key c-mode-base-map (kbd "C-c C-b") nil) ; don't want c-submit-bug-report
+  (define-key c-mode-base-map (kbd "C-c C-i") #'my-jump-to-header)
+
   (dolist (table (list c-mode-abbrev-table c++-mode-abbrev-table))
     (define-abbrev table "incl" "" 'my-cpp-include)
     (define-abbrev table "inc"  "" 'my-cpp-include-sys)
