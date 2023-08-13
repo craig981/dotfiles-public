@@ -1260,33 +1260,16 @@ leave it at 't' for Emacs commands"
 
 (setq project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
 
-(defvar my-override-initial-input)
-
-(defun my-complete-with-initial-input (func &rest args)
-  "Override the initial-input argument to completing-read"
-  (pcase-let ((`(,prompt ,collection ,predicate ,require-match) args))
-    (funcall func prompt collection predicate require-match
-	   my-override-initial-input)))
-
 ;; C-u opens in other window
-(defun my-find-file-in-project (&optional open-in-other-window initial-input)
+(defun my-find-file-in-project (&optional open-in-other-window)
   (interactive "P")
-  (let ((func (lambda ()
-		(let ((read-file-name-completion-ignore-case t))
-		  (if initial-input
-		      ;; override initial-input arg to completing-read
-		      (let ((my-override-initial-input initial-input))
-			(advice-add 'completing-read :around 'my-complete-with-initial-input)
-			(unwind-protect
-			    (call-interactively 'project-find-file)
-			  (advice-remove 'completing-read 'my-complete-with-initial-input)))
-		    (call-interactively 'project-find-file))))))
+  (let ((read-file-name-completion-ignore-case t))
     (if open-in-other-window
 	(let* ((switch-to-buffer-obey-display-actions t)
 	       (display-buffer-overriding-action '((display-buffer-pop-up-window)
 						   (inhibit-same-window . t))))
-	  (funcall func))
-      (funcall func))))
+	  (project-find-file))
+      (project-find-file))))
 
 (defun my-find-file-in-project-other-window ()
   (interactive)
@@ -1974,15 +1957,29 @@ current project instead. Visit the tags file."
       (indent-to the-indent))))
 
 (defun my-jump-to-header (&optional open-in-other-window)
+  "Jump between C/C++ source file and corresponding header"
   (interactive "P")
   (let ((fn (buffer-file-name)))
     (if (not fn)
 	(message "Buffer has no filename")
-      (let ((ext (file-name-extension fn)))
-	(my-find-file-in-project open-in-other-window
-				 (concat (file-name-base fn) "."
-					 (if (string= ext "h") "c" "h")))
-	(message (buffer-file-name))))))
+      (let* ((ext (file-name-extension fn))
+	     (regex (concat "^" (file-name-base fn) "\\." (if (string= ext "h") "c" "h")))
+	     (dir (my-find-project-root))
+	     (files (directory-files-recursively dir regex))
+	     (len (length files)))
+	(if (= 0 len)
+	    (message (format "No files found under \"%s\" matching \"%s\"" dir regex))
+	  (let ((func (lambda ()
+			(find-file (if (= 1 len)
+				       (car files)
+				     (completing-read "File: " files nil t))))))
+	    (if open-in-other-window
+		(let* ((switch-to-buffer-obey-display-actions t)
+		       (display-buffer-overriding-action '((display-buffer-pop-up-window)
+							   (inhibit-same-window . t))))
+		  (funcall func))
+	      (funcall func))
+	    (message (buffer-file-name))))))))
 
 ;; https://www.gnu.org/software/emacs/manual/html_node/efaq/Customizing-C-and-C_002b_002b-indentation.html
 (c-add-style "my-c-style"
