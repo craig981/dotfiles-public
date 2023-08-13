@@ -12,6 +12,7 @@ endif
 
 set t_Co=256
 set backspace=indent,start
+set display=truncate
 set autoindent
 set tabstop=8
 set shiftwidth=8
