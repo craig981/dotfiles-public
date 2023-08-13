@@ -1408,6 +1408,15 @@ return the project path instead"
 ;; stop downcasing when symbol searching with M-s .
 (setq search-upper-case t)
 
+(defun my-isearch-hook ()
+  "Use evil-input-method in isearch minibuffer"
+  (when (and (bound-and-true-p evil-local-mode)
+	     evil-input-method)
+    (evil-without-input-method-hooks
+      (set-input-method evil-input-method))))
+
+(add-hook 'isearch-mode-hook 'my-isearch-hook)
+
 ;; ----------------------------------------------------------------------------
 ;;| Dired
 ;; ----------------------------------------------------------------------------
