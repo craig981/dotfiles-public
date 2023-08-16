@@ -13,6 +13,8 @@ endif
 set t_Co=256
 set backspace=indent,start
 set display=truncate
+set sidescrolloff=5
+set history=1000
 set autoindent
 set tabstop=8
 set shiftwidth=8
