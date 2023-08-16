@@ -40,7 +40,7 @@ nnoremap <silent> <C-w><C-d> :Bclose<CR>
 "nnoremap <leader>i :30vs .<CR>
 "nnoremap <leader>i :Vex <bar> :vertical resize 30<CR>
 nnoremap <leader>i :set incsearch!<CR>
-nnoremap <leader>h :set hlsearch!<CR>
+nnoremap <C-h> :set hlsearch!<CR>
 nnoremap <leader>s :%s/\<<c-r><c-w>\>//gI<Left><Left><Left>
 "toggle redraw during macro exec
 nnoremap <leader>L :set invlazyredraw<CR>:set lazyredraw?<CR>
