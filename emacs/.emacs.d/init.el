@@ -1974,7 +1974,12 @@ current project instead. Visit the tags file."
       (let* ((ext (file-name-extension fn))
 	     (regex (concat "^" (file-name-base fn) "\\." (if (string= ext "h") "c" "h")))
 	     (dir (my-find-project-root))
-	     (files (directory-files-recursively dir regex))
+	     (files (directory-files-recursively dir regex nil
+						 (lambda (subdir)
+						   (let* ((name (file-name-nondirectory
+								 (directory-file-name subdir))))
+						     (not (or (string= name "build")
+							      (string= name ".git")))))))
 	     (len (length files)))
 	(if (= 0 len)
 	    (message (format "No files found under \"%s\" matching \"%s\"" dir regex))
