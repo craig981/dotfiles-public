@@ -2318,7 +2318,7 @@ current project instead. Visit the tags file."
 
   (if (< (decoded-time-hour (decode-time)) 13)
       (my-theme-light 0)
-    (my-theme-dark t))
+    (my-theme-dark 0))
 
   (my-font-config))
 
