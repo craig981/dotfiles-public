@@ -190,13 +190,27 @@ leave it at 't' for Emacs commands"
 ;;| Find file at point
 ;; ----------------------------------------------------------------------------
 
-(global-set-key (kbd "C-c f") #'find-file-at-point)
+(defun my-find-file-at-point ()
+  "If the file at the point exists, open it instead of prompting"
+  (interactive)
+  (let ((name (catch 'my-ffap-catch
+		(ffap-file-at-point))))
+    (if (ffap-file-exists-string name)
+	(find-file name)
+      (call-interactively 'find-file-at-point))
+    (let ((file (buffer-file-name)))
+      (when file
+	(princ file)))))
 
-(defun my-print-filename (&rest args)
-  (princ (buffer-file-name)))
+(defun my-ffap-match-non-existent (name)
+  "Added at the end of the ffap-alist to throw a non-existent file"
+  (throw 'my-ffap-catch name))
 
-(advice-add #'find-file-at-point :around #'my-disable-vertico)
-(advice-add #'find-file-at-point :after #'my-print-filename)
+(with-eval-after-load "ffap"
+  (add-to-list 'ffap-alist '("." . my-ffap-match-non-existent) t))
+
+(evil-global-set-key 'normal (kbd "gf") 'my-find-file-at-point)
+(global-set-key (kbd "C-c f") #'my-find-file-at-point)
 
 ;; ----------------------------------------------------------------------------
 ;;| Convenience
