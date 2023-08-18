@@ -1680,7 +1680,8 @@ return the project path instead"
 
 (defun my-shell ()
   (interactive)
-  (if (project-current nil)
+  (if (and (not (eq major-mode 'dired-mode))
+	   (project-current nil))
       (project-shell)
     (call-interactively 'shell)))
 
