@@ -1832,16 +1832,6 @@ current project instead. Visit the tags file."
 
 (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
 
-(require 'dumb-jump)
-
-(defun my-dumb-jump-activate ()
-  "Activate dumb-jump, unless a tags table is loaded"
-  (if tags-table-list
-      nil
-    (dumb-jump-xref-activate)))
-
-(add-hook 'xref-backend-functions #'my-dumb-jump-activate)
-
 ;; ----------------------------------------------------------------------------
 ;;| Lisp
 ;; ----------------------------------------------------------------------------
@@ -1920,11 +1910,11 @@ current project instead. Visit the tags file."
 ;;| Eglot
 ;; ----------------------------------------------------------------------------
 
-(require 'eglot)
+;; (require 'eglot)
 
-(add-to-list 'eglot-server-programs '(python-mode . ("pylsp" "-v")))
+;; (add-to-list 'eglot-server-programs '(python-mode . ("pylsp" "-v")))
 
-(setq eglot-autoshutdown t)
+;; (setq eglot-autoshutdown t)
 
 ;; ----------------------------------------------------------------------------
 ;;| Cpp
@@ -2283,14 +2273,7 @@ current project instead. Visit the tags file."
    ((= x 0)
     (require 'soft-morning-theme)
     (load-theme 'soft-morning)
-    (load-theme 'my-override-light))
-   ((= x 1)
-    (require 'zenburn-theme)
-    (load-theme 'zenburn)
-    (load-theme 'my-override-dark2))
-   (t (require 'anti-zenburn-theme)
-      (load-theme 'anti-zenburn)
-      (load-theme 'my-override-light2))))
+    (load-theme 'my-override-light))))
 
 (global-set-key (kbd "C-c w d") (lambda ()
 				  (interactive)
@@ -2301,8 +2284,7 @@ current project instead. Visit the tags file."
 (global-set-key (kbd "C-c w o") (lambda ()
 				  (interactive)
 				  (my-theme-light (cond
-						   ((memq 'soft-morning custom-enabled-themes) 1)
-						   ((memq 'zenburn custom-enabled-themes) 2)
+						   ;; ((memq 'soft-morning custom-enabled-themes) 1)
 						   (t 0)))))
 
 (blink-cursor-mode -1)
@@ -2476,20 +2458,16 @@ current project instead. Visit the tags file."
  '(org-refile-targets '((org-agenda-files :maxlevel . 3) (nil :maxlevel . 3)))
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
-   '(anti-zenburn-theme
-     bongo
+   '(bongo
      cape
      cmake-mode
      consult
-     dumb-jump
-     eglot
      evil
      evil-leader
      evil-collection
      evil-numbers
      fancy-dabbrev
      expand-region
-     gandalf-theme
      gnuplot
      gnuplot-mode
      helm
