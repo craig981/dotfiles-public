@@ -2277,7 +2277,10 @@ current project instead. Visit the tags file."
    ((= x 0)
     (require 'soft-morning-theme)
     (load-theme 'soft-morning)
-    (load-theme 'my-override-light))))
+    (load-theme 'my-override-light))
+   ((= x 1)
+    (require 'soft-stone-theme)
+    (load-theme 'soft-stone))))
 
 (global-set-key (kbd "C-c w d") (lambda ()
 				  (interactive)
@@ -2288,7 +2291,7 @@ current project instead. Visit the tags file."
 (global-set-key (kbd "C-c w o") (lambda ()
 				  (interactive)
 				  (my-theme-light (cond
-						   ;; ((memq 'soft-morning custom-enabled-themes) 1)
+						   ((memq 'soft-morning custom-enabled-themes) 1)
 						   (t 0)))))
 
 (blink-cursor-mode -1)
@@ -2486,6 +2489,7 @@ current project instead. Visit the tags file."
      pyvenv
      reykjavik-theme
      soft-morning-theme
+     soft-stone-theme
      undo-tree
      vertico
      which-key
