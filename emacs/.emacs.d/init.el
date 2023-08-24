@@ -2032,6 +2032,10 @@ current project instead. Visit the tags file."
   (vc-refresh-state)
   (add-to-list path (my-find-project-root)))
 
+(with-eval-after-load "hideif"
+  ;; don't hide #ifdef FOO ... #endif, where FOO is undefined
+  (setq hif-undefined-symbol t))
+
 (require 'ffap)
 
 (defun my-cpp-mode-hook ()
