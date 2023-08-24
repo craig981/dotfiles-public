@@ -2282,17 +2282,17 @@ current project instead. Visit the tags file."
     (require 'soft-stone-theme)
     (load-theme 'soft-stone))))
 
-(global-set-key (kbd "C-c w d") (lambda ()
-				  (interactive)
-				  (my-theme-dark (cond
-						  ((memq 'reykjavik custom-enabled-themes) 1)
-						  ((memq 'nordic-night custom-enabled-themes) 2)
-						  (t 0)))))
-(global-set-key (kbd "C-c w o") (lambda ()
-				  (interactive)
-				  (my-theme-light (cond
-						   ((memq 'soft-morning custom-enabled-themes) 1)
-						   (t 0)))))
+(require 'hydra)
+
+(defhydra my-theme-hydra ()
+  "Theme"
+  ("u" (lambda () (interactive) (my-theme-dark 0)) "reykjavik")
+  ("i" (lambda () (interactive) (my-theme-dark 1)) "nordic-night")
+  ("o" (lambda () (interactive) (my-theme-dark 2)) "ef-winter")
+  ("f" (lambda () (interactive) (my-theme-light 0)) "soft-morning")
+  ("d" (lambda () (interactive) (my-theme-light 1)) "soft-stone"))
+
+(global-set-key (kbd "C-c w e") 'my-theme-hydra/body)
 
 (blink-cursor-mode -1)
 (setq-default cursor-type 'box)
@@ -2479,6 +2479,7 @@ current project instead. Visit the tags file."
      gnuplot-mode
      helm
      helm-ag
+     hydra
      ledger-mode
      magit
      marginalia
