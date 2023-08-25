@@ -350,6 +350,9 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "C-c j") #'goto-last-change)
 (global-set-key (kbd "C-c q") #'my-close-other-window)
 (global-set-key (kbd "C-c u") #'toggle-truncate-lines)
+(global-set-key (kbd "C-c V") (lambda ()
+				(interactive)
+				(find-file user-init-file)))
 (global-set-key (kbd "C-c SPC") 'my-mark-until-whitespace)
 
 (require 'expand-region)
