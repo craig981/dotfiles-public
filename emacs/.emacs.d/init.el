@@ -350,7 +350,7 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "C-c j") #'goto-last-change)
 (global-set-key (kbd "C-c q") #'my-close-other-window)
 (global-set-key (kbd "C-c u") #'toggle-truncate-lines)
-(global-set-key (kbd "C-c z") (lambda ()
+(global-set-key (kbd "C-c i") (lambda ()
 				(interactive)
 				(find-file user-init-file)))
 (global-set-key (kbd "C-c SPC") 'my-mark-until-whitespace)
@@ -1735,7 +1735,7 @@ return the project path instead"
 
 (add-hook 'sh-mode-hook 'my-syntax-entry)
 
-(global-set-key (kbd "C-c i") 'my-shell)
+(global-set-key (kbd "C-c z") 'my-shell)
 (global-set-key (kbd "C-c v") 'my-split-shell)
 (global-set-key (kbd "C-c h") 'my-jump-to-shell)
 
