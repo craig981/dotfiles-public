@@ -350,7 +350,7 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "C-c j") #'goto-last-change)
 (global-set-key (kbd "C-c q") #'my-close-other-window)
 (global-set-key (kbd "C-c u") #'toggle-truncate-lines)
-(global-set-key (kbd "C-c V") (lambda ()
+(global-set-key (kbd "C-c z") (lambda ()
 				(interactive)
 				(find-file user-init-file)))
 (global-set-key (kbd "C-c SPC") 'my-mark-until-whitespace)
@@ -1002,7 +1002,7 @@ leave it at 't' for Emacs commands"
 
 (require 'consult)
 
-(global-set-key (kbd "C-c t") 'consult-recent-file)
+(global-set-key (kbd "C-x f") 'consult-recent-file)
 
 (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
 
@@ -2292,7 +2292,7 @@ current project instead. Visit the tags file."
   ("f" (lambda () (interactive) (my-theme-light 0)) "soft-morning")
   ("d" (lambda () (interactive) (my-theme-light 1)) "soft-stone"))
 
-(global-set-key (kbd "C-c z") 'my-theme-hydra/body)
+(global-set-key (kbd "C-c t") 'my-theme-hydra/body)
 
 (blink-cursor-mode -1)
 (setq-default cursor-type 'box)
