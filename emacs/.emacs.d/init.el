@@ -232,6 +232,9 @@ leave it at 't' for Emacs commands"
 (add-hook 'evil-insert-state-entry-hook 'my-insert-enter-hook)
 (add-hook 'evil-insert-state-exit-hook 'my-insert-exit-hook)
 
+(blink-cursor-mode -1)
+(setq-default cursor-type 'box)
+
 (setq next-error-highlight-no-select t) ;; leave highlight for occur
 (setq ring-bell-function 'ignore) ;; stop binging noise on C-g
 (setq register-preview-delay 0.5)
@@ -2125,10 +2128,10 @@ current project instead. Visit the tags file."
   (define-key c-mode-base-map (kbd "C-c C-i") #'my-jump-to-header)
 
   (dolist (table (list c-mode-abbrev-table c++-mode-abbrev-table))
-    (define-abbrev table "incl" "" 'my-cpp-include)
+    (define-abbrev table "in"   "" 'my-cpp-include)
     (define-abbrev table "inc"  "" 'my-cpp-include-sys)
-    (define-abbrev table "fr"   "" 'my-cpp-for)
-    (define-abbrev table "fri"  "" 'my-cpp-for-iter)
+    (define-abbrev table "fo"   "" 'my-cpp-for)
+    (define-abbrev table "fori" "" 'my-cpp-for-iter)
     (define-abbrev table "pv"   "" 'my-cpp-print-vec)
     (define-abbrev table "main" "" 'my-cpp-main)))
 
@@ -2271,7 +2274,7 @@ current project instead. Visit the tags file."
     (require 'nord-theme)
     (load-theme 'nord)
     (load-theme 'my-override-dark2))
-   (t
+   ((= x 3)
     (load-theme 'ef-winter)
     (load-theme 'my-override-dark2))))
 
@@ -2299,9 +2302,6 @@ current project instead. Visit the tags file."
   ("d" (lambda () (interactive) (my-theme-light 1)) "soft-stone"))
 
 (global-set-key (kbd "C-c t") 'my-theme-hydra/body)
-
-(blink-cursor-mode -1)
-(setq-default cursor-type 'box)
 
 ;; ----------------------------------------------------------------------------
 ;;| Splash screen
