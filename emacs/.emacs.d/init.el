@@ -661,6 +661,11 @@ leave it at 't' for Emacs commands"
         (window-height . 10))
       display-buffer-alist)
 
+(defun my-calendar-hook ()
+  (setq-local show-trailing-whitespace nil))
+
+(add-hook 'calendar-mode-hook 'my-calendar-hook)
+
 (global-set-key (kbd "C-c M-c") 'calendar)
 
 ;; ----------------------------------------------------------------------------
