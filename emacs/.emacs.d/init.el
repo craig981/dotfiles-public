@@ -672,6 +672,8 @@ leave it at 't' for Emacs commands"
 ;;| Org
 ;; ----------------------------------------------------------------------------
 
+(add-to-list 'load-path "~/dev/org-mode/lisp")
+
 ;;; move slowdown to startup instead of when opening an org file
 (require 'org)
 
