@@ -16,6 +16,8 @@
 ; https://glyph.twistedmatrix.com/2015/11/editor-malware.html
 ; http://elpa.gnu.org/packages/gnu-elpa-keyring-update.html
 
+(setq load-prefer-newer t)
+
 ;; ----------------------------------------------------------------------------
 ;;| Package
 ;; ----------------------------------------------------------------------------
