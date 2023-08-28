@@ -177,6 +177,7 @@ leave it at 't' for Emacs commands"
       (setq-local vc-handled-backends nil))
   (when (not (or (eq major-mode 'image-mode)
 		 (derived-mode-p 'bongo-mode)))
+    (setq-local show-trailing-whitespace t)
     (evil-local-mode 1)
     (when (and git-commit-mode (looking-at "^$"))
       (evil-insert-state)))
@@ -487,6 +488,7 @@ leave it at 't' for Emacs commands"
 
 (defun my-prog-mode-hook ()
   (abbrev-mode)
+  (setq-local show-trailing-whitespace t)
   (setq-local fill-column 80)
   (setq-local abbrev-expand-function #'my-abbrev-expand))
 
@@ -636,6 +638,7 @@ leave it at 't' for Emacs commands"
   (my-syntax-entry)
   ;; = is punctuation, so evil * works on key and val separately for key=val
   (modify-syntax-entry ?= ".")
+  (setq-local show-trailing-whitespace t)
   (setq-local fill-column 72)
   ;; stop paragraph lines after the first being extra indented by M-q
   (setq-local fill-paragraph-function nil))
@@ -662,11 +665,6 @@ leave it at 't' for Emacs commands"
         (display-buffer-reuse-window display-buffer-below-selected)
         (window-height . 10))
       display-buffer-alist)
-
-(defun my-calendar-hook ()
-  (setq-local show-trailing-whitespace nil))
-
-(add-hook 'calendar-mode-hook 'my-calendar-hook)
 
 (global-set-key (kbd "C-c M-c") 'calendar)
 
@@ -1735,7 +1733,6 @@ return the project path instead"
   (fancy-dabbrev-mode -1)
   (visual-line-mode 0)
   (toggle-truncate-lines 0)
-  (setq-local show-trailing-whitespace nil)
 
   ;; fill out longest common part of filename first
   (setq-local completion-styles '(emacs21 flex))
@@ -2518,7 +2515,6 @@ current project instead. Visit the tags file."
      (indent-tabs-mode nil)
      (evil-shift-width . 2)
      (evil-shift-width . 4)))
- '(show-trailing-whitespace t)
  '(tags-case-fold-search nil)
  '(tramp-histfile-override "/tmp/.tramp_history")
  '(tramp-ssh-controlmaster-options
