@@ -1726,6 +1726,7 @@ return the project path instead"
   (fancy-dabbrev-mode -1)
   (visual-line-mode 0)
   (toggle-truncate-lines 0)
+  (setq-local show-trailing-whitespace nil)
 
   ;; fill out longest common part of filename first
   (setq-local completion-styles '(emacs21 flex))
@@ -2508,6 +2509,7 @@ current project instead. Visit the tags file."
      (indent-tabs-mode nil)
      (evil-shift-width . 2)
      (evil-shift-width . 4)))
+ '(show-trailing-whitespace t)
  '(tags-case-fold-search nil)
  '(tramp-histfile-override "/tmp/.tramp_history")
  '(tramp-ssh-controlmaster-options
