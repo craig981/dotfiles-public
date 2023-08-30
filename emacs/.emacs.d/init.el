@@ -2308,7 +2308,7 @@ current project instead. Visit the tags file."
   ("f" (lambda () (interactive) (my-theme-light 0)) "soft-morning")
   ("d" (lambda () (interactive) (my-theme-light 1)) "soft-stone"))
 
-(global-set-key (kbd "C-c t") 'my-theme-hydra/body)
+(global-set-key (kbd "C-c w o") 'my-theme-hydra/body)
 
 ;; ----------------------------------------------------------------------------
 ;;| Splash screen
