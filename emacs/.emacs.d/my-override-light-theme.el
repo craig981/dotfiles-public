@@ -26,8 +26,4 @@
  ;; '(mode-line-inactive ((t ())))
  )
 
-(set-cursor-color "black")
-(setq evil-normal-state-cursor '(box "black"))
-(setq evil-insert-state-cursor '(box "orange"))
-
 (provide-theme 'my-override-light)

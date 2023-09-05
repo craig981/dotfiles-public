@@ -7,8 +7,4 @@
  '(helm-match ((t (:foreground "#ffffff" :background "#005f5f"))))
 )
 
-(set-cursor-color "white")
-(setq evil-normal-state-cursor '(box "white"))
-(setq evil-insert-state-cursor '(box "orange"))
-
 (provide-theme 'my-override-dark3)
