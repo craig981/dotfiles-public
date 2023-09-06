@@ -1820,6 +1820,12 @@ return the project path instead"
 
 (evil-set-initial-state 'xref--xref-buffer-mode 'emacs)
 
+(defun my-dir-predicate (subdir)
+  (let* ((name (file-name-nondirectory
+		(directory-file-name subdir))))
+    (not (or (string= name "build")
+	     (string= name ".git")))))
+
 (defun my-rebuild-and-load-tags (&optional one-project)
   "Find a TAGS file above the default-directory, invoke make TAGS
 in that directory. If run with a prefix arg, generate tags in the
@@ -1842,7 +1848,20 @@ current project instead. Visit the tags file."
 	(when (y-or-n-p (format "Run 'make TAGS' in %s" path))
 	  (message (format "Running 'make -C %s TAGS'" path))
 	  (call-process "make" nil nil nil "-C" path "TAGS")
-	  (visit-tags-table (concat path "TAGS")))))))
+	  ;; (visit-tags-table (concat path "TAGS"))
+	  )))))
+
+(defun my-find-tags-files ()
+  "Find TAGS files and set tags-table-list"
+  (let ((all '()))
+    (message "Searching for TAGS files...")
+    (dolist (dir (if (eq system-type 'darwin)
+		     '("~/dev/")
+		   '("~/dev/git")))
+      (setq all (nconc all (directory-files-recursively
+			    (expand-file-name dir) "^TAGS$" nil
+			    'my-dir-predicate))))
+    (setq-default tags-table-list all)))
 
 (global-set-key (kbd "C-c M-.") #'my-rebuild-and-load-tags)
 (evil-global-set-key 'motion (kbd "C-w .")   #'xref-find-definitions-other-window)
@@ -1998,12 +2017,7 @@ current project instead. Visit the tags file."
       (let* ((ext (file-name-extension fn))
 	     (regex (concat "^" (file-name-base fn) "\\." (if (string= ext "h") "c" "h")))
 	     (dir (my-find-project-root))
-	     (files (directory-files-recursively dir regex nil
-						 (lambda (subdir)
-						   (let* ((name (file-name-nondirectory
-								 (directory-file-name subdir))))
-						     (not (or (string= name "build")
-							      (string= name ".git")))))))
+	     (files (directory-files-recursively dir regex nil 'my-dir-predicate))
 	     (len (length files)))
 	(if (= 0 len)
 	    (message (format "No files found under \"%s\" matching \"%s\"" dir regex))
@@ -2048,7 +2062,10 @@ current project instead. Visit the tags file."
     (dolist (x my-cc-path)
       (add-to-list path x)))
   (vc-refresh-state)
-  (add-to-list path (my-find-project-root)))
+  (add-to-list path (my-find-project-root))
+
+  (when (not tags-table-list)
+    (my-find-tags-files)))
 
 (with-eval-after-load "hideif"
   ;; don't hide #ifdef FOO ... #endif, where FOO is undefined
