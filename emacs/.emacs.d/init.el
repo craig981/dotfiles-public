@@ -926,7 +926,10 @@ leave it at 't' for Emacs commands"
 (defun my-calc-yank ()
   "Yank number at point into calc stack"
   (interactive)
-  (calc-yank-internal nil (format "%s" (number-at-point))))
+  (save-excursion
+    (when (looking-at "[[:space:]]")
+      (re-search-forward "[^[:space:]]"))
+    (calc-yank-internal nil (format "%s" (number-at-point)))))
 
 (global-set-key (kbd "C-x C-y") 'my-calc-yank)
 
