@@ -2287,6 +2287,10 @@ current project instead. Visit the tags file."
 (global-font-lock-mode t)
 (setq font-lock-maximum-decoration t)
 
+(defun my-set-dark-mode (val)
+  (when (eq system-type 'darwin)
+    (shell-command (format "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to %s'" (if val "true" "false")))))
+
 (defun my-theme-dark (x)
   (mapcar #'disable-theme custom-enabled-themes)
   (cond
@@ -2308,7 +2312,9 @@ current project instead. Visit the tags file."
 
   (set-cursor-color "white")
   (setq evil-normal-state-cursor '(box "white"))
-  (setq evil-insert-state-cursor '(box "orange")))
+  (setq evil-insert-state-cursor '(box "orange"))
+
+  (my-set-dark-mode t))
 
 (defun my-theme-light (x)
   (mapcar #'disable-theme custom-enabled-themes)
@@ -2323,7 +2329,9 @@ current project instead. Visit the tags file."
 
   (set-cursor-color "black")
   (setq evil-normal-state-cursor '(box "black"))
-  (setq evil-insert-state-cursor '(box "orange")))
+  (setq evil-insert-state-cursor '(box "orange"))
+
+  (my-set-dark-mode nil))
 
 (require 'hydra)
 
