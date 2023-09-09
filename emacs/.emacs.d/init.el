@@ -360,6 +360,7 @@ leave it at 't' for Emacs commands"
 				(interactive)
 				(find-file user-init-file)))
 (global-set-key (kbd "C-c SPC") 'my-mark-until-whitespace)
+(global-set-key (kbd "C-c w") 'evil-window-map)
 
 (require 'expand-region)
 (global-set-key (kbd "C-M-o") 'er/expand-region)
@@ -375,12 +376,6 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "M-j") #'my-join-line)
 (global-set-key (kbd "M-'") #'delete-blank-lines)
 (global-set-key (kbd "M-\\") #'my-delete-whitespace)
-
-(global-set-key (kbd "C-c w h") #'evil-window-move-far-left)
-(global-set-key (kbd "C-c w l") #'evil-window-move-far-right)
-(global-set-key (kbd "C-c w j") #'evil-window-move-very-bottom)
-(global-set-key (kbd "C-c w k") #'evil-window-move-very-top)
-(global-set-key (kbd "C-c w r") #'evil-window-rotate-downwards)
 
 (push 'try-expand-line hippie-expand-try-functions-list)
 (evil-global-set-key 'insert (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
@@ -2344,7 +2339,7 @@ current project instead. Visit the tags file."
   ("f" (lambda () (interactive) (my-theme-light 0)) "soft-morning")
   ("d" (lambda () (interactive) (my-theme-light 1)) "sandcastle"))
 
-(global-set-key (kbd "C-c w SPC") 'my-theme-hydra/body)
+(define-key evil-window-map (kbd "SPC") 'my-theme-hydra/body)
 
 ;; ----------------------------------------------------------------------------
 ;;| Splash screen
