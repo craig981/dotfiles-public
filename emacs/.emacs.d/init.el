@@ -1206,6 +1206,11 @@ leave it at 't' for Emacs commands"
 	(my-search-project))
     (my-search-project)))
 
+(defun my-grep-project ()
+  (interactive)
+  (rgrep (read-string "Search for: " (format "\\<%s\\>" (thing-at-point 'symbol t)))
+	 "*" (my-find-project-root)))
+
 ;;; C-c C-e in helm-ag to enter editable mode
 (defun my-after-helm-ag-edit (&rest args)
   (my-syntax-entry)
@@ -1233,10 +1238,10 @@ leave it at 't' for Emacs commands"
 	  (delete-char (- (length end)))
 	(insert end)))))
 
-(defun my-helm-ag-with-dir ()
-  (interactive)
-  (let ((current-prefix-arg 4)) ;; emulate C-u
-    (call-interactively 'helm-ag)))
+;; (defun my-helm-ag-with-dir ()
+;;   (interactive)
+;;   (let ((current-prefix-arg 4)) ;; emulate C-u
+;;     (call-interactively 'helm-ag)))
 
 (define-key helm-occur-map (kbd "M-w") (lambda ()
 					 (interactive)
@@ -1256,7 +1261,7 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "C-c o") 'helm-occur)
 (evil-leader/set-key "r" 'my-search)
 (evil-leader/set-key "o" 'helm-occur) ;; M-n grabs symbol under point
-(global-set-key (kbd "M-s g") 'my-helm-ag-with-dir)
+(global-set-key (kbd "M-s g") 'my-grep-project)
 (global-set-key (kbd "M-s M-g") 'rgrep)
 
 ;; ----------------------------------------------------------------------------
