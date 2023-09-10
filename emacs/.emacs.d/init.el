@@ -370,8 +370,8 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "M-+") 'winner-redo)
 
 (global-set-key (kbd "M-z") 'zap-up-to-char)
-(global-set-key (kbd "M-p") (kbd "M-{"))
-(global-set-key (kbd "M-n") (kbd "M-}"))
+(global-set-key (kbd "M-n") (lambda (&optional prefix) (interactive "P") (scroll-up-command (or prefix 4))))
+(global-set-key (kbd "M-p") (lambda (&optional prefix) (interactive "P") (scroll-down-command (or prefix 4))))
 (global-set-key (kbd "M-o") (kbd "C-x o"))
 (global-set-key (kbd "M-j") #'my-join-line)
 (global-set-key (kbd "M-'") #'delete-blank-lines)
@@ -438,15 +438,15 @@ leave it at 't' for Emacs commands"
   (define-key help-mode-map (kbd "SPC") evil-leader--default-map))
 
 (with-eval-after-load "info"
-  (define-key Info-mode-map (kbd "M-n") (kbd "M-}"))
+  (define-key Info-mode-map (kbd "M-n") nil)
   (define-key Info-mode-map (kbd "C-w") 'evil-window-map)
   (define-key Info-mode-map (kbd "SPC") evil-leader--default-map))
 
 (with-eval-after-load "man"
   (define-key Man-mode-map (kbd "C-w") 'evil-window-map)
   (define-key Man-mode-map (kbd "SPC") evil-leader--default-map)
-  (define-key Man-mode-map (kbd "M-n") 'Man-next-section)
-  (define-key Man-mode-map (kbd "M-p") 'Man-previous-section))
+  (define-key Man-mode-map (kbd "M-n") nil)
+  (define-key Man-mode-map (kbd "M-p") nil))
 
 ;; (defun my-list-all-keymaps ()
 ;;   (let (maps)
@@ -859,8 +859,6 @@ leave it at 't' for Emacs commands"
   (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map))
 
 (with-eval-after-load 'org
-  (define-key org-mode-map (kbd "M-n") 'forward-paragraph)
-  (define-key org-mode-map (kbd "M-p") 'backward-paragraph)
   (define-key org-mode-map (kbd "C-j") nil)
   (define-key org-mode-map (kbd "C-c C-j") nil)
   (define-key org-mode-map (kbd "C-c [") 'org-toggle-link-display)
