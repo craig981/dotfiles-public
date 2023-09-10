@@ -1730,7 +1730,8 @@ return the project path instead"
 	    (comint-delchar-or-maybe-eof 1)
 	  (advice-remove 'comint-send-eof #'process-send-eof)))
     (kill-buffer)
-    (delete-window)))
+    (if (> (count-windows) 2)
+	(delete-window))))
 
 (defun my-shell-hook ()
   (undo-tree-mode -1)			; don't shadow M-_
