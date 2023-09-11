@@ -1289,8 +1289,6 @@ leave it at 't' for Emacs commands"
     (or (and dir (expand-file-name (file-name-as-directory dir)))
 	default-directory)))
 
-(setq project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
-
 ;; C-u opens in other window
 (defun my-find-file-in-project (&optional open-in-other-window)
   (interactive "P")
@@ -2539,6 +2537,7 @@ current project instead. Visit the tags file."
      yaml-mode))
  '(package-vc-selected-packages
    '((sandcastle-theme :vc-backend Git :url "https://github.com/habamax/sandcastle-theme")))
+ '(project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
  '(read-quoted-char-radix 16)
  '(recentf-max-saved-items 1000)
  '(safe-local-variable-values
