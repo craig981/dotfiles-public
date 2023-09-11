@@ -1394,6 +1394,14 @@ return the project path instead"
 		       (dired path)
 		       (pwd))))
 
+(defun my-choose-project-and-shell ()
+  (interactive)
+  (my-choose-project-and-invoke #'project-shell))
+
+(defun my-choose-project-and-term ()
+  (interactive)
+  (my-choose-project-and-invoke #'terminal-here-launch))
+
 (defun my-jump-notefiles ()
   (interactive)
   (let ((default-directory "~/notefiles"))
@@ -1404,6 +1412,8 @@ return the project path instead"
 (global-set-key (kbd "C-c p r") #'my-choose-project-and-search)
 (global-set-key (kbd "C-c p m") #'my-choose-project-and-magit)
 (global-set-key (kbd "C-c p d") #'my-choose-project-and-dired)
+(global-set-key (kbd "C-c p s") #'my-choose-project-and-shell)
+(global-set-key (kbd "C-c p t") #'my-choose-project-and-term)
 
 (global-set-key (kbd "C-c e") 'my-find-file-in-project)
 (global-set-key (kbd "C-x C-d") 'my-jump-project-dired)
@@ -1760,6 +1770,10 @@ return the project path instead"
 (with-eval-after-load 'term
   (my-expose-global-binding term-raw-map (kbd "M-o"))
   (my-expose-global-binding term-raw-map (kbd "C-j")))
+
+(require 'terminal-here)
+
+(global-set-key (kbd "C-c t") #'terminal-here-launch)
 
 ;; ----------------------------------------------------------------------------
 ;;| Eshell
@@ -2531,6 +2545,7 @@ current project instead. Visit the tags file."
      reykjavik-theme
      soft-morning-theme
      soft-stone-theme
+     terminal-here
      undo-tree
      vertico
      which-key
@@ -2548,6 +2563,8 @@ current project instead. Visit the tags file."
      (evil-shift-width . 2)
      (evil-shift-width . 4)))
  '(tags-case-fold-search nil)
+ '(terminal-here-linux-terminal-command 'gnome-terminal)
+ '(terminal-here-mac-terminal-command 'iterm2)
  '(tramp-histfile-override "/tmp/.tramp_history")
  '(tramp-ssh-controlmaster-options
    "-o ControlMaster=auto -o ControlPath=tramp.%%C -o ControlPersist=60m" t)
