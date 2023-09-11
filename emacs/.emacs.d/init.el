@@ -1763,12 +1763,6 @@ return the project path instead"
   (my-expose-global-binding term-raw-map (kbd "M-o"))
   (my-expose-global-binding term-raw-map (kbd "C-j")))
 
-(with-eval-after-load "vterm"
-  (my-expose-global-binding vterm-mode-map (kbd "C-j"))
-  (define-key vterm-mode-map (kbd "ESC ESC") 'vterm--self-insert))
-
-(global-set-key (kbd "C-c M-e") 'vterm)
-
 ;; ----------------------------------------------------------------------------
 ;;| Eshell
 ;; ----------------------------------------------------------------------------
@@ -1807,7 +1801,7 @@ return the project path instead"
 ;;     (evil-window-split))
 ;;   (eshell))
 
-;; (global-set-key (kbd "C-c E") 'my-split-eshell)
+;; (global-set-key (kbd "C-c M-e") 'my-split-eshell)
 
 ;; ----------------------------------------------------------------------------
 ;;| Tags
@@ -1922,8 +1916,8 @@ current project instead. Visit the tags file."
 (add-hook 'python-mode-hook 'my-python-mode-hook)
 (add-hook 'inferior-python-mode-hook 'my-python-shell-mode-hook)
 
-(with-eval-after-load 'python
-  (define-key python-mode-map (kbd "C-c C-a") 'pyvenv-activate))
+;; (with-eval-after-load 'python
+;;   (define-key python-mode-map (kbd "C-c C-a") 'pyvenv-activate))
 
 (defun my-python-send-region ()
   (interactive)
@@ -2536,7 +2530,6 @@ current project instead. Visit the tags file."
      orderless
      ox-pandoc
      paredit
-     pyvenv
      reykjavik-theme
      soft-morning-theme
      soft-stone-theme
