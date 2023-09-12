@@ -512,6 +512,20 @@ leave it at 't' for Emacs commands"
 ;;| Lang
 ;; ----------------------------------------------------------------------------
 
+(defun my-cpp-identifier-around-point ()
+  (let* ((regex "\\(\\s-\\|[^[:alnum:]_:]\\)")
+	 (beg (save-excursion
+		(if (re-search-backward regex (pos-bol) t)
+		    (when (looking-at regex)
+		      (forward-char))
+		  (move-beginning-of-line 1))
+		(point)))
+	 (end (save-excursion
+		(if (re-search-forward regex (pos-eol) t)
+		    (backward-char)
+		  (move-end-of-line 1))
+		(point))))
+    (buffer-substring-no-properties beg end)))
 
 (defun my-lookup ()
   (interactive)
@@ -531,9 +545,11 @@ leave it at 't' for Emacs commands"
 	    (translate (concat translate (url-hexify-string text)))
 	    (t (concat google (url-hexify-string (format "\"%s\"" text))))))
 
-       (let ((sym (thing-at-point 'symbol t))
-	     (cc (or (eq major-mode 'c++-mode)
-		     (eq major-mode 'c-mode))))
+       (let* ((cc (or (eq major-mode 'c++-mode)
+		      (eq major-mode 'c-mode)))
+	      (sym (if cc
+		       (my-cpp-identifier-around-point)
+		     (thing-at-point 'symbol t))))
 	 (cond
 	  ((and cc sym (string-match-p "^gl[A-Z][^\s-]+$" sym))
 	   (concat "https://docs.gl/" (read-string "OpenGL: " (concat "gl4/" sym))))
@@ -542,6 +558,10 @@ leave it at 't' for Emacs commands"
 	  ((and cc sym (string-match-p "^M[A-Z][^\s-]+$" sym))
 	   (format "https://help.autodesk.com/view/MAYAUL/2020/ENU/?query=%s&cg=Developer%%27s%%20Documentation"
 		   (read-string "Maya API: " sym)))
+	  ((and cc (not (string-empty-p sym)))
+	   (concat google (url-hexify-string
+			   (format "%s site:cppreference.com"
+				   (read-string "Search cppreference: " sym)))))
 	  (translate (concat translate (url-hexify-string (read-string "Translate: " sym))))
 	  (t (concat google (url-hexify-string (read-string "Search Google: " sym))))))))))
 
