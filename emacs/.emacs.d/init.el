@@ -503,7 +503,7 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "<backtab>") 'fancy-dabbrev-backward)
 (setq-default fancy-dabbrev-menu-height 15)
 (setq-default fancy-dabbrev-preview-context 'everywhere)
-(setq-default fancy-dabbrev-preview-delay 0.25)
+(setq-default fancy-dabbrev-preview-delay 0.0)
 ;; (push 'evil-input-method fancy-dabbrev-no-preview-for)
 
 (define-key minibuffer-local-map (kbd "M-/") 'dabbrev-expand)
