@@ -524,8 +524,9 @@ leave it at 't' for Emacs commands"
 		(if (re-search-forward regex (pos-eol) t)
 		    (backward-char)
 		  (move-end-of-line 1))
-		(point))))
-    (buffer-substring-no-properties beg end)))
+		(point)))
+	 (sym (buffer-substring-no-properties beg end)))
+    (if (string-empty-p sym) nil sym)))
 
 (defun my-lookup ()
   (interactive)
@@ -559,7 +560,7 @@ leave it at 't' for Emacs commands"
 	  ((and cc sym (string-match-p "^M[A-Z][^\s-]+$" sym))
 	   (format "https://help.autodesk.com/view/MAYAUL/2020/ENU/?query=%s&cg=Developer%%27s%%20Documentation"
 		   (read-string "Maya API: " sym)))
-	  ((and cc (not (string-empty-p sym)))
+	  ((and cc sym)
 	   (concat google (url-hexify-string
 			   (format "%s site:cppreference.com"
 				   (read-string "Search cppreference: " sym)))))
