@@ -512,12 +512,6 @@ leave it at 't' for Emacs commands"
 ;;| Lang
 ;; ----------------------------------------------------------------------------
 
-(defun my-advise-toggle-input-method (func &rest args)
-  (if (evil-normal-state-p)
-      (evil-with-state 'emacs (apply func args))
-    (apply func args)))
-
-(advice-add #'toggle-input-method :around 'my-advise-toggle-input-method)
 
 (defun my-lookup ()
   (interactive)
