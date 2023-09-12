@@ -572,12 +572,8 @@ leave it at 't' for Emacs commands"
 
 (defun my-copy-to-xclipboard ()
   (interactive)
-  (if (region-active-p)
-      (progn
-	(call-process-region (region-beginning) (region-end) "xsel" nil nil nil "-ib")
-	(message "Yanked region")
-	(deactivate-mark))
-    (message "No region active, can't yank")))
+  (call-process-region (region-beginning) (region-end) "xsel" nil nil nil "-ib")
+  (message "Yanked region"))
 
 (when (eq system-type 'gnu/linux)
   (global-set-key (kbd "C-c y") 'my-copy-to-xclipboard)
@@ -667,6 +663,8 @@ leave it at 't' for Emacs commands"
 ;;| Org
 ;; ----------------------------------------------------------------------------
 
+;;; override org version. 9.6 randomly fails to display tasks scheduled for the
+;;; current day in the agenda.
 (add-to-list 'load-path "~/dev/org-mode/lisp")
 
 ;;; move slowdown to startup instead of when opening an org file
@@ -941,6 +939,7 @@ leave it at 't' for Emacs commands"
   (setq browse-url-generic-program "google-chrome"))
 
 (setq org-file-apps '((auto-mode . emacs)
+		      (directory . emacs)
 		      ("\\.mm\\'" . default)
 		      ("\\.x?html?\\'" . "google-chrome %s")
 		      ("\\.pdf\\'" . default)))
@@ -1235,11 +1234,6 @@ leave it at 't' for Emacs commands"
       (if remove
 	  (delete-char (- (length end)))
 	(insert end)))))
-
-;; (defun my-helm-ag-with-dir ()
-;;   (interactive)
-;;   (let ((current-prefix-arg 4)) ;; emulate C-u
-;;     (call-interactively 'helm-ag)))
 
 (define-key helm-occur-map (kbd "M-w") (lambda ()
 					 (interactive)
@@ -2538,13 +2532,11 @@ current project instead. Visit the tags file."
      ledger-mode
      magit
      marginalia
-     markdown-mode
      orderless
      ox-pandoc
      paredit
      reykjavik-theme
      soft-morning-theme
-     soft-stone-theme
      terminal-here
      undo-tree
      vertico
