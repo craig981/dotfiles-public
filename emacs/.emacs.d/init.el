@@ -530,20 +530,21 @@ leave it at 't' for Emacs commands"
 (defun my-lookup ()
   (interactive)
   (let* ((google "https://www.google.com/search?ie=utf-8&oe=utf-8&q=")
-	 (input-method (if (or (not (bound-and-true-p evil-local-mode))
-			       (evil-emacs-state-p))
-			   current-input-method
-			 evil-input-method))
-	 (translate (cond
-		     ((string= input-method "swedish-postfix") "https://translate.google.com/?sl=sv&tl=en&op=translate&text=")
-		     ((string= input-method "german-postfix") "https://translate.google.com/?sl=de&tl=en&op=translate&text=")
-		     (t nil))))
+	 (translate (let ((input-method (if (or (not (bound-and-true-p evil-local-mode))
+						(evil-emacs-state-p))
+					    current-input-method
+					  evil-input-method)))
+		      (cond
+		       ((string= input-method "swedish-postfix") "https://translate.google.com/?sl=sv&tl=en&op=translate&text=")
+		       ((string= input-method "german-postfix") "https://translate.google.com/?sl=de&tl=en&op=translate&text=")
+		       (t nil)))))
+
     (browse-url
      (if mark-active
-	 (let ((text (buffer-substring (region-beginning) (region-end))))
+	 (let ((text (buffer-substring-no-properties (region-beginning) (region-end))))
 	   (cond
-	    (translate (concat translate (url-hexify-string text)))
-	    (t (concat google (url-hexify-string (format "\"%s\"" text))))))
+	    (translate (concat translate (url-hexify-string (read-string "Translate: " text))))
+	    (t (concat google (url-hexify-string (format "\"%s\"" (read-string "Search Google: " text)))))))
 
        (let* ((cc (or (eq major-mode 'c++-mode)
 		      (eq major-mode 'c-mode)))
