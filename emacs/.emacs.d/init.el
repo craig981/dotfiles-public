@@ -370,8 +370,6 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "M-+") 'winner-redo)
 
 (global-set-key (kbd "M-z") 'zap-up-to-char)
-(global-set-key (kbd "M-n") (lambda (&optional prefix) (interactive "P") (scroll-up-command (or prefix 4))))
-(global-set-key (kbd "M-p") (lambda (&optional prefix) (interactive "P") (scroll-down-command (or prefix 4))))
 (global-set-key (kbd "M-o") (kbd "C-x o"))
 (global-set-key (kbd "M-j") #'my-join-line)
 (global-set-key (kbd "M-'") #'delete-blank-lines)
@@ -438,15 +436,12 @@ leave it at 't' for Emacs commands"
   (define-key help-mode-map (kbd "SPC") evil-leader--default-map))
 
 (with-eval-after-load "info"
-  (define-key Info-mode-map (kbd "M-n") nil)
   (define-key Info-mode-map (kbd "C-w") 'evil-window-map)
   (define-key Info-mode-map (kbd "SPC") evil-leader--default-map))
 
 (with-eval-after-load "man"
   (define-key Man-mode-map (kbd "C-w") 'evil-window-map)
-  (define-key Man-mode-map (kbd "SPC") evil-leader--default-map)
-  (define-key Man-mode-map (kbd "M-n") nil)
-  (define-key Man-mode-map (kbd "M-p") nil))
+  (define-key Man-mode-map (kbd "SPC") evil-leader--default-map))
 
 ;; (defun my-list-all-keymaps ()
 ;;   (let (maps)
