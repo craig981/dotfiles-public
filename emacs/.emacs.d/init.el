@@ -253,11 +253,6 @@ leave it at 't' for Emacs commands"
 (setq history-delete-duplicates t)
 (savehist-mode 1)
 
-;; ;; don't save context strings
-;; (setq-default bookmark-make-record-function
-;;       (lambda (&optional no-file no-context posn)
-;; 	(funcall 'bookmark-make-record-default no-file t posn)))
-
 (when (not (version< emacs-version "28.1"))
   (setq-default bookmark-set-fringe-mark nil))
 
@@ -442,24 +437,6 @@ leave it at 't' for Emacs commands"
 (with-eval-after-load "man"
   (define-key Man-mode-map (kbd "C-w") 'evil-window-map)
   (define-key Man-mode-map (kbd "SPC") evil-leader--default-map))
-
-;; (defun my-list-all-keymaps ()
-;;   (let (maps)
-;;     (mapatoms (lambda (sym)
-;; 		(and (boundp sym)
-;; 		     (keymapp (symbol-value sym))
-;; 		     (push sym maps))))
-;;     (seq-sort (lambda (x y)
-;; 		(string< (symbol-name x)
-;; 			 (symbol-name y)))
-;; 	      maps)))
-
-;; ;; (my-lookup-key-in-all-keymaps (kbd "C-j"))
-;; (defun my-lookup-key-in-all-keymaps (key)
-;;   (dolist (m (my-list-all-keymaps))
-;;     (let ((f (lookup-key (symbol-value m) key)))
-;;       (when f
-;; 	(message (format "%-32S\t%S" m f))))))
 
 ;; ----------------------------------------------------------------------------
 ;;| Abbreviations
@@ -2211,12 +2188,6 @@ current project instead. Visit the tags file."
 (setq gdb-many-windows nil)
 
 ;; TODO override gdb-setup-windows instead
-
-;; (defun my-gdb-inferior-io-hook ()
-;;   (evil-local-mode 1)
-;;   (evil-normal-state 1))
-
-;; (add-hook 'gdb-inferior-io-mode-hook 'my-gdb-inferior-io-hook)
 
 ;;; https://stackoverflow.com/a/41326527
 (defun my-set-gdb-layout(&optional c-buffer)
