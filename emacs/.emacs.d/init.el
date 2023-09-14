@@ -1586,8 +1586,7 @@ return the project path instead"
   (modify-syntax-entry ?_ "w") ;; _ is word constituent, so * and # works
   (visual-line-mode)
   (evil-local-mode)
-  (evil-local-set-key 'normal (kbd "q") 'quit-window)
-  (evil-emacs-state))
+  (evil-local-set-key 'normal (kbd "q") 'quit-window))
 
 (defun my-grep-mode-hook ()
   (evil-local-mode -1))
