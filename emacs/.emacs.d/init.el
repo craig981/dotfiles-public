@@ -354,7 +354,7 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "C-c i") (lambda ()
 				(interactive)
 				(find-file user-init-file)))
-(global-set-key (kbd "C-c SPC") 'my-mark-until-whitespace)
+(global-set-key (kbd "C-c ]") 'my-mark-until-whitespace)
 (global-set-key (kbd "C-c w") 'evil-window-map)
 
 (require 'expand-region)
@@ -848,6 +848,7 @@ leave it at 't' for Emacs commands"
   (define-key org-mode-map (kbd "C-j") nil)
   (define-key org-mode-map (kbd "C-c C-j") nil)
   (define-key org-mode-map (kbd "C-c [") 'org-toggle-link-display)
+  (define-key org-mode-map (kbd "C-c ]") nil)
 
   (org-babel-do-load-languages 'org-babel-load-languages
 			       '((shell . t)
@@ -2324,7 +2325,7 @@ current project instead. Visit the tags file."
   ("f" (lambda () (interactive) (my-theme-light 0)) "soft-morning")
   ("d" (lambda () (interactive) (my-theme-light 1)) "sandcastle"))
 
-(define-key evil-window-map (kbd "SPC") 'my-theme-hydra/body)
+(global-set-key (kbd "C-c SPC") 'my-theme-hydra/body)
 
 ;; ----------------------------------------------------------------------------
 ;;| Splash screen
