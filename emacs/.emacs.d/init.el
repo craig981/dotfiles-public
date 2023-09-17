@@ -471,7 +471,7 @@ leave it at 't' for Emacs commands"
 
 (require 'fancy-dabbrev)
 
-(global-fancy-dabbrev-mode)
+;; (global-fancy-dabbrev-mode)
 
 (global-set-key (kbd "M-/") 'fancy-dabbrev-expand)
 (global-set-key (kbd "<backtab>") 'fancy-dabbrev-backward)
