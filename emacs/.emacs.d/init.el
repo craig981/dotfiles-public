@@ -356,6 +356,8 @@ leave it at 't' for Emacs commands"
 				(find-file user-init-file)))
 (global-set-key (kbd "C-c ]") 'my-mark-until-whitespace)
 (global-set-key (kbd "C-c w") 'evil-window-map)
+(global-set-key (kbd "C-c n") 'count-words)
+(evil-leader/set-key "n" 'count-words)
 
 (require 'expand-region)
 (global-set-key (kbd "C-M-o") 'er/expand-region)
@@ -1403,7 +1405,7 @@ return the project path instead"
 
 (evil-leader/set-key "e" 'my-find-file-in-project)
 (evil-leader/set-key "u" 'my-find-file-in-project-other-window)
-(evil-leader/set-key "n" 'my-jump-notefiles)
+(evil-leader/set-key "f" 'my-jump-notefiles)
 
 ;; ----------------------------------------------------------------------------
 ;;| Isearch
