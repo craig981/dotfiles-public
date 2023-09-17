@@ -122,8 +122,8 @@ leave it at 't' for Emacs commands"
 (evil-global-set-key 'insert (kbd "C-e") nil)
 (evil-global-set-key 'insert (kbd "C-k") nil)
 (evil-global-set-key 'insert (kbd "C-y") nil)
-(evil-global-set-key 'insert (kbd "C-n") nil)
-(evil-global-set-key 'insert (kbd "C-p") nil)
+;; (evil-global-set-key 'insert (kbd "C-n") nil)
+;; (evil-global-set-key 'insert (kbd "C-p") nil)
 (evil-global-set-key 'insert (kbd "C-o") nil)
 
 (define-key evil-ex-completion-map (kbd "C-a") 'move-beginning-of-line)
@@ -481,6 +481,9 @@ leave it at 't' for Emacs commands"
 ;; (push 'evil-input-method fancy-dabbrev-no-preview-for)
 
 (define-key minibuffer-local-map (kbd "M-/") 'dabbrev-expand)
+
+(evil-global-set-key 'insert (kbd "C-n") 'fancy-dabbrev-expand)
+(evil-global-set-key 'insert (kbd "C-p") 'fancy-dabbrev-backward)
 
 ;; ----------------------------------------------------------------------------
 ;;| Lang
