@@ -421,6 +421,17 @@ leave it at 't' for Emacs commands"
 
 (global-set-key (kbd "C-M-y") 'p/duplicate-line)
 
+(defun my-advise-paste (&rest args)
+  "Set the mark so we can indent the pasted text with indent-region"
+  (when evil-last-paste
+    (let* ((beg (nth 3 evil-last-paste))
+	   (end (nth 4 evil-last-paste)))
+      (push-mark (if (> (point) end) beg end)))))
+
+(advice-add 'evil-paste-before :after 'my-advise-paste)
+(advice-add 'evil-paste-after :after 'my-advise-paste)
+(advice-add 'evil-paste-after-cursor-after :after 'my-advise-paste)
+
 ;; ----------------------------------------------------------------------------
 ;;| Help
 ;; ----------------------------------------------------------------------------
