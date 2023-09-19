@@ -348,7 +348,7 @@ leave it at 't' for Emacs commands"
   (defun my-advise-man-completion (&rest args) '())
   (advice-add #'Man-completion-table :override #'my-advise-man-completion))
 
-(global-set-key (kbd "C-c j") #'goto-last-change)
+;; (global-set-key (kbd "C-c j") #'goto-last-change)
 (global-set-key (kbd "C-c q") #'my-close-other-window)
 (global-set-key (kbd "C-c u") #'toggle-truncate-lines)
 (global-set-key (kbd "C-c i") (lambda ()
@@ -374,6 +374,8 @@ leave it at 't' for Emacs commands"
 
 (push 'try-expand-line hippie-expand-try-functions-list)
 (evil-global-set-key 'insert (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
+
+(define-key minibuffer-local-map (kbd "<escape>") 'abort-minibuffers)
 
 (global-set-key (kbd "C-h C-c") nil)
 (global-set-key (kbd "C-x w") 'subword-mode)
@@ -1616,6 +1618,7 @@ return the project path instead"
 
 (add-hook 'compilation-filter-hook 'my-compilation-filter-hook)
 
+(global-set-key (kbd "C-c j") #'compile)
 (global-set-key (kbd "C-c C-SPC") #'project-compile)
 (global-set-key (kbd "C-c C-,") #'recompile)
 (global-set-key (kbd "C-c ,") #'recompile)
