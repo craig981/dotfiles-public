@@ -27,7 +27,7 @@ set splitbelow splitright
 set laststatus=2
 
 set nohlsearch
-set incsearch
+" set incsearch
 
 let mapleader=" "
 nnoremap <leader>f :e <C-R>=expand('%:p:h') . '/'<CR>
