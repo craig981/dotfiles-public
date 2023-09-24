@@ -357,7 +357,7 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "C-c ]") 'my-mark-until-whitespace)
 (global-set-key (kbd "C-c w") 'evil-window-map)
 (global-set-key (kbd "C-c n") 'count-words)
-(evil-leader/set-key "n" 'count-words)
+(evil-leader/set-key "f" 'count-words)
 
 (require 'expand-region)
 (global-set-key (kbd "C-M-o") 'er/expand-region)
@@ -1421,7 +1421,7 @@ return the project path instead"
 
 (evil-leader/set-key "e" 'my-find-file-in-project)
 (evil-leader/set-key "u" 'my-find-file-in-project-other-window)
-(evil-leader/set-key "f" 'my-jump-notefiles)
+(evil-leader/set-key "n" 'my-jump-notefiles)
 
 ;; ----------------------------------------------------------------------------
 ;;| Isearch
@@ -1618,7 +1618,7 @@ return the project path instead"
 
 (add-hook 'compilation-filter-hook 'my-compilation-filter-hook)
 
-(global-set-key (kbd "C-c j") #'compile)
+(global-set-key (kbd "C-c SPC") #'compile)
 (global-set-key (kbd "C-c C-SPC") #'project-compile)
 (global-set-key (kbd "C-c C-,") #'recompile)
 (global-set-key (kbd "C-c ,") #'recompile)
@@ -2344,7 +2344,7 @@ current project instead. Visit the tags file."
   ("f" (lambda () (interactive) (my-theme-light 0)) "soft-morning")
   ("d" (lambda () (interactive) (my-theme-light 1)) "sandcastle"))
 
-(global-set-key (kbd "C-c SPC") 'my-theme-hydra/body)
+(global-set-key (kbd "C-c j") 'my-theme-hydra/body)
 
 ;; ----------------------------------------------------------------------------
 ;;| Splash screen
