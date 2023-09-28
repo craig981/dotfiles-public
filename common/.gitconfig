@@ -3,7 +3,7 @@
 	di = diff --color
 	dc = diff --color --cached
 	dp = diff --color --diff-algorithm=patience
-	lo = log --graph --pretty=format:'%C(green)%h%C(yellow)%d%Creset %s %C(magenta)%cr %an <%al>%Creset' --color=auto
+	lo = log --graph --pretty=format:'%C(green)%h%C(auto)%d %<|(70)%s %C(magenta)%cr  %an %C(auto)' --color=auto
 	dt = difftool --tool=vimdiff --no-prompt
 	ch = cherry-pick
 
