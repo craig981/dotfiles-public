@@ -67,8 +67,9 @@ vnoremap <leader>\ :s/\s\+$//<CR>
 nnoremap <leader>o :vimgrep /\<<c-r><c-w>\>/ %<CR>:cope<CR><C-w><C-p>
 
 " search for all chars as normal text, e.g. paths with /
-command! -nargs=1 SS let @/ = '\V'.escape(<q-args>, '\')
-nnoremap <leader>/ :SS <C-R><C-A>
+"command! -nargs=1 SS let @/ = '\V'.escape(<q-args>, '\')
+"nnoremap <leader>/ :SS <C-R><C-A>
+nnoremap <leader>/ /<C-R>='\V'.escape(getreg('0'), '/')<CR>
 
 "format paragraph like emacs M-q
 if has("nvim")
