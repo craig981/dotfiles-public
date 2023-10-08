@@ -1023,9 +1023,18 @@ leave it at 't' for Emacs commands"
 
 (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
 
-(setq consult-preview-key nil)	; stop preview when any key is pressed
-(consult-customize consult-theme :preview-key "C-j")
-;; (consult-customize consult-line :preview-key 'any)
+(setq consult-preview-key "C-j")
+
+(defun my-imenu ()
+  (interactive)
+  (let ((f (buffer-file-name)))
+    (cond
+     ((and f (file-equal-p f user-init-file))
+      (let ((outline-regexp "^;;|")) (consult-outline)))
+     ((eq major-mode 'org-mode) (consult-org-heading))
+     (t (consult-imenu)))))
+
+(evil-leader/set-key "i" 'my-imenu)
 
 ;; ----------------------------------------------------------------------------
 ;;| Completion
@@ -1262,21 +1271,6 @@ leave it at 't' for Emacs commands"
 (evil-leader/set-key "o" 'helm-occur) ;; M-n grabs symbol under point
 (global-set-key (kbd "M-s g") 'my-grep-project)
 (global-set-key (kbd "M-s M-g") 'rgrep)
-
-;; ----------------------------------------------------------------------------
-;;| Imenu
-;; ----------------------------------------------------------------------------
-
-(defun my-imenu ()
-  (interactive)
-  (cond
-   ((let ((f (buffer-file-name)))
-      (and f (file-equal-p f user-init-file)))
-    (helm-multi-occur-1 (list (current-buffer)) "^;;| "))
-   ((eq major-mode 'org-mode) (consult-org-heading))
-   (t (helm-imenu))))
-
-(evil-leader/set-key "i" 'my-imenu)
 
 ;; ----------------------------------------------------------------------------
 ;;| Projects
