@@ -1770,6 +1770,14 @@ return the project path instead"
 
 (global-set-key (kbd "C-c t") #'terminal-here-launch)
 
+(when (eq system-type 'gnu/linux)
+  (push '(mate-terminal "mate-terminal") terminal-here-terminal-command-table)
+  (let ((desktop (getenv "XDG_CURRENT_DESKTOP")))
+    (setq terminal-here-linux-terminal-command
+	  (cond
+	   ((string= desktop "MATE") 'mate-terminal)
+	   (t 'gnome-terminal)))))
+
 ;; ----------------------------------------------------------------------------
 ;;| Eshell
 ;; ----------------------------------------------------------------------------
@@ -2551,7 +2559,6 @@ current project instead. Visit the tags file."
      (evil-shift-width . 2)
      (evil-shift-width . 4)))
  '(tags-case-fold-search nil)
- '(terminal-here-linux-terminal-command 'gnome-terminal)
  '(terminal-here-mac-terminal-command 'iterm2)
  '(tramp-histfile-override "/tmp/.tramp_history")
  '(tramp-ssh-controlmaster-options
