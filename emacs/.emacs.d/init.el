@@ -219,7 +219,8 @@ leave it at 't' for Emacs commands"
 ;;| Convenience
 ;; ----------------------------------------------------------------------------
 
-(defalias 'yes-or-no-p 'y-or-n-p)
+(when (version< emacs-version "29.1")
+  (defalias 'yes-or-no-p 'y-or-n-p))
 
 ;; (column-number-mode t)
 
@@ -2564,6 +2565,7 @@ current project instead. Visit the tags file."
  '(tramp-ssh-controlmaster-options
    "-o ControlMaster=auto -o ControlPath=tramp.%%C -o ControlPersist=60m" t)
  '(undo-tree-auto-save-history nil)
+ '(use-short-answers t)
  '(warning-suppress-types '((comp))))
 
 (custom-set-faces
