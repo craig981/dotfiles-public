@@ -1829,6 +1829,9 @@ return the project path instead"
   (let* ((name (file-name-nondirectory
 		(directory-file-name subdir))))
     (not (or (string= name "build")
+	     (string= name "backup")
+	     (string= name "registry")
+	     (string= name "site-packages")
 	     (string= name ".git")))))
 
 (defun my-rebuild-and-load-tags (&optional one-project)
