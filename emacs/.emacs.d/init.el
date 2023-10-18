@@ -459,10 +459,6 @@ leave it at 't' for Emacs commands"
 ;; ----------------------------------------------------------------------------
 
 (setq save-abbrevs nil)
-(define-global-abbrev "retrun" "return")
-(define-global-abbrev "cosnt" "const")
-(define-global-abbrev "conat" "const")
-(define-global-abbrev "trinagle" "triangle")
 
 (defun my-abbrev-expand ()
   "Don't expand in strings or comments"
@@ -477,7 +473,7 @@ leave it at 't' for Emacs commands"
 
 (add-hook 'prog-mode-hook #'my-prog-mode-hook)
 
-(add-hook 'text-mode-hook #'abbrev-mode)
+;; (add-hook 'text-mode-hook #'abbrev-mode)
 
 ;; ----------------------------------------------------------------------------
 ;;| Fancy dabbrev
