@@ -65,13 +65,6 @@
 
 (add-hook 'evil-command-window-mode-hook 'evil-local-mode)
 
-(require 'undo-tree)
-(global-undo-tree-mode)
-
-(when (fboundp 'evil-set-undo-system)
-  (evil-set-undo-system 'undo-tree))
-(evil-declare-ignore-repeat 'evil-undo)
-
 (setq-default evil-ex-search-case 'sensitive)
 (setq-default evil-search-module 'evil-search)
 
@@ -140,6 +133,20 @@ leave it at 't' for Emacs commands"
 (evil-global-set-key 'normal (kbd "C-p") 'evil-numbers/dec-at-pt)
 (evil-global-set-key 'normal (kbd "g C-a") 'evil-numbers/inc-at-pt-incremental)
 (evil-global-set-key 'normal (kbd "g C-p") 'evil-numbers/dec-at-pt-incremental)
+
+;; ----------------------------------------------------------------------------
+;;| Undo
+;; ----------------------------------------------------------------------------
+
+(require 'undo-tree)
+(global-undo-tree-mode)
+
+(setq amalgamating-undo-limit 2)
+
+(when (fboundp 'evil-set-undo-system)
+  (evil-set-undo-system 'undo-tree))
+
+(evil-declare-ignore-repeat 'evil-undo)
 
 ;; ----------------------------------------------------------------------------
 ;;| Syntax and indent
