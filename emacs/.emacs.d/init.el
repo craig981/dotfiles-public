@@ -1425,20 +1425,6 @@ return the project path instead"
 ;;| Isearch
 ;; ----------------------------------------------------------------------------
 
-(defun my-isearch-remove-failed-part ()
-  "Remove failed part of search string, or last char if successful."
-  (interactive)
-  (if isearch-regexp
-      (isearch-delete-char)
-    (if (equal isearch-string "")
-	(isearch-update)
-      (if isearch-success
-	  (isearch-delete-char)
-	(while (isearch-fail-pos) (isearch-pop-state)))
-      (isearch-update))))
-
-(define-key isearch-mode-map (kbd "DEL") 'my-isearch-remove-failed-part)
-
 ;; space in search is a wildcard. 'M-s space' to toggle
 (setq search-whitespace-regexp ".*" ; ".*?" for non-greedy
       isearch-lax-whitespace t
