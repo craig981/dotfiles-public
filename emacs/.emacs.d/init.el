@@ -699,7 +699,7 @@ leave it at 't' for Emacs commands"
 (setq org-src-fontify-natively t)
 (setq org-startup-folded nil)
 (setq org-confirm-babel-evaluate nil)
-(setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w@)" "|" "DONE(d)")
+(setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w@)" "|" "DONE(d!)")
 			  (sequence "|" "CANCELLED(c@)")))
 
 (setq org-capture-templates
@@ -897,9 +897,10 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "C-c M-t") #'my-wrap-org-link)
 (global-set-key (kbd "C-c C-x C-j") 'my-org-clock-jump)
 
-(evil-leader/set-key "g" (lambda ()
-			   (interactive)
-			   (org-agenda nil "g")))
+(when (display-graphic-p)
+  (global-set-key (kbd "C-;") (lambda ()
+				(interactive)
+				(org-agenda nil "g"))))
 
 (evil-leader/set-key-for-mode 'org-mode "," 'org-insert-structure-template)
 (evil-leader/set-key-for-mode 'org-mode "c" 'my-insert-org-src-block)
@@ -2508,7 +2509,7 @@ current project instead. Visit the tags file."
  '(org-agenda-show-future-repeats nil)
  '(org-blank-before-new-entry '((heading . auto) (plain-list-item)))
  '(org-imenu-depth 3)
- '(org-modules '(ol-docview ol-info))
+ '(org-modules '(ol-docview org-habit ol-info))
  '(org-refile-targets '((org-agenda-files :maxlevel . 3) (nil :maxlevel . 3)))
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
