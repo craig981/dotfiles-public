@@ -913,6 +913,10 @@ leave it at 't' for Emacs commands"
 (when (eq system-type 'darwin)
   (setq ledger-binary-path (expand-file-name "~/dotfiles-public/bin/ledger.bash")))
 
+(with-eval-after-load "ledger-report"
+  (add-to-list 'ledger-reports
+	       '("bal sorted expenses" "%(binary) -f %(ledger-file) bal -S \"-abs(total)\" ^Expenses")))
+
 ;; ----------------------------------------------------------------------------
 ;;| Calc
 ;; ----------------------------------------------------------------------------
