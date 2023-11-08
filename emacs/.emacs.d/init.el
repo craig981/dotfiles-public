@@ -675,7 +675,7 @@ leave it at 't' for Emacs commands"
 
 ;;; override org version. 9.6 randomly fails to display tasks scheduled for the
 ;;; current day in the agenda.
-(add-to-list 'load-path "~/dev/org-mode/lisp")
+;; (add-to-list 'load-path "~/dev/org-mode/lisp")
 
 ;;; move slowdown to startup instead of when opening an org file
 (require 'org)
