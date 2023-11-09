@@ -890,6 +890,29 @@ leave it at 't' for Emacs commands"
     ;; for pdf export
     (require 'ox-pandoc)))
 
+
+(defun my-set-evil-local-mode-in-agenda-buffers (state)
+  "Enable/disable evil-local-mode in all org-agenda-files buffers"
+  (dolist (f org-agenda-files)
+    (let ((b (get-file-buffer f)))
+      (when b
+	(with-current-buffer b
+	  (evil-local-mode state))))))
+
+(defun my-advise-org-agenda-todo (func &rest args)
+  "Switch off evil-local-mode in all org-agenda-files buffers before
+org-agenda-todo runs, and enable it again afterwards. This is a
+workaround for a bug where marking a habit task as DONE from the
+agenda doesn't correctly keep it in a repeating TODO state when
+the buffer the agenda was built from has evil-local-mode enabled."
+  (my-set-evil-local-mode-in-agenda-buffers 0)
+  (unwind-protect
+      (apply func args)
+    (my-set-evil-local-mode-in-agenda-buffers 1)))
+
+(advice-add #'org-agenda-todo :around #'my-advise-org-agenda-todo)
+
+
 (global-set-key (kbd "C-'") 'org-cycle-agenda-files)
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
