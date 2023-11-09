@@ -900,7 +900,8 @@ leave it at 't' for Emacs commands"
 (when (display-graphic-p)
   (global-set-key (kbd "C-;") (lambda ()
 				(interactive)
-				(org-agenda nil "g"))))
+				(let ((org-element-use-cache nil))
+				  (org-agenda nil "g")))))
 
 (evil-leader/set-key-for-mode 'org-mode "," 'org-insert-structure-template)
 (evil-leader/set-key-for-mode 'org-mode "c" 'my-insert-org-src-block)
