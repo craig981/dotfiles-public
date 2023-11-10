@@ -1304,6 +1304,9 @@ the buffer the agenda was built from has evil-local-mode enabled."
 (global-set-key (kbd "C-c o") 'helm-occur)
 (evil-leader/set-key "r" 'my-search)
 (evil-leader/set-key "o" 'helm-occur) ;; M-n grabs symbol under point
+
+(require 'wgrep)
+
 (global-set-key (kbd "M-s g") 'my-grep-project)
 (global-set-key (kbd "M-s M-g") 'rgrep)
 
@@ -2568,6 +2571,7 @@ current project instead. Visit the tags file."
      terminal-here
      undo-tree
      vertico
+     wgrep
      which-key
      yaml-mode))
  '(package-vc-selected-packages
