@@ -1254,11 +1254,6 @@ the buffer the agenda was built from has evil-local-mode enabled."
 	(my-search-project))
     (my-search-project)))
 
-(defun my-grep-project ()
-  (interactive)
-  (rgrep (read-string "Search for: " (format "\\<%s\\>" (thing-at-point 'symbol t)))
-	 "*" (my-find-project-root)))
-
 ;;; C-c C-e in helm-ag to enter editable mode
 (defun my-after-helm-ag-edit (&rest args)
   (my-syntax-entry)
@@ -1305,7 +1300,16 @@ the buffer the agenda was built from has evil-local-mode enabled."
 (evil-leader/set-key "r" 'my-search)
 (evil-leader/set-key "o" 'helm-occur) ;; M-n grabs symbol under point
 
+;; ----------------------------------------------------------------------------
+;;| Grep
+;; ----------------------------------------------------------------------------
+
 (require 'wgrep)
+
+(defun my-grep-project ()
+  (interactive)
+  (rgrep (read-string "Search for: " (format "\\<%s\\>" (thing-at-point 'symbol t)))
+	 "*" (my-find-project-root)))
 
 (global-set-key (kbd "M-s g") 'my-grep-project)
 (global-set-key (kbd "M-s M-g") 'rgrep)
