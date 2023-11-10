@@ -680,6 +680,9 @@ leave it at 't' for Emacs commands"
 ;;; move slowdown to startup instead of when opening an org file
 (require 'org)
 
+;;; attempt to workaround org 9.6 flakey agenda display
+(setq org-element-use-cache nil)
+
 (when (eq system-type 'gnu/linux)
   (setq org-agenda-files (list "~/notes.org"))
   (setq org-default-notes-file "~/notes.org"))
@@ -923,8 +926,7 @@ the buffer the agenda was built from has evil-local-mode enabled."
 (when (display-graphic-p)
   (global-set-key (kbd "C-;") (lambda ()
 				(interactive)
-				(let ((org-element-use-cache nil))
-				  (org-agenda nil "g")))))
+				(org-agenda nil "g"))))
 
 (evil-leader/set-key-for-mode 'org-mode "," 'org-insert-structure-template)
 (evil-leader/set-key-for-mode 'org-mode "c" 'my-insert-org-src-block)
