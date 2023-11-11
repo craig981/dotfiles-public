@@ -738,7 +738,7 @@ leave it at 't' for Emacs commands"
   (setq org-agenda-custom-commands
 	`(("d" "Done stuff" todo "DONE" )
 	  ("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
-	  ("g" ,(format "Agenda and %s" tag)
+	  ("." ,(format "Agenda and %s" tag)
 	   ((agenda "" )
 	    ,@(if (eq system-type 'gnu/linux) '((tags "PIN")))
 	    (todo "TODO|WAIT" ((org-agenda-overriding-header "Unscheduled TODO|WAIT:")
@@ -924,9 +924,10 @@ the buffer the agenda was built from has evil-local-mode enabled."
 (global-set-key (kbd "C-c C-x C-j") 'my-org-clock-jump)
 
 (when (display-graphic-p)
-  (global-set-key (kbd "C-;") (lambda ()
+  (evil-global-set-key 'normal (kbd "C-.") nil)
+  (global-set-key (kbd "C-.") (lambda ()
 				(interactive)
-				(org-agenda nil "g"))))
+				(org-agenda nil "."))))
 
 (evil-leader/set-key-for-mode 'org-mode "," 'org-insert-structure-template)
 (evil-leader/set-key-for-mode 'org-mode "c" 'my-insert-org-src-block)
