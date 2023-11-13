@@ -1300,6 +1300,7 @@ the buffer the agenda was built from has evil-local-mode enabled."
 (global-set-key (kbd "C-c o") 'helm-occur)
 (evil-leader/set-key "r" 'my-search)
 (evil-leader/set-key "o" 'helm-occur) ;; M-n grabs symbol under point
+(global-set-key (kbd "M-s M-r") 'helm-ag)
 
 ;; ----------------------------------------------------------------------------
 ;;| Grep
