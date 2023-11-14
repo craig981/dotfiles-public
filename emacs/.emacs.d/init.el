@@ -1890,11 +1890,12 @@ current project instead. Visit the tags file."
 
 (defun my-find-tags-files ()
   "Find TAGS files and set tags-table-list"
-  (let ((all '()))
-    (message "Searching for TAGS files...")
-    (dolist (dir (if (eq system-type 'darwin)
-		     '("~/dev/")
-		   '("~/dev/git")))
+  (let ((all '())
+	(dirs (if (eq system-type 'darwin)
+		  '("~/dev/")
+		'("~/dev/git"))))
+    (message (format "Searching for TAGS files under %s ..." dirs))
+    (dolist (dir dirs)
       (setq all (nconc all (directory-files-recursively
 			    (expand-file-name dir) "^TAGS$" nil
 			    'my-dir-predicate))))
@@ -2101,7 +2102,11 @@ current project instead. Visit the tags file."
   (vc-refresh-state)
   (add-to-list path (my-find-project-root))
 
-  (when (not tags-table-list)
+  (when (and (not tags-table-list)
+	     (let ((fn (buffer-file-name))) ; file under home dir?
+	       (or (not fn)
+		   (string-prefix-p (expand-file-name "~/")
+				    (expand-file-name fn)))))
     (my-find-tags-files)))
 
 (with-eval-after-load "hideif"
