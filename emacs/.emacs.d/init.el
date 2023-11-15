@@ -2537,6 +2537,7 @@ current project instead. Visit the tags file."
  '(helm-ag-insert-at-point 'symbol)
  '(helm-candidate-number-limit 10000)
  '(helm-follow-mode-persistent t)
+ '(helm-move-to-line-cycle-in-source nil)
  '(helm-source-names-using-follow '("Imenu" "AG" "Helm occur"))
  '(hide-ifdef-initially t)
  '(hide-ifdef-shadow t)
