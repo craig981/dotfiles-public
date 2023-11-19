@@ -687,8 +687,8 @@ leave it at 't' for Emacs commands"
   (setq org-agenda-files (list "~/notes.org"))
   (setq org-default-notes-file "~/notes.org"))
 (when (eq system-type 'darwin)
-  (setq org-agenda-files (list "~/notes.org.gpg"))
-  (setq org-default-notes-file "~/notes.org.gpg"))
+  (setq org-agenda-files (list "~/org"))
+  (setq org-default-notes-file "~/org/notes.org.gpg"))
 
 (setq org-directory "~/org")
 (setq org-log-done t)
@@ -720,6 +720,9 @@ leave it at 't' for Emacs commands"
 	  org-capture-templates)
     (push '("p" "Project" entry (file+headline org-default-notes-file "Tasks")
 	    "* %? :PROJECT:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
+	  org-capture-templates)
+    (push '("w" "Work" entry (file+headline "~/org/work.org.gpg" "Tasks")
+	    "* TODO %? :WORK:\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
 	  org-capture-templates))
 
 (setq my-org-agenda-common-review-settings
@@ -896,7 +899,7 @@ leave it at 't' for Emacs commands"
 
 (defun my-set-evil-local-mode-in-agenda-buffers (state)
   "Enable/disable evil-local-mode in all org-agenda-files buffers"
-  (dolist (f org-agenda-files)
+  (dolist (f (org-agenda-files))
     (let ((b (get-file-buffer f)))
       (when b
 	(with-current-buffer b
@@ -2551,6 +2554,7 @@ current project instead. Visit the tags file."
  '(magit-status-headers-hook
    '(magit-insert-error-header magit-insert-diff-filter-header magit-insert-repo-header magit-insert-head-branch-header magit-insert-upstream-branch-header magit-insert-push-branch-header magit-insert-tags-header))
  '(next-error-recenter '(4))
+ '(org-agenda-file-regexp "\\`[^.].*\\.org\\(\\.gpg\\)?\\'")
  '(org-agenda-show-future-repeats nil)
  '(org-blank-before-new-entry '((heading . auto) (plain-list-item)))
  '(org-imenu-depth 3)
