@@ -683,12 +683,15 @@ leave it at 't' for Emacs commands"
 ;;; attempt to workaround org 9.6 flakey agenda display
 (setq org-element-use-cache nil)
 
-(when (eq system-type 'gnu/linux)
-  (setq org-agenda-files (list "~/notes.org"))
-  (setq org-default-notes-file "~/notes.org"))
-(when (eq system-type 'darwin)
-  (setq org-agenda-files (list "~/org"))
-  (setq org-default-notes-file "~/org/notes.org.gpg"))
+(defun my-optional-file (fn)
+  (if (file-exists-p fn) fn nil))
+
+(setq org-agenda-files (list "~/org"))
+(when (or (eq system-type 'gnu/linux)
+	  (eq system-type 'darwin))
+  (setq org-default-notes-file
+	(or (my-optional-file "~/org/notes.org.gpg")
+	    (my-optional-file "~/org/notes.org"))))
 
 (setq org-directory "~/org")
 (setq org-log-done t)
@@ -722,7 +725,7 @@ leave it at 't' for Emacs commands"
 	    "* %? :PROJECT:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
 	  org-capture-templates)
     (push '("w" "Work" entry (file+headline "~/org/work.org.gpg" "Tasks")
-	    "* TODO %? :WORK:\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
+	    "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
 	  org-capture-templates))
 
 (setq my-org-agenda-common-review-settings
