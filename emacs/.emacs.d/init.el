@@ -461,6 +461,9 @@ leave it at 't' for Emacs commands"
   (define-key Man-mode-map (kbd "C-w") 'evil-window-map)
   (define-key Man-mode-map (kbd "SPC") evil-leader--default-map))
 
+(require 'devdocs)
+(global-set-key (kbd "M-s M-d") #'devdocs-lookup)
+
 ;; ----------------------------------------------------------------------------
 ;;| Abbreviations
 ;; ----------------------------------------------------------------------------
@@ -2569,6 +2572,7 @@ current project instead. Visit the tags file."
      cape
      cmake-mode
      consult
+     devdocs
      evil
      evil-leader
      evil-collection
