@@ -28,3 +28,4 @@ if [[ "$XDG_CURRENT_DESKTOP" = "MATE" ]]; then
 fi
 
 # https://docs.microsoft.com/en-us/sysinternals/downloads/ctrl2cap
+# https://github.com/microsoft/PowerToys/releases/
