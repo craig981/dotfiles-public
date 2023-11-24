@@ -64,6 +64,7 @@ apt-install:
 	sudo apt-get install \
 		cmake \
 		cmus \
+		curl \
 		feh \
 		git \
 		htop \
@@ -71,7 +72,9 @@ apt-install:
 		silversearcher-ag \
 		stow \
 		tree \
-		universal-ctags
+		tmux \
+		universal-ctags \
+		xsel
 
 # /etc/apt/apt.conf.d/50unattended-upgrades
 security-updates-dry-run:
