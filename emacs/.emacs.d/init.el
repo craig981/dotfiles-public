@@ -461,6 +461,10 @@ leave it at 't' for Emacs commands"
   (define-key Man-mode-map (kbd "C-w") 'evil-window-map)
   (define-key Man-mode-map (kbd "SPC") evil-leader--default-map))
 
+(defun my-man-page-hook ()
+  (evil-local-mode))
+(add-hook #'Man-mode-hook #'my-man-page-hook)
+
 (require 'devdocs)
 (global-set-key (kbd "M-s M-d") #'devdocs-lookup)
 
