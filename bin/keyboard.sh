@@ -6,7 +6,9 @@
 setxkbmap -option
 setxkbmap -option caps:ctrl_modifier
 setxkbmap -option ctrl:ralt_rctrl
-setxkbmap -option altwin:menu_win
+if [[ "$(hostname)" = "asusbox" ]]; then
+	setxkbmap -option altwin:menu_win
+fi
 setxkbmap -option shift:both_capslock
 
 for id in $(xinput list | sed -e '1,/Virtual core keyboard/d' | grep -e 'Keychron' -e 'PCoIP.*Keyboard' -e 'RGS keyboard' | sed -e 's/.*id=\([0-9]\+\).*/\1/')
