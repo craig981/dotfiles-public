@@ -1363,9 +1363,10 @@ the buffer the agenda was built from has evil-local-mode enabled."
 
 
 (defvar my-projects)
-(if (eq system-type 'darwin)
-    (setq my-projects '(("~/dev" . 2)))
-  (setq my-projects '(("~/dev/git" . 3))))
+(if (file-exists-p "~/dev/git")
+    (setq my-projects '(("~/dev/git" . 3)))
+  (setq my-projects '(("~/dev" . 2))))
+
 (dolist (d '("~/dotfiles-public" "~/dotfiles" "~/notefiles" "~/.emacs.d/elpa"))
   (when (file-directory-p d)
     (push `(,d . 1) my-projects)))
