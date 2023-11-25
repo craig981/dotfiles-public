@@ -698,7 +698,9 @@ leave it at 't' for Emacs commands"
 	  (eq system-type 'darwin))
   (setq org-default-notes-file
 	(or (my-optional-file "~/org/notes.org.gpg")
-	    (my-optional-file "~/org/notes.org"))))
+	    (my-optional-file "~/org/work.org.gpg")
+	    (my-optional-file "~/org/notes.org")
+	    (my-optional-file "~/org/work.org"))))
 
 (setq org-directory "~/org")
 (setq org-log-done t)
@@ -730,9 +732,6 @@ leave it at 't' for Emacs commands"
 	  org-capture-templates)
     (push '("p" "Project" entry (file+headline org-default-notes-file "Tasks")
 	    "* %? :PROJECT:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
-	  org-capture-templates)
-    (push '("w" "Work" entry (file+headline "~/org/work.org.gpg" "Tasks")
-	    "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
 	  org-capture-templates))
 
 (setq my-org-agenda-common-review-settings
