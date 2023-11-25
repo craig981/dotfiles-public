@@ -723,7 +723,7 @@ leave it at 't' for Emacs commands"
 	("x" "Task" entry (file+headline org-default-notes-file "Tasks")
 	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")))
 
-(when (eq system-type 'darwin)
+(when (string= "goose" (system-name))
     (push '("b" "Book" entry (file+headline org-default-notes-file "Books")
 	    "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
 	  org-capture-templates)
@@ -746,13 +746,13 @@ leave it at 't' for Emacs commands"
 	;;  (concat org-agenda-hide-tags-regexp "\\|ARCHIVE"))
 	(org-agenda-start-on-weekday 1)))
 
-(let ((tag (if (eq system-type 'darwin) "READ|PROJECT")))
+(let ((tag (if (string= "goose" (system-name)) "READ|PROJECT")))
   (setq org-agenda-custom-commands
 	`(("d" "Done stuff" todo "DONE" )
 	  ("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
 	  ("." ,(format "Agenda and %s" tag)
 	   ((agenda "" )
-	    ,@(if (eq system-type 'gnu/linux) '((tags "PIN")))
+	    ,@(if (string= "asusbox" (system-name)) '((tags "PIN")))
 	    (todo "TODO|WAIT" ((org-agenda-overriding-header "Unscheduled TODO|WAIT:")
 			  (org-agenda-skip-function
 			   '(org-agenda-skip-entry-if 'scheduled 'deadline))
@@ -900,9 +900,10 @@ leave it at 't' for Emacs commands"
 
   (add-hook 'org-babel-after-execute-hook 'my-update-inline-images)
 
-  (when (eq system-type 'darwin)
-    (setq org-babel-python-command "python3")
-    ;; for pdf export
+  (setq org-babel-python-command "python3")
+
+  ;; org to pdf export
+  (when (executable-find "pandoc")
     (require 'ox-pandoc)))
 
 
@@ -949,7 +950,7 @@ the buffer the agenda was built from has evil-local-mode enabled."
 ;;| Ledger
 ;; ----------------------------------------------------------------------------
 
-(when (eq system-type 'darwin)
+(when (string= "goose" (system-name))
   (setq ledger-binary-path (expand-file-name "~/dotfiles-public/bin/ledger.bash")))
 
 (with-eval-after-load "ledger-report"
@@ -1904,9 +1905,9 @@ current project instead. Visit the tags file."
 (defun my-find-tags-files ()
   "Find TAGS files and set tags-table-list"
   (let ((all '())
-	(dirs (if (eq system-type 'darwin)
-		  '("~/dev/")
-		'("~/dev/git"))))
+	(dirs (if (file-exists-p "~/dev/git")
+		  '("~/dev/git")
+		'("~/dev/"))))
     (message (format "Searching for TAGS files under %s ..." dirs))
     (dolist (dir dirs)
       (setq all (nconc all (directory-files-recursively
@@ -2447,10 +2448,9 @@ current project instead. Visit the tags file."
   (dolist (fn (dired-get-marked-files))
     (bongo-insert-file fn)))
 
-(when (or (eq system-type 'darwin)
-	  (and (eq system-type 'gnu/linux)
-	       (display-graphic-p)
-	       (string= (string-trim (shell-command-to-string "lsb_release -i -s")) "Ubuntu")))
+(when (let ((host (system-name)))
+	(or (string= "goose" host)
+	    (string= "asusbox" host)))
 
   (require 'bongo) ;; need this before opening a playlist
 
