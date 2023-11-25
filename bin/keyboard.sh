@@ -20,6 +20,11 @@ do
 	setxkbmap -device "${id}" -option shift:both_capslock
 done
 
+if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
+    # stop Ctrl-. getting blocked
+    gsettings set org.freedesktop.ibus.panel.emoji hotkey "[]"
+fi
+
 if [[ "$XDG_CURRENT_DESKTOP" = "MATE" ]]; then
     gsettings set org.mate.interface gtk-key-theme Emacs
     # disable Super_L key opening menu
