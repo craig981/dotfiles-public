@@ -2341,8 +2341,13 @@ current project instead. Visit the tags file."
 (setq font-lock-maximum-decoration t)
 
 (defun my-set-dark-mode (val)
-  (when (eq system-type 'darwin)
-    (shell-command (format "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to %s'" (if val "true" "false")))))
+  (when (display-graphic-p)
+    (cond
+     ((and (eq system-type 'gnu/linux)
+	   (string= "ubuntu:GNOME" (getenv "XDG_CURRENT_DESKTOP")))
+      (shell-command (format "gsettings set org.gnome.desktop.interface color-scheme 'prefer-%s'" (if val "dark" "light"))))
+     ((eq system-type 'darwin)
+      (shell-command (format "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to %s'" (if val "true" "false")))))))
 
 (defun my-theme-dark (x)
   (mapcar #'disable-theme custom-enabled-themes)
