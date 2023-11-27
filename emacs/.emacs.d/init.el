@@ -2216,8 +2216,8 @@ current project instead. Visit the tags file."
   (define-key c-mode-base-map (kbd "C-c C-i") #'my-jump-to-header)
 
   (dolist (table (list c-mode-abbrev-table c++-mode-abbrev-table))
-    (define-abbrev table "inn"  "" 'my-cpp-include)
-    (define-abbrev table "inc"  "" 'my-cpp-include-sys)
+    (define-abbrev table "inc"  "" 'my-cpp-include)
+    (define-abbrev table "incl" "" 'my-cpp-include-sys)
     (define-abbrev table "fo"   "" 'my-cpp-for)
     (define-abbrev table "fori" "" 'my-cpp-for-iter)
     (define-abbrev table "pv"   "" 'my-cpp-print-vec)
