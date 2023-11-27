@@ -2322,13 +2322,12 @@ current project instead. Visit the tags file."
 
       (set-face-attribute 'default nil :font "Menlo:pixelsize=14:weight=normal:slant=normal:width=normal:spacing=100:scalable=true")
 
-      (if (string= (string-trim (shell-command-to-string
-				 "xrandr | awk '/^HDMI-1/{print $2}'"))
-		   "connected")
-	  ;; external monitor
-	  (set-face-attribute 'default nil :height 105)
-	;; laptop screen
-	(set-face-attribute 'default nil :height 115)))
+      (if (string-empty-p (string-trim (shell-command-to-string
+					"xrandr | awk '$2 == \"connected\" && $1 ~ /^(HDMI-|DP-)/ {print $1}'")))
+	  ;; laptop screen
+	  (set-face-attribute 'default nil :height 115)
+	;; external monitor
+	(set-face-attribute 'default nil :height 105)))
 
     (when (eq system-type 'darwin)
       (set-face-attribute 'default nil :family "Menlo" :height 160))))
