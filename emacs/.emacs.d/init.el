@@ -1235,6 +1235,9 @@ the buffer the agenda was built from has evil-local-mode enabled."
 (setq-default helm-ag-ignore-patterns my-helm-ignore)
 (setq-default helm-ag-base-command "ag --nocolor --nogroup --ignore-case --hidden")
 
+(when (string= "hedgehog" (system-name))
+  (setq helm-split-window-default-side 'right))
+
 (setq helm-highlight-only-all-matches t)
 (setq helm-highlight-matches-around-point-max-lines '(25 . 25))
 ;;; no new frames
