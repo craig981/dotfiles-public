@@ -15,8 +15,12 @@ for id in $(xinput list | sed -e '1,/Virtual core keyboard/d' | grep -e 'Keychro
 do
 	setxkbmap -device "${id}" -option
 	setxkbmap -device "${id}" -option caps:ctrl_modifier
-	setxkbmap -device "${id}" -option ctrl:swap_rwin_rctl
-	setxkbmap -device "${id}" -option altwin:swap_lalt_lwin
+	if [[ "$(hostname)" = "hedgehog" ]]; then
+		setxkbmap -device "${id}" -option ctrl:ralt_rctrl
+	else
+		setxkbmap -device "${id}" -option ctrl:swap_rwin_rctl
+		setxkbmap -device "${id}" -option altwin:swap_lalt_lwin
+	fi
 	setxkbmap -device "${id}" -option shift:both_capslock
 done
 
