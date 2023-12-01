@@ -1,28 +1,25 @@
 #!/bin/bash
 
-# back to default: setxkbmap -option
 # console: man keyboard;  /etc/default/keyboard
+# On hedgehog, in /etc/default/keyboard
+# XKBOPTIONS="caps:ctrl_modifier,ctrl:ralt_rctrl,shift:both_capslock"
 
-setxkbmap -option
+if [[ "$(hostname)" = "asusbox" ]]; then
+setxkbmap -option # back to default
 setxkbmap -option caps:ctrl_modifier
 setxkbmap -option ctrl:ralt_rctrl
-if [[ "$(hostname)" = "asusbox" ]]; then
-	setxkbmap -option altwin:menu_win
-fi
+setxkbmap -option altwin:menu_win
 setxkbmap -option shift:both_capslock
 
 for id in $(xinput list | sed -e '1,/Virtual core keyboard/d' | grep -e 'Keychron' -e 'PCoIP.*Keyboard' -e 'RGS keyboard' | sed -e 's/.*id=\([0-9]\+\).*/\1/')
 do
 	setxkbmap -device "${id}" -option
 	setxkbmap -device "${id}" -option caps:ctrl_modifier
-	if [[ "$(hostname)" = "hedgehog" ]]; then
-		setxkbmap -device "${id}" -option ctrl:ralt_rctrl
-	else
-		setxkbmap -device "${id}" -option ctrl:swap_rwin_rctl
-		setxkbmap -device "${id}" -option altwin:swap_lalt_lwin
-	fi
+	setxkbmap -device "${id}" -option ctrl:swap_rwin_rctl
+	setxkbmap -device "${id}" -option altwin:swap_lalt_lwin
 	setxkbmap -device "${id}" -option shift:both_capslock
 done
+fi
 
 if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     # stop Ctrl-. getting blocked
