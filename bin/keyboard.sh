@@ -2,7 +2,7 @@
 
 # console: man keyboard;  /etc/default/keyboard
 # On hedgehog, in /etc/default/keyboard
-# XKBOPTIONS="caps:ctrl_modifier,ctrl:ralt_rctrl,shift:both_capslock"
+# XKBOPTIONS="caps:ctrl_modifier,ctrl:ralt_rctrl,ctrl:rctrl_ralt,shift:both_capslock"
 
 if [[ "$(hostname)" = "asusbox" ]]; then
 setxkbmap -option # back to default
