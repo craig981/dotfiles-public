@@ -1259,9 +1259,11 @@ the buffer the agenda was built from has evil-local-mode enabled."
 
 (defun my-search-project ()
   "Search current project"
-  (if (file-remote-p default-directory)
-	(helm-ag-project-root)
-      (helm-do-ag-project-root)))
+  (if (project-current nil)
+      (if (file-remote-p default-directory)
+	  (helm-ag-project-root)
+	(helm-do-ag-project-root))
+    (helm-do-ag default-directory)))
 
 (defun my-search (&optional prefix)
   "Search project. With prefix arg, ignore extra file types."
