@@ -1892,30 +1892,30 @@ return the project path instead"
 	     (string= name "site-packages")
 	     (string= name ".git")))))
 
-(defun my-rebuild-and-load-tags (&optional one-project)
-  "Find a TAGS file above the default-directory, invoke make TAGS
-in that directory. If run with a prefix arg, generate tags in the
-current project instead. Visit the tags file."
+(defun my-rebuild-and-load-tags (&optional prefix)
+  "With prefix, find a TAGS file above the default-directory, invoke
+make TAGS in that directory. Otherwise, generate tags in the
+current project instead, and visit the tags file."
   (interactive "P")
-  (if one-project
-      (let ((proj (my-find-project-root))
-	    (ctags (if (eq system-type 'darwin) "uctags" "ctags")))
-	(when (y-or-n-p (format "Run %s in %s?" ctags proj))
-	  (message (format "Running %s in %s" ctags proj))
-	  (when (= 0 (shell-command
-		      (format "cd \"%s\" && %s -R -e -f TAGS --exclude=.git --exclude=build . > /dev/null"
-			      proj ctags)))
-	    (visit-tags-table (concat proj "TAGS")))))
+  (if prefix
+      (let* ((dir (locate-dominating-file default-directory "TAGS"))
+	     (path (and dir (expand-file-name (file-name-as-directory dir)))))
+	(if (not path)
+	    (message (format "No TAGS file found above %s" default-directory))
+	  (when (y-or-n-p (format "Run 'make TAGS' in %s" path))
+	    (message (format "Running 'make -C %s TAGS'" path))
+	    (call-process "make" nil nil nil "-C" path "TAGS")
+	    ;; (visit-tags-table (concat path "TAGS"))
+	    )))
 
-    (let* ((dir (locate-dominating-file default-directory "TAGS"))
-	   (path (and dir (expand-file-name (file-name-as-directory dir)))))
-      (if (not path)
-	  (message (format "No existing TAGS file found above %s" default-directory))
-	(when (y-or-n-p (format "Run 'make TAGS' in %s" path))
-	  (message (format "Running 'make -C %s TAGS'" path))
-	  (call-process "make" nil nil nil "-C" path "TAGS")
-	  ;; (visit-tags-table (concat path "TAGS"))
-	  )))))
+    (let ((proj (my-find-project-root))
+	  (ctags (if (eq system-type 'darwin) "uctags" "ctags")))
+      (when (y-or-n-p (format "Run %s in %s?" ctags proj))
+	(message (format "Running %s in %s ..." ctags proj))
+	(when (= 0 (shell-command
+		    (format "cd \"%s\" && %s -R -e -f TAGS --exclude=.git --exclude=build . > /dev/null"
+			    proj ctags)))
+	  (visit-tags-table (concat proj "TAGS")))))))
 
 (defun my-find-tags-files ()
   "Find TAGS files and set tags-table-list"
