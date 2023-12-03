@@ -1767,7 +1767,7 @@ return the project path instead"
   (let ((target (or (car (match-buffers "^\\*gud-.*\\*$"))
 		    (get-buffer "*compilation*<2>")
 		    (get-buffer "*Async Shell Command*")
-		    (car (match-buffers "^\\*shell.*\\*$")))))
+		    (car (match-buffers "^\\*shell.*")))))
     (if target
 	(let ((w (get-buffer-window target)))
           (if w
