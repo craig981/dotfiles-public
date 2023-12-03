@@ -378,8 +378,9 @@ leave it at 't' for Emacs commands"
 (defun my-other-window ()
   "Select other window, unless the minibuffer is open"
   (interactive)
-  (if (not (active-minibuffer-window))
-      (other-window 1)))
+  (when (active-minibuffer-window)
+    (abort-minibuffers))
+  (other-window 1))
 
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 (global-set-key (kbd "M-o") 'my-other-window)
