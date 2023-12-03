@@ -1745,18 +1745,22 @@ return the project path instead"
 
 (advice-add 'project-prefixed-buffer-name :override 'my-project-buffer-name)
 
-(defun my-shell ()
-  (interactive)
-  (if (and (not (eq major-mode 'dired-mode))
-	   (project-current nil))
-      (project-shell)
-    (call-interactively 'shell)))
+(defun my-shell (&optional prefix)
+  (interactive "P")
+  (cond
+   (prefix
+    (let ((current-prefix-arg 4)) ;; emulate C-u
+      (call-interactively 'shell)))
+   ((project-current nil)
+    (project-shell))
+   (t
+    (shell))))
 
-(defun my-split-shell ()
-  (interactive)
+(defun my-split-shell (&optional prefix)
+  (interactive "P")
   (let ((evil-split-window-below t))
     (evil-window-split))
-  (my-shell))
+  (my-shell prefix))
 
 (defun my-jump-to-shell ()
   (interactive)
