@@ -693,14 +693,14 @@ leave it at 't' for Emacs commands"
 (defun my-optional-file (fn)
   (if (file-exists-p fn) fn nil))
 
-(setq org-agenda-files (list "~/org"))
+(setq org-agenda-files (list "~/"))
 (when (or (eq system-type 'gnu/linux)
 	  (eq system-type 'darwin))
   (setq org-default-notes-file
-	(or (my-optional-file "~/org/notes.org.gpg")
-	    (my-optional-file "~/org/work.org.gpg")
-	    (my-optional-file "~/org/notes.org")
-	    (my-optional-file "~/org/work.org"))))
+	(or (my-optional-file "~/notes.org.gpg")
+	    (my-optional-file "~/work.org.gpg")
+	    (my-optional-file "~/notes.org")
+	    (my-optional-file "~/work.org"))))
 
 (setq org-directory "~/org")
 (setq org-log-done t)
