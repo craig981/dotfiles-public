@@ -880,7 +880,9 @@ leave it at 't' for Emacs commands"
 (advice-add 'org-time-stamp-inactive :before #'my-forward-before-insert)
 
 (with-eval-after-load 'org-agenda
-  (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map))
+  (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map)
+  (define-key org-agenda-mode-map (kbd "j") 'org-agenda-next-line)
+  (define-key org-agenda-mode-map (kbd "k") 'org-agenda-previous-line))
 
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "C-j") nil)
