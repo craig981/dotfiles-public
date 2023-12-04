@@ -2603,6 +2603,8 @@ current project instead, and visit the tags file."
      cmake-mode
      consult
      devdocs
+     doom-themes
+     ef-themes
      evil
      evil-leader
      evil-collection
@@ -2616,6 +2618,7 @@ current project instead, and visit the tags file."
      ledger-mode
      magit
      marginalia
+     nordic-night-theme
      orderless
      ox-pandoc
      paredit
