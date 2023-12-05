@@ -2569,6 +2569,7 @@ current project instead, and visit the tags file."
  '(evil-flash-delay 60)
  '(evil-motion-state-modes
    '(apropos-mode Buffer-menu-mode calendar-mode color-theme-mode command-history-mode dictionary-mode ert-results-mode help-mode Info-mode Man-mode speedbar-mode undo-tree-visualizer-mode view-mode woman-mode))
+ '(find-name-arg "-iname")
  '(grep-find-ignored-directories '(".svn" ".git" ".hg"))
  '(grep-find-ignored-files
    '(".#*" "*.o" "*~" "*.so" "*.a" "*.elc" "*.lib" "*.lo" "*.la" "*.pyc" "*.pyo"))
