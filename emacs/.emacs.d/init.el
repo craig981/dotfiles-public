@@ -2474,9 +2474,8 @@ current project instead, and visit the tags file."
   (dolist (fn (dired-get-marked-files))
     (bongo-insert-file fn)))
 
-(when (let ((host (system-name)))
-	(or (string= "goose" host)
-	    (string= "asusbox" host)))
+(when (and (eq system-type 'gnu/linux)
+	   (file-exists-p "~/mp3"))
 
   (require 'bongo) ;; need this before opening a playlist
 
