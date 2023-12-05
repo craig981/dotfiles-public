@@ -69,6 +69,7 @@ apt-install:
 		git \
 		htop \
 		imagemagick \
+		patchelf \
 		silversearcher-ag \
 		stow \
 		tree \
