@@ -3,6 +3,8 @@
 # console: man keyboard;  /etc/default/keyboard
 # On hedgehog, in /etc/default/keyboard
 # XKBOPTIONS="caps:ctrl_modifier,ctrl:ralt_rctrl,ctrl:rctrl_ralt,shift:both_capslock"
+# On goose
+# XKBOPTIONS="caps:ctrl_modifier,altwin:swap_lalt_lwin,ctrl:swap_rwin_rctl,shift:both_capslock"
 
 if [[ "$(hostname)" = "asusbox" ]]; then
 setxkbmap -option # back to default
