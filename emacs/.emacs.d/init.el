@@ -1758,22 +1758,17 @@ return the project path instead"
 
 (advice-add 'project-prefixed-buffer-name :override 'my-project-buffer-name)
 
-(defun my-shell (&optional prefix)
-  (interactive "P")
+(defun my-shell (proj)
+  (let ((evil-split-window-below t))
+    (evil-window-split))
   (cond
-   (prefix
+   ((not proj)
     (let ((current-prefix-arg 4)) ;; emulate C-u
       (call-interactively 'shell)))
    ((project-current nil)
     (project-shell))
    (t
     (shell))))
-
-(defun my-split-shell (&optional prefix)
-  (interactive "P")
-  (let ((evil-split-window-below t))
-    (evil-window-split))
-  (my-shell prefix))
 
 (defun my-jump-to-shell ()
   (interactive)
@@ -1820,8 +1815,8 @@ return the project path instead"
 
 (add-hook 'sh-mode-hook 'my-syntax-entry)
 
-(global-set-key (kbd "C-c z") 'my-shell)
-(global-set-key (kbd "C-c v") 'my-split-shell)
+(global-set-key (kbd "C-c z") (lambda () (interactive) (my-shell t)))
+(global-set-key (kbd "C-c v") (lambda () (interactive) (my-shell nil)))
 (global-set-key (kbd "C-c h") 'my-jump-to-shell)
 
 ;; ----------------------------------------------------------------------------
