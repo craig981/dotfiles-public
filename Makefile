@@ -69,6 +69,7 @@ apt-install:
 		patchelf \
 		silversearcher-ag \
 		stow \
+		tcsh \
 		tree \
 		tmux \
 		universal-ctags \
