@@ -66,6 +66,7 @@ apt-install:
 		git \
 		htop \
 		imagemagick \
+		ledger \
 		patchelf \
 		silversearcher-ag \
 		stow \

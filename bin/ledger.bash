@@ -28,4 +28,4 @@ if [[ -z "${file}" ]]; then
 fi
 
 set -xe
-gpg2 --decrypt "${file}" | /opt/local/bin/ledger "${new_args[@]}"
+gpg --decrypt "${file}" | ledger "${new_args[@]}"
