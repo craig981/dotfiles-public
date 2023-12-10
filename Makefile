@@ -9,10 +9,7 @@ all:
 	stow -v emacs
 
 ifeq ($(osuname),Linux)
-	stow -v gtk
-# ifeq (${XDG_CURRENT_DESKTOP},mate)
-	# stow -v mate
-# endif
+	stow -v mate
 endif
 ifeq ($(osuname),Darwin)
 	stow -v cmus

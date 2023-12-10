@@ -24,6 +24,7 @@ done
 fi
 
 if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
+    gsettings set org.gnome.desktop.interface gtk-key-theme Emacs
     # stop Ctrl-. getting blocked
     gsettings set org.freedesktop.ibus.panel.emoji hotkey "[]"
 fi
