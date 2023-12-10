@@ -67,6 +67,7 @@ apt-install:
 		htop \
 		imagemagick \
 		ledger \
+		mplayer \
 		patchelf \
 		silversearcher-ag \
 		stow \
@@ -74,6 +75,7 @@ apt-install:
 		tree \
 		tmux \
 		universal-ctags \
+		vlc \
 		xsel
 
 # /etc/apt/apt.conf.d/50unattended-upgrades
