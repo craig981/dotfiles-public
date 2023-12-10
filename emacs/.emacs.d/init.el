@@ -2347,7 +2347,11 @@ current project instead, and visit the tags file."
       (if (string-empty-p (string-trim (shell-command-to-string
 					"xrandr | awk '$2 == \"connected\" && $1 ~ /^(HDMI-|DP-)/ {print $1}'")))
 	  ;; laptop screen
-	  (set-face-attribute 'default nil :height 115)
+	  (cond
+	   ((string= "goose" (system-name))
+	    (set-face-attribute 'default nil :height 120))
+	   (t
+	    (set-face-attribute 'default nil :height 115)))
 	;; external monitor
 	(set-face-attribute 'default nil :height 105)))
 
