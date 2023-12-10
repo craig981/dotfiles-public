@@ -617,6 +617,9 @@ leave it at 't' for Emacs commands"
 	      hscroll-margin 5
 	      hscroll-step 5)
 
+(when (display-graphic-p)
+  (pixel-scroll-precision-mode))
+
 ;; ----------------------------------------------------------------------------
 ;;| Text
 ;; ----------------------------------------------------------------------------
