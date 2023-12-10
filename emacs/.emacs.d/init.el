@@ -2449,9 +2449,10 @@ current project instead, and visit the tags file."
     ;; see terminal background colour/image
     (set-face-background 'default "unspecified-bg" (selected-frame)))
 
-  (if (< (decoded-time-hour (decode-time)) 13)
-      (my-theme-light 0)
-    (my-theme-dark 0))
+  (let ((hour (decoded-time-hour (decode-time))))
+    (if (and (> hour 7) (< hour 13))
+	(my-theme-light 0)
+      (my-theme-dark 0)))
 
   (my-font-config))
 
