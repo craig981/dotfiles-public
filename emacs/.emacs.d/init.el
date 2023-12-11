@@ -1239,7 +1239,7 @@ the buffer the agenda was built from has evil-local-mode enabled."
 (require 'helm-ag)
 (require 'helm-occur)
 
-(defvar my-helm-ignore '("build/"))
+(defvar my-helm-ignore '("build/" "TAGS"))
 (defvar my-helm-ignore-extra '("*.html" "*.css" "*.ma" "glew/" "testsuite/"))
 
 ;; display relative paths in grep results
