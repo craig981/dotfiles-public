@@ -1769,8 +1769,10 @@ return the project path instead"
     (evil-window-split))
   (cond
    ((not proj)
-    (let ((current-prefix-arg 4)) ;; emulate C-u
-      (call-interactively 'shell)))
+    (let* ((name (file-name-nondirectory
+		  (directory-file-name default-directory)))
+	   (buf (generate-new-buffer (concat "*shell:" name "*"))))
+      (shell buf)))
    ((project-current nil)
     (project-shell))
    (t
