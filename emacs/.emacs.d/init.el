@@ -476,6 +476,12 @@ leave it at 't' for Emacs commands"
 (require 'devdocs)
 (global-set-key (kbd "M-s M-d") #'devdocs-lookup)
 
+(defun my-devdocs-hook ()
+  (evil-local-mode 1)
+  (evil-motion-state))
+
+(add-hook 'devdocs-mode-hook 'my-devdocs-hook)
+
 ;; ----------------------------------------------------------------------------
 ;;| Abbreviations
 ;; ----------------------------------------------------------------------------
