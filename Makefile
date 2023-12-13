@@ -63,11 +63,14 @@ apt-install:
 		cmus \
 		curl \
 		feh \
+		ffmpeg \
 		git \
+		gnuplot \
 		htop \
 		imagemagick \
 		ledger \
 		mplayer \
+		pandoc \
 		patchelf \
 		silversearcher-ag \
 		stow \
