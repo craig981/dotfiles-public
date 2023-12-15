@@ -1103,6 +1103,7 @@ the buffer the agenda was built from has evil-local-mode enabled."
      (t (consult-imenu)))))
 
 (evil-leader/set-key "i" 'my-imenu)
+(global-set-key (kbd "C-c i") 'my-imenu)
 
 ;; ----------------------------------------------------------------------------
 ;;| Completion
