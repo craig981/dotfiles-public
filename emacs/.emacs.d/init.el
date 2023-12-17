@@ -366,7 +366,6 @@ leave it at 't' for Emacs commands"
 (global-set-key (kbd "C-c ]") 'my-mark-until-whitespace)
 (global-set-key (kbd "C-c w") 'evil-window-map)
 (global-set-key (kbd "C-c n") 'count-words)
-(evil-leader/set-key "f" 'count-words)
 
 (require 'expand-region)
 (global-set-key (kbd "C-M-o") 'er/expand-region)
@@ -520,8 +519,8 @@ leave it at 't' for Emacs commands"
 
 (define-key minibuffer-local-map (kbd "M-/") 'dabbrev-expand)
 
-(evil-global-set-key 'insert (kbd "C-n") 'fancy-dabbrev-expand)
-(evil-global-set-key 'insert (kbd "C-p") 'fancy-dabbrev-backward)
+;; (evil-global-set-key 'insert (kbd "C-n") 'fancy-dabbrev-expand)
+;; (evil-global-set-key 'insert (kbd "C-p") 'fancy-dabbrev-backward)
 
 ;; ----------------------------------------------------------------------------
 ;;| Lang
@@ -1491,7 +1490,7 @@ return the project path instead"
 (global-set-key (kbd "C-c p e") #'my-choose-project-and-find-file)
 (global-set-key (kbd "C-c p u") #'my-choose-project-and-find-file-other-window)
 (global-set-key (kbd "C-c p r") #'my-choose-project-and-search)
-(global-set-key (kbd "C-c p m") #'my-choose-project-and-magit)
+(global-set-key (kbd "C-c p v") #'my-choose-project-and-magit)
 (global-set-key (kbd "C-c p d") #'my-choose-project-and-dired)
 (global-set-key (kbd "C-c p s") #'my-choose-project-and-shell)
 (global-set-key (kbd "C-c p t") #'my-choose-project-and-term)
