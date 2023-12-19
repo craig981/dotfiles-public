@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
+    gsettings set org.gnome.desktop.peripherals.touchpad tap-to-click false
+    gsettings set org.gnome.desktop.peripherals.touchpad natural-scroll false
+fi
+
 if [[ "$XDG_CURRENT_DESKTOP" = "MATE" ]]; then
     gsettings set org.mate.peripherals-touchpad tap-to-click false
 fi

@@ -24,9 +24,64 @@ done
 fi
 
 if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
+
     gsettings set org.gnome.desktop.interface gtk-key-theme Emacs
     # stop Ctrl-. getting blocked
     gsettings set org.freedesktop.ibus.panel.emoji hotkey "[]"
+
+    # launchers
+    gsettings set org.gnome.settings-daemon.plugins.media-keys terminal "['<Super>Return']"
+    gsettings set org.gnome.settings-daemon.plugins.media-keys www "['<Super>w']"
+
+    # screenshots
+    gsettings set org.gnome.shell.keybindings screenshot "['<Super>p']"
+    gsettings set org.gnome.shell.keybindings show-screenshot-ui "['<Shift><Super>p']"
+
+    # navigation
+    gsettings set org.gnome.desktop.wm.keybindings show-desktop '[]' # remove ctrl+alt+d
+    gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-1 "['<Super>1']"
+    gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-2 "['<Super>2']"
+    gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-3 "['<Super>3']"
+    gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-4 "['<Super>4']"
+    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-1 "['<Alt>1']"
+    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2 "['<Alt>2']"
+    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-3 "['<Alt>3']"
+    gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Alt>4']"
+
+    # windows
+    gsettings set org.gnome.desktop.wm.keybindings activate-window-menu '[]' # remove alt+space
+
+    # custom shortcuts
+
+    name=()
+    command=()
+    binding=()
+    if [[ -x ~/tools/bin/emacs ]]; then
+	name+=( "emacs" )
+	command+=( ~/tools/bin/emacs )
+	binding+=( '<Super>e' )
+    fi
+    if [[ -x ~/dev/macDict/macDict.sh ]]; then
+	name+=( "macDict" )
+	command+=( ~/dev/macDict/macDict.sh )
+	binding+=( '<Super>d' )
+    fi
+
+    len=${#name[@]}
+    key=org.gnome.settings-daemon.plugins.media-keys.custom-keybinding
+    custom=""
+    for (( i=0; i<len; i++ )); do
+	if (( $i > 0 )); then
+            custom="${custom},"
+	fi
+	path="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom${i}/"
+	gsettings set "${key}:${path}" name "${name[$i]}"
+	gsettings set "${key}:${path}" command "${command[$i]}"
+	gsettings set "${key}:${path}" binding "${binding[$i]}"
+	custom="${custom}'${path}'"
+    done
+    gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "[${custom}]"
+
 fi
 
 if [[ "$XDG_CURRENT_DESKTOP" = "MATE" ]]; then

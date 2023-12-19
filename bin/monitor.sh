@@ -1,5 +1,16 @@
 #!/bin/bash
 
+if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
+    # automatic screen brightness off
+    gsettings set org.gnome.settings-daemon.plugins.power ambient-enabled false
+    # show battery percentage
+    gsettings set org.gnome.desktop.interface show-battery-percentage true
+    # no home icon on desktop
+    gsettings set org.gnome.shell.extensions.ding show-home false
+    # dock panel mode off
+    gsettings set org.gnome.shell.extensions.dash-to-dock extend-height false
+fi
+
 if [[ "$XDG_CURRENT_DESKTOP" = "MATE" ]]; then
     gsettings set org.mate.power-manager idle-dim-battery false
 fi
