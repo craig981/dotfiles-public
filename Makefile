@@ -59,6 +59,7 @@ macports-remove-old:
 
 apt-install:
 	sudo apt-get install \
+		bash-doc \
 		cmake \
 		cmus \
 		curl \
