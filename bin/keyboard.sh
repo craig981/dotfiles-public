@@ -67,6 +67,15 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
 	binding+=( '<Super>d' )
     fi
 
+    if [[ "$(hostname)" = "goose" ]]; then
+	name+=( "brightessUp" )
+	command+=( "${HOME}/dotfiles-public/bin/brightness.sh 1" )
+	binding+=( '<Shift>MonBrightnessUp' )
+	name+=( "brightessDown" )
+	command+=( "${HOME}/dotfiles-public/bin/brightness.sh -1" )
+	binding+=( '<Shift>MonBrightnessDown' )
+    fi
+
     len=${#name[@]}
     key=org.gnome.settings-daemon.plugins.media-keys.custom-keybinding
     custom=""
