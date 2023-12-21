@@ -1696,13 +1696,19 @@ return the project path instead"
 ;;| Makefile
 ;; ----------------------------------------------------------------------------
 
-(add-hook 'makefile-mode-hook 'my-syntax-entry)
+(defun my-makefile-hook ()
+  (my-syntax-entry)
+  (setq-local devdocs-current-docs '("gnu_make")))
+(add-hook 'makefile-mode-hook 'my-makefile-hook)
 
 (defun my-makefile-no-warn-suspicious-lines ())
 (advice-add 'makefile-warn-suspicious-lines :override #'my-makefile-no-warn-suspicious-lines)
 
 (with-eval-after-load "cmake-mode"
-  (add-hook 'cmake-mode-hook 'my-syntax-entry))
+  (defun my-cmake-hook ()
+    (my-syntax-entry)
+    (setq-local devdocs-current-docs '("cmake~3.22")))
+  (add-hook 'cmake-mode-hook 'my-cmake-hook))
 
 (defun my-log-settings ()
   (my-syntax-entry)
@@ -2001,6 +2007,7 @@ current project instead, and visit the tags file."
 
 (defun my-python-mode-hook ()
   (my-syntax-entry)
+  (setq-local devdocs-current-docs '("python~3.10"))
   (setq-local tab-width 4)
   (setq-local evil-shift-width 4))
 
@@ -2149,7 +2156,9 @@ current project instead, and visit the tags file."
 	       (or (not fn)
 		   (string-prefix-p (expand-file-name "~/")
 				    (expand-file-name fn)))))
-    (my-find-tags-files)))
+    (my-find-tags-files))
+
+  (setq-local devdocs-current-docs '("cpp" "c")))
 
 (with-eval-after-load "hideif"
   ;; don't hide #ifdef FOO ... #endif, where FOO is undefined
