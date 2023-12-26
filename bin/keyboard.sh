@@ -29,6 +29,12 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     # stop Ctrl-. getting blocked
     gsettings set org.freedesktop.ibus.panel.emoji hotkey "[]"
 
+    # disable dock app launch keys
+    gsettings set org.gnome.shell.extensions.dash-to-dock app-hotkey-1 "[]"
+    gsettings set org.gnome.shell.extensions.dash-to-dock app-hotkey-2 "[]"
+    gsettings set org.gnome.shell.extensions.dash-to-dock app-hotkey-3 "[]"
+    gsettings set org.gnome.shell.extensions.dash-to-dock app-hotkey-4 "[]"
+
     # launchers
     gsettings set org.gnome.settings-daemon.plugins.media-keys terminal "['<Super>Return']"
     gsettings set org.gnome.settings-daemon.plugins.media-keys www "['<Super>w']"
