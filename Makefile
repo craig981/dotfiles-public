@@ -65,6 +65,7 @@ apt-install:
 		curl \
 		feh \
 		ffmpeg \
+		gawk \
 		git \
 		gnuplot \
 		htop \
