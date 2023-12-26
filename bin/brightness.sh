@@ -9,7 +9,7 @@ device=acpi_video0
 brightness=/sys/class/backlight/${device}/brightness
 
 if [[ ! -w "${brightness}" ]]; then
-    echo "brightness.sh : cannot write to ${brightness}"
+    echo "brightness.sh : cannot write to ${brightness}, check if group is video" 1>&2
     exit 1
 fi
 

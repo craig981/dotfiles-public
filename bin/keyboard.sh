@@ -74,12 +74,17 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     fi
 
     if [[ "$(hostname)" = "goose" ]]; then
+	# disable screen brightness keys with default step of 5 (requires session restart)
+	gsettings set org.gnome.settings-daemon.plugins.media-keys screen-brightness-down-static "['']"
+	gsettings set org.gnome.settings-daemon.plugins.media-keys screen-brightness-up-static "['']"
+
+	# smaller brightness step
 	name+=( "brightessUp" )
 	command+=( "${HOME}/dotfiles-public/bin/brightness.sh 1" )
-	binding+=( '<Shift>MonBrightnessUp' )
+	binding+=( 'MonBrightnessUp' )
 	name+=( "brightessDown" )
 	command+=( "${HOME}/dotfiles-public/bin/brightness.sh -1" )
-	binding+=( '<Shift>MonBrightnessDown' )
+	binding+=( 'MonBrightnessDown' )
     fi
 
     len=${#name[@]}
