@@ -1809,7 +1809,7 @@ return the project path instead"
 	    (comint-delchar-or-maybe-eof 1)
 	  (advice-remove 'comint-send-eof #'process-send-eof)))
     (kill-buffer)
-    (if (> (count-windows) 2)
+    (if (> (count-windows) 1)
 	(delete-window))))
 
 (defun my-shell-hook ()
