@@ -54,6 +54,9 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-3 "['<Alt>3']"
     gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Alt>4']"
 
+    # typing
+    gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Alt><Super>space']"
+
     # windows
     gsettings set org.gnome.desktop.wm.keybindings activate-window-menu '[]' # remove alt+space
 
