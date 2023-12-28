@@ -58,7 +58,7 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Alt><Super>space']"
 
     # windows
-    gsettings set org.gnome.desktop.wm.keybindings activate-window-menu '[]' # remove alt+space
+    gsettings set org.gnome.desktop.wm.keybindings activate-window-menu "['<Super>space']" # instead of alt+space
 
     # custom shortcuts
 
