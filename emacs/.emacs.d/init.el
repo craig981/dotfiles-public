@@ -115,8 +115,8 @@ leave it at 't' for Emacs commands"
 (evil-global-set-key 'insert (kbd "C-e") nil)
 (evil-global-set-key 'insert (kbd "C-k") nil)
 (evil-global-set-key 'insert (kbd "C-y") nil)
-;; (evil-global-set-key 'insert (kbd "C-n") nil)
-;; (evil-global-set-key 'insert (kbd "C-p") nil)
+(evil-global-set-key 'insert (kbd "C-n") nil)
+(evil-global-set-key 'insert (kbd "C-p") nil)
 (evil-global-set-key 'insert (kbd "C-o") nil)
 
 (define-key evil-ex-completion-map (kbd "C-a") 'move-beginning-of-line)
