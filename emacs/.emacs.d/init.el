@@ -973,7 +973,7 @@ the buffer the agenda was built from has evil-local-mode enabled."
 
 (with-eval-after-load "ledger-report"
   (add-to-list 'ledger-reports
-	       '("bal sorted expenses" "%(binary) -f %(ledger-file) bal -S \"-abs(total)\" ^Expenses")))
+	       '("bal sorted expenses" "%(binary) -f %(ledger-file) bal -S \"-abs(total)\" ^Expenses -b 'last month' -e 'this month'")))
 
 ;; ----------------------------------------------------------------------------
 ;;| Calc
