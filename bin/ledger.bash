@@ -27,5 +27,5 @@ if [[ -z "${file}" ]]; then
     exit 1
 fi
 
-set -xe
-gpg --decrypt "${file}" | ledger "${new_args[@]}"
+#set -xe
+gpg --decrypt "${file}" 2> /dev/null | ledger "${new_args[@]}"
