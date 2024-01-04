@@ -946,6 +946,35 @@ the buffer the agenda was built from has evil-local-mode enabled."
 
 (advice-add #'org-agenda-todo :around #'my-advise-org-agenda-todo)
 
+(defun my-merge-tables-by-date (a b &optional empty)
+  "'a' and 'b' are tables (lists where each element is a row). The first
+column of each is a date of the form YYYY-MM-DD. Merge the tables
+by date. Modifies the lists in 'a' and 'b'. 'empty' is used to
+fill empty cells when the rows don't match, and defaults to the
+empty string."
+    (let ((blank (or empty ""))
+	  res)
+      (while (and a b)
+	(let ((ta (date-to-time (caar a)))
+	      (tb (date-to-time (caar b))))
+	  (cond
+	   ((time-less-p ta tb)
+	    (push (nconc (car a) (list blank)) res)
+	    (setq a (cdr a)))
+	   ((time-less-p tb ta)
+	    (push (nconc (list (caar b) blank) (cdar b)) res)
+	    (setq b (cdr b)))
+	   (t
+	    (push (nconc (car a) (cdar b)) res)
+	    (setq a (cdr a))
+	    (setq b (cdr b))))))
+      (while a
+	(push (nconc (car a) (list blank)) res)
+	(setq a (cdr a)))
+      (while b
+	(push (nconc (list (caar b) blank) (cdar b)) res)
+	(setq b (cdr b)))
+      (reverse res)))
 
 (global-set-key (kbd "C-'") 'org-cycle-agenda-files)
 (global-set-key (kbd "C-c l") 'org-store-link)
