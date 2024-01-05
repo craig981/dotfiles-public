@@ -1003,7 +1003,7 @@ empty string."
 
 (with-eval-after-load "ledger-report"
   (add-to-list 'ledger-reports
-	       '("bal sorted expenses" "%(binary) -f %(ledger-file) bal -S \"-abs(total)\" ^Expenses -b 'last month' -e 'this month'")))
+	       '("bal sorted expenses" "%(binary) -f %(ledger-file) bal -S \"-abs(total)\" ^Expenses: --period 'last month'")))
 
 ;; ----------------------------------------------------------------------------
 ;;| Calc
