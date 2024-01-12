@@ -730,8 +730,8 @@ leave it at 't' for Emacs commands"
 (setq org-src-fontify-natively t)
 (setq org-startup-folded nil)
 (setq org-confirm-babel-evaluate nil)
-(setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w@)" "|" "DONE(d!)")
-			  (sequence "|" "CANCELLED(c@)")))
+(setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!/!)")
+			  (sequence "|" "CANCELLED(c@/!)")))
 
 (setq org-capture-templates
       '(("k" "Bookmark" entry (file+headline org-default-notes-file "Bookmarks")
