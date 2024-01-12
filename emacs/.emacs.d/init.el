@@ -776,7 +776,7 @@ leave it at 't' for Emacs commands"
 			   '((todo priority-down alpha-up)))))
 	    ,@(if tag
 		  `((tags ,tag ((org-agenda-skip-function
-				 '(org-agenda-skip-entry-if 'todo '("DONE")))
+				 '(org-agenda-skip-entry-if 'todo '("DONE" "CANCELLED")))
 				(org-agenda-sorting-strategy
 				 '((tags tag-up alpha-up))))))))
 	   ((org-agenda-start-with-log-mode nil)
