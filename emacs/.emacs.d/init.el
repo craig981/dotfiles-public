@@ -2528,6 +2528,28 @@ current project instead, and visit the tags file."
 (when (and (eq system-type 'gnu/linux)
 	   (file-exists-p "~/mp3"))
 
+  (when (require 'emms nil t)
+
+    (emms-all)
+    (setq emms-player-list '(emms-player-vlc)
+	  emms-info-functions '(emms-info-native))
+    ;; Remove leading space so buffer is not hidden
+    (setq emms-playlist-buffer-name "*EMMS Playlist*")
+
+    (define-key emms-browser-mode-map (kbd "SPC") evil-leader--default-map)
+    (define-key emms-browser-mode-map (kbd "<tab>") #'emms-browser-toggle-subitems-recursively)
+    (define-key emms-browser-mode-map (kbd ";") #'emms-browser-move-up-level)
+    (define-key emms-browser-mode-map (kbd "C-j") nil)
+    (define-key emms-playlist-mode-map (kbd "C-j") nil)
+    (define-key emms-playlist-mode-map (kbd "SPC") evil-leader--default-map)
+    (define-key emms-playlist-mode-map ";" #'emms-playlist-mode-center-current)
+    (define-key emms-playlist-mode-map "c" #'emms-pause)
+    (define-key emms-playlist-mode-map "j" #'next-line)
+    (define-key emms-playlist-mode-map "k" #'previous-line)
+
+    (when (string= "goose" (system-name))
+      (global-set-key (kbd "<LaunchA>") #'emms-playlist-mode-go)))
+
   (require 'bongo) ;; need this before opening a playlist
 
   (evil-leader/set-key "b" #'bongo)
@@ -2654,6 +2676,7 @@ current project instead, and visit the tags file."
      devdocs
      doom-themes
      ef-themes
+     emms
      evil
      evil-leader
      evil-collection
