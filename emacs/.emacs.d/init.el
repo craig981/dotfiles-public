@@ -2520,11 +2520,6 @@ current project instead, and visit the tags file."
 ;;| Music
 ;; ----------------------------------------------------------------------------
 
-(defun my-add-dired-to-bongo ()
-  (interactive)
-  (dolist (fn (dired-get-marked-files))
-    (bongo-insert-file fn)))
-
 (when (and (eq system-type 'gnu/linux)
 	   (file-exists-p "~/mp3"))
 
@@ -2550,10 +2545,17 @@ current project instead, and visit the tags file."
     (when (string= "goose" (system-name))
       (global-set-key (kbd "<LaunchA>") #'emms-playlist-mode-go)))
 
+  (defun my-add-dired-to-playlist ()
+    (interactive)
+    (if (get-buffer emms-playlist-buffer-name)
+	(emms-add-dired)
+      (dolist (fn (dired-get-marked-files))
+	(bongo-insert-file fn))))
+
   (require 'bongo) ;; need this before opening a playlist
 
   (evil-leader/set-key "b" #'bongo)
-  (define-key dired-mode-map (kbd "b") 'my-add-dired-to-bongo)
+  (define-key dired-mode-map (kbd "b") 'my-add-dired-to-playlist)
 
   (setq bongo-logo nil)
   (setq bongo-display-track-icons nil)
