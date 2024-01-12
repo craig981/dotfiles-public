@@ -2652,6 +2652,7 @@ current project instead, and visit the tags file."
  '(hide-ifdef-shadow t)
  '(initial-frame-alist '((fullscreen . maximized)))
  '(ispell-program-name "aspell")
+ '(kill-ring-max 1000)
  '(ledger-report-native-highlighting-arguments '("--color"))
  '(magit-log-arguments '("--graph" "--color" "--decorate" "-n256"))
  '(magit-log-auto-more t)
