@@ -340,6 +340,7 @@ leave it at 't' for Emacs commands"
 
 (evil-leader/set-key "%" #'my-copy-filename)
 (evil-leader/set-key "=" #'align-regexp)
+(evil-leader/set-key "\\" #'c-backslash-region)
 (evil-leader/set-key "m" #'my-mirror-buffer)
 (evil-leader/set-key "d" 'pwd)
 (evil-leader/set-key "SPC" (kbd "=i{"))
@@ -365,7 +366,6 @@ leave it at 't' for Emacs commands"
 				    (find-file user-init-file))))
 (global-set-key (kbd "C-c ]") 'my-mark-until-whitespace)
 (global-set-key (kbd "C-c w") 'evil-window-map)
-(global-set-key (kbd "C-c n") 'count-words)
 
 (require 'expand-region)
 (global-set-key (kbd "C-M-o") 'er/expand-region)
@@ -392,6 +392,7 @@ leave it at 't' for Emacs commands"
 
 (define-key minibuffer-local-map (kbd "<escape>") 'abort-minibuffers)
 
+(global-set-key (kbd "C-h h") nil)
 (global-set-key (kbd "C-h C-c") nil)
 (global-set-key (kbd "C-x w") 'subword-mode)
 
@@ -1010,7 +1011,6 @@ empty string."
 ;; ----------------------------------------------------------------------------
 
 (with-eval-after-load "calc-ext"
-  (define-key calc-mode-map (kbd "C-c e")   #'calc-reset)
   (define-key calc-mode-map (kbd "C-c C-e") #'calc-reset)
   (setq calc-multiplication-has-precedence nil)
   (setq calc-make-windows-dedicated t)
