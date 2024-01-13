@@ -2646,7 +2646,7 @@ current project instead, and visit the tags file."
  '(find-name-arg "-iname")
  '(grep-find-ignored-directories '(".svn" ".git" ".hg"))
  '(grep-find-ignored-files
-   '(".#*" "*.o" "*~" "*.so" "*.a" "*.elc" "*.lib" "*.lo" "*.la" "*.pyc" "*.pyo"))
+   '(".#*" "*.o" "*~" "*.so" "*.a" "*.elc" "*.lib" "*.lo" "*.la" "*.pyc" "*.pyo" "TAGS"))
  '(helm-ag-insert-at-point 'symbol)
  '(helm-candidate-number-limit 10000)
  '(helm-follow-mode-persistent t)
