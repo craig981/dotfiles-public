@@ -1816,7 +1816,7 @@ return the project path instead"
 
 (defun my-jump-to-shell ()
   (interactive)
-  (let ((target (or (car (match-buffers "^\\*gud-.*\\*$"))
+  (let ((target (or (car (match-buffers "^\\*gud\\*$"))
 		    (get-buffer "*compilation*<2>")
 		    (get-buffer "*Async Shell Command*")
 		    (car (match-buffers "^\\*shell.*")))))
