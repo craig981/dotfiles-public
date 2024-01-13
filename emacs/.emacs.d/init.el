@@ -2535,6 +2535,8 @@ current project instead, and visit the tags file."
     (define-key emms-browser-mode-map (kbd "<tab>") #'emms-browser-toggle-subitems-recursively)
     (define-key emms-browser-mode-map (kbd ";") #'emms-browser-move-up-level)
     (define-key emms-browser-mode-map (kbd "C-j") nil)
+    (define-key emms-browser-mode-map (kbd "j") #'next-line)
+    (define-key emms-browser-mode-map (kbd "k") #'previous-line)
     (define-key emms-playlist-mode-map (kbd "C-j") nil)
     (define-key emms-playlist-mode-map (kbd "SPC") evil-leader--default-map)
     (define-key emms-playlist-mode-map ";" #'emms-playlist-mode-center-current)
