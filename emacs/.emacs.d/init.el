@@ -584,6 +584,12 @@ leave it at 't' for Emacs commands"
 
 (global-set-key (kbd "M-s M-w") #'my-lookup)
 
+(defun my-dictionary-lookup ()
+  (interactive)
+  (start-process "macDict" nil "~/dev/macDict/macDict.sh" (or (thing-at-point 'word t) "")))
+
+(global-set-key (kbd "M-s d") 'my-dictionary-lookup)
+
 ;; ----------------------------------------------------------------------------
 ;;| Keyboard
 ;; ----------------------------------------------------------------------------
