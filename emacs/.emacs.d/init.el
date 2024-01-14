@@ -373,16 +373,8 @@ leave it at 't' for Emacs commands"
 (winner-mode 1)
 (global-set-key (kbd "M-=") 'winner-undo)
 (global-set-key (kbd "M-+") 'winner-redo)
-
-(defun my-other-window ()
-  "Select other window, unless the minibuffer is open"
-  (interactive)
-  (when (active-minibuffer-window)
-    (abort-minibuffers))
-  (other-window 1))
-
 (global-set-key (kbd "M-z") 'zap-up-to-char)
-(global-set-key (kbd "M-o") 'my-other-window)
+(global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-j") #'my-join-line)
 (global-set-key (kbd "M-'") #'delete-blank-lines)
 (global-set-key (kbd "M-\\") #'my-delete-whitespace)
