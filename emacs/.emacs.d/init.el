@@ -1001,6 +1001,11 @@ empty string."
   (setq ledger-binary-path (expand-file-name "~/dotfiles-public/bin/ledger.bash")))
 
 (with-eval-after-load "ledger-report"
+
+  (defun my-ledger-report-hook ()
+    (toggle-truncate-lines 0))
+  (add-hook 'ledger-report-mode-hook 'my-ledger-report-hook)
+
   (add-to-list 'ledger-reports
 	       '("expenses this month" "%(binary) -f %(ledger-file) bal -S \"-abs(total)\" ^Expenses: --period 'this month'"))
   (add-to-list 'ledger-reports
