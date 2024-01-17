@@ -83,6 +83,13 @@ apt-install:
 		vlc \
 		xsel
 
+apt-install-prof:
+	sudo apt-get install			\
+		valgrind			\
+		kcachegrind			\
+		heaptrack			\
+		heaptrack-gui
+
 # /etc/apt/apt.conf.d/50unattended-upgrades
 security-updates-dry-run:
 	sudo apt-get update
