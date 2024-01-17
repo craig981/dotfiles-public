@@ -54,6 +54,11 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-3 "['<Alt>3']"
     gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Alt>4']"
 
+    # system
+    if [[ "$(hostname)" = "goose" ]]; then
+	gsettings set org.gnome.shell.keybindings toggle-overview "['LaunchA']"
+    fi
+
     # typing
     gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Alt><Super>space']"
 
