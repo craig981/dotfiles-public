@@ -57,6 +57,8 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     # system
     if [[ "$(hostname)" = "goose" ]]; then
 	gsettings set org.gnome.shell.keybindings toggle-overview "['LaunchA']"
+	# stop Super_L tap showing window overview
+	gsettings set org.gnome.mutter overlay-key ''
     fi
 
     # typing
