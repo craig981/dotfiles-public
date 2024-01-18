@@ -2550,7 +2550,9 @@ current project instead, and visit the tags file."
     (define-key emms-playlist-mode-map "j" #'next-line)
     (define-key emms-playlist-mode-map "k" #'previous-line)
 
-    (global-set-key (kbd "C-c M-m") #'emms-playlist-mode-go))
+    (global-set-key (kbd "C-,") #'emms-playlist-mode-go)
+    (with-eval-after-load 'org
+      (define-key org-mode-map (kbd "C-,") nil)))
 
   (defun my-add-dired-to-playlist ()
     (interactive)
