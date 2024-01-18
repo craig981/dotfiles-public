@@ -399,7 +399,8 @@ leave it at 't' for Emacs commands"
 (advice-add 'comment-dwim :after 'my-advise-comment)
 
 (when (not (display-graphic-p))
-  (global-set-key (kbd "C-x ;") (kbd "C-x C-;")))
+  (global-set-key (kbd "C-x ;") (kbd "C-x C-;"))
+  (global-set-key (kbd "C-x C-'") (kbd "C-x '")))
 
 ;; https://stackoverflow.com/a/998472
 (defun p/duplicate-line (arg)
@@ -486,14 +487,12 @@ leave it at 't' for Emacs commands"
       (abbrev--default-expand)))
 
 (defun my-prog-mode-hook ()
-  (abbrev-mode)
+  (abbrev-mode -1)
   (setq-local show-trailing-whitespace t)
   (setq-local fill-column 80)
   (setq-local abbrev-expand-function #'my-abbrev-expand))
 
 (add-hook 'prog-mode-hook #'my-prog-mode-hook)
-
-;; (add-hook 'text-mode-hook #'abbrev-mode)
 
 ;; ----------------------------------------------------------------------------
 ;;| Fancy dabbrev
@@ -2214,6 +2213,7 @@ current project instead, and visit the tags file."
 (dolist (mode '(c++-mode c-mode))
   (evil-leader/set-key-for-mode mode
     "0" (lambda () (interactive) (my-wrap-if-endif 0))
+    "1" (lambda () (interactive) (my-wrap-if-endif 1))
     "3" (lambda () (interactive) (my-wrap-if-endif 1))
     "2" (lambda () (interactive) (my-wrap-if-endif 1 t))))
 
@@ -2289,9 +2289,9 @@ current project instead, and visit the tags file."
   (define-key c-mode-base-map (kbd "C-c C-i") #'my-jump-to-header)
 
   (dolist (table (list c-mode-abbrev-table c++-mode-abbrev-table))
-    (define-abbrev table "inc"  "" 'my-cpp-include)
-    (define-abbrev table "incl" "" 'my-cpp-include-sys)
-    (define-abbrev table "fo"   "" 'my-cpp-for)
+    (define-abbrev table "in"   "" 'my-cpp-include)
+    (define-abbrev table "inc"  "" 'my-cpp-include-sys)
+    (define-abbrev table "for"  "" 'my-cpp-for)
     (define-abbrev table "fori" "" 'my-cpp-for-iter)
     (define-abbrev table "pv"   "" 'my-cpp-print-vec)
     (define-abbrev table "main" "" 'my-cpp-main)))
