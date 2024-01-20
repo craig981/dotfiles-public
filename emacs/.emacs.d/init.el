@@ -1640,6 +1640,7 @@ return the project path instead"
 (add-hook 'git-commit-mode-hook 'my-git-commit-mode-hook)
 
 (with-eval-after-load 'magit
+  (define-key magit-status-mode-map (kbd "x") #'magit-delete-thing)
   (define-key magit-hunk-section-map (kbd "C-j") nil))
 
 (with-eval-after-load 'magit-repos
@@ -2655,8 +2656,10 @@ current project instead, and visit the tags file."
  '(magit-merge-arguments '("--no-ff"))
  '(magit-section-initial-visibility-alist '((stashes . show) (upstream . show)))
  '(magit-section-visibility-indicator '("" . t))
+ '(magit-status-goto-file-position t)
  '(magit-status-headers-hook
    '(magit-insert-error-header magit-insert-diff-filter-header magit-insert-repo-header magit-insert-head-branch-header magit-insert-upstream-branch-header magit-insert-push-branch-header magit-insert-tags-header))
+ '(magit-status-show-hashes-in-headers t)
  '(next-error-recenter '(4))
  '(org-agenda-file-regexp "\\`[^.].*\\.org\\(\\.gpg\\)?\\'")
  '(org-agenda-show-future-repeats nil)
