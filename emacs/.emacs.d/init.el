@@ -1075,7 +1075,7 @@ empty string."
 (require 'vertico-directory)
 (vertico-mode)
 
-(setq vertico-count-format nil)
+;; (setq vertico-count-format nil)
 (setq vertico-group-format nil)
 
 (define-key vertico-map (kbd "DEL") #'vertico-directory-delete-char)
