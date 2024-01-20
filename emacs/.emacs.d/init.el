@@ -2447,6 +2447,7 @@ current project instead, and visit the tags file."
     (load-theme 'my-override-dark2)))
 
   (set-cursor-color "white")
+  (setq evil-emacs-state-cursor '(box "magenta"))
   (setq evil-normal-state-cursor '(box "white"))
   (setq evil-insert-state-cursor '(box "orange"))
 
@@ -2464,6 +2465,7 @@ current project instead, and visit the tags file."
     (load-theme 'sandcastle)))
 
   (set-cursor-color "black")
+  (setq evil-emacs-state-cursor '(box "magenta"))
   (setq evil-normal-state-cursor '(box "black"))
   (setq evil-insert-state-cursor '(box "orange"))
 
