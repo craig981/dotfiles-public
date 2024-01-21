@@ -77,20 +77,20 @@
 (evil-declare-ignore-repeat 'recenter-top-bottom)
 (evil-declare-ignore-repeat 'other-window)
 
-(setq evil-move-beyond-eol t)
+;; (setq evil-move-beyond-eol t)
 
-(defun my-wrap-eol (func &rest args)
-  "Temporarily disable evil-move-beyond-eol for evil commands,
-leave it at 't' for Emacs commands"
-  (if (and real-this-command
-	   (symbolp real-this-command)
-	   (string-match-p "^evil-" (symbol-name real-this-command)))
-      (let ((evil-move-beyond-eol nil))
-	(apply func args))
-    (apply func args)))
+;; (defun my-wrap-eol (func &rest args)
+;;   "Temporarily disable evil-move-beyond-eol for evil commands,
+;; leave it at 't' for Emacs commands"
+;;   (if (and real-this-command
+;; 	   (symbolp real-this-command)
+;; 	   (string-match-p "^evil-" (symbol-name real-this-command)))
+;;       (let ((evil-move-beyond-eol nil))
+;; 	(apply func args))
+;;     (apply func args)))
 
-(dolist (func '(evil-normal-post-command evil-eolp))
-  (advice-add func :around #'my-wrap-eol))
+;; (dolist (func '(evil-normal-post-command evil-eolp))
+;;   (advice-add func :around #'my-wrap-eol))
 
 (defun my-forward-before-insert (&rest args)
   "Move the cursor forward before closing a tag or inserting a time stamp"
@@ -2014,6 +2014,7 @@ current project instead, and visit the tags file."
 (defun my-lisp-common-hook ()
   (enable-paredit-mode)
   (evil-local-mode 1)
+  (setq-local evil-move-beyond-eol t)
   (setq-local evil-symbol-word-search t))
 
 (add-hook 'emacs-lisp-mode-hook       'my-lisp-common-hook 'append)
