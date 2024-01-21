@@ -74,7 +74,7 @@ apt-install:
 		mplayer \
 		pandoc \
 		patchelf \
-		silversearcher-ag \
+		ripgrep \
 		stow \
 		tcsh \
 		tree \
