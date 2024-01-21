@@ -1623,7 +1623,9 @@ return the project path instead"
 ;; ----------------------------------------------------------------------------
 
 (defun my-magit-hook ()
-  (evil-local-mode 1))
+  (evil-local-mode 1)
+  ;; want SPC to show/scroll commit at point
+  (evil-leader-mode -1))
 
 (defun my-magit-repolist-hook ()
   (evil-local-mode 1)
