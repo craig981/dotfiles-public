@@ -1622,7 +1622,11 @@ return the project path instead"
 ;;| Magit
 ;; ----------------------------------------------------------------------------
 
+(defun my-magit-hook ()
+  (evil-local-mode 1))
+
 (defun my-magit-repolist-hook ()
+  (evil-local-mode 1)
   (beginning-of-buffer))
 
 (defun my-magit-list-repos ()
@@ -1641,12 +1645,26 @@ return the project path instead"
 (add-hook 'git-commit-mode-hook 'my-git-commit-mode-hook)
 
 (with-eval-after-load 'magit
-  (define-key magit-status-mode-map (kbd "x") #'magit-delete-thing)
-  (define-key magit-hunk-section-map (kbd "C-j") nil))
+  ;; (define-key magit-status-mode-map (kbd "x") #'magit-delete-thing)
+  ;; (define-key magit-hunk-section-map (kbd "C-j") nil))
+
+  (evil-collection-magit-setup)
+
+  (add-hook 'magit-mode-hook #'my-magit-hook)
+
+  (setq magit-delete-by-moving-to-trash nil)
+
+  (evil-define-key 'normal magit-mode-map (kbd "<escape>") nil) ;; stop escape burying buffer
+  (evil-define-key 'normal magit-mode-map (kbd "C-j") nil)
+  (evil-define-key 'normal magit-mode-map (kbd "C-k") nil)
+  (evil-define-key 'normal magit-mode-map (kbd "p") 'magit-section-backward)
+  (evil-define-key 'normal magit-mode-map (kbd "n") 'magit-section-forward))
 
 (with-eval-after-load 'magit-repos
 
   (add-hook 'magit-repolist-mode-hook #'my-magit-repolist-hook)
+
+  (evil-define-key 'normal magit-repolist-mode-map (kbd "RET") 'magit-repolist-status)
 
   (setq magit-repolist-sort-key '("B>U" . t))
   (setq magit-repolist-column-flag-alist '((magit-unstaged-files . "U")
@@ -2651,7 +2669,6 @@ current project instead, and visit the tags file."
  '(ispell-program-name "aspell")
  '(kill-ring-max 1000)
  '(ledger-report-native-highlighting-arguments '("--color"))
- '(magit-delete-by-moving-to-trash nil)
  '(magit-log-arguments '("--graph" "--color" "--decorate" "-n256"))
  '(magit-log-auto-more t)
  '(magit-merge-arguments '("--no-ff"))
