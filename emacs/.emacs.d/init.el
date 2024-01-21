@@ -56,6 +56,7 @@
 (setq evil-want-integration t
       evil-want-keybinding nil)
 (require 'evil)
+(require 'evil-collection)
 (require 'evil-leader)
 (require 'evil-numbers)
 
@@ -2679,6 +2680,7 @@ current project instead, and visit the tags file."
      emms
      evil
      evil-leader
+     evil-collection
      evil-numbers
      fancy-dabbrev
      expand-region
