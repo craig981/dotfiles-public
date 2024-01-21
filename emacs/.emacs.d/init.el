@@ -1652,8 +1652,6 @@ return the project path instead"
 
   (add-hook 'magit-mode-hook #'my-magit-hook)
 
-  (setq magit-delete-by-moving-to-trash nil)
-
   (evil-define-key 'normal magit-mode-map (kbd "<escape>") nil) ;; stop escape burying buffer
   (evil-define-key 'normal magit-mode-map (kbd "C-j") nil)
   (evil-define-key 'normal magit-mode-map (kbd "C-k") nil)
@@ -2669,6 +2667,7 @@ current project instead, and visit the tags file."
  '(ispell-program-name "aspell")
  '(kill-ring-max 1000)
  '(ledger-report-native-highlighting-arguments '("--color"))
+ '(magit-delete-by-moving-to-trash nil)
  '(magit-log-arguments '("--graph" "--color" "--decorate" "-n256"))
  '(magit-log-auto-more t)
  '(magit-merge-arguments '("--no-ff"))
