@@ -432,6 +432,42 @@
 
 (global-set-key (kbd "C-M-y") 'p/duplicate-line)
 
+(defun my-toggle-word-boundary (word-regex
+				word-begin word-end
+				non-word-regex non-word-begin)
+  "Insert/remove word boundary around search term in the minibuffer"
+  (let* (
+	 (line (or (thing-at-point 'line)
+		   (progn
+		     (next-history-element 1)
+		     (end-of-line)
+		     (thing-at-point 'line)))))
+
+    (if (string-match word-regex line)
+	(let ((keep (match-string 1 line))
+	      (remove (- (match-end 0)
+			 (match-beginning 0))))
+	  (beginning-of-line)
+	  (delete-char remove)
+	  (insert non-word-begin keep)
+	  (end-of-line))
+
+      (if (string-empty-p non-word-regex)
+	  (progn
+	    (beginning-of-line)
+	    (insert word-begin)
+	    (end-of-line)
+	    (insert word-end))
+
+	(if (string-match non-word-regex line)
+	    (let ((remove (- (match-end 0)
+			     (match-beginning 0))))
+	      (beginning-of-line)
+	      (delete-char remove)
+	      (insert word-begin)
+	      (end-of-line)
+	      (insert word-end)))))))
+
 (defun my-advise-paste (&rest args)
   "Set the mark so we can indent the pasted text with indent-region"
   (when evil-last-paste
@@ -1143,6 +1179,12 @@ empty string."
 	 (initial (if sym (format "\\<%s\\>" sym) nil)))
     (consult-ripgrep nil initial)))
 
+(define-key consult-async-map (kbd "M-w")
+	    (lambda ()
+	      (interactive)
+	      (my-toggle-word-boundary "^#\\\\<\\(.*\\)\\\\>" "#\\<" "\\>"
+					 "^#" "#")))
+
 (evil-leader/set-key "r" 'my-search)
 (evil-leader/set-key "i" 'my-imenu)
 (global-set-key (kbd "C-c r") 'my-search)
@@ -1323,31 +1365,10 @@ empty string."
 
 (advice-add 'helm-occur :around #'my-advise-propagate-input-method)
 
-
-(defun my-toggle-symbol-boundary (start end start-regex)
-  "insert/remove start/end around search term for word/symbol boundary"
-  (let (remove)
-    (when (not (thing-at-point 'line))	; empty
-      (next-history-element 1)
-      (end-of-line))
-    (save-excursion
-      (beginning-of-line)
-      (setq remove (looking-at start-regex)))
-
-    (save-excursion
-      (beginning-of-line)
-      (if remove
-	  (delete-char (length start))
-	(insert start)))
-    (save-excursion
-      (end-of-line)
-      (if remove
-	  (delete-char (- (length end)))
-	(insert end)))))
-
-(define-key helm-occur-map (kbd "M-w") (lambda ()
-					 (interactive)
-					 (my-toggle-symbol-boundary "\\_<" "\\_>" "\\\\_<")))
+(define-key helm-occur-map (kbd "M-w")
+	    (lambda ()
+	      (interactive)
+	      (my-toggle-word-boundary "^\\\\_<\\(.*\\)\\\\_>" "\\_<" "\\_>" "" "")))
 
 (define-key helm-map (kbd "C-c C-u") 'kill-whole-line)
 (define-key helm-map (kbd "<escape>") 'helm-keyboard-quit)
