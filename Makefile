@@ -72,6 +72,7 @@ apt-install:
 		imagemagick \
 		ledger \
 		mplayer \
+		mpv \
 		pandoc \
 		patchelf \
 		ripgrep \

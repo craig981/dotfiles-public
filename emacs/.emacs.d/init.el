@@ -2538,7 +2538,7 @@ current project instead, and visit the tags file."
   (when (require 'emms nil t)
 
     (emms-all)
-    (setq emms-player-list '(emms-player-vlc)
+    (setq emms-player-list '(emms-player-mpv)
 	  emms-info-functions '(emms-info-native))
     ;; Remove leading space so buffer is not hidden
     (setq emms-playlist-buffer-name "*EMMS Playlist*")
@@ -2555,6 +2555,14 @@ current project instead, and visit the tags file."
     (define-key emms-playlist-mode-map "c" #'emms-pause)
     (define-key emms-playlist-mode-map "j" #'next-line)
     (define-key emms-playlist-mode-map "k" #'previous-line)
+    (define-key emms-playlist-mode-map "h" (lambda ()
+					     (interactive)
+					     (let ((emms-seek-seconds 60))
+					       (emms-seek-backward))))
+    (define-key emms-playlist-mode-map "l" (lambda ()
+					     (interactive)
+					     (let ((emms-seek-seconds 60))
+					       (emms-seek-forward))))
 
     (global-set-key (kbd "C-,") #'emms-playlist-mode-go)
     (with-eval-after-load 'org
