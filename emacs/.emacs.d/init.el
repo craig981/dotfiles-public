@@ -744,13 +744,15 @@
   (if (file-exists-p fn) fn nil))
 
 (setq org-agenda-files (list "~/"))
-(when (or (eq system-type 'gnu/linux)
-	  (eq system-type 'darwin))
-  (setq org-default-notes-file
-	(or (my-optional-file "~/notes.org.gpg")
-	    (my-optional-file "~/work.org.gpg")
-	    (my-optional-file "~/notes.org")
-	    (my-optional-file "~/work.org"))))
+(setq org-default-notes-file
+      (or (my-optional-file "~/notes.org.gpg")
+	  (my-optional-file "~/work.org.gpg")
+	  (my-optional-file "~/notes.org")
+	  (my-optional-file "~/work.org")))
+
+(defun my-org-default-notes ()
+  (interactive)
+  (find-file org-default-notes-file))
 
 (setq org-directory "~/org")
 (setq org-log-done t)
@@ -934,6 +936,7 @@
   (define-key org-agenda-mode-map (kbd "k") 'org-agenda-previous-line))
 
 (with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-'") nil)
   (define-key org-mode-map (kbd "C-j") nil)
   (define-key org-mode-map (kbd "C-c C-j") nil)
   (define-key org-mode-map (kbd "C-c [") 'org-toggle-link-display)
@@ -1011,7 +1014,7 @@ empty string."
       (setq b (cdr b)))
     (reverse res)))
 
-(global-set-key (kbd "C-'") 'org-cycle-agenda-files)
+(global-set-key (kbd "C-'") 'my-org-default-notes)
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c x") 'org-capture)
