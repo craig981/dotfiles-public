@@ -1198,7 +1198,7 @@ empty string."
 (require 'embark-consult)
 
 ;;; export consult-ripgrep results to grep buffer
-(define-key consult-async-map (kbd "C-o") #'embark-export)
+(define-key consult-async-map (kbd "C-c C-o") #'embark-export)
 
 ;; ----------------------------------------------------------------------------
 ;;| Completion
