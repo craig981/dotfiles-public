@@ -1149,6 +1149,16 @@ empty string."
 (global-set-key (kbd "C-c i") 'my-imenu)
 
 ;; ----------------------------------------------------------------------------
+;;| Embark
+;; ----------------------------------------------------------------------------
+
+(require 'embark)
+(require 'embark-consult)
+
+;;; export consult-ripgrep results to grep buffer
+(define-key consult-async-map (kbd "C-o") #'embark-export)
+
+;; ----------------------------------------------------------------------------
 ;;| Completion
 ;; ----------------------------------------------------------------------------
 
@@ -2664,6 +2674,8 @@ current project instead, and visit the tags file."
      devdocs
      doom-themes
      ef-themes
+     embark
+     embark-consult
      emms
      evil
      evil-leader
