@@ -1060,11 +1060,10 @@ empty string."
   (advice-add #'calc-user-define-formula :around #'my-disable-vertico))
 
 (defun my-calc-hook ()
+  (setq-local calc-angle-mode 'rad)
   (calc-trail-display 0))
 
 (add-hook 'calc-mode-hook 'my-calc-hook)
-
-(setq calc-angle-mode 'rad)
 
 (defun my-calc-yank ()
   "Yank number at point into calc stack"
