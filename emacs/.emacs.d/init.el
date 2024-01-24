@@ -357,7 +357,6 @@
   (defun my-advise-man-completion (&rest args) '())
   (advice-add #'Man-completion-table :override #'my-advise-man-completion))
 
-;; (global-set-key (kbd "C-c j") #'goto-last-change)
 (global-set-key (kbd "C-c q") #'my-close-other-window)
 (global-set-key (kbd "C-c u") #'toggle-truncate-lines)
 (when (display-graphic-p)
@@ -378,6 +377,7 @@
 (global-set-key (kbd "M-j") #'my-join-line)
 (global-set-key (kbd "M-'") #'delete-blank-lines)
 (global-set-key (kbd "M-\\") #'my-delete-whitespace)
+(global-set-key (kbd "M-[") 'goto-last-change)
 
 (push 'try-expand-line hippie-expand-try-functions-list)
 (evil-global-set-key 'insert (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
@@ -1190,6 +1190,7 @@ empty string."
 (evil-leader/set-key "r" 'my-search)
 (evil-leader/set-key "i" 'my-imenu)
 (global-set-key (kbd "C-c r") 'my-search)
+(global-set-key (kbd "M-s M-f") 'my-search)
 (global-set-key (kbd "M-g i") 'my-imenu)
 
 ;; ----------------------------------------------------------------------------
