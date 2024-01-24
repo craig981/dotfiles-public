@@ -1190,7 +1190,7 @@ empty string."
 (evil-leader/set-key "r" 'my-search)
 (evil-leader/set-key "i" 'my-imenu)
 (global-set-key (kbd "C-c r") 'my-search)
-(global-set-key (kbd "C-c i") 'my-imenu)
+(global-set-key (kbd "M-g i") 'my-imenu)
 
 ;; ----------------------------------------------------------------------------
 ;;| Embark
