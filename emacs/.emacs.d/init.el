@@ -344,6 +344,29 @@
   (when (looking-at "[^[:space:]\n]+")
     (push-mark (match-end 0) nil t)))
 
+(defun my-mark-in-double-quote ()
+  (interactive)
+  (let ((r (evil-inner-double-quote)))
+    (goto-char (car r))
+    (push-mark (cadr r) nil t)))
+
+(defun my-mark-in-single-quote ()
+  (interactive)
+  (let ((r (evil-inner-single-quote)))
+    (goto-char (car r))
+    (push-mark (cadr r) nil t)))
+
+(defun my-mark-in-paren ()
+  (interactive)
+  (let ((r (evil-inner-paren)))
+    (goto-char (car r))
+    (push-mark (cadr r) nil t)))
+
+(global-set-key (kbd "M-SPC") nil)
+(global-set-key (kbd "M-SPC '") 'my-mark-in-single-quote)
+(global-set-key (kbd "M-SPC \"") 'my-mark-in-double-quote)
+(global-set-key (kbd "M-SPC p") 'my-mark-in-paren)
+
 (evil-leader/set-key "s" #'my-substitute) ; substitute whole buffer
 (evil-leader/set-key "S" ; substitute from current line to end of buffer
   (lambda ()
