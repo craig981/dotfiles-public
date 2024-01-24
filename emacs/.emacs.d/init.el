@@ -53,6 +53,8 @@
 ;;| Evil mode
 ;; ----------------------------------------------------------------------------
 
+(defvar my-evil-default 1)
+
 (setq evil-want-integration t
       evil-want-keybinding nil)
 (require 'evil)
@@ -67,6 +69,16 @@
 
 (setq-default evil-ex-search-case 'sensitive)
 (setq-default evil-search-module 'evil-search)
+
+(defun my-evil-local-mode ()
+  (evil-local-mode 1)
+  (if (> my-evil-default 0)
+      (evil-normal-state)
+    (evil-emacs-state)))
+
+(defun my-toggle-evil-default ()
+  (interactive)
+  (setq my-evil-default (- 1 my-evil-default)))
 
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key "w" 'evil-write)
@@ -185,7 +197,7 @@
   (when (not (or (eq major-mode 'image-mode)
 		 (derived-mode-p 'bongo-mode)))
     (setq-local show-trailing-whitespace t)
-    (evil-local-mode 1)
+    (my-evil-local-mode)
     (when (and git-commit-mode (looking-at "^$"))
       (evil-insert-state)))
   (if my-input-method
@@ -499,14 +511,14 @@
   (define-key Man-mode-map (kbd "SPC") evil-leader--default-map))
 
 (defun my-man-page-hook ()
-  (evil-local-mode))
+  (my-evil-local-mode))
 (add-hook #'Man-mode-hook #'my-man-page-hook)
 
 (require 'devdocs)
 (global-set-key (kbd "M-s M-d") #'devdocs-lookup)
 
 (defun my-devdocs-hook ()
-  (evil-local-mode 1)
+  (my-evil-local-mode)
   (evil-motion-state))
 
 (add-hook 'devdocs-mode-hook 'my-devdocs-hook)
@@ -677,7 +689,7 @@
   (turn-on-auto-fill)
   (my-syntax-entry)
   (when (not (buffer-file-name))
-    (evil-local-mode)))
+    (my-evil-local-mode)))
 
 (add-hook 'text-mode-hook 'my-text-mode-hook)
 
@@ -875,7 +887,7 @@
   (evil-insert-state))
 
 (defun my-org-src-hook ()
-  (evil-local-mode 1))
+  (my-evil-local-mode))
 
 (add-hook 'org-mode-hook 'my-org-mode-hook)
 (add-hook 'org-capture-mode-hook 'my-org-capture-hook)
@@ -1625,12 +1637,12 @@ return the project path instead"
 ;; ----------------------------------------------------------------------------
 
 (defun my-magit-hook ()
-  (evil-local-mode 1)
+  (my-evil-local-mode)
   ;; want SPC to show/scroll commit at point
   (evil-leader-mode -1))
 
 (defun my-magit-repolist-hook ()
-  (evil-local-mode 1)
+  (my-evil-local-mode)
   (beginning-of-buffer))
 
 (defun my-magit-list-repos ()
@@ -1708,7 +1720,7 @@ return the project path instead"
 (defun my-compilation-mode-hook ()
   (modify-syntax-entry ?_ "w") ;; _ is word constituent, so * and # works
   (visual-line-mode)
-  (evil-local-mode)
+  (my-evil-local-mode)
   (evil-local-set-key 'normal (kbd "q") 'quit-window))
 
 (defun my-grep-mode-hook ()
@@ -2017,7 +2029,7 @@ current project instead, and visit the tags file."
 
 (defun my-lisp-common-hook ()
   (enable-paredit-mode)
-  (evil-local-mode 1)
+  (my-evil-local-mode)
   (setq-local evil-move-beyond-eol t)
   (setq-local evil-symbol-word-search t))
 
