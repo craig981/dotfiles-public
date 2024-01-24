@@ -2222,20 +2222,6 @@ current project instead, and visit the tags file."
     "3" (lambda () (interactive) (my-wrap-if-endif 1))
     "2" (lambda () (interactive) (my-wrap-if-endif 1 t))))
 
-;; 4 character tabs or spaces for some projects
-(dir-locals-set-class-variables 'fourchartabs
-				'((c-mode . ((tab-width . 4)
-					     (evil-shift-width . 4)))
-				  (c++-mode . ((tab-width . 4)
-					       (evil-shift-width . 4)))))
-(dir-locals-set-class-variables 'fourspaces
-				'((c-mode . ((tab-width . 4)
-					     (evil-shift-width . 4)
-					     (indent-tabs-mode . nil)))
-				  (c++-mode . ((tab-width . 4)
-					       (evil-shift-width . 4)
-					       (indent-tabs-mode . nil)))))
-
 (define-skeleton my-cpp-include "" nil
   "#include \"" - "\"")
 
