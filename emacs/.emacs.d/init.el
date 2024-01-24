@@ -1376,7 +1376,7 @@ empty string."
 (define-key helm-map (kbd "<escape>") 'helm-keyboard-quit)
 
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "C-c o") 'helm-occur)
+(global-set-key (kbd "M-s M-o") 'helm-occur)
 (evil-leader/set-key "o" 'helm-occur) ;; M-n grabs symbol under point
 
 
@@ -2468,7 +2468,7 @@ current project instead, and visit the tags file."
   ("i" (lambda () (interactive) (my-theme-dark 1)) "nordic-night")
   ("o" (lambda () (interactive) (my-theme-dark 2)) "ef-winter"))
 
-(global-set-key (kbd "C-c j") 'my-theme-hydra/body)
+(global-set-key (kbd "C-c o") 'my-theme-hydra/body)
 
 ;; ----------------------------------------------------------------------------
 ;;| Splash screen
