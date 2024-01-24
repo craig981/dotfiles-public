@@ -1841,7 +1841,8 @@ return the project path instead"
 		    (car (match-buffers "^\\*gud-.*\\*$"))
 		    (get-buffer "*compilation*<2>")
 		    (get-buffer "*Async Shell Command*")
-		    (car (match-buffers "^\\*shell.*")))))
+		    ;; Not space to avoid *Shell Command Output* buffer
+		    (car (match-buffers "^\\*shell[^ ]+")))))
     (if target
 	(let ((w (get-buffer-window target)))
           (if w
