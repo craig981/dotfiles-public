@@ -2028,8 +2028,8 @@ current project instead, and visit the tags file."
     (setq-default tags-table-list all)))
 
 (global-set-key (kbd "C-c M-.") #'my-rebuild-and-load-tags)
-(evil-global-set-key 'motion (kbd "C-w .")   #'xref-find-definitions-other-window)
-(evil-global-set-key 'motion (kbd "C-w C-.") #'xref-find-definitions-other-window)
+;; (evil-global-set-key 'motion (kbd "C-w .")   #'xref-find-definitions-other-window)
+;; (evil-global-set-key 'motion (kbd "C-w C-.") #'xref-find-definitions-other-window)
 
 (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
 
