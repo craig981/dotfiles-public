@@ -258,9 +258,6 @@
 (add-hook 'evil-insert-state-entry-hook 'my-insert-enter-hook)
 (add-hook 'evil-insert-state-exit-hook 'my-insert-exit-hook)
 
-(blink-cursor-mode -1)
-(setq-default cursor-type 'box)
-
 (setq next-error-highlight-no-select t) ;; leave highlight for occur
 (setq ring-bell-function 'ignore) ;; stop binging noise on C-g
 (setq register-preview-delay 0.5)
@@ -2464,6 +2461,9 @@ current project instead, and visit the tags file."
 (require 'font-lock)
 (global-font-lock-mode t)
 (setq font-lock-maximum-decoration t)
+
+(blink-cursor-mode -1)
+(setq-default cursor-type 'box)
 
 (defun my-set-dark-mode (val)
   (when (display-graphic-p)
