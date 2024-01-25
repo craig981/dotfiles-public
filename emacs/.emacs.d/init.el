@@ -376,9 +376,9 @@
 (evil-leader/set-key "%" #'my-copy-filename)
 (evil-leader/set-key "=" #'align-regexp)
 (evil-leader/set-key "\\" #'c-backslash-region)
-(evil-leader/set-key "m" #'my-mirror-buffer)
 (evil-leader/set-key "d" 'pwd)
 (evil-leader/set-key "SPC" (kbd "=i{"))
+(global-set-key (kbd "C-c z") #'my-mirror-buffer)
 
 (when (eq system-type 'gnu/linux)
   (evil-global-set-key 'motion (kbd "K") 'man))
@@ -413,6 +413,7 @@
 (global-set-key (kbd "M-'") #'delete-blank-lines)
 (global-set-key (kbd "M-\\") #'my-delete-whitespace)
 (global-set-key (kbd "M-[") 'goto-last-change)
+(global-set-key (kbd "M-]") 'goto-last-change-reverse)
 
 (push 'try-expand-line hippie-expand-try-functions-list)
 (evil-global-set-key 'insert (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
@@ -1228,6 +1229,8 @@ empty string."
 (global-set-key (kbd "C-c r") 'my-search)
 (global-set-key (kbd "M-s M-f") 'my-search)
 (global-set-key (kbd "C-c j") 'my-imenu)
+(global-set-key (kbd "C-c C-j") 'my-imenu)
+(global-set-key (kbd "M-g i") 'my-imenu)
 
 ;; ----------------------------------------------------------------------------
 ;;| Embark
@@ -1907,7 +1910,7 @@ return the project path instead"
 
 (add-hook 'sh-mode-hook 'my-syntax-entry)
 
-(global-set-key (kbd "C-c z") (lambda () (interactive) (my-shell t)))
+(global-set-key (kbd "C-c V") (lambda () (interactive) (my-shell t)))
 (global-set-key (kbd "C-c v") (lambda () (interactive) (my-shell nil)))
 (global-set-key (kbd "C-c h") 'my-jump-to-shell)
 
@@ -2260,6 +2263,10 @@ current project instead, and visit the tags file."
     "1" (lambda () (interactive) (my-wrap-if-endif 1))
     "3" (lambda () (interactive) (my-wrap-if-endif 1))
     "2" (lambda () (interactive) (my-wrap-if-endif 1 t))))
+
+(global-set-key (kbd "C-c 0") (lambda () (interactive) (my-wrap-if-endif 0)))
+(global-set-key (kbd "C-c 3") (lambda () (interactive) (my-wrap-if-endif 1)))
+(global-set-key (kbd "C-c 2") (lambda () (interactive) (my-wrap-if-endif 1 t)))
 
 (define-skeleton my-cpp-include "" nil
   "#include \"" - "\"")
