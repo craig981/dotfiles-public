@@ -369,6 +369,7 @@
 (global-set-key (kbd "M-SPC '") 'my-mark-in-single-quote)
 (global-set-key (kbd "M-SPC \"") 'my-mark-in-double-quote)
 (global-set-key (kbd "M-SPC p") 'my-mark-in-paren)
+(global-set-key (kbd "M-SPC M-SPC") 'my-mark-until-whitespace)
 
 (evil-leader/set-key "s" #'my-substitute) ; substitute whole buffer
 (evil-leader/set-key "S" ; substitute from current line to end of buffer
@@ -401,7 +402,6 @@
   (global-set-key (kbd "C-c C-'") (lambda ()
 				    (interactive)
 				    (find-file user-init-file))))
-(global-set-key (kbd "C-c ]") 'my-mark-until-whitespace)
 (global-set-key (kbd "C-c w") 'evil-window-map)
 
 (require 'expand-region)
