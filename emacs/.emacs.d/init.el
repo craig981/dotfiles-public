@@ -81,6 +81,8 @@
   (interactive)
   (setq my-evil-default (- 1 my-evil-default)))
 
+(setq evil-emacs-state-tag  (propertize "<E>" 'face '((:foreground "#000000" :background "goldenrod"))))
+
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key "w" 'evil-write)
 
