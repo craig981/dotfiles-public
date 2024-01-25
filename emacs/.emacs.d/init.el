@@ -72,6 +72,7 @@
 
 (defun my-evil-local-mode ()
   (evil-local-mode 1)
+  (hl-line-mode (- 1 my-evil-default))
   (if (> my-evil-default 0)
       (evil-normal-state)
     (evil-emacs-state)))
@@ -901,6 +902,10 @@
   ;; / is punctuation, so evil * works on path components
   (modify-syntax-entry ?/ ".")
   (auto-fill-mode 1)
+
+  (setq-local my-evil-default 0)
+  (my-evil-local-mode)
+
   (setq-local indent-tabs-mode nil)
   (setq-local evil-shift-width 2)
   (setq-local tab-width 2))
@@ -2058,6 +2063,7 @@ current project instead, and visit the tags file."
 
 (defun my-lisp-common-hook ()
   (enable-paredit-mode)
+  (setq-local my-evil-default 0)
   (my-evil-local-mode)
   (setq-local evil-move-beyond-eol t)
   (setq-local evil-symbol-word-search t))
@@ -2480,7 +2486,8 @@ current project instead, and visit the tags file."
     (load-theme 'my-override-dark2)))
 
   (set-cursor-color "white")
-  (setq evil-emacs-state-cursor '(box "magenta"))
+  ;; (when my-evil-default
+    ;; (setq evil-emacs-state-cursor '(box "SteelBlue")))
   (setq evil-normal-state-cursor '(box "white"))
   (setq evil-insert-state-cursor '(box "orange"))
 
@@ -2498,7 +2505,8 @@ current project instead, and visit the tags file."
     (load-theme 'sandcastle)))
 
   (set-cursor-color "black")
-  (setq evil-emacs-state-cursor '(box "magenta"))
+  ;; (when my-evil-default
+    ;; (setq evil-emacs-state-cursor '(box "SteelBlue")))
   (setq evil-normal-state-cursor '(box "black"))
   (setq evil-insert-state-cursor '(box "orange"))
 
