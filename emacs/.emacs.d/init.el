@@ -198,7 +198,7 @@
 		 (derived-mode-p 'bongo-mode)))
     (setq-local show-trailing-whitespace t)
     (my-evil-local-mode)
-    (when (and git-commit-mode (looking-at "^$"))
+    (when (and git-commit-mode (evil-normal-state-p) (looking-at "^$"))
       (evil-insert-state)))
   (if my-input-method
       (set-input-method my-input-method)))
@@ -907,7 +907,8 @@
 (defun my-org-capture-hook ()
   (interactive)
   (my-org-mode-hook)
-  (evil-insert-state))
+  (when (evil-normal-state-p)
+    (evil-insert-state)))
 
 (defun my-org-src-hook ()
   (my-evil-local-mode))
