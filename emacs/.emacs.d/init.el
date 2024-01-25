@@ -735,6 +735,8 @@
   (my-syntax-entry)
   ;; = is punctuation, so evil * works on key and val separately for key=val
   (modify-syntax-entry ?= ".")
+  (setq-local my-evil-default 0)
+  (my-evil-local-mode)
   (setq-local show-trailing-whitespace t)
   (setq-local fill-column 72)
   ;; stop paragraph lines after the first being extra indented by M-q
