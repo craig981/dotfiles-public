@@ -1227,7 +1227,7 @@ empty string."
 (evil-leader/set-key "i" 'my-imenu)
 (global-set-key (kbd "C-c r") 'my-search)
 (global-set-key (kbd "M-s M-f") 'my-search)
-(global-set-key (kbd "M-g i") 'my-imenu)
+(global-set-key (kbd "C-c j") 'my-imenu)
 
 ;; ----------------------------------------------------------------------------
 ;;| Embark
@@ -1569,6 +1569,7 @@ return the project path instead"
 
 (global-set-key (kbd "C-c e") 'my-find-file-in-project)
 (global-set-key (kbd "C-x C-d") 'my-jump-project-dired)
+(global-set-key (kbd "C-c n") 'my-jump-notefiles)
 
 (evil-leader/set-key "e" 'my-find-file-in-project)
 (evil-leader/set-key "u" 'my-find-file-in-project-other-window)
@@ -1685,7 +1686,7 @@ return the project path instead"
 (add-hook 'git-commit-mode-hook 'my-git-commit-mode-hook)
 
 (with-eval-after-load 'magit
-  ;; (define-key magit-status-mode-map (kbd "x") #'magit-delete-thing)
+  (define-key magit-status-mode-map (kbd "x") #'magit-delete-thing)
   ;; (define-key magit-hunk-section-map (kbd "C-j") nil))
 
   (evil-collection-magit-setup)
