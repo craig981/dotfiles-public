@@ -731,7 +731,7 @@
   (my-syntax-entry)
   ;; = is punctuation, so evil * works on key and val separately for key=val
   (modify-syntax-entry ?= ".")
-  (setq-local my-evil-default 0)
+  ;; (setq-local my-evil-default 0)
   (my-evil-local-mode)
   (setq-local show-trailing-whitespace t)
   (setq-local fill-column 72)
@@ -903,7 +903,7 @@
   (modify-syntax-entry ?/ ".")
   (auto-fill-mode 1)
 
-  (setq-local my-evil-default 0)
+  ;; (setq-local my-evil-default 0)
   (my-evil-local-mode)
 
   (setq-local indent-tabs-mode nil)
@@ -2062,7 +2062,7 @@ current project instead, and visit the tags file."
 
 (defun my-lisp-common-hook ()
   (enable-paredit-mode)
-  (setq-local my-evil-default 0)
+  ;; (setq-local my-evil-default 0)
   (my-evil-local-mode)
   (setq-local evil-move-beyond-eol t)
   (setq-local evil-symbol-word-search t))
