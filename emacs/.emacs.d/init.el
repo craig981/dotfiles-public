@@ -72,7 +72,7 @@
 
 (defun my-evil-local-mode ()
   (evil-local-mode 1)
-  (hl-line-mode (- 1 my-evil-default))
+  ;; (hl-line-mode (- 1 my-evil-default))
   (if (= my-evil-default 0)
       (evil-emacs-state)))
 
