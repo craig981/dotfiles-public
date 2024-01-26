@@ -1760,11 +1760,7 @@ return the project path instead"
 
 (add-hook 'compilation-mode-hook 'my-compilation-mode-hook)
 (add-hook 'grep-mode-hook 'my-grep-mode-hook)
-
-(defun my-compilation-filter-hook ()
- (ansi-color-apply-on-region compilation-filter-start (point)))
-
-(add-hook 'compilation-filter-hook 'my-compilation-filter-hook)
+(add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
 
 (global-set-key (kbd "C-c SPC") #'compile)
 (global-set-key (kbd "C-c C-SPC") #'project-compile)
