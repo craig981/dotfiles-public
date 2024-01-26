@@ -1233,8 +1233,8 @@ empty string."
 (evil-leader/set-key "i" 'my-imenu)
 (global-set-key (kbd "C-c r") 'my-search)
 (global-set-key (kbd "M-s M-f") 'my-search)
-(global-set-key (kbd "C-c j") 'my-imenu)
 (global-set-key (kbd "M-g i") 'my-imenu)
+(global-set-key (kbd "M-g M-i") 'my-imenu)
 
 ;; ----------------------------------------------------------------------------
 ;;| Embark
