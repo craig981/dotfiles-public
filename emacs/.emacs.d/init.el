@@ -2081,6 +2081,13 @@ current project instead, and visit the tags file."
     (indent-sexp)))
 (define-key lisp-mode-shared-map (kbd "C-c C-q") 'my-reindent-lisp-defun)
 
+(defun my-advise-paredit-wrap (&rest args)
+  (when (evil-normal-state-p)
+    (evil-insert 1)))
+
+(advice-add 'paredit-wrap-round :after 'my-advise-paredit-wrap)
+(advice-add 'paredit-meta-doublequote :after 'my-advise-paredit-wrap)
+
 ;; ----------------------------------------------------------------------------
 ;;| Python
 ;; ----------------------------------------------------------------------------
