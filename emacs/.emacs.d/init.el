@@ -411,8 +411,8 @@
 (global-set-key (kbd "M-j") #'my-join-line)
 (global-set-key (kbd "M-'") #'delete-blank-lines)
 (global-set-key (kbd "M-\\") #'my-delete-whitespace)
-(global-set-key (kbd "M-[") 'goto-last-change)
-(global-set-key (kbd "M-]") 'goto-last-change-reverse)
+(global-set-key (kbd "C-c C-j") 'goto-last-change)
+;; (global-set-key (kbd "M-]") 'goto-last-change-reverse)
 
 (push 'try-expand-line hippie-expand-try-functions-list)
 (evil-global-set-key 'insert (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
@@ -1234,7 +1234,6 @@ empty string."
 (global-set-key (kbd "C-c r") 'my-search)
 (global-set-key (kbd "M-s M-f") 'my-search)
 (global-set-key (kbd "C-c j") 'my-imenu)
-(global-set-key (kbd "C-c C-j") 'my-imenu)
 (global-set-key (kbd "M-g i") 'my-imenu)
 
 ;; ----------------------------------------------------------------------------
