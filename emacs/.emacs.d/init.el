@@ -139,7 +139,7 @@
 (define-key evil-ex-completion-map (kbd "C-k") 'kill-line)
 
 (evil-global-set-key 'insert   (kbd "C-c") 'evil-normal-state)
-(evil-global-set-key 'visual   (kbd "C-c") 'evil-normal-state)
+;; (evil-global-set-key 'visual   (kbd "C-c") 'evil-normal-state)
 (evil-global-set-key 'operator (kbd "C-c") 'evil-normal-state)
 (evil-global-set-key 'replace  (kbd "C-c") 'evil-normal-state)
 
