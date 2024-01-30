@@ -508,7 +508,7 @@
   (when evil-last-paste
     (let* ((beg (nth 3 evil-last-paste))
 	   (end (nth 4 evil-last-paste)))
-      (push-mark (if (> (point) end) beg end)))))
+      (push-mark (if (>= (+ 1 (point)) end) beg end)))))
 
 (advice-add 'evil-paste-before :after 'my-advise-paste)
 (advice-add 'evil-paste-after :after 'my-advise-paste)
