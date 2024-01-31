@@ -378,7 +378,6 @@
 (evil-leader/set-key "\\" #'c-backslash-region)
 (evil-leader/set-key "d" 'pwd)
 (evil-leader/set-key "SPC" (kbd "=i{"))
-(global-set-key (kbd "C-c z") #'my-mirror-buffer)
 
 (when (eq system-type 'gnu/linux)
   (evil-global-set-key 'motion (kbd "K") 'man))
@@ -399,6 +398,7 @@
 				    (interactive)
 				    (find-file user-init-file))))
 (global-set-key (kbd "C-c w") 'evil-window-map)
+(global-set-key (kbd "C-c w m") #'my-mirror-buffer)
 
 (require 'expand-region)
 (global-set-key (kbd "C-M-o") 'er/expand-region)
