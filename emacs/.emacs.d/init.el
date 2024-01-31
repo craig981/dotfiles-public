@@ -2734,6 +2734,7 @@ current project instead, and visit the tags file."
  '(next-error-recenter '(4))
  '(org-agenda-file-regexp "\\`[^.].*\\.org\\(\\.gpg\\)?\\'")
  '(org-agenda-show-future-repeats nil)
+ '(org-agenda-span 4)
  '(org-blank-before-new-entry '((heading . auto) (plain-list-item)))
  '(org-imenu-depth 3)
  '(org-modules '(ol-docview org-habit ol-info))
