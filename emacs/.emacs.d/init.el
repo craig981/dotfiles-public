@@ -2739,6 +2739,7 @@ current project instead, and visit the tags file."
  '(org-imenu-depth 3)
  '(org-modules '(ol-docview org-habit ol-info))
  '(org-refile-targets '((org-agenda-files :maxlevel . 3) (nil :maxlevel . 3)))
+ '(org-startup-indented t)
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
    '(bongo
