@@ -780,7 +780,7 @@
 (defun my-optional-file (fn)
   (if (file-exists-p fn) fn nil))
 
-(setq org-agenda-files (list "~/"))
+(setq org-agenda-files (list "~/" "~/org"))
 (setq org-default-notes-file
       (or (my-optional-file "~/notes.org.gpg")
 	  (my-optional-file "~/work.org.gpg")
