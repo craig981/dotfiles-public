@@ -565,6 +565,9 @@
 
 (add-hook 'prog-mode-hook #'my-prog-mode-hook)
 
+(when (display-graphic-p)
+  (global-set-key (kbd "C-x C-'") #'expand-abbrev))
+
 ;; ----------------------------------------------------------------------------
 ;;| Fancy dabbrev
 ;; ----------------------------------------------------------------------------
