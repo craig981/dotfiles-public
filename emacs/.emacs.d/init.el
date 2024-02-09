@@ -421,6 +421,7 @@
 
 (global-set-key (kbd "C-h h") nil)
 (global-set-key (kbd "C-h C-c") nil)
+(global-set-key (kbd "C-x !") 'delete-other-windows-vertically)
 (global-set-key (kbd "C-x w") 'subword-mode)
 
 (evil-leader/set-key "li" #'flyspell-mode)
