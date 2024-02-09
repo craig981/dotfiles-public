@@ -1706,6 +1706,7 @@ return the project path instead"
 
   (evil-define-key 'normal magit-mode-map (kbd "<escape>") nil) ;; stop escape burying buffer
   (evil-define-key 'normal magit-mode-map (kbd ";") 'magit-section-up)
+  (evil-define-key 'normal magit-mode-map (kbd "SPC") evil-leader--default-map)
   (evil-define-key 'normal magit-mode-map (kbd "C-j") nil)  ; clashes with other-window
   (evil-define-key 'normal magit-mode-map (kbd "C-k") nil)
   (evil-define-key 'normal magit-mode-map (kbd "p") 'magit-section-backward)
