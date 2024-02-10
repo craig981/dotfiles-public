@@ -1,29 +1,28 @@
 #!/bin/bash
 
-# console: man keyboard;  /etc/default/keyboard
-# On hedgehog, in /etc/default/keyboard
-# XKBOPTIONS="caps:ctrl_modifier,ctrl:ralt_rctrl,ctrl:rctrl_ralt,shift:both_capslock"
-# On goose
-# XKBOPTIONS="caps:ctrl_modifier,altwin:swap_lalt_lwin,ctrl:swap_rwin_rctl,shift:both_capslock"
-
-if [[ "$(hostname)" = "asusbox" ]]; then
-setxkbmap -option # back to default
-setxkbmap -option caps:ctrl_modifier
-setxkbmap -option ctrl:ralt_rctrl
-setxkbmap -option altwin:menu_win
-setxkbmap -option shift:both_capslock
-
-for id in $(xinput list | sed -e '1,/Virtual core keyboard/d' | grep -e 'Keychron' -e 'PCoIP.*Keyboard' -e 'RGS keyboard' | sed -e 's/.*id=\([0-9]\+\).*/\1/')
-do
-	setxkbmap -device "${id}" -option
-	setxkbmap -device "${id}" -option caps:ctrl_modifier
-	setxkbmap -device "${id}" -option ctrl:swap_rwin_rctl
-	setxkbmap -device "${id}" -option altwin:swap_lalt_lwin
-	setxkbmap -device "${id}" -option shift:both_capslock
-done
-fi
-
 if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
+
+    # previously in /etc/default/keyboard; man keyboard; sudo dpkg-reconfigure keyboard-configuration
+    # On hedgehog
+    # XKBOPTIONS="caps:ctrl_modifier,ctrl:ralt_rctrl,ctrl:rctrl_ralt,shift:both_capslock"
+    # On goose
+    # XKBOPTIONS="caps:ctrl_modifier,altwin:swap_lalt_lwin,ctrl:swap_rwin_rctl,shift:both_capslock"
+
+    case "$(hostname)" in
+	"goose")
+	    # system
+	    gsettings set org.gnome.shell.keybindings toggle-overview "['LaunchA']"
+	    # stop Super_L tap showing window overview
+	    gsettings set org.gnome.mutter overlay-key ''
+
+	    gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier', 'altwin:swap_lalt_lwin', 'ctrl:swap_rwin_rctl', 'shift:both_capslock']"
+	    # gsettings set org.gnome.desktop.input-sources xkb-options "['caps:escape_shifted_capslock', 'ctrl:swap_lalt_lctl_lwin', 'ctrl:swap_rwin_rctl']"
+	    ;;
+
+	"hedgehog")
+	    gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier', 'ctrl:ralt_rctrl', 'ctrl:rctrl_ralt', 'shift:both_capslock']"
+	    ;;
+    esac
 
     gsettings set org.gnome.desktop.interface gtk-key-theme Emacs
     # stop Ctrl-. getting blocked
@@ -53,13 +52,6 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2 "['<Alt>2']"
     gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-3 "['<Alt>3']"
     gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Alt>4']"
-
-    # system
-    if [[ "$(hostname)" = "goose" ]]; then
-	gsettings set org.gnome.shell.keybindings toggle-overview "['LaunchA']"
-	# stop Super_L tap showing window overview
-	gsettings set org.gnome.mutter overlay-key ''
-    fi
 
     # typing
     gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Super>space']"
@@ -121,6 +113,23 @@ if [[ "$XDG_CURRENT_DESKTOP" = "MATE" ]]; then
     gsettings set com.solus-project.brisk-menu hot-key ''
     # disable Super_L-E opening file explorer
     gsettings set org.mate.Marco.global-keybindings run-command-3 ''
+fi
+
+if [[ "$(hostname)" = "asusbox" ]]; then
+    setxkbmap -option # back to default
+    setxkbmap -option caps:ctrl_modifier
+    setxkbmap -option ctrl:ralt_rctrl
+    setxkbmap -option altwin:menu_win
+    setxkbmap -option shift:both_capslock
+
+    for id in $(xinput list | sed -e '1,/Virtual core keyboard/d' | grep -e 'Keychron' -e 'PCoIP.*Keyboard' -e 'RGS keyboard' | sed -e 's/.*id=\([0-9]\+\).*/\1/')
+    do
+	setxkbmap -device "${id}" -option
+	setxkbmap -device "${id}" -option caps:ctrl_modifier
+	setxkbmap -device "${id}" -option ctrl:swap_rwin_rctl
+	setxkbmap -device "${id}" -option altwin:swap_lalt_lwin
+	setxkbmap -device "${id}" -option shift:both_capslock
+    done
 fi
 
 # https://docs.microsoft.com/en-us/sysinternals/downloads/ctrl2cap
