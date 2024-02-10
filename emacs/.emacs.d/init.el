@@ -1204,7 +1204,7 @@ empty string."
 
 (require 'consult)
 
-(global-set-key (kbd "C-x f") 'consult-recent-file)
+(global-set-key (kbd "C-c z") 'consult-recent-file)
 
 (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
 
@@ -1235,7 +1235,6 @@ empty string."
 
 (evil-leader/set-key "r" 'my-search)
 (evil-leader/set-key "i" 'my-imenu)
-(global-set-key (kbd "C-c r") 'my-search)
 (global-set-key (kbd "M-s M-f") 'my-search)
 (global-set-key (kbd "M-g i") 'my-imenu)
 (global-set-key (kbd "M-g M-i") 'my-imenu)
@@ -1929,6 +1928,8 @@ return the project path instead"
 (with-eval-after-load 'term
   (my-expose-global-binding term-raw-map (kbd "M-o"))
   (my-expose-global-binding term-raw-map (kbd "C-j")))
+
+(global-set-key (kbd "C-c r") 'ansi-term)
 
 (require 'terminal-here)
 
