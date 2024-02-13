@@ -791,10 +791,6 @@
 	  (my-optional-file "~/notes.org")
 	  (my-optional-file "~/work.org")))
 
-(defun my-org-default-notes ()
-  (interactive)
-  (find-file org-default-notes-file))
-
 (setq org-directory "~/org")
 (setq org-log-done t)
 (setq org-agenda-start-on-weekday nil)
@@ -1063,7 +1059,9 @@ empty string."
       (setq b (cdr b)))
     (reverse res)))
 
-(global-set-key (kbd "C-'") 'my-org-default-notes)
+(global-set-key (kbd "C-'") (lambda ()
+			      (interactive)
+			      (find-file org-default-notes-file)))
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c x") 'org-capture)
