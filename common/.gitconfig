@@ -25,3 +25,5 @@
 	singleKey = true
 [init]
 	defaultBranch = master
+[column]
+	ui = auto
