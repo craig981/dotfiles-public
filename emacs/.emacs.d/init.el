@@ -789,7 +789,7 @@
       (or (my-optional-file "~/notes.org.gpg")
 	  (my-optional-file "~/work.org.gpg")
 	  (my-optional-file "~/notes.org")
-	  (my-optional-file "~/work.org")))
+	  (my-optional-file "~/org/work.org")))
 
 (setq org-directory "~/org")
 (setq org-log-done t)
