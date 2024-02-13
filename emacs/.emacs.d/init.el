@@ -814,7 +814,10 @@
       '(("k" "Bookmark" entry (file+headline org-default-notes-file "Bookmarks")
 	 "* %?\n")
 	("x" "Task" entry (file+headline org-default-notes-file "Tasks")
-	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")))
+	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
+	("w" "Work" entry (file "~/org/work.org")
+	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n"
+	 :empty-lines 1)))
 
 (when (string= "goose" (system-name))
     (push '("b" "Book" entry (file+headline org-default-notes-file "Books")
