@@ -411,6 +411,9 @@
 (global-set-key (kbd "M-j") #'my-join-line)
 (global-set-key (kbd "M-'") #'delete-blank-lines)
 (global-set-key (kbd "M-\\") #'my-delete-whitespace)
+(global-set-key (kbd "M-u") #'upcase-dwim)
+(global-set-key (kbd "M-l") #'downcase-dwim)
+(global-set-key (kbd "M-c") #'capitalize-dwim)
 (global-set-key (kbd "C-c C-j") 'goto-last-change)
 ;; (global-set-key (kbd "M-]") 'goto-last-change-reverse)
 
