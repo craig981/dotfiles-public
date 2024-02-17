@@ -1442,7 +1442,7 @@ empty string."
   (rgrep (read-string "Search for: " (format "\\<%s\\>" (thing-at-point 'symbol t)))
 	 "*" (my-find-project-root)))
 
-(global-set-key (kbd "M-s g") 'my-grep-project)
+(global-set-key (kbd "M-s M-p") 'my-grep-project)
 (global-set-key (kbd "M-s M-g") 'rgrep)
 
 ;; ----------------------------------------------------------------------------
