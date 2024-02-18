@@ -27,3 +27,5 @@
 	defaultBranch = master
 [column]
 	ui = auto
+[diff]
+	algorithm = histogram
