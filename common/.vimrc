@@ -395,6 +395,10 @@ augroup filetype_arnold
 	autocmd BufNewFile,BufRead *.ass call ArnoldMode()
 augroup END
 
+au BufRead,BufNewFile *.usd set filetype=usda
+au BufRead,BufNewFile *.usda set filetype=usda
+"autocmd FileType usda source <LOCATION>/usda-syntax/vim/usda.vim
+
 
 ":help vimrc-filetype
 filetype plugin indent on

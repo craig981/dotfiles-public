@@ -2371,6 +2371,11 @@ current project instead, and visit the tags file."
   (set (make-local-variable 'comment-start) "#"))
 (add-to-list 'auto-mode-alist '("\\.ass\\'" . my-arnold-settings))
 
+;;; USD
+(load "~/.emacs.d/lisp/usda-syntax.el")
+(add-to-list 'auto-mode-alist '("\\.usd\\'" . usda-mode))
+(add-to-list 'auto-mode-alist '("\\.usda\\'" . usda-mode))
+
 ;; ----------------------------------------------------------------------------
 ;;| Debug, gdb
 ;; ----------------------------------------------------------------------------
