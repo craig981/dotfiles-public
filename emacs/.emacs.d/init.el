@@ -2779,6 +2779,7 @@ current project instead, and visit the tags file."
      ledger-mode
      magit
      marginalia
+     markdown-mode
      nordic-night-theme
      orderless
      ox-pandoc
