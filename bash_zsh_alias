@@ -24,6 +24,7 @@ else
   fi
 
   alias ls='/bin/ls --color=auto'
+  alias l='/bin/ls -lrth --color=auto'
   alias ll='/bin/ls -lrth --color=auto'
   alias la='/bin/ls -lrthA --color=auto'
 
