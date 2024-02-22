@@ -198,7 +198,6 @@
       (setq-local vc-handled-backends nil))
   (when (not (or (eq major-mode 'image-mode)
 		 (derived-mode-p 'bongo-mode)))
-    (setq-local show-trailing-whitespace t)
     (my-evil-local-mode)
     (when (and git-commit-mode (evil-normal-state-p) (looking-at "^$"))
       (evil-insert-state)))
@@ -249,6 +248,8 @@
 (setq-default
  show-paren-when-point-inside-paren t
  show-paren-when-point-in-periphery t)
+
+(setq-default show-trailing-whitespace t)
 
 (defun my-insert-enter-hook ()
   (show-paren-mode -1))
@@ -563,7 +564,6 @@
 
 (defun my-prog-mode-hook ()
   (abbrev-mode -1)
-  (setq-local show-trailing-whitespace t)
   (setq-local fill-column 80)
   (setq-local abbrev-expand-function #'my-abbrev-expand))
 
@@ -740,7 +740,6 @@
   (modify-syntax-entry ?= ".")
   ;; (setq-local my-evil-default 0)
   (my-evil-local-mode)
-  (setq-local show-trailing-whitespace t)
   (setq-local fill-column 72)
   ;; stop paragraph lines after the first being extra indented by M-q
   (setq-local fill-paragraph-function nil))
@@ -767,6 +766,11 @@
         (display-buffer-reuse-window display-buffer-below-selected)
         (window-height . 10))
       display-buffer-alist)
+
+(defun my-calendar-hook ()
+  (setq-local show-trailing-whitespace nil))
+
+(add-hook 'calendar-mode-hook 'my-calendar-hook)
 
 (global-set-key (kbd "C-c M-c") 'calendar)
 
@@ -1906,6 +1910,8 @@ return the project path instead"
   (fancy-dabbrev-mode -1)
   (visual-line-mode 0)
   (toggle-truncate-lines 0)
+
+  (setq-local show-trailing-whitespace nil)
 
   ;; fill out longest common part of filename first
   (setq-local completion-styles '(emacs21 flex))
