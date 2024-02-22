@@ -1,6 +1,8 @@
 # -*- mode: sh; sh-shell: bash; -*-
 # ~/.bashrc: executed by bash(1) for non-login shells
 
+export PATH=$HOME/tools/bin:$HOME/dotfiles-public/bin:/usr/local/bin:${PATH}
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -31,8 +33,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
-export PATH=$HOME/tools/bin:$HOME/dotfiles-public/bin:/usr/local/bin:${PATH}
 
 if [ "$TERM" != "dumb" ]; then
     bind -u complete-filename
