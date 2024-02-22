@@ -845,7 +845,7 @@
 	;;  (concat org-agenda-hide-tags-regexp "\\|ARCHIVE"))
 	(org-agenda-start-on-weekday 1)))
 
-(let ((tag (if (string= "goose" (system-name)) "READ|PROJECT")))
+(let ((tag (if (string= "goose" (system-name)) "READ|WATCH|PROJECT")))
   (setq org-agenda-custom-commands
 	`(("d" "Done stuff" todo "DONE" )
 	  ("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
