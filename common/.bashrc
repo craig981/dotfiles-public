@@ -1,7 +1,7 @@
 # -*- mode: sh; sh-shell: bash; -*-
 # ~/.bashrc: executed by bash(1) for non-login shells
 
-export PATH=$HOME/tools/bin:$HOME/dotfiles-public/bin:/usr/local/bin:${PATH}
+export PATH=$HOME/tools/bin:$HOME/dotfiles-public/bin:$HOME/.local/bin:/usr/local/bin:${PATH}
 
 # If not running interactively, don't do anything
 case $- in
