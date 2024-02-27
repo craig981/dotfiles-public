@@ -1798,7 +1798,7 @@ return the project path instead"
 (with-eval-after-load "cmake-mode"
   (defun my-cmake-hook ()
     (my-syntax-entry)
-    (setq-local devdocs-current-docs '("cmake~3.22")))
+    (setq-local devdocs-current-docs '("cmake~3.26")))
   (add-hook 'cmake-mode-hook 'my-cmake-hook))
 
 (defun my-log-settings ()
