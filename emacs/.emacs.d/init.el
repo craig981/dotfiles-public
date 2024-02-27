@@ -1212,7 +1212,7 @@ empty string."
 
 (require 'consult)
 
-(global-set-key (kbd "C-c z") 'consult-recent-file)
+(global-set-key (kbd "C-c r") 'consult-recent-file)
 
 (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
 
@@ -1939,7 +1939,7 @@ return the project path instead"
   (my-expose-global-binding term-raw-map (kbd "M-o"))
   (my-expose-global-binding term-raw-map (kbd "C-j")))
 
-(global-set-key (kbd "C-c r") 'ansi-term)
+(global-set-key (kbd "C-c z") 'ansi-term)
 
 (require 'terminal-here)
 
