@@ -380,6 +380,8 @@
 (evil-leader/set-key "d" 'pwd)
 (evil-leader/set-key "SPC" (kbd "=i{"))
 
+(global-set-key (kbd "C-c c") #'my-copy-filename)
+
 (when (eq system-type 'gnu/linux)
   (evil-global-set-key 'motion (kbd "K") 'man))
 
