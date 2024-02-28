@@ -395,11 +395,11 @@
   (advice-add #'Man-completion-table :override #'my-advise-man-completion))
 
 (global-set-key (kbd "C-c q") #'my-close-other-window)
-(global-set-key (kbd "C-c u") #'toggle-truncate-lines)
-(when (display-graphic-p)
-  (global-set-key (kbd "C-c C-'") (lambda ()
-				    (interactive)
-				    (find-file user-init-file))))
+(global-set-key (kbd "C-c i") #'toggle-truncate-lines)
+;; (when (display-graphic-p)
+;;   (global-set-key (kbd "C-c C-'") (lambda ()
+;; 				    (interactive)
+;; 				    (find-file user-init-file))))
 (global-set-key (kbd "C-c w") 'evil-window-map)
 (global-set-key (kbd "C-c w m") #'my-mirror-buffer)
 
@@ -993,6 +993,7 @@
   (define-key org-mode-map (kbd "C-'") nil)
   (define-key org-mode-map (kbd "C-j") nil)
   (define-key org-mode-map (kbd "C-c C-j") nil)
+  (define-key org-mode-map (kbd "C-c C-'") 'org-edit-special)
   (define-key org-mode-map (kbd "C-c [") 'org-toggle-link-display)
   (define-key org-mode-map (kbd "C-c ]") nil)
 
@@ -1463,21 +1464,17 @@ empty string."
     (or (and dir (expand-file-name (file-name-as-directory dir)))
 	default-directory)))
 
-;; C-u opens in other window
-(defun my-find-file-in-project (&optional open-in-other-window)
-  (interactive "P")
+(defun my-find-file-in-project ()
+  (interactive)
   (let ((read-file-name-completion-ignore-case t))
-    (if open-in-other-window
-	(let* ((switch-to-buffer-obey-display-actions t)
-	       (display-buffer-overriding-action '((display-buffer-pop-up-window)
-						   (inhibit-same-window . t))))
-	  (project-find-file))
-      (project-find-file))))
+    (project-find-file)))
 
 (defun my-find-file-in-project-other-window ()
   (interactive)
-  (let ((current-prefix-arg 4)) ;; emulate C-u
-    (call-interactively 'my-find-file-in-project)))
+  (let* ((switch-to-buffer-obey-display-actions t)
+	 (display-buffer-overriding-action '((display-buffer-pop-up-window)
+					     (inhibit-same-window . t))))
+    (my-find-file-in-project)))
 
 (defun my-jump-project-dired ()
   (interactive)
@@ -1588,8 +1585,9 @@ return the project path instead"
 (global-set-key (kbd "C-c p t") #'my-choose-project-and-term)
 
 (global-set-key (kbd "C-c e") 'my-find-file-in-project)
-(global-set-key (kbd "C-x C-d") 'my-jump-project-dired)
+(global-set-key (kbd "C-c u") 'my-find-file-in-project-other-window)
 (global-set-key (kbd "C-c n") 'my-jump-notefiles)
+(global-set-key (kbd "C-x C-d") 'my-jump-project-dired)
 
 (evil-leader/set-key "e" 'my-find-file-in-project)
 (evil-leader/set-key "u" 'my-find-file-in-project-other-window)
