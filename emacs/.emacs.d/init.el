@@ -931,9 +931,13 @@
 (defun my-org-src-hook ()
   (my-evil-local-mode))
 
+(defun my-org-agenda-hook ()
+  (setq-local show-trailing-whitespace nil))
+
 (add-hook 'org-mode-hook 'my-org-mode-hook)
 (add-hook 'org-capture-mode-hook 'my-org-capture-hook)
 (add-hook 'org-src-mode-hook 'my-org-src-hook)
+(add-hook 'org-agenda-mode-hook 'my-org-agenda-hook)
 
 (defun my-org-clock-jump ()
   (interactive)
