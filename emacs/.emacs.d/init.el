@@ -1318,9 +1318,12 @@ empty string."
 
 (defun my-kill-buffer ()
   (interactive)
-  (if (buffer-modified-p)
-      (my-invoke-with-completion #'kill-buffer)
-    (kill-this-buffer)))
+  (cond
+   ((get-buffer-process (current-buffer))
+    (kill-this-buffer))
+   ((buffer-modified-p)
+    (my-invoke-with-completion #'kill-buffer))
+   (t (kill-this-buffer))))
 
 (defun my-switch-buffer ()
   (interactive)
