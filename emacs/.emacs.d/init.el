@@ -1637,6 +1637,7 @@ return the project path instead"
 (define-key dired-mode-map (kbd ";") 'dired-up-directory)
 
 (defun my-dired-hook ()
+  (setq-local show-trailing-whitespace nil)
   (auto-revert-mode 1))
 
 (add-hook 'dired-mode-hook 'my-dired-hook)
