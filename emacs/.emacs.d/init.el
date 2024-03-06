@@ -815,6 +815,10 @@
 (setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!/!)")
 			  (sequence "|" "CANCELLED(c@/!)")))
 
+(require 'org-crypt)
+(org-crypt-use-before-save-magic)
+(setq org-tags-exclude-from-inheritance '("crypt"))
+
 (setq org-capture-templates
       '(("k" "Bookmark" entry (file+headline org-default-notes-file "Bookmarks")
 	 "* %?\n")
@@ -2813,6 +2817,7 @@ current project instead, and visit the tags file."
  '(safe-local-variable-values
    '((my-input-method . swedish-postfix)
      (my-input-method . german-postfix)
+     (buffer-auto-save-file-name . nil)
      (tab-always-indent)
      (indent-tabs-mode nil)
      (evil-shift-width . 2)
