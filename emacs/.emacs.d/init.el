@@ -396,10 +396,9 @@
 
 (global-set-key (kbd "C-c q") #'my-close-other-window)
 (global-set-key (kbd "C-c i") #'toggle-truncate-lines)
-;; (when (display-graphic-p)
-;;   (global-set-key (kbd "C-c C-'") (lambda ()
-;; 				    (interactive)
-;; 				    (find-file user-init-file))))
+(global-set-key (kbd "C-c z") (lambda ()
+				(interactive)
+				(find-file user-init-file)))
 (global-set-key (kbd "C-c w") 'evil-window-map)
 (global-set-key (kbd "C-c w m") #'my-mirror-buffer)
 
@@ -1950,11 +1949,11 @@ return the project path instead"
   (my-expose-global-binding term-raw-map (kbd "M-o"))
   (my-expose-global-binding term-raw-map (kbd "C-j")))
 
-(global-set-key (kbd "C-c z") 'ansi-term)
+(global-set-key (kbd "C-c t") 'ansi-term)
 
 (require 'terminal-here)
 
-(global-set-key (kbd "C-c t") #'terminal-here-launch)
+(global-set-key (kbd "C-c T") #'terminal-here-launch)
 
 (when (eq system-type 'gnu/linux)
   (push '(mate-terminal "mate-terminal") terminal-here-terminal-command-table)
