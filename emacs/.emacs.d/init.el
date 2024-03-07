@@ -2484,6 +2484,9 @@ current project instead, and visit the tags file."
 	;; external monitor
 	(set-face-attribute 'default nil :height 105)))
 
+    (when (eq system-type 'windows-nt)
+      (set-frame-font "Fira Mono 11" nil t))
+
     (when (eq system-type 'darwin)
       (set-face-attribute 'default nil :family "Menlo" :height 160))))
 
