@@ -2,4 +2,5 @@ common/.vim/autoload/plug.vim
 common/.vim/plugged
 common/.vim/.netrwhist
 *.~undo-tree~
+emacs/.emacs.d/eshell/history
 
