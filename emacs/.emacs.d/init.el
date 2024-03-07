@@ -2389,9 +2389,9 @@ current project instead, and visit the tags file."
 (add-to-list 'auto-mode-alist '("\\.ass\\'" . my-arnold-settings))
 
 ;;; USD
-(load "~/.emacs.d/lisp/usda-syntax.el")
-(add-to-list 'auto-mode-alist '("\\.usd\\'" . usda-mode))
-(add-to-list 'auto-mode-alist '("\\.usda\\'" . usda-mode))
+(when (load "~/.emacs.d/lisp/usda-syntax.el" t)
+  (add-to-list 'auto-mode-alist '("\\.usd\\'" . usda-mode))
+  (add-to-list 'auto-mode-alist '("\\.usda\\'" . usda-mode)))
 
 ;; ----------------------------------------------------------------------------
 ;;| Debug, gdb
