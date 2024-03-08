@@ -2472,28 +2472,30 @@ current project instead, and visit the tags file."
 
   (when (display-graphic-p)
 
-    ;; linux: install to ~/.fonts/  then fc-cache -v ~/.fonts
-    (when (eq system-type 'gnu/linux)
+    (pcase system-type
+      ('gnu/linux
 
-      (set-face-attribute 'default nil :font "Menlo:pixelsize=14:weight=normal:slant=normal:width=normal:spacing=100:scalable=true")
+       ;; install to ~/.fonts/  then fc-cache -v ~/.fonts
 
-      (if (string-empty-p (string-trim (shell-command-to-string
-					"xrandr | awk '$2 == \"connected\" && $1 ~ /^(HDMI-|DP-)/ {print $1}'")))
-	  ;; laptop screen
-	  (let ((hostname (system-name)))
-	    (cond
-	     ((string= "goose" hostname)
+       (set-face-attribute 'default nil :font "Menlo:pixelsize=14:weight=normal:slant=normal:width=normal:spacing=100:scalable=true")
+
+       (if (string-empty-p (string-trim
+			    (shell-command-to-string
+			     "xrandr | awk '$2 == \"connected\" && $1 ~ /^(HDMI-|DP-)/ {print $1}'")))
+	   ;; laptop screen
+	   (pcase (system-name)
+	     ("goose"
 	      (set-face-attribute 'default nil :height 130))
-	     ((string= "hedgehog" hostname)
-	      (set-face-attribute 'default nil :height 120))))
-	;; external monitor
-	(set-face-attribute 'default nil :height 105)))
+	     ("hedgehog"
+	      (set-face-attribute 'default nil :height 120)))
+	 ;; external monitor
+	 (set-face-attribute 'default nil :height 105)))
 
-    (when (eq system-type 'windows-nt)
-      (set-frame-font "Fira Mono 11" nil t))
+      ('windows-nt
+       (set-frame-font "Fira Mono 11" nil t))
 
-    (when (eq system-type 'darwin)
-      (set-face-attribute 'default nil :family "Menlo" :height 160))))
+      ('darwin
+       (set-face-attribute 'default nil :family "Menlo" :height 160)))))
 
 ;; ----------------------------------------------------------------------------
 ;;| Colour theme
