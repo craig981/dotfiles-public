@@ -57,11 +57,14 @@ vnoremap <leader>= :!column -t<CR>gv
 " remove trailing whitespace in selection
 vnoremap <leader>\ :s/\s\+$//<CR>
 
-" nnoremap <leader>r :silent grep '<c-r><c-w>' .<Left><Left><Left>
+set grepprg=grep\ -r\ -nH\ --color=never\ --exclude-dir=.git\ $*\ .
+nnoremap <leader>r :silent grep '\<<c-r><c-w>\>'<Left><Left><Left>
 " if executable('ag')
 " 	set grepprg=ag\ --vimgrep\ -s\ --ignore-dir\ .git\ --hidden\ $*
 " 	set grepformat^=%f:%l:%c:%m
 " endif
+
+nnoremap <leader>e :find<space>
 
 "occurrences in current file
 nnoremap <leader>o :vimgrep /\<<c-r><c-w>\>/ %<CR>:cope<CR><C-w><C-p>
@@ -199,12 +202,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 	call plug#begin('~/.vim/plugged')
 	Plug 'tpope/vim-commentary'
 	Plug 'skywind3000/asyncrun.vim'
-	Plug 'gruvbox-community/gruvbox'
 	Plug 'adlawson/vim-sorcerer'
 	Plug 'mswift42/vim-themes'
-	Plug 'arcticicestudio/nord-vim'
-	Plug 'ctrlpvim/ctrlp.vim'
-	Plug 'wincent/ferret'
 	call plug#end()
 
 	augroup change_the_colours
@@ -223,16 +222,12 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 		autocmd ColorScheme reykjavik hi Search guibg='#909090' guifg='#000000'
 	augroup END
 
-	"autocmd VimEnter * colorscheme gruvbox
-	"colorscheme gruvbox
-	"colorscheme desert
 	if has("termguicolors")
 		set termguicolors
 		if !has("nvim")
 			set term=xterm-256color
 		endif
 		colorscheme reykjavik
-		" colorscheme nord
 	else
 		colorscheme sorcerer
 	endif
@@ -242,28 +237,6 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 	nnoremap ,m :cope <bar> AsyncRun make -f build.mk run<CR><C-W><C-P>
 	nnoremap <C-C><C-K> :AsyncStop<CR>
 
-	if match(&runtimepath, 'ctrlp.vim') != -1
-		let g:ctrlp_map = ''
-		let g:ctrlp_show_hidden = 1
-		let g:ctrlp_use_caching = 0
-		let g:ctrlp_clear_cache_on_exit = 1
-		let g:ctrlp_prompt_mappings = {
-					\ 'PrtSelectMove("j")':   ['<c-n>', '<down>'],
-					\ 'PrtSelectMove("k")':   ['<c-p>', '<up>'],
-					\ 'PrtHistory(-1)':       ['<c-j>'],
-					\ 'PrtHistory(1)':        ['<c-k>'],
-					\ }
-		nnoremap <silent> <leader>e :CtrlP getcwd()<CR>
-	else
-		nnoremap <leader>e :find<space>
-	endif
-
-	nnoremap <leader>r :Ack <c-r><c-w> -w
-	let g:FerretHlsearch=1
-	let g:FerretExecutable='ag,rg'
-	let g:FerretExecutableArguments = {
-				\ 'ag': '--vimgrep -s --ignore-dir .git --hidden'
-				\ }
 endif
 
 if has("nvim")
