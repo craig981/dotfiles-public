@@ -231,8 +231,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 		if !has("nvim")
 			set term=xterm-256color
 		endif
-		" colorscheme reykjavik
-		colorscheme nord
+		colorscheme reykjavik
+		" colorscheme nord
 	else
 		colorscheme sorcerer
 	endif
