@@ -400,7 +400,8 @@
 				(interactive)
 				(find-file user-init-file)))
 (global-set-key (kbd "C-c w") 'evil-window-map)
-(global-set-key (kbd "C-c w m") #'my-mirror-buffer)
+(global-set-key (kbd "C-c w SPC") #'world-clock)
+(global-set-key (kbd "C-c m") #'my-mirror-buffer)
 
 (require 'expand-region)
 (global-set-key (kbd "C-M-o") 'er/expand-region)
@@ -1757,7 +1758,7 @@ return the project path instead"
 (require 'magit)
 
 (evil-leader/set-key "v" 'magit-status)
-(global-set-key (kbd "C-c m") 'magit-status)
+(global-set-key (kbd "C-M-g") 'magit-status)
 (global-set-key (kbd "C-c M") #'my-magit-list-repos)
 
 ;; ----------------------------------------------------------------------------
