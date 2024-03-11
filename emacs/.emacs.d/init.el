@@ -1701,6 +1701,7 @@ return the project path instead"
   (evil-leader-mode -1))
 
 (defun my-magit-repolist-hook ()
+  (setq-local show-trailing-whitespace nil)
   (my-evil-local-mode)
   (beginning-of-buffer))
 
