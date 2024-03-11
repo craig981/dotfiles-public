@@ -2843,7 +2843,13 @@ current project instead, and visit the tags file."
    "-o ControlMaster=auto -o ControlPath=tramp.%%C -o ControlPersist=60m" t)
  '(undo-tree-auto-save-history nil)
  '(use-short-answers t)
- '(warning-suppress-types '((comp))))
+ '(warning-suppress-types '((comp)))
+ '(world-clock-list
+   '(("America/Los_Angeles" "Los Angeles")
+     ("America/New_York" "New York")
+     ("Europe/London" "London")
+     ("Europe/Stockholm" "Stockholm")))
+ '(world-clock-time-format "%R %Z"))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
