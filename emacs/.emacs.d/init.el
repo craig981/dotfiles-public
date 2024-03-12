@@ -374,12 +374,12 @@
     (interactive)
     (my-substitute ".,$")))
 
-(evil-leader/set-key "%" #'my-copy-filename)
 (evil-leader/set-key "=" #'align-regexp)
 (evil-leader/set-key "\\" #'c-backslash-region)
 (evil-leader/set-key "d" 'pwd)
 (evil-leader/set-key "SPC" (kbd "=i{"))
 
+(global-set-key (kbd "C-c d") 'pwd)
 (global-set-key (kbd "C-c c") #'my-copy-filename)
 
 (when (eq system-type 'gnu/linux)
@@ -417,6 +417,10 @@
 (global-set-key (kbd "M-u") #'upcase-dwim)
 (global-set-key (kbd "M-l") #'downcase-dwim)
 (global-set-key (kbd "M-c") #'capitalize-dwim)
+(global-set-key (kbd "M-p") (kbd "M-{"))
+(global-set-key (kbd "M-n") (kbd "M-}"))
+(global-set-key (kbd "M-]") #'evil-numbers/inc-at-pt)
+(global-set-key (kbd "M-[") #'evil-numbers/dec-at-pt)
 (global-set-key (kbd "C-c C-j") 'goto-last-change)
 ;; (global-set-key (kbd "M-]") 'goto-last-change-reverse)
 
@@ -1259,8 +1263,8 @@ empty string."
 (evil-leader/set-key "r" 'my-search)
 (evil-leader/set-key "i" 'my-imenu)
 (global-set-key (kbd "M-s M-f") 'my-search)
-(global-set-key (kbd "M-g i") 'my-imenu)
-(global-set-key (kbd "M-g M-i") 'my-imenu)
+(global-set-key (kbd "M-s i") 'my-imenu)
+(global-set-key (kbd "M-s M-i") 'my-imenu)
 
 ;; ----------------------------------------------------------------------------
 ;;| Embark
