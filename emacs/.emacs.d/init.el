@@ -398,7 +398,9 @@
 (global-set-key (kbd "C-c i") #'toggle-truncate-lines)
 (global-set-key (kbd "C-c z") (lambda ()
 				(interactive)
-				(find-file user-init-file)))
+				(find-file (if (eq system-type 'windows-nt)
+					       (concat (getenv "HOME") "\\dotfiles-public\\emacs\\.emacs.d\\init.el")
+					     user-init-file))))
 (global-set-key (kbd "C-c w") 'evil-window-map)
 (global-set-key (kbd "C-c w SPC") #'world-clock)
 (global-set-key (kbd "C-c m") #'my-mirror-buffer)
@@ -904,30 +906,35 @@
       (evil-shift-right-line 1))))
 
 (defun my-org-mode-hook ()
-  ;; override the evil binding of C-i (jump forward), as C-i is the
-  ;; same as tab in the terminal, which we want in org mode for
-  ;; (un)collapsing headers
-  (when (not (display-graphic-p))
-    (evil-local-set-key 'motion (kbd "C-i") 'org-cycle))
-  (when (and (display-graphic-p)
-	     (not (version< emacs-version "28.1")))
-    (evil-local-set-key 'normal (kbd "TAB") 'org-cycle))
 
-  (evil-local-set-key 'normal (kbd "[[") #'org-toggle-link-display)
-  (evil-local-set-key 'insert (kbd "<backtab>") #'fancy-dabbrev-backward)
-  (evil-local-set-key 'insert (kbd "C-t") (lambda () (interactive) (my-org-shift nil)))
-  (evil-local-set-key 'insert (kbd "C-d") (lambda () (interactive) (my-org-shift t)))
-  (evil-local-set-key 'insert (kbd "TAB") (lambda (&optional prefix)
-					    (interactive "P")
-					    (if prefix
-						(insert-tab prefix)
-					      (org-cycle))))
+  (cond
+   ((eq system-type 'windows-nt)
+    (setq-local my-evil-default 0))
+
+   (t
+    ;; override the evil binding of C-i (jump forward), as C-i is the
+    ;; same as tab in the terminal, which we want in org mode for
+    ;; (un)collapsing headers
+    (when (not (display-graphic-p))
+      (evil-local-set-key 'motion (kbd "C-i") 'org-cycle))
+    (when (and (display-graphic-p)
+	       (not (version< emacs-version "28.1")))
+      (evil-local-set-key 'normal (kbd "TAB") 'org-cycle))
+
+    (evil-local-set-key 'normal (kbd "[[") #'org-toggle-link-display)
+    (evil-local-set-key 'insert (kbd "<backtab>") #'fancy-dabbrev-backward)
+    (evil-local-set-key 'insert (kbd "C-t") (lambda () (interactive) (my-org-shift nil)))
+    (evil-local-set-key 'insert (kbd "C-d") (lambda () (interactive) (my-org-shift t)))
+    (evil-local-set-key 'insert (kbd "TAB") (lambda (&optional prefix)
+					      (interactive "P")
+					      (if prefix
+						  (insert-tab prefix)
+						(org-cycle))))))
 
   ;; / is punctuation, so evil * works on path components
   (modify-syntax-entry ?/ ".")
   (auto-fill-mode 1)
 
-  ;; (setq-local my-evil-default 0)
   (my-evil-local-mode)
 
   (setq-local indent-tabs-mode nil)
