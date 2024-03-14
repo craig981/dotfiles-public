@@ -1349,11 +1349,11 @@ empty string."
 
 (defun my-switch-buffer ()
   (interactive)
-  (my-invoke-with-completion #'switch-to-buffer))
+  (my-invoke-with-completion #'consult-buffer))
 
 (defun my-switch-buffer-other-window ()
   (interactive)
-  (my-invoke-with-completion #'switch-to-buffer-other-window))
+  (my-invoke-with-completion #'consult-buffer-other-window))
 
 (evil-global-set-key 'motion (kbd "C-w d")   'my-kill-buffer)
 (evil-global-set-key 'motion (kbd "C-w C-d") 'my-kill-buffer)
