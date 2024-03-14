@@ -1197,7 +1197,7 @@ empty string."
 ;; (setq vertico-count-format nil)
 (setq vertico-group-format nil)
 
-(define-key vertico-map (kbd "DEL") #'vertico-directory-delete-char)
+;; (define-key vertico-map (kbd "DEL") #'vertico-directory-delete-char)
 (define-key vertico-map (kbd "C-j") nil)
 (define-key vertico-map (kbd "C-h f")
   (lambda ()
