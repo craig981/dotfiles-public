@@ -399,14 +399,13 @@
 
 (global-set-key (kbd "C-c q") #'my-close-other-window)
 (global-set-key (kbd "C-c i") #'toggle-truncate-lines)
-(global-set-key (kbd "C-c z") (lambda ()
-				(interactive)
-				(find-file (if (eq system-type 'windows-nt)
-					       (concat (getenv "HOME") "\\dotfiles-public\\emacs\\.emacs.d\\init.el")
-					     user-init-file))))
 (global-set-key (kbd "C-c w") 'evil-window-map)
 (global-set-key (kbd "C-c w SPC") #'world-clock)
 (global-set-key (kbd "C-c m") #'my-mirror-buffer)
+
+(set-register ?i `(file . ,(if (eq system-type 'windows-nt)
+			       (concat (getenv "HOME") "\\dotfiles-public\\emacs\\.emacs.d\\init.el")
+			     user-init-file)))
 
 (require 'expand-region)
 (global-set-key (kbd "C-M-o") 'er/expand-region)
