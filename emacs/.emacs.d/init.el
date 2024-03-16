@@ -421,12 +421,11 @@
 (global-set-key (kbd "M-u") #'upcase-dwim)
 (global-set-key (kbd "M-l") #'downcase-dwim)
 (global-set-key (kbd "M-c") #'capitalize-dwim)
-(global-set-key (kbd "M-p") (kbd "M-{"))
-(global-set-key (kbd "M-n") (kbd "M-}"))
+(global-set-key (kbd "M-p") #'evil-scroll-up)
+(global-set-key (kbd "M-n") #'evil-scroll-down)
 (global-set-key (kbd "M-]") #'evil-numbers/inc-at-pt)
 (global-set-key (kbd "M-[") #'evil-numbers/dec-at-pt)
 (global-set-key (kbd "C-c C-j") 'goto-last-change)
-;; (global-set-key (kbd "M-]") 'goto-last-change-reverse)
 
 (global-set-key (kbd "M-s ,") (lambda ()
 				(interactive)
@@ -546,11 +545,14 @@
 
 (with-eval-after-load "info"
   (define-key Info-mode-map (kbd "C-w") 'evil-window-map)
-  (define-key Info-mode-map (kbd "SPC") evil-leader--default-map))
+  (define-key Info-mode-map (kbd "SPC") evil-leader--default-map)
+  (define-key Info-mode-map (kbd "M-n") nil))
 
 (with-eval-after-load "man"
   (define-key Man-mode-map (kbd "C-w") 'evil-window-map)
-  (define-key Man-mode-map (kbd "SPC") evil-leader--default-map))
+  (define-key Man-mode-map (kbd "SPC") evil-leader--default-map)
+  (define-key Man-mode-map (kbd "M-p") nil)
+  (define-key Man-mode-map (kbd "M-n") nil))
 
 (defun my-man-page-hook ()
   (my-evil-local-mode))
@@ -1969,11 +1971,11 @@ return the project path instead"
   (my-expose-global-binding term-raw-map (kbd "M-o"))
   (my-expose-global-binding term-raw-map (kbd "C-j")))
 
-(global-set-key (kbd "C-c t") 'ansi-term)
+(global-set-key (kbd "C-c z") 'ansi-term)
 
 (require 'terminal-here)
 
-(global-set-key (kbd "C-c T") #'terminal-here-launch)
+(global-set-key (kbd "C-c t") #'terminal-here-launch)
 
 (when (eq system-type 'gnu/linux)
   (push '(mate-terminal "mate-terminal") terminal-here-terminal-command-table)
