@@ -402,10 +402,11 @@
 (global-set-key (kbd "C-c w") 'evil-window-map)
 (global-set-key (kbd "C-c w SPC") #'world-clock)
 (global-set-key (kbd "C-c m") #'my-mirror-buffer)
-
-(set-register ?i `(file . ,(if (eq system-type 'windows-nt)
-			       (concat (getenv "HOME") "\\dotfiles-public\\emacs\\.emacs.d\\init.el")
-			     user-init-file)))
+(global-set-key (kbd "C-c z") (lambda ()
+				(interactive)
+				(find-file (if (eq system-type 'windows-nt)
+					       (concat (getenv "HOME") "\\dotfiles-public\\emacs\\.emacs.d\\init.el")
+					     user-init-file))))
 
 (require 'expand-region)
 (global-set-key (kbd "C-M-o") 'er/expand-region)
@@ -1971,11 +1972,11 @@ return the project path instead"
   (my-expose-global-binding term-raw-map (kbd "M-o"))
   (my-expose-global-binding term-raw-map (kbd "C-j")))
 
-(global-set-key (kbd "C-c z") 'ansi-term)
+(global-set-key (kbd "C-c t a") 'ansi-term)
 
 (require 'terminal-here)
 
-(global-set-key (kbd "C-c t") #'terminal-here-launch)
+(global-set-key (kbd "C-c t h") #'terminal-here-launch)
 
 (when (eq system-type 'gnu/linux)
   (push '(mate-terminal "mate-terminal") terminal-here-terminal-command-table)
