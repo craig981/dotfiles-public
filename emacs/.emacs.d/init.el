@@ -985,13 +985,15 @@
 (defun my-wrap-org-link ()
   "With point at the start of a URL, turn it into [[url][title]]"
   (interactive)
-  (let* ((url (thing-at-point 'url t))
-	 (title (my-www-get-page-title url)))
-    (save-excursion
-      (insert "[[")
-      (evil-forward-WORD-end)
-      (forward-char)
-      (insert (format "][%s]]" title)))))
+  (let ((bounds (thing-at-point-bounds-of-url-at-point t)))
+    (when (and bounds (< (car bounds) (cdr bounds)))
+      (let* ((url (buffer-substring-no-properties (car bounds) (cdr bounds)))
+	     (title (my-www-get-page-title url)))
+	(save-excursion
+	  (goto-char (cdr bounds))
+	  (insert (format "][%s]]" title))
+	  (goto-char (car bounds))
+	  (insert "[["))))))
 
 (defun my-insert-org-src-block  ()
   "Insert a src block with the same language as the previous block"
