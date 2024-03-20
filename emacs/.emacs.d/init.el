@@ -2516,7 +2516,7 @@ current project instead, and visit the tags file."
 	 (set-face-attribute 'default nil :height 105)))
 
       ('windows-nt
-       (set-frame-font "Menlo 10" nil t))
+       (set-frame-font "Fira Mono 10" nil t))
 
       ('darwin
        (set-face-attribute 'default nil :family "Menlo" :height 160)))))
