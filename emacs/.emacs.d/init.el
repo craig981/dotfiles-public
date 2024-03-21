@@ -445,6 +445,7 @@
 
 (global-set-key (kbd "C-h h") nil)
 (global-set-key (kbd "C-h C-c") nil)
+(global-set-key (kbd "C-h RET") 'man)
 (global-set-key (kbd "C-x !") 'delete-other-windows-vertically)
 (global-set-key (kbd "C-x w") 'subword-mode)
 
