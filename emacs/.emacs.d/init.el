@@ -2029,9 +2029,7 @@ return the project path instead"
       (project-eshell)
     (eshell)))
 
-(when (eq system-type 'windows-nt)
-  (global-set-key (kbd "C-c V") (lambda () (interactive) (my-eshell t)))
-  (global-set-key (kbd "C-c v") (lambda () (interactive) (my-eshell nil))))
+(global-set-key (kbd "C-c t e") (lambda () (interactive) (my-eshell nil)))
 
 ;; ----------------------------------------------------------------------------
 ;;| Tags
