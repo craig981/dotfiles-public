@@ -300,12 +300,18 @@
 
 (defun my-delete-whitespace (&optional prefix)
   (interactive "P")
-  (if (region-active-p)
-      (progn
-	(call-interactively 'delete-trailing-whitespace)
-	(deactivate-mark)
-	(message "Deleted trailing whitespace"))
-    (delete-horizontal-space prefix)))
+  (cond
+   ((region-active-p)
+    (call-interactively 'delete-trailing-whitespace)
+    (deactivate-mark)
+    (message "Deleted trailing whitespace in region"))
+   ((looking-at "[^[:space:]\n]")
+    (save-excursion
+     (move-end-of-line 1)
+     (delete-horizontal-space))
+    (message "Deleted trailing whitespace on current line"))
+   (t
+    (delete-horizontal-space prefix))))
 
 (defun my-copy-filename ()
   (interactive)
