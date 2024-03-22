@@ -305,13 +305,14 @@
     (call-interactively 'delete-trailing-whitespace)
     (deactivate-mark)
     (message "Deleted trailing whitespace in region"))
-   ((looking-at "[^[:space:]\n]")
-    (save-excursion
-     (move-end-of-line 1)
-     (delete-horizontal-space))
-    (message "Deleted trailing whitespace on current line"))
+   ((or (looking-at "[[:space:]\n]")
+	(looking-back "[[:space:]\n]" (pos-bol)))
+    (delete-horizontal-space prefix))
    (t
-    (delete-horizontal-space prefix))))
+    (save-excursion
+      (move-end-of-line 1)
+      (delete-horizontal-space))
+    (message "Deleted trailing whitespace on current line"))))
 
 (defun my-copy-filename ()
   (interactive)
