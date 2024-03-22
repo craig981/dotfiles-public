@@ -448,7 +448,7 @@
 (global-set-key (kbd "C-h C-c") nil)
 (global-set-key (kbd "C-h RET") 'man)
 (global-set-key (kbd "C-x !") 'delete-other-windows-vertically)
-(global-set-key (kbd "C-x w") 'subword-mode)
+(global-set-key (kbd "C-x g") 'subword-mode)
 
 (evil-leader/set-key "li" #'flyspell-mode)
 (evil-leader/set-key "lb" #'flyspell-buffer)
@@ -2593,11 +2593,11 @@ current project instead, and visit the tags file."
 
 (defhydra my-theme-hydra ()
   "Theme"
-  ("d" (lambda () (interactive) (my-theme-light 1)) "sandcastle")
-  ("f" (lambda () (interactive) (my-theme-light 0)) "soft-morning")
-  ("u" (lambda () (interactive) (my-theme-dark 0)) "reykjavik")
+  ("y" (lambda () (interactive) (my-theme-light 1)) "sandcastle")
+  ("u" (lambda () (interactive) (my-theme-light 0)) "soft-morning")
   ("i" (lambda () (interactive) (my-theme-dark 1)) "nordic-night")
-  ("o" (lambda () (interactive) (my-theme-dark 2)) "ef-winter"))
+  ("o" (lambda () (interactive) (my-theme-dark 0)) "reykjavik")
+  ("p" (lambda () (interactive) (my-theme-dark 2)) "ef-winter"))
 
 (global-set-key (kbd "C-c o") 'my-theme-hydra/body)
 
