@@ -134,7 +134,7 @@
 (evil-global-set-key 'insert (kbd "C-o") nil)
 
 (evil-global-set-key 'normal (kbd "C-r") nil)
-(evil-global-set-key 'normal (kbd "C-q") 'evil-redo)
+(evil-global-set-key 'normal (kbd "R") 'evil-redo)
 
 (define-key evil-ex-completion-map (kbd "C-a") 'move-beginning-of-line)
 (define-key evil-ex-completion-map (kbd "C-f") 'forward-char)
