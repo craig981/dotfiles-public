@@ -439,6 +439,8 @@
 				(interactive)
 				(isearch-forward-symbol-at-point -1)))
 
+(global-set-key (kbd "C-c t o") 'olivetti-mode)
+
 (push 'try-expand-line hippie-expand-try-functions-list)
 (evil-global-set-key 'insert (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
 
@@ -2838,6 +2840,7 @@ current project instead, and visit the tags file."
      marginalia
      markdown-mode
      nordic-night-theme
+     olivetti
      orderless
      ox-pandoc
      paredit
