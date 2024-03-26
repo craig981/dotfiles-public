@@ -9,6 +9,8 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     gsettings set org.gnome.shell.extensions.ding show-home false
     # dock panel mode off
     gsettings set org.gnome.shell.extensions.dash-to-dock extend-height false
+    # screen blank
+    gsettings set org.gnome.desktop.session idle-delay 1800
 fi
 
 if [[ "$XDG_CURRENT_DESKTOP" = "MATE" ]]; then
