@@ -934,7 +934,7 @@
       (evil-local-set-key 'motion (kbd "C-i") 'org-cycle))
     (when (and (display-graphic-p)
 	       (not (version< emacs-version "28.1")))
-      (evil-local-set-key 'normal (kbd "TAB") 'org-cycle))
+      (evil-local-set-key 'normal (kbd "<tab>") 'org-cycle))
 
     (evil-local-set-key 'normal (kbd "[[") #'org-toggle-link-display)
     (evil-local-set-key 'insert (kbd "<backtab>") #'fancy-dabbrev-backward)
