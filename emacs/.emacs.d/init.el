@@ -935,11 +935,11 @@
   (evil-local-set-key 'insert (kbd "<backtab>") #'fancy-dabbrev-backward)
   (evil-local-set-key 'insert (kbd "C-t") (lambda () (interactive) (my-org-shift nil)))
   (evil-local-set-key 'insert (kbd "C-d") (lambda () (interactive) (my-org-shift t)))
-  (evil-local-set-key 'insert (kbd "TAB") (lambda (&optional prefix)
-					    (interactive "P")
-					    (if prefix
-						(insert-tab prefix)
-					      (org-cycle))))
+  (evil-local-set-key 'insert (kbd "<tab>") (lambda (&optional prefix)
+					      (interactive "P")
+					      (if prefix
+						  (insert-tab prefix)
+						(org-cycle))))
 
   ;; / is punctuation, so evil * works on path components
   (modify-syntax-entry ?/ ".")
