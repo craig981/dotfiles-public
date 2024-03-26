@@ -922,6 +922,8 @@
 
 (defun my-org-mode-hook ()
 
+  (my-evil-local-mode)
+
   ;; override the evil binding of C-i (jump forward), as C-i is the
   ;; same as tab in the terminal, which we want in org mode for
   ;; (un)collapsing headers
@@ -944,8 +946,6 @@
   ;; / is punctuation, so evil * works on path components
   (modify-syntax-entry ?/ ".")
   (auto-fill-mode 1)
-
-  (my-evil-local-mode)
 
   (setq-local indent-tabs-mode nil)
   (setq-local evil-shift-width 2)
