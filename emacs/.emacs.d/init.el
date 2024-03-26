@@ -405,7 +405,7 @@
   (advice-add #'Man-completion-table :override #'my-advise-man-completion))
 
 (global-set-key (kbd "C-c q") #'my-close-other-window)
-(global-set-key (kbd "C-c i") #'toggle-truncate-lines)
+(global-set-key (kbd "C-c n") #'toggle-truncate-lines)
 (global-set-key (kbd "C-c w") 'evil-window-map)
 (global-set-key (kbd "C-c w SPC") #'world-clock)
 (global-set-key (kbd "C-c m") #'my-mirror-buffer)
@@ -1623,7 +1623,6 @@ return the project path instead"
 
 (global-set-key (kbd "C-c e") 'my-find-file-in-project)
 (global-set-key (kbd "C-c u") 'my-find-file-in-project-other-window)
-(global-set-key (kbd "C-c n") 'my-jump-notefiles)
 (global-set-key (kbd "C-x C-d") 'my-jump-project-dired)
 
 (evil-leader/set-key "e" 'my-find-file-in-project)
