@@ -1682,35 +1682,35 @@ return the project path instead"
 (setq-default image-dired-thumb-width 100)
 (setq-default image-dired-thumb-height 100)
 
-(defun my-advise-image-dired (&optional args)
-  (when (eq major-mode 'dired-mode)
-    (dired-hide-details-mode)
-    (when (= 1 (count-windows))
-      (split-window-right))
-    (evil-window-set-width 25)))
+;; (defun my-advise-image-dired (&optional args)
+;;   (when (eq major-mode 'dired-mode)
+;;     (dired-hide-details-mode)
+;;     (when (= 1 (count-windows))
+;;       (split-window-right))
+;;     (evil-window-set-width 25)))
 
-(advice-add 'image-dired-display-thumbs :before 'my-advise-image-dired)
+;; (advice-add 'image-dired-display-thumbs :before 'my-advise-image-dired)
 
-(with-eval-after-load "image-dired"
-  ;; show full size
-  (define-key image-dired-thumbnail-mode-map (kbd "M-<return>")
-    (lambda ()
-      (interactive)
-      (let ((current-prefix-arg 4)) ;; emulate C-u
-	(call-interactively 'image-dired-display-thumbnail-original-image)))))
+;; (with-eval-after-load "image-dired"
+;;   ;; show full size
+;;   (define-key image-dired-thumbnail-mode-map (kbd "M-<return>")
+;;     (lambda ()
+;;       (interactive)
+;;       (let ((current-prefix-arg 4)) ;; emulate C-u
+;; 	(call-interactively 'image-dired-display-thumbnail-original-image)))))
 
-;;; stop opening multiple image buffers
-(push '((lambda (buf actions)
-	  (eq 'image-mode (with-current-buffer buf major-mode)))
-        (display-buffer-reuse-window display-buffer-reuse-mode-window display-buffer-use-some-window))
-      display-buffer-alist)
+;; ;;; stop opening multiple image buffers
+;; (push '((lambda (buf actions)
+;; 	  (eq 'image-mode (with-current-buffer buf major-mode)))
+;;         (display-buffer-reuse-window display-buffer-reuse-mode-window display-buffer-use-some-window))
+;;       display-buffer-alist)
 
-;; put the thumbnail buffer at the bottom
-(push '((lambda (buf actions)
-	  (eq 'image-dired-thumbnail-mode (with-current-buffer buf major-mode)))
-        (display-buffer-reuse-window display-buffer-at-bottom)
-        (window-height . 6))
-      display-buffer-alist)
+;; ;; put the thumbnail buffer at the bottom
+;; (push '((lambda (buf actions)
+;; 	  (eq 'image-dired-thumbnail-mode (with-current-buffer buf major-mode)))
+;;         (display-buffer-reuse-window display-buffer-at-bottom)
+;;         (window-height . 6))
+;;       display-buffer-alist)
 
 ;; ----------------------------------------------------------------------------
 ;;| Magit
