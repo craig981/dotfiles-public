@@ -199,8 +199,7 @@
 (defun my-find-file-hook ()
   (if (file-remote-p (buffer-file-name))
       (setq-local vc-handled-backends nil))
-  (when (not (or (eq major-mode 'image-mode)
-		 (derived-mode-p 'bongo-mode)))
+  (when (not (eq major-mode 'image-mode))
     (my-evil-local-mode)
     (when (and git-commit-mode (evil-normal-state-p) (looking-at "^$"))
       (evil-insert-state)))
@@ -2679,70 +2678,10 @@ current project instead, and visit the tags file."
 
   (defun my-add-dired-to-playlist ()
     (interactive)
-    (if (get-buffer emms-playlist-buffer-name)
-	(emms-add-dired)
-      (dolist (fn (dired-get-marked-files))
-	(bongo-insert-file fn))))
+    (when (get-buffer emms-playlist-buffer-name)
+	(emms-add-dired)))
 
-  (require 'bongo) ;; need this before opening a playlist
-
-  (evil-leader/set-key "b" #'bongo)
-  (define-key dired-mode-map (kbd "b") 'my-add-dired-to-playlist)
-
-  (setq bongo-logo nil)
-  (setq bongo-display-track-icons nil)
-  ;; seek doesn't work reliably with vlc backend
-  ;; need at least mplayer 1.5 on macOS 11 to fix echoing
-  ;;	brew install mplayer
-  ;; mplayer volume resets to max after seeking
-  (setq bongo-enabled-backends '(vlc))
-  (setq bongo-vlc-program-name (if (eq system-type 'darwin)
-				   "/Applications/VLC.app/Contents/MacOS/VLC"
-				 "/usr/bin/vlc"))
-
-  (defun my-bongo-mode-hook ()
-    (define-key bongo-mode-map (kbd "SPC") evil-leader--default-map)
-    (define-key bongo-mode-map (kbd "z") (kbd "C-c C-p"))
-    (define-key bongo-mode-map (kbd "x") 'bongo-start/stop)
-    (define-key bongo-mode-map (kbd "c") 'bongo-pause/resume)
-    (define-key bongo-mode-map (kbd "b") (kbd "C-c C-n"))
-    (define-key bongo-mode-map (kbd "f") nil)
-    (define-key bongo-mode-map (kbd "j") (kbd "n"))
-    (define-key bongo-mode-map (kbd "k") (kbd "p"))
-    (define-key bongo-mode-map (kbd "o") 'bongo-switch-buffers)
-    (define-key bongo-mode-map (kbd "O") 'bongo-list-buffers)
-    (define-key bongo-mode-map (kbd "V") 'bongo-seek-backward-60)
-    (define-key bongo-mode-map (kbd "h") 'bongo-seek-backward-10)
-    (define-key bongo-mode-map (kbd "H") 'bongo-seek-backward-3)
-    (define-key bongo-mode-map (kbd "L") 'bongo-seek-forward-3)
-    (define-key bongo-mode-map (kbd "l") 'bongo-seek-forward-10)
-    (define-key bongo-mode-map (kbd "v") 'bongo-seek-forward-60)
-    (define-key bongo-mode-map (kbd ";") 'bongo-recenter)
-
-    (bongo-mode-line-indicator-mode -1))
-
-  (defun my-bongo-set-volume ()
-    (let ((process (get-process "bongo-mplayer")))
-      (when process
-	(process-send-string process "volume 5 1\n")))
-    (let ((process (get-process "bongo-vlc")))
-      (when process
-	(process-send-string process "volume 175\n"))))
-
-  (defun my-bongo-start-hook ()
-    (when (get-process "bongo-vlc")
-      (sit-for 0.2))
-    (my-bongo-set-volume))
-
-  ;; stop asking for confirmation to stop player before killing buffer
-  (defun my-bongo-confirm-player-stop ()
-    (or (not bongo-player)
-	(bongo-player-stop bongo-player)
-	t))
-  (advice-add 'bongo-confirm-player-stop :override 'my-bongo-confirm-player-stop)
-
-  (add-hook 'bongo-player-started-hook 'my-bongo-start-hook)
-  (add-hook 'bongo-mode-hook 'my-bongo-mode-hook))
+  (define-key dired-mode-map (kbd "b") 'my-add-dired-to-playlist))
 
 ;; ----------------------------------------------------------------------------
 ;;| Customs
@@ -2810,8 +2749,7 @@ current project instead, and visit the tags file."
  '(org-startup-indented t)
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
-   '(bongo
-     cape
+   '(cape
      cmake-mode
      consult
      devdocs
