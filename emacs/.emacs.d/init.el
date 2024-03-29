@@ -438,7 +438,7 @@
 (global-set-key (kbd "C-c t o") 'olivetti-mode)
 
 (push 'try-expand-line hippie-expand-try-functions-list)
-(evil-global-set-key 'insert (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
+(global-set-key (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
 
 (define-key minibuffer-local-map (kbd "<escape>") 'abort-minibuffers)
 
