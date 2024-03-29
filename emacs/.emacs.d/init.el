@@ -1739,6 +1739,10 @@ return the project path instead"
   ;; want completion on elisp symbols
   (modify-syntax-entry ?- "_"))
 
+(defun my-vc-annotate-hook ()
+  (setq-local show-trailing-whitespace nil))
+
+(add-hook 'vc-annotate-mode-hook 'my-vc-annotate-hook)
 (add-hook 'git-commit-mode-hook 'my-git-commit-mode-hook)
 
 (with-eval-after-load 'magit
