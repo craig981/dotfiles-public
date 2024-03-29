@@ -371,10 +371,6 @@
     (goto-char (car r))
     (push-mark (cadr r) nil t)))
 
-;; (global-set-key (kbd "M-SPC") nil)
-;; (global-set-key (kbd "M-SPC '") 'my-mark-in-single-quote)
-;; (global-set-key (kbd "M-SPC \"") 'my-mark-in-double-quote)
-;; (global-set-key (kbd "M-SPC p") 'my-mark-in-paren)
 (global-set-key (kbd "M-SPC") 'my-mark-until-whitespace)
 
 (evil-leader/set-key "s" #'my-substitute) ; substitute whole buffer
