@@ -1800,6 +1800,7 @@ return the project path instead"
 ;; ----------------------------------------------------------------------------
 
 (defun my-compilation-mode-hook ()
+  (setq-local show-trailing-whitespace nil)
   (modify-syntax-entry ?_ "w") ;; _ is word constituent, so * and # works
   (visual-line-mode)
   (my-evil-local-mode)
