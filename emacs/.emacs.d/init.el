@@ -251,7 +251,7 @@
  show-paren-when-point-inside-paren t
  show-paren-when-point-in-periphery t)
 
-(setq-default show-trailing-whitespace t)
+(setq-default show-trailing-whitespace nil)
 
 (defun my-insert-enter-hook ()
   (show-paren-mode -1))
@@ -592,6 +592,7 @@
 (defun my-prog-mode-hook ()
   (abbrev-mode -1)
   (setq-local fill-column 80)
+  (setq-local show-trailing-whitespace t)
   (setq-local abbrev-expand-function #'my-abbrev-expand))
 
 (add-hook 'prog-mode-hook #'my-prog-mode-hook)
@@ -743,6 +744,7 @@
 (advice-add 'evil-buffer-new :after #'my-after-evil-buffer-new)
 
 (defun my-text-mode-hook ()
+  (setq-local show-trailing-whitespace t)
   (turn-on-auto-fill)
   (my-syntax-entry)
   (when (not (buffer-file-name))
@@ -768,6 +770,7 @@
   ;; (setq-local my-evil-default 0)
   (my-evil-local-mode)
   (setq-local fill-column 72)
+  (setq-local show-trailing-whitespace t)
   ;; stop paragraph lines after the first being extra indented by M-q
   (setq-local fill-paragraph-function nil))
 
@@ -793,11 +796,6 @@
         (display-buffer-reuse-window display-buffer-below-selected)
         (window-height . 10))
       display-buffer-alist)
-
-(defun my-calendar-hook ()
-  (setq-local show-trailing-whitespace nil))
-
-(add-hook 'calendar-mode-hook 'my-calendar-hook)
 
 (global-set-key (kbd "C-c M-c") 'calendar)
 
@@ -959,13 +957,9 @@
 (defun my-org-src-hook ()
   (my-evil-local-mode))
 
-(defun my-org-agenda-hook ()
-  (setq-local show-trailing-whitespace nil))
-
 (add-hook 'org-mode-hook 'my-org-mode-hook)
 (add-hook 'org-capture-mode-hook 'my-org-capture-hook)
 (add-hook 'org-src-mode-hook 'my-org-src-hook)
-(add-hook 'org-agenda-mode-hook 'my-org-agenda-hook)
 
 (defun my-org-clock-jump ()
   (interactive)
@@ -1663,7 +1657,6 @@ return the project path instead"
 (define-key dired-mode-map (kbd ";") 'dired-up-directory)
 
 (defun my-dired-hook ()
-  (setq-local show-trailing-whitespace nil)
   (auto-revert-mode 1))
 
 (add-hook 'dired-mode-hook 'my-dired-hook)
@@ -1722,7 +1715,6 @@ return the project path instead"
   (evil-leader-mode -1))
 
 (defun my-magit-repolist-hook ()
-  (setq-local show-trailing-whitespace nil)
   (my-evil-local-mode)
   (beginning-of-buffer))
 
@@ -1739,10 +1731,6 @@ return the project path instead"
   ;; want completion on elisp symbols
   (modify-syntax-entry ?- "_"))
 
-(defun my-vc-annotate-hook ()
-  (setq-local show-trailing-whitespace nil))
-
-(add-hook 'vc-annotate-mode-hook 'my-vc-annotate-hook)
 (add-hook 'git-commit-mode-hook 'my-git-commit-mode-hook)
 
 (with-eval-after-load 'magit
@@ -1804,7 +1792,6 @@ return the project path instead"
 ;; ----------------------------------------------------------------------------
 
 (defun my-compilation-mode-hook ()
-  (setq-local show-trailing-whitespace nil)
   (modify-syntax-entry ?_ "w") ;; _ is word constituent, so * and # works
   (visual-line-mode)
   (my-evil-local-mode)
@@ -1954,8 +1941,6 @@ return the project path instead"
   (visual-line-mode 0)
   (toggle-truncate-lines 0)
 
-  (setq-local show-trailing-whitespace nil)
-
   ;; fill out longest common part of filename first
   (setq-local completion-styles '(emacs21 flex))
 
@@ -2019,7 +2004,6 @@ return the project path instead"
   (fancy-dabbrev-mode -1)
   (visual-line-mode 0)
   (toggle-truncate-lines 1)
-  (setq-local show-trailing-whitespace nil)
   (define-key eshell-hist-mode-map (kbd "M-r") #'move-to-window-line-top-bottom)
   (define-key eshell-hist-mode-map (kbd "C-r") #'helm-eshell-history)
   (define-key eshell-hist-mode-map (kbd "C-c C-l") #'eshell/clear)
