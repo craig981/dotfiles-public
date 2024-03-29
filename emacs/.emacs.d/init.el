@@ -2753,7 +2753,6 @@ current project instead, and visit the tags file."
      cmake-mode
      consult
      devdocs
-     doom-themes
      ef-themes
      embark
      embark-consult
