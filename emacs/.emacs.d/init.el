@@ -371,7 +371,7 @@
     (goto-char (car r))
     (push-mark (cadr r) nil t)))
 
-(global-set-key (kbd "M-SPC") 'my-mark-until-whitespace)
+(global-set-key (kbd "C-M-o") 'my-mark-until-whitespace)
 
 (evil-leader/set-key "s" #'my-substitute) ; substitute whole buffer
 (evil-leader/set-key "S" ; substitute from current line to end of buffer
@@ -411,13 +411,14 @@
 					     user-init-file))))
 
 (require 'expand-region)
-(global-set-key (kbd "M-j") 'er/expand-region)
+(global-set-key (kbd "M-SPC") 'er/expand-region)
 
 (winner-mode 1)
 (global-set-key (kbd "M-=") 'winner-undo)
 (global-set-key (kbd "M-+") 'winner-redo)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 (global-set-key (kbd "M-o") 'other-window)
+(global-set-key (kbd "M-j") #'my-join-line)
 (global-set-key (kbd "M-'") #'delete-blank-lines)
 (global-set-key (kbd "M-\\") #'my-delete-whitespace)
 (global-set-key (kbd "M-u") #'upcase-dwim)
@@ -428,8 +429,6 @@
 (global-set-key (kbd "M-]") #'evil-numbers/inc-at-pt)
 (global-set-key (kbd "M-[") #'evil-numbers/dec-at-pt)
 (global-set-key (kbd "C-c C-j") 'goto-last-change)
-
-(global-set-key (kbd "C-M-o") #'my-join-line)
 
 (global-set-key (kbd "M-s ,") (lambda ()
 				(interactive)
