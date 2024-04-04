@@ -430,9 +430,12 @@
 (global-set-key (kbd "M-[") #'evil-numbers/dec-at-pt)
 (global-set-key (kbd "C-c C-j") 'goto-last-change)
 
-(global-set-key (kbd "M-s ,") (lambda ()
-				(interactive)
-				(isearch-forward-symbol-at-point -1)))
+(defun my-isearch-symbol-backward ()
+  (interactive)
+  (isearch-forward-symbol-at-point -1))
+
+(global-set-key (kbd "M-s ,") 'my-isearch-symbol-backward)
+(global-set-key (kbd "M-s M-,") 'my-isearch-symbol-backward)
 
 (global-set-key (kbd "C-c t o") 'olivetti-mode)
 
@@ -1019,6 +1022,7 @@
   (define-key org-mode-map (kbd "C-c C-'") 'org-edit-special)
   (define-key org-mode-map (kbd "C-c [") 'org-toggle-link-display)
   (define-key org-mode-map (kbd "C-c ]") nil)
+  (define-key org-mode-map (kbd "C-c M-e") 'org-decrypt-entry)
 
   (org-babel-do-load-languages 'org-babel-load-languages
 			       '((shell . t)
