@@ -2013,15 +2013,13 @@ return the project path instead"
 
 (add-hook 'eshell-mode-hook 'my-eshell-hook)
 
-(defun my-eshell (proj)
-  (interactive)
+(defun my-eshell (&optional prefix)
+  (interactive "P")
   (let ((evil-split-window-below t))
     (evil-window-split))
-  (if (and proj (project-current nil))
-      (project-eshell)
-    (eshell)))
+  (eshell prefix))
 
-(global-set-key (kbd "C-c t e") (lambda () (interactive) (my-eshell nil)))
+(global-set-key (kbd "C-c t e") 'my-eshell)
 
 ;; ----------------------------------------------------------------------------
 ;;| Tags
