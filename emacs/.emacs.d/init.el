@@ -1308,7 +1308,8 @@ empty string."
 (setq completion-in-region-function
       (lambda (&rest args)
         (apply (if (and vertico-mode (not (or (derived-mode-p 'minibuffer-mode)
-					      (derived-mode-p 'comint-mode))))
+					      (derived-mode-p 'comint-mode)
+					      (derived-mode-p 'eshell-mode))))
 		   #'consult-completion-in-region
 		 #'completion--in-region)
 	       args)))
@@ -2000,7 +2001,7 @@ return the project path instead"
   (visual-line-mode 0)
   (toggle-truncate-lines 1)
   (define-key eshell-hist-mode-map (kbd "M-r") #'move-to-window-line-top-bottom)
-  (define-key eshell-hist-mode-map (kbd "C-r") #'helm-eshell-history)
+  (define-key eshell-hist-mode-map (kbd "C-r") #'consult-history)
   (define-key eshell-hist-mode-map (kbd "C-c C-l") #'eshell/clear)
   (define-key eshell-mode-map (kbd "M-m") 'eshell-bol)
   (local-set-key (kbd "M-_") 'my-eshell-last-arg)
