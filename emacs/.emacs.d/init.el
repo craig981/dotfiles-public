@@ -935,11 +935,7 @@
   (evil-local-set-key 'normal (kbd "[[") #'org-toggle-link-display)
   (evil-local-set-key 'insert (kbd "C-t") (lambda () (interactive) (my-org-shift nil)))
   (evil-local-set-key 'insert (kbd "C-d") (lambda () (interactive) (my-org-shift t)))
-  (evil-local-set-key 'insert (kbd "<tab>") (lambda (&optional prefix)
-					      (interactive "P")
-					      (if prefix
-						  (insert-tab prefix)
-						(org-cycle))))
+  (evil-local-set-key 'insert (kbd "<tab>") #'org-cycle)
   (evil-local-set-key 'insert (kbd "<backtab>") #'fancy-dabbrev-backward)
 
   (setq-local indent-tabs-mode nil)
@@ -1011,9 +1007,7 @@
 (advice-add 'org-time-stamp-inactive :before #'my-forward-before-insert)
 
 (with-eval-after-load 'org-agenda
-  (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map)
-  (define-key org-agenda-mode-map (kbd "j") 'org-agenda-next-line)
-  (define-key org-agenda-mode-map (kbd "k") 'org-agenda-previous-line))
+  (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map))
 
 (with-eval-after-load 'org
   (define-key org-mode-map (kbd "C-'") nil)
@@ -1772,7 +1766,7 @@ return the project path instead"
 (require 'magit)
 
 (evil-leader/set-key "v" 'magit-status)
-(global-set-key (kbd "C-M-g") 'magit-status)
+(global-set-key (kbd "M-g v") 'magit-status)
 (global-set-key (kbd "C-c M") #'my-magit-list-repos)
 
 ;; ----------------------------------------------------------------------------
