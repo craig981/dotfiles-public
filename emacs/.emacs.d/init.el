@@ -1044,7 +1044,9 @@
     (let ((b (get-file-buffer f)))
       (when b
 	(with-current-buffer b
-	  (evil-local-mode state))))))
+	  (evil-local-mode state)
+	  (when (and state (= my-evil-default 0))
+	    (evil-emacs-state)))))))
 
 (defun my-advise-org-agenda-todo (func &rest args)
   "Switch off evil-local-mode in all org-agenda-files buffers before
