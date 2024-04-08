@@ -2645,6 +2645,8 @@ current project instead, and visit the tags file."
     (define-key emms-browser-mode-map (kbd "C-j") nil)
     (define-key emms-browser-mode-map (kbd "j") #'next-line)
     (define-key emms-browser-mode-map (kbd "k") #'previous-line)
+    (define-key emms-playlist-mode-map (kbd "M-n") nil)
+    (define-key emms-playlist-mode-map (kbd "M-p") nil)
     (define-key emms-playlist-mode-map (kbd "C-j") nil)
     (define-key emms-playlist-mode-map (kbd "SPC") evil-leader--default-map)
     (define-key emms-playlist-mode-map ";" #'emms-playlist-mode-center-current)
@@ -2661,6 +2663,7 @@ current project instead, and visit the tags file."
 					       (emms-seek-forward))))
 
     (global-set-key (kbd "C-,") #'emms-playlist-mode-go)
+    (global-set-key (kbd "C-c i") #'emms-add-playlist)
     (with-eval-after-load 'org
       (define-key org-mode-map (kbd "C-,") nil)))
 
