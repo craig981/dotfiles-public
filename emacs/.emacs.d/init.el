@@ -618,9 +618,6 @@
 
 (define-key minibuffer-local-map (kbd "M-/") 'dabbrev-expand)
 
-;; (evil-global-set-key 'insert (kbd "C-n") 'fancy-dabbrev-expand)
-;; (evil-global-set-key 'insert (kbd "C-p") 'fancy-dabbrev-backward)
-
 ;; ----------------------------------------------------------------------------
 ;;| Lang
 ;; ----------------------------------------------------------------------------
@@ -1481,7 +1478,7 @@ empty string."
   (rgrep (read-string "Search for: " (format "\\<%s\\>" (thing-at-point 'symbol t)))
 	 "*" (my-find-project-root)))
 
-(global-set-key (kbd "M-s M-p") 'my-grep-project)
+(global-set-key (kbd "M-s M-r") 'my-grep-project)
 (global-set-key (kbd "M-s M-g") 'rgrep)
 
 ;; ----------------------------------------------------------------------------
