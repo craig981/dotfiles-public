@@ -29,10 +29,6 @@ bindkey ' ' magic-space
 complete git 'p@1@`~/dotfiles-public/bin/list_git_cmds.csh`@@'
 
 alias g 'git st'
-# alias gd 'git di'
-# alias gdc 'git di --cached'
-# alias ga 'git add -p'
-# alias gc 'git commit'
 alias gl 'git lo'
 alias gg 'git log --patch -G'
 

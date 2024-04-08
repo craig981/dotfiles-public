@@ -2076,8 +2076,6 @@ current project instead, and visit the tags file."
     (setq-default tags-table-list all)))
 
 (global-set-key (kbd "C-c M-.") #'my-rebuild-and-load-tags)
-;; (evil-global-set-key 'motion (kbd "C-w .")   #'xref-find-definitions-other-window)
-;; (evil-global-set-key 'motion (kbd "C-w C-.") #'xref-find-definitions-other-window)
 
 (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
 
@@ -2546,8 +2544,6 @@ current project instead, and visit the tags file."
     (load-theme 'my-override-dark2)))
 
   (set-cursor-color "white")
-  ;; (when my-evil-default
-    ;; (setq evil-emacs-state-cursor '(box "SteelBlue")))
   (setq evil-normal-state-cursor '(box "white"))
   (setq evil-insert-state-cursor '(box "orange"))
 
@@ -2565,8 +2561,6 @@ current project instead, and visit the tags file."
     (load-theme 'sandcastle)))
 
   (set-cursor-color "black")
-  ;; (when my-evil-default
-    ;; (setq evil-emacs-state-cursor '(box "SteelBlue")))
   (setq evil-normal-state-cursor '(box "black"))
   (setq evil-insert-state-cursor '(box "orange"))
 
