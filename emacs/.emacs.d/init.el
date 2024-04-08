@@ -444,6 +444,9 @@
 
 (define-key minibuffer-local-map (kbd "<escape>") 'abort-minibuffers)
 
+(define-key indent-rigidly-map (kbd "<") 'indent-rigidly-left-to-tab-stop)
+(define-key indent-rigidly-map (kbd ">") 'indent-rigidly-right-to-tab-stop)
+
 (global-set-key (kbd "C-h h") nil)
 (global-set-key (kbd "C-h C-c") nil)
 (global-set-key (kbd "C-h RET") 'man)
