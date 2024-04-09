@@ -918,7 +918,7 @@
 
 (defun my-org-mode-hook ()
 
-  (setq-local my-evil-default 0)
+  ;; (setq-local my-evil-default 0)
 
   (my-evil-local-mode)
   ;; / is punctuation, so evil * works on path components
