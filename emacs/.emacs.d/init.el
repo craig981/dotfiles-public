@@ -1950,8 +1950,8 @@ return the project path instead"
 
 (add-hook 'sh-mode-hook 'my-syntax-entry)
 
-(global-set-key (kbd "C-c V") (lambda () (interactive) (my-shell t)))
-(global-set-key (kbd "C-c v") (lambda () (interactive) (my-shell nil)))
+(global-set-key (kbd "C-c t S") (lambda () (interactive) (my-shell t)))
+(global-set-key (kbd "C-c t s") (lambda () (interactive) (my-shell nil)))
 (global-set-key (kbd "C-c h") 'my-jump-to-shell)
 
 ;; ----------------------------------------------------------------------------
