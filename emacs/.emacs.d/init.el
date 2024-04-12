@@ -1136,7 +1136,7 @@ empty string."
 ;; ----------------------------------------------------------------------------
 
 (with-eval-after-load "calc-ext"
-  (define-key calc-mode-map (kbd "C-c C-e") #'calc-reset)
+  (define-key calc-mode-map (kbd "C-c M-o") #'calc-reset)
   (setq calc-multiplication-has-precedence nil)
   (setq calc-make-windows-dedicated t)
   (advice-add #'calc-user-define-formula :around #'my-disable-vertico))
