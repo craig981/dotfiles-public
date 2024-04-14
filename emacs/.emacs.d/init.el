@@ -1134,8 +1134,15 @@ empty string."
 ;;| Calc
 ;; ----------------------------------------------------------------------------
 
+(defun my-calc-copy ()
+  (interactive)
+  (let ((x (format "%s" (calc-top))))
+    (kill-new x)
+    (message "Yanked %s" x)))
+
 (with-eval-after-load "calc-ext"
-  (define-key calc-mode-map (kbd "C-c M-o") #'calc-reset)
+  (define-key calc-mode-map (kbd "C-c C-o") #'calc-reset)
+  (define-key calc-mode-map (kbd "C-M-w") #'my-calc-copy)
   (setq calc-multiplication-has-precedence nil)
   (setq calc-make-windows-dedicated t)
   (advice-add #'calc-user-define-formula :around #'my-disable-vertico))
