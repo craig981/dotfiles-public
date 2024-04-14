@@ -764,7 +764,7 @@
   (my-syntax-entry)
   ;; = is punctuation, so evil * works on key and val separately for key=val
   (modify-syntax-entry ?= ".")
-  (setq-local my-evil-default 0)
+  ;; (setq-local my-evil-default 0)
   (my-evil-local-mode)
   (setq-local fill-column 72)
   (setq-local show-trailing-whitespace t)
