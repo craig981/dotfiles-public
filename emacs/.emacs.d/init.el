@@ -371,8 +371,6 @@
     (goto-char (car r))
     (push-mark (cadr r) nil t)))
 
-(global-set-key (kbd "C-M-o") 'my-mark-until-whitespace)
-
 (evil-leader/set-key "s" #'my-substitute) ; substitute whole buffer
 (evil-leader/set-key "S" ; substitute from current line to end of buffer
   (lambda ()
@@ -421,6 +419,7 @@
 (global-set-key (kbd "M-j") #'my-join-line)
 (global-set-key (kbd "M-'") #'delete-blank-lines)
 (global-set-key (kbd "M-\\") #'my-delete-whitespace)
+(global-set-key (kbd "M-#") #'my-mark-until-whitespace)
 (global-set-key (kbd "M-u") #'upcase-dwim)
 (global-set-key (kbd "M-l") #'downcase-dwim)
 (global-set-key (kbd "M-c") #'capitalize-dwim)
