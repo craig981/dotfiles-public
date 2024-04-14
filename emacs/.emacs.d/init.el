@@ -1134,9 +1134,12 @@ empty string."
 ;;| Calc
 ;; ----------------------------------------------------------------------------
 
-(defun my-calc-copy ()
-  (interactive)
-  (let ((x (format "%s" (calc-top))))
+(defun my-calc-copy (&optional prefix)
+  (interactive "P")
+  (let* ((v (calc-top))
+	 (x (if prefix
+		(math-format-number v)
+	      (format "%s" v))))
     (kill-new x)
     (message "Yanked %s" x)))
 
