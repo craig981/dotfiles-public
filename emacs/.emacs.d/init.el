@@ -1479,6 +1479,8 @@ empty string."
 
 (require 'wgrep)
 
+(setq wgrep-enable-key "e")
+
 (defun my-grep-project ()
   (interactive)
   (rgrep (read-string "Search for: " (format "\\<%s\\>" (thing-at-point 'symbol t)))
