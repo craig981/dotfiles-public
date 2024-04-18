@@ -544,6 +544,20 @@
 (advice-add 'evil-paste-after-cursor-after :after 'my-advise-paste)
 
 ;; ----------------------------------------------------------------------------
+;;| Pulsar
+;; ----------------------------------------------------------------------------
+
+(require 'pulsar)
+
+(setq pulsar-pulse t)
+(setq pulsar-delay 0.05)
+(setq pulsar-iterations 8)
+(setq pulsar-pulse-functions
+      '(bookmark-jump other-window delete-window my-kill-buffer))
+
+(pulsar-global-mode 1)
+
+;; ----------------------------------------------------------------------------
 ;;| Help
 ;; ----------------------------------------------------------------------------
 
@@ -2548,6 +2562,7 @@ current project instead, and visit the tags file."
     (load-theme 'ef-winter)
     (load-theme 'my-override-dark2)))
 
+  (setq pulsar-face 'next-error)
   (set-cursor-color "white")
   (setq evil-normal-state-cursor '(box "white"))
   (setq evil-insert-state-cursor '(box "orange"))
@@ -2565,6 +2580,7 @@ current project instead, and visit the tags file."
     (require 'sandcastle-theme)
     (load-theme 'sandcastle)))
 
+  (setq pulsar-face 'pulsar-yellow)
   (set-cursor-color "black")
   (setq evil-normal-state-cursor '(box "black"))
   (setq evil-insert-state-cursor '(box "orange"))
@@ -2765,6 +2781,7 @@ current project instead, and visit the tags file."
      orderless
      ox-pandoc
      paredit
+     pulsar
      reykjavik-theme
      soft-morning-theme
      terminal-here
