@@ -1155,7 +1155,7 @@ empty string."
     (message "Yanked %s" x)))
 
 (with-eval-after-load "calc-ext"
-  (define-key calc-mode-map (kbd "C-c C-o") #'calc-reset)
+  (define-key calc-mode-map (kbd "C-c M-o") #'calc-reset)
   (define-key calc-mode-map (kbd "C-M-w") #'my-calc-copy)
   (setq calc-multiplication-has-precedence nil)
   (setq calc-make-windows-dedicated t)
@@ -2580,7 +2580,7 @@ current project instead, and visit the tags file."
     (require 'sandcastle-theme)
     (load-theme 'sandcastle)))
 
-  (setq pulsar-face 'pulsar-yellow)
+  (setq pulsar-face 'pulsar-blue)
   (set-cursor-color "black")
   (setq evil-normal-state-cursor '(box "black"))
   (setq evil-insert-state-cursor '(box "orange"))
