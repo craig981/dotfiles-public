@@ -553,7 +553,9 @@
 (setq pulsar-delay 0.05)
 (setq pulsar-iterations 8)
 (setq pulsar-pulse-functions
-      '(bookmark-jump other-window delete-window my-kill-buffer))
+      '(bookmark-jump other-window delete-window my-kill-buffer
+	quit-window org-agenda-quit magit-mode-bury-buffer
+	winner-undo winner-redo))
 
 (pulsar-global-mode 1)
 
