@@ -81,6 +81,8 @@ apt-install:
 		patchelf \
 		ripgrep \
 		stow \
+		texlive-latex-base \
+		texlive-latex-recommended \
 		tcsh \
 		tree \
 		tmux \
