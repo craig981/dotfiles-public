@@ -1363,7 +1363,8 @@ empty string."
 (defun my-kill-buffer ()
   (interactive)
   (cond
-   ((get-buffer-process (current-buffer))
+   ((or (get-buffer-process (current-buffer))
+	(eq major-mode 'org-agenda-mode))
     (kill-this-buffer))
    ((buffer-modified-p)
     (my-invoke-with-completion #'kill-buffer))
