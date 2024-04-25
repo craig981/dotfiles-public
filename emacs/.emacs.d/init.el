@@ -408,9 +408,6 @@
 					       (concat (getenv "HOME") "\\dotfiles-public\\emacs\\.emacs.d\\init.el")
 					     user-init-file))))
 
-(require 'expand-region)
-(global-set-key (kbd "M-SPC") 'er/expand-region)
-
 (winner-mode 1)
 (global-set-key (kbd "M-=") 'winner-undo)
 (global-set-key (kbd "M-+") 'winner-redo)
@@ -2771,7 +2768,6 @@ current project instead, and visit the tags file."
      evil-collection
      evil-numbers
      fancy-dabbrev
-     expand-region
      gnuplot
      helm
      hydra
