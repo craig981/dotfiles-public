@@ -424,6 +424,7 @@
 (global-set-key (kbd "M-n") #'evil-scroll-down)
 (global-set-key (kbd "M-]") #'evil-numbers/inc-at-pt)
 (global-set-key (kbd "M-[") #'evil-numbers/dec-at-pt)
+(global-set-key (kbd "M-SPC") #'isearch-forward-symbol-at-point)
 (global-set-key (kbd "C-c C-j") 'goto-last-change)
 
 (defun my-isearch-symbol-backward ()
