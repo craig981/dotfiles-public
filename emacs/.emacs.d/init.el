@@ -397,6 +397,7 @@
   (defun my-advise-man-completion (&rest args) '())
   (advice-add #'Man-completion-table :override #'my-advise-man-completion))
 
+(global-set-key (kbd "C-;") #'my-close-other-window)
 (global-set-key (kbd "C-c q") #'my-close-other-window)
 (global-set-key (kbd "C-c n") #'toggle-truncate-lines)
 (global-set-key (kbd "C-c w") 'evil-window-map)
