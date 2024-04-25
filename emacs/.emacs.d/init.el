@@ -1793,8 +1793,8 @@ return the project path instead"
 (require 'magit)
 
 (evil-leader/set-key "v" 'magit-status)
-(global-set-key (kbd "M-g v") 'magit-status)
-(global-set-key (kbd "C-c M") #'my-magit-list-repos)
+(global-set-key (kbd "C-c v") 'magit-status)
+(global-set-key (kbd "C-c V") #'my-magit-list-repos)
 
 ;; ----------------------------------------------------------------------------
 ;;| Ediff
