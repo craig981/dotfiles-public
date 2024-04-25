@@ -1971,7 +1971,13 @@ return the project path instead"
 
 (add-hook 'shell-mode-hook 'my-shell-hook)
 
-(add-hook 'sh-mode-hook 'my-syntax-entry)
+(defun my-sh-mode-hook ()
+  (my-syntax-entry)
+  ;; all these are symbols by default, want them as punctuation
+  (dolist (c '(?! ?% ?* ?, ?. ?: ?^ ?~))
+    (modify-syntax-entry c ".")))
+
+(add-hook 'sh-mode-hook 'my-sh-mode-hook)
 
 (global-set-key (kbd "C-c t S") (lambda () (interactive) (my-shell t)))
 (global-set-key (kbd "C-c t s") (lambda () (interactive) (my-shell nil)))
