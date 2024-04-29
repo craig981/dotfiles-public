@@ -2689,7 +2689,7 @@ current project instead, and visit the tags file."
 					       (emms-seek-forward))))
 
     (global-set-key (kbd "<f9>") #'emms-playlist-mode-go)
-    (global-set-key (kbd "C-§") #'emms-playlist-mode-go)
+    (global-set-key (kbd "§") #'emms-playlist-mode-go)
     (global-set-key (kbd "C-c i") #'emms-add-playlist))
 
   (defun my-add-dired-to-playlist ()
