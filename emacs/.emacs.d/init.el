@@ -1119,7 +1119,9 @@ empty string."
 
 (when (display-graphic-p)
   (evil-global-set-key 'normal (kbd "C-.") nil)
-  (global-set-key (kbd "C-.") (lambda ()
+  (with-eval-after-load 'org
+    (define-key org-mode-map (kbd "C-,") nil))
+  (global-set-key (kbd "C-,") (lambda ()
 				(interactive)
 				(org-agenda nil "."))))
 
@@ -1156,6 +1158,7 @@ empty string."
     (message "Yanked %s" x)))
 
 (with-eval-after-load "calc-ext"
+  (define-key calc-mode-map (kbd "C-c C-o") #'calc-reset)
   (define-key calc-mode-map (kbd "C-c M-o") #'calc-reset)
   (define-key calc-mode-map (kbd "C-M-w") #'my-calc-copy)
   (setq calc-multiplication-has-precedence nil)
@@ -2685,10 +2688,9 @@ current project instead, and visit the tags file."
 					     (let ((emms-seek-seconds 60))
 					       (emms-seek-forward))))
 
-    (global-set-key (kbd "C-,") #'emms-playlist-mode-go)
-    (global-set-key (kbd "C-c i") #'emms-add-playlist)
-    (with-eval-after-load 'org
-      (define-key org-mode-map (kbd "C-,") nil)))
+    (global-set-key (kbd "<f9>") #'emms-playlist-mode-go)
+    (global-set-key (kbd "C-§") #'emms-playlist-mode-go)
+    (global-set-key (kbd "C-c i") #'emms-add-playlist))
 
   (defun my-add-dired-to-playlist ()
     (interactive)
