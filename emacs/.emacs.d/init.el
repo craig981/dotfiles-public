@@ -697,7 +697,7 @@
   (interactive)
   (start-process "macDict" nil "~/dev/macDict/macDict.sh" (or (thing-at-point 'word t) "")))
 
-(global-set-key (kbd "M-s d") 'my-dictionary-lookup)
+(global-set-key (kbd "M-s =") 'my-dictionary-lookup)
 
 ;; ----------------------------------------------------------------------------
 ;;| Keyboard
