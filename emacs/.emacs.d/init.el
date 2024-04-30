@@ -2422,9 +2422,11 @@ current project instead, and visit the tags file."
 ;; ----------------------------------------------------------------------------
 
 ;; maya mel
-(when (file-directory-p "~/dev/ermine/emacs")
-  (add-to-list 'load-path "~/dev/ermine/emacs")
-  (require 'ermine))
+(if (file-directory-p "~/dev/ermine/emacs")
+  (progn
+    (add-to-list 'load-path "~/dev/ermine/emacs")
+    (require 'ermine))
+  (add-to-list 'auto-mode-alist '("\\.mel\\'" . c-mode)))
 
 ;; houdini vex
 (add-to-list 'auto-mode-alist '("\\.vex\\'" . c-mode))
