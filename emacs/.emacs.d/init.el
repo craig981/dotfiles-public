@@ -2300,6 +2300,7 @@ current project instead, and visit the tags file."
 (defvar my-cc-path)
 
 (defun my-cc-settings (path)
+  (my-evil-local-mode)
   (modify-syntax-entry ?_ "w")
   (evil-local-set-key 'normal (kbd "[#") 'c-up-conditional)
   (auto-fill-mode -1)
