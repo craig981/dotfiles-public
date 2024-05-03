@@ -37,7 +37,9 @@
 			  "/usr/lib")))
 
 (if (eq system-type 'windows-nt)
-    (let ((path "C:\\cygwin64\\bin;C:\\windows\\system32;C:\\Program Files\\CMake\\bin"))
+    (let ((path (concat (getenv "HOME") "\\tools\\bin;"
+			"C:\\cygwin64\\bin;C:\\windows\\system32;"
+			"C:\\Program Files\\CMake\\bin")))
       (setenv "PATH" path)
       (setq exec-path (split-string path path-separator)))
   (when (display-graphic-p)
