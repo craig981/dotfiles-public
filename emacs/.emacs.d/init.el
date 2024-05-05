@@ -1268,7 +1268,7 @@ empty string."
 
 (global-set-key (kbd "C-c r") 'consult-recent-file)
 
-(define-key minibuffer-local-map (kbd "C-r") 'consult-history)
+(define-key minibuffer-local-map (kbd "M-r") 'consult-history)
 
 (setq consult-preview-key "C-j")
 
