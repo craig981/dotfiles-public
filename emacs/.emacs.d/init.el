@@ -1368,7 +1368,8 @@ empty string."
   (interactive)
   (cond
    ((or (get-buffer-process (current-buffer))
-	(eq major-mode 'org-agenda-mode))
+	(eq major-mode 'org-agenda-mode)
+	(eq major-mode 'dired-mode))
     (kill-this-buffer))
    ((buffer-modified-p)
     (my-invoke-with-completion #'kill-buffer))
