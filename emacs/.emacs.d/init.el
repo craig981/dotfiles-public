@@ -1366,14 +1366,12 @@ empty string."
 
 (defun my-kill-buffer ()
   (interactive)
-  (cond
-   ((or (get-buffer-process (current-buffer))
-	(eq major-mode 'org-agenda-mode)
-	(eq major-mode 'dired-mode))
-    (kill-this-buffer))
-   ((buffer-modified-p)
-    (my-invoke-with-completion #'kill-buffer))
-   (t (kill-this-buffer))))
+  (if (or (get-buffer-process (current-buffer))
+	  (eq major-mode 'org-agenda-mode)
+	  (eq major-mode 'dired-mode)
+	  (not (buffer-modified-p)))
+      (kill-this-buffer)
+    (my-invoke-with-completion #'kill-buffer)))
 
 (defun my-switch-buffer ()
   (interactive)
