@@ -1369,7 +1369,9 @@ empty string."
   (if (or (get-buffer-process (current-buffer))
 	  (eq major-mode 'org-agenda-mode)
 	  (eq major-mode 'dired-mode)
-	  (not (buffer-modified-p)))
+	  (not (buffer-modified-p))
+	  (string= "*Async Shell Command*"
+		   (buffer-name (current-buffer))))
       (kill-this-buffer)
     (my-invoke-with-completion #'kill-buffer)))
 
