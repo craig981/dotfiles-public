@@ -1369,6 +1369,7 @@ empty string."
   (if (or (get-buffer-process (current-buffer))
 	  (eq major-mode 'org-agenda-mode)
 	  (eq major-mode 'dired-mode)
+	  (eq major-mode 'compilation-mode)
 	  (not (buffer-modified-p))
 	  (string= "*Async Shell Command*"
 		   (buffer-name (current-buffer))))
