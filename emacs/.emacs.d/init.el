@@ -687,6 +687,11 @@
 	  ((and cc sym (string-match-p "^M[A-Z][^\s-]+$" sym))
 	   (format "https://help.autodesk.com/view/MAYAUL/2020/ENU/?query=%s&cg=Developer%%27s%%20Documentation"
 		   (read-string "Maya API: " sym)))
+	  ((and cc sym (string-match-p "^[A-Z]" sym)
+		;; (not (null (file-expand-wildcards (format "%s*.uplugin" (my-find-project-root)))))
+		)
+	   (format "https://dev.epicgames.com/community/search?query=%s&applications=unreal_engine&types=document,api_document"
+		   (downcase (read-string "UE: " sym))))
 	  ((and cc sym)
 	   (concat google (url-hexify-string
 			   (format "%s site:cppreference.com"
