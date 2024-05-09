@@ -677,7 +677,8 @@
 		      (eq major-mode 'c-mode)))
 	      (sym (if cc
 		       (my-cpp-identifier-around-point)
-		     (thing-at-point 'symbol t))))
+		     (thing-at-point 'symbol t)))
+	      (case-fold-search nil))
 	 (cond
 	  ((and cc sym (string-match-p "^gl[A-Z][^\s-]+$" sym))
 	   (concat "https://docs.gl/" (read-string "OpenGL: " (concat "gl4/" sym))))
