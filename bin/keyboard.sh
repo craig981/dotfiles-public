@@ -143,3 +143,14 @@ fi
 # Start, search "Windows PowerShell (Admin)"
 # Get-AppxPackage Microsoft.XboxGamingOverlay | Remove-AppxPackage
 
+# Tilde/backtick blocked, or double quote inserted twice. To fix:
+# Start, Search "Settings"
+# Time and Language
+# Advanced keyboard settings
+# Override for default input method = Use language list (recommended)
+# Input language hotkeys, opens Text Services and Input Languages window
+# Advanced Key settings
+# Between input languages
+# Change Key Sequence
+# Switch Input Language = Not assigned
+# Switch Keyboard layout = Ctrl + Shift
