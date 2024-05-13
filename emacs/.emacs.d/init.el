@@ -2114,6 +2114,12 @@ current project instead, and visit the tags file."
 
 (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
 
+(defun my-advise-jump-to-definition (&rest r)
+  (pwd))
+
+(advice-add #'xref-find-definitions :after 'my-advise-jump-to-definition)
+(advice-add #'xref-find-definitions-other-window :after 'my-advise-jump-to-definition)
+
 ;; ----------------------------------------------------------------------------
 ;;| Lisp
 ;; ----------------------------------------------------------------------------
