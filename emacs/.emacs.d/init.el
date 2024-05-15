@@ -2769,6 +2769,7 @@ current project instead, and visit the tags file."
    '(magit-insert-error-header magit-insert-diff-filter-header magit-insert-repo-header magit-insert-head-branch-header magit-insert-upstream-branch-header magit-insert-push-branch-header magit-insert-tags-header))
  '(magit-status-show-hashes-in-headers t)
  '(next-error-recenter '(4))
+ '(olivetti-body-width 130)
  '(org-agenda-file-regexp "\\`[^.].*\\.org\\(\\.gpg\\)?\\'")
  '(org-agenda-show-future-repeats nil)
  '(org-agenda-span 4)
