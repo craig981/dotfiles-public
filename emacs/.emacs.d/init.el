@@ -383,6 +383,9 @@
 (evil-leader/set-key "\\" #'c-backslash-region)
 (evil-leader/set-key "d" 'pwd)
 (evil-leader/set-key "SPC" (kbd "=i{"))
+(evil-leader/set-key "b" #'my-mark-in-paren)
+(evil-leader/set-key "'" #'my-mark-in-single-quote)
+(evil-leader/set-key "\"" #'my-mark-in-double-quote)
 
 (global-set-key (kbd "C-c d") 'pwd)
 (global-set-key (kbd "C-c c") #'my-copy-filename)
@@ -427,7 +430,8 @@
 (global-set-key (kbd "M-n") #'evil-scroll-down)
 (global-set-key (kbd "M-]") #'evil-numbers/inc-at-pt)
 (global-set-key (kbd "M-[") #'evil-numbers/dec-at-pt)
-(global-set-key (kbd "M-SPC") #'isearch-forward-symbol-at-point)
+(global-set-key (kbd "M-SPC") evil-leader--default-map)
+(evil-leader/set-key "M-w" #'save-buffer)
 (global-set-key (kbd "C-c C-j") 'goto-last-change)
 
 (defun my-isearch-symbol-backward ()
@@ -1390,7 +1394,7 @@ empty string."
 (global-set-key (kbd "C-x k") 'my-kill-buffer)
 
 (global-set-key (kbd "C-j")     'my-switch-buffer)
-(global-set-key (kbd "C-x b")   'my-switch-buffer)
+(global-set-key (kbd "C-x b")   'consult-buffer)
 (global-set-key (kbd "C-x 4 b") 'my-switch-buffer-other-window)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
@@ -1843,6 +1847,8 @@ return the project path instead"
 (define-key compilation-mode-map (kbd "SPC") evil-leader--default-map)
 (define-key compilation-mode-map (kbd "C-w") 'evil-window-map)
 (define-key compilation-mode-map (kbd "g") nil)
+(define-key compilation-mode-map (kbd "M-p") nil)
+(define-key compilation-mode-map (kbd "M-n") nil)
 
 ;; ----------------------------------------------------------------------------
 ;;| Makefile
@@ -2704,7 +2710,6 @@ current project instead, and visit the tags file."
 					       (emms-seek-forward))))
 
     (global-set-key (kbd "<f9>") #'emms-playlist-mode-go)
-    (global-set-key (kbd "§") #'emms-playlist-mode-go)
     (global-set-key (kbd "C-c i") #'emms-add-playlist))
 
   (defun my-add-dired-to-playlist ()
