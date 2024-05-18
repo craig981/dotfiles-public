@@ -93,7 +93,7 @@
 (evil-declare-ignore-repeat 'recenter-top-bottom)
 (evil-declare-ignore-repeat 'other-window)
 
-;; (setq evil-move-beyond-eol t)
+(setq evil-move-beyond-eol t)
 
 ;; (defun my-wrap-eol (func &rest args)
 ;;   "Temporarily disable evil-move-beyond-eol for evil commands,
@@ -612,6 +612,7 @@
 
 (defun my-prog-mode-hook ()
   (abbrev-mode -1)
+  (setq-local evil-move-beyond-eol nil)
   (setq-local fill-column 80)
   (setq-local show-trailing-whitespace t)
   (setq-local abbrev-expand-function #'my-abbrev-expand))
