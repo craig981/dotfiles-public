@@ -39,7 +39,9 @@
 (if (eq system-type 'windows-nt)
     (let ((path (concat (getenv "HOME") "\\tools\\bin;"
 			"C:\\Program Files\\CMake\\bin;"
-			"C:\\cygwin64\\bin;C:\\windows\\system32")))
+			"C:\\cygwin64\\bin;"
+			"C:\\Program Files\\mrv2-v1.1.6\\bin;"
+			"C:\\windows\\system32")))
       (setenv "PATH" path)
       (setq exec-path (split-string path path-separator)))
   (when (display-graphic-p)
@@ -1697,8 +1699,14 @@ return the project path instead"
 (add-hook 'dired-mode-hook 'my-dired-hook)
 
 (setq-default dired-listing-switches "-alh") ;; human-readable file sizes
-(when (eq system-type 'darwin)
- (setq dired-guess-shell-alist-user '(("" "open"))))
+
+(pcase system-type
+  ('darwin
+   (setq dired-guess-shell-alist-user '(("" "open"))))
+
+  ('windows-nt
+   (setq dired-guess-shell-alist-user '(("\\.exr\\'" "mrv2")
+					("\\.tif\\'" "mrv2")))))
 
 (global-set-key (kbd "C-x C-j") 'dired-jump)
 
