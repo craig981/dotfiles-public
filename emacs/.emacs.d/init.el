@@ -40,7 +40,7 @@
     (let ((path (concat (getenv "HOME") "\\tools\\bin;"
 			"C:\\Program Files\\CMake\\bin;"
 			"C:\\cygwin64\\bin;"
-			"C:\\Program Files\\mrv2-v1.1.6\\bin;"
+			"C:\\Program Files\\DJV2\\bin;"
 			"C:\\windows\\system32")))
       (setenv "PATH" path)
       (setq exec-path (split-string path path-separator)))
@@ -1705,8 +1705,8 @@ return the project path instead"
    (setq dired-guess-shell-alist-user '(("" "open"))))
 
   ('windows-nt
-   (setq dired-guess-shell-alist-user '(("\\.exr\\'" "mrv2")
-					("\\.tif\\'" "mrv2")))))
+   (setq dired-guess-shell-alist-user '(("\\.exr\\'" "djv")
+					("\\.tif\\'" "djv")))))
 
 (global-set-key (kbd "C-x C-j") 'dired-jump)
 
