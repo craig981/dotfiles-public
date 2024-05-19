@@ -1,3 +1,4 @@
 alias ll ls -lrth $*
 alias l ls -lrth $*
 alias tree tree -n --charset=latin $*
+alias abcll abcls -almrstv $*
