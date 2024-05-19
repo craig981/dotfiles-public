@@ -2056,6 +2056,10 @@ return the project path instead"
   (fancy-dabbrev-mode -1)
   (visual-line-mode 0)
   (toggle-truncate-lines 1)
+
+  ;; fill out longest common part of filename first
+  (setq-local completion-styles '(emacs21 flex))
+
   (define-key eshell-hist-mode-map (kbd "M-r") #'move-to-window-line-top-bottom)
   (define-key eshell-hist-mode-map (kbd "C-r") #'consult-history)
   (define-key eshell-hist-mode-map (kbd "C-c C-l") #'eshell/clear)
