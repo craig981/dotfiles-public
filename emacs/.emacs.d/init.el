@@ -1701,6 +1701,9 @@ return the project path instead"
 (setq-default dired-listing-switches "-alh") ;; human-readable file sizes
 
 (pcase system-type
+  ('gnu/linux
+   (setq dired-guess-shell-alist-user '(("\\.exr\\'" "djv"))))
+
   ('darwin
    (setq dired-guess-shell-alist-user '(("" "open"))))
 
