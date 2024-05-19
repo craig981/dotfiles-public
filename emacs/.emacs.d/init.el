@@ -823,7 +823,7 @@
         (window-height . 10))
       display-buffer-alist)
 
-(global-set-key (kbd "C-c M-c") 'calendar)
+(global-set-key (kbd "C-c M-r") 'calendar)
 
 ;; ----------------------------------------------------------------------------
 ;;| Org
