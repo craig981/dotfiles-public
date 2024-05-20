@@ -40,6 +40,7 @@
     (let ((path (concat (getenv "HOME") "\\tools\\bin;"
 			"C:\\Program Files\\CMake\\bin;"
 			"C:\\cygwin64\\bin;"
+			"C:\\Program Files\\Perforce;"
 			"C:\\Program Files\\DJV2\\bin;"
 			"C:\\windows\\system32")))
       (setenv "PATH" path)
