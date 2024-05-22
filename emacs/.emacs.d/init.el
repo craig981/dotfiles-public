@@ -647,8 +647,10 @@
 (define-key minibuffer-local-map (kbd "M-/") 'dabbrev-expand)
 
 ;; ----------------------------------------------------------------------------
-;;| Lang
+;;| Lookup
 ;; ----------------------------------------------------------------------------
+
+(require 'hydra)
 
 (defun my-cpp-identifier-around-point ()
   (let* ((regex "\\(\\s-\\|[^[:alnum:]_:]\\)")
@@ -666,47 +668,51 @@
 	 (sym (buffer-substring-no-properties beg end)))
     (if (string-empty-p sym) nil sym)))
 
-(defun my-lookup ()
-  (interactive)
-  (let* ((google "https://www.google.com/search?ie=utf-8&oe=utf-8&q=")
-	 (translate (let ((input-method (if (or (not (bound-and-true-p evil-local-mode))
-						(evil-emacs-state-p))
-					    current-input-method
-					  evil-input-method)))
-		      (cond
-		       ((string= input-method "swedish-postfix") "https://translate.google.com/?sl=sv&tl=en&op=translate&text=")
-		       ((string= input-method "german-postfix") "https://translate.google.com/?sl=de&tl=en&op=translate&text=")
-		       (t nil)))))
+(defun my-lookup-sym ()
+  (cond
+   (mark-active
+    (format "\"%s\"" (buffer-substring-no-properties (region-beginning) (region-end))))
+   ((or (eq major-mode 'c++-mode)
+	(eq major-mode 'c-mode))
+    (my-cpp-identifier-around-point))
+   (t (thing-at-point 'symbol t))))
 
-    (browse-url
-     (if mark-active
-	 (let ((text (buffer-substring-no-properties (region-beginning) (region-end))))
-	   (cond
-	    (translate (concat translate (url-hexify-string (read-string "Translate: " text))))
-	    (t (concat google (url-hexify-string (format "\"%s\"" (read-string "Search Google: " text)))))))
+(defhydra my-lookup-hydra (:exit t)
+  "Lookup"
+  ("g" (lambda () (interactive)
+	 (browse-url (concat "https://www.google.com/search?ie=utf-8&oe=utf-8&q="
+			     (url-hexify-string (read-string "Google: " (my-lookup-sym))))))
+   "Google")
+  ("c" (lambda () (interactive)
+	 (browse-url (concat "https://www.google.com/search?ie=utf-8&oe=utf-8&q="
+			     (url-hexify-string
+			      (format "%s site:cppreference.com"
+				      (read-string "cppreference: " (my-lookup-sym)))))))
+   "C++ ref")
+  ("q" (lambda () (interactive)
+	 (browse-url (format "https://doc.qt.io/qt-5/%s.html"
+			     (downcase (read-string "Qt: " (my-lookup-sym))))))
+   "Qt")
+  ("o" (lambda () (interactive)
+	 (browse-url (concat "https://docs.gl/"
+			     (read-string "OpenGL: " (concat "gl4/" (my-lookup-sym))))))
+   "OpenGL")
+  ("m" (lambda () (interactive)
+	 (browse-url (format "https://help.autodesk.com/view/MAYAUL/2022/ENU/?query=%s&cg=Developer%%27s%%20Documentation"
+			     (read-string "Maya API: " (my-lookup-sym)))))
+   "Maya")
+  ("t" (lambda () (interactive)
+	 (let ((translate (let ((input-method (if (or (not (bound-and-true-p evil-local-mode))
+						      (evil-emacs-state-p))
+						  current-input-method
+						evil-input-method)))
+			    (cond
+			     ((string= input-method "german-postfix") "https://translate.google.com/?sl=de&tl=en&op=translate&text=")
+			     (t "https://translate.google.com/?sl=sv&tl=en&op=translate&text=")))))
+	   (browse-url (concat translate (url-hexify-string (read-string "Translate: " (my-lookup-sym)))))))
+   "Translate"))
 
-       (let* ((cc (or (eq major-mode 'c++-mode)
-		      (eq major-mode 'c-mode)))
-	      (sym (if cc
-		       (my-cpp-identifier-around-point)
-		     (thing-at-point 'symbol t)))
-	      (case-fold-search nil))
-	 (cond
-	  ((and cc sym (string-match-p "^gl[A-Z][^\s-]+$" sym))
-	   (concat "https://docs.gl/" (read-string "OpenGL: " (concat "gl4/" sym))))
-	  ((and cc sym (string-match-p "^Q[^\s-]+$" sym))
-	   (format "https://doc.qt.io/qt-5/%s.html" (downcase (read-string "Qt: " sym))))
-	  ((and cc sym (string-match-p "^M[A-Z][^\s-]+$" sym))
-	   (format "https://help.autodesk.com/view/MAYAUL/2020/ENU/?query=%s&cg=Developer%%27s%%20Documentation"
-		   (read-string "Maya API: " sym)))
-	  ((and cc sym)
-	   (concat google (url-hexify-string
-			   (format "%s site:cppreference.com"
-				   (read-string "Search cppreference: " sym)))))
-	  (translate (concat translate (url-hexify-string (read-string "Translate: " sym))))
-	  (t (concat google (url-hexify-string (read-string "Search Google: " sym))))))))))
-
-(global-set-key (kbd "M-s M-w") #'my-lookup)
+(global-set-key (kbd "M-s M-w") #'my-lookup-hydra/body)
 
 (defun my-dictionary-lookup ()
   (interactive)
@@ -2640,8 +2646,6 @@ current project instead, and visit the tags file."
   (setq evil-insert-state-cursor '(box "orange"))
 
   (my-set-dark-mode nil))
-
-(require 'hydra)
 
 (defhydra my-theme-hydra ()
   "Theme"
