@@ -1713,7 +1713,8 @@ return the project path instead"
    (setq dired-guess-shell-alist-user '(("" "open"))))
 
   ('windows-nt
-   (setq dired-guess-shell-alist-user '(("\\.exr\\'" "djv")
+   (setq dired-guess-shell-alist-user '(("\\.mp4\\'" "djv")
+					("\\.exr\\'" "djv")
 					("\\.tif\\'" "djv")))))
 
 (global-set-key (kbd "C-x C-j") 'dired-jump)
