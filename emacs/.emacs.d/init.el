@@ -701,6 +701,12 @@
 	 (browse-url (format "https://help.autodesk.com/view/MAYAUL/2022/ENU/?query=%s&cg=Developer%%27s%%20Documentation"
 			     (read-string "Maya API: " (my-lookup-sym)))))
    "Maya")
+  ("h" (lambda () (interactive)
+	 (browse-url (concat "https://www.google.com/search?ie=utf-8&oe=utf-8&q="
+			     (url-hexify-string
+			      (format "%s site:https://www.sidefx.com/docs/hdk/"
+				      (read-string "Houdini HDK: " (my-lookup-sym)))))))
+   "Houdini")
   ("t" (lambda () (interactive)
 	 (let ((translate (let ((input-method (if (or (not (bound-and-true-p evil-local-mode))
 						      (evil-emacs-state-p))
