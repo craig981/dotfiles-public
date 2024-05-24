@@ -339,7 +339,8 @@
 
 (defun my-close-other-window ()
   (interactive)
-  (quit-window nil (next-window)))
+  (when (> (count-windows) 1)
+    (quit-window nil (next-window))))
 
 (defun my-jump-buffer (name)
   (interactive)
