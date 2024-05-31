@@ -74,6 +74,7 @@ apt-install:
 		gnuplot \
 		htop \
 		imagemagick \
+		jq \
 		ledger \
 		mplayer \
 		mpv \
