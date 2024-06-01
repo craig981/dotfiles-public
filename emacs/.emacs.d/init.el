@@ -2030,6 +2030,9 @@ return the project path instead"
 (global-set-key (kbd "C-c t s") (lambda () (interactive) (my-shell nil)))
 (global-set-key (kbd "C-c h") 'my-jump-to-shell)
 
+(when (eq system-type 'windows-nt)
+  (setq-default shell-file-name "bash.exe"))
+
 ;; ----------------------------------------------------------------------------
 ;;| Term
 ;; ----------------------------------------------------------------------------

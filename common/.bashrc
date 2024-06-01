@@ -33,11 +33,14 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
-if [ "$TERM" != "dumb" ]; then
+case "$TERM" in
+    emacs) ;;
+    dumb) ;;
+    *)
     bind -u complete-filename
     bind '"\e/": dabbrev-expand'
-fi
+    ;;
+esac
 
 test -f ~/dotfiles-public/bash_zsh_alias && source ~/dotfiles-public/bash_zsh_alias
 test -f ~/dotfiles/bash_zsh_alias && source ~/dotfiles/bash_zsh_alias
