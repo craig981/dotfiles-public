@@ -1720,7 +1720,9 @@ return the project path instead"
 
 (pcase system-type
   ('gnu/linux
-   (setq dired-guess-shell-alist-user '(("\\.exr\\'" "djv"))))
+   (setq dired-guess-shell-alist-user '(("\\.exr\\'" "djv")
+					("\\.mp4\\'" "mpv")
+					("\\.mkv\\'" "mpv"))))
 
   ('darwin
    (setq dired-guess-shell-alist-user '(("" "open"))))
