@@ -35,6 +35,11 @@ else
 
 fi
 
+if [[ "$INSIDE_EMACS" ]]; then
+    # remove no-break-space chars in tree output
+    alias tree="/usr/bin/tree | sed 's/\xC2\xA0/ /g'"
+fi
+
 if [ "$TERM" = dumb ] && [ "$INSIDE_EMACS" ]; then
   export TERM=dumb-emacs-ansi COLORTERM=1
 fi
