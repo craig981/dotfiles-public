@@ -2359,6 +2359,18 @@ current project instead, and visit the tags file."
 
 (defvar my-cc-path)
 
+;;; Allow my-find-file-at-point to find Unreal headers
+(when (eq system-type 'windows-nt)
+  (message "Finding Unreal C++ paths...")
+  (setq ffap-file-name-with-spaces t)
+  (setq-default my-cc-path
+		(seq-filter
+		 (lambda (x)
+		   (and (file-directory-p x)
+			(not (string-match-p "/ThirdParty/" x))))
+		 (directory-files-recursively "C:/Program Files/Epic Games/UE_5.3/Engine"
+					      "\\<\\(Private\\|Public\\|Classes\\)\\>" t))))
+
 (defun my-cc-settings (path)
   (my-evil-local-mode)
   (modify-syntax-entry ?_ "w")
