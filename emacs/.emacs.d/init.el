@@ -240,6 +240,7 @@
   (add-to-list 'ffap-alist '("." . my-ffap-match-non-existent) t))
 
 (evil-global-set-key 'normal (kbd "gf") 'my-find-file-at-point)
+(evil-global-set-key 'visual (kbd "gf") 'my-find-file-at-point)
 (global-set-key (kbd "C-c f") #'my-find-file-at-point)
 
 ;; ----------------------------------------------------------------------------
