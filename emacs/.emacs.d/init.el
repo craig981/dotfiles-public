@@ -1309,7 +1309,7 @@ empty string."
      ((eq major-mode 'org-mode) (consult-org-heading))
      (t (consult-imenu)))))
 
-(defun my-search (&optional prefix)
+(defun my-ripgrep-project (&optional prefix)
   "Search project"
   (interactive "P")
   (let* ((consult-preview-key 'any)
@@ -1323,9 +1323,9 @@ empty string."
 	      (my-toggle-word-boundary "^#\\\\<\\(.*\\)\\\\>" "#\\<" "\\>"
 					 "^#" "#")))
 
-(evil-leader/set-key "r" 'my-search)
+(evil-leader/set-key "r" 'my-ripgrep-project)
 (evil-leader/set-key "i" 'my-imenu)
-(global-set-key (kbd "M-s M-f") 'my-search)
+(global-set-key (kbd "M-s M-f") 'my-ripgrep-project)
 (global-set-key (kbd "M-s i") 'my-imenu)
 (global-set-key (kbd "M-s M-i") 'my-imenu)
 
@@ -1532,12 +1532,12 @@ empty string."
 
 (setq wgrep-enable-key "e")
 
-(defun my-grep-project ()
+(defun my-rgrep-project ()
   (interactive)
   (rgrep (read-string "Search for: " (format "\\<%s\\>" (thing-at-point 'symbol t)))
 	 "*" (my-find-project-root)))
 
-(global-set-key (kbd "M-s M-r") 'my-grep-project)
+(global-set-key (kbd "M-s M-r") 'my-rgrep-project)
 (global-set-key (kbd "M-s M-g") 'rgrep)
 
 ;; ----------------------------------------------------------------------------
@@ -1639,7 +1639,7 @@ return the project path instead"
 
 (defun my-choose-project-and-search (&optional prefix)
   (interactive "P")
-  (my-choose-project-and-invoke 'my-search))
+  (my-choose-project-and-invoke 'my-ripgrep-project))
 
 (defun my-choose-project-and-magit ()
   (interactive)
