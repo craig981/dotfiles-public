@@ -1540,6 +1540,9 @@ empty string."
 (global-set-key (kbd "M-s M-r") 'my-rgrep-project)
 (global-set-key (kbd "M-s M-g") 'rgrep)
 
+;;; disable vertico when rgrep asks for file type
+(advice-add #'grep-read-files :around #'my-disable-vertico)
+
 ;; ----------------------------------------------------------------------------
 ;;| Projects
 ;; ----------------------------------------------------------------------------
