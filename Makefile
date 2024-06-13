@@ -72,6 +72,7 @@ apt-install:
 		gawk \
 		git \
 		gnuplot \
+		gnutls-bin \
 		htop \
 		imagemagick \
 		jq \
