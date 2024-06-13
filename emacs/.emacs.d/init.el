@@ -450,7 +450,7 @@
 (global-set-key (kbd "M-s ,") 'my-isearch-symbol-backward)
 (global-set-key (kbd "M-s M-,") 'my-isearch-symbol-backward)
 
-(global-set-key (kbd "C-c t o") 'olivetti-mode)
+(global-set-key (kbd "C-c i o") 'olivetti-mode)
 
 (push 'try-expand-line hippie-expand-try-functions-list)
 (global-set-key (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
@@ -2042,8 +2042,8 @@ return the project path instead"
 
 (add-hook 'sh-mode-hook 'my-sh-mode-hook)
 
-(global-set-key (kbd "C-c t S") (lambda () (interactive) (my-shell t)))
-(global-set-key (kbd "C-c t s") (lambda () (interactive) (my-shell nil)))
+(global-set-key (kbd "C-c i S") (lambda () (interactive) (my-shell t)))
+(global-set-key (kbd "C-c i s") (lambda () (interactive) (my-shell nil)))
 (global-set-key (kbd "C-c h") 'my-jump-to-shell)
 
 (when (eq system-type 'windows-nt)
@@ -2060,11 +2060,11 @@ return the project path instead"
   (my-expose-global-binding term-raw-map (kbd "M-o"))
   (my-expose-global-binding term-raw-map (kbd "C-j")))
 
-(global-set-key (kbd "C-c t a") 'ansi-term)
+(global-set-key (kbd "C-c i a") 'ansi-term)
 
 (require 'terminal-here)
 
-(global-set-key (kbd "C-c t h") #'terminal-here-launch)
+(global-set-key (kbd "C-c i h") #'terminal-here-launch)
 
 (when (eq system-type 'gnu/linux)
   (push '(mate-terminal "mate-terminal") terminal-here-terminal-command-table)
@@ -2116,7 +2116,7 @@ return the project path instead"
     (evil-window-split))
   (eshell prefix))
 
-(global-set-key (kbd "C-c t e") 'my-eshell)
+(global-set-key (kbd "C-c i e") 'my-eshell)
 
 ;; ----------------------------------------------------------------------------
 ;;| Tags
@@ -2774,7 +2774,7 @@ current project instead, and visit the tags file."
 					       (emms-seek-forward))))
 
     (global-set-key (kbd "<f9>") #'emms-playlist-mode-go)
-    (global-set-key (kbd "C-c i") #'emms-add-playlist))
+    (global-set-key (kbd "C-c t") #'emms-add-playlist))
 
   (defun my-add-dired-to-playlist ()
     (interactive)
