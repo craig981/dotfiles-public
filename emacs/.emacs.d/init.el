@@ -1865,7 +1865,16 @@ return the project path instead"
   (visual-line-mode)
   (my-evil-local-mode)
   ;; (evil-emacs-state)
-  (evil-local-set-key 'normal (kbd "q") 'quit-window))
+  (evil-local-set-key 'normal (kbd "q") 'quit-window)
+
+  (when (and (eq system-type 'windows-nt)
+	     (car (directory-files (my-find-project-root) nil ".*\\.uplugin\\'" t 1)))
+    ;; unreal plugin sources are copied to a package/staging directory before
+    ;; being compiled. make the filename in the error messages point at the
+    ;; original instead of the copy.
+    (setq-local compilation-transform-file-match-alist
+		'(("\\`.*\\\\stage\\\\HostProject\\\\Plugins\\\\[^\\]+\\\\" "")
+		  ("/bin/[a-z]*sh\\'" nil)))))
 
 (defun my-grep-mode-hook ()
   (evil-local-mode -1))
