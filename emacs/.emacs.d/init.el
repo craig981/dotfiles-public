@@ -378,6 +378,19 @@
     (goto-char (car r))
     (push-mark (cadr r) nil t)))
 
+(defun my-open-line ()
+  (interactive)
+  (beginning-of-line nil)
+  (newline-and-indent)
+  (forward-line -1)
+  (indent-according-to-mode))
+
+(defun my-delete-to-indent ()
+  (interactive)
+  (let ((p (point)))
+    (back-to-indentation)
+    (delete-region (point) p)))
+
 (evil-leader/set-key "s" #'my-substitute) ; substitute whole buffer
 (evil-leader/set-key "S" ; substitute from current line to end of buffer
   (lambda ()
@@ -442,6 +455,10 @@
 (evil-leader/set-key "M-j" #'my-join-line)
 (evil-leader/set-key "j" #'my-join-line)
 (global-set-key (kbd "C-c C-j") 'goto-last-change)
+
+(global-set-key (kbd "C-M-o") #'my-open-line)
+(when (display-graphic-p)
+ (global-set-key (kbd "C-<backspace>") #'my-delete-to-indent))
 
 (defun my-isearch-symbol-backward ()
   (interactive)
