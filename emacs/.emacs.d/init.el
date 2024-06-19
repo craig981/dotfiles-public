@@ -1710,6 +1710,7 @@ return the project path instead"
       isearch-regexp-lax-whitespace nil)
 ;; stop downcasing when symbol searching with M-s .
 (setq search-upper-case t)
+(setq isearch-lazy-count t)
 
 (defun my-isearch-hook ()
   "Use evil-input-method in isearch minibuffer"
