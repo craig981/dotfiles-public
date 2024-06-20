@@ -1013,9 +1013,16 @@
 (defun my-org-src-hook ()
   (my-evil-local-mode))
 
+;;; https://www.youtube.com/watch?v=UpeKWYFe9fU
+(defun my-org-attach-save-file-list-to-property (dir)
+  "Save list of attachments to ORG_ATTACH_FILES property."
+  (when-let* ((files (org-attach-file-list dir)))
+    (org-set-property "ORG_ATTACH_FILES" (mapconcat #'identity files ", "))))
+
 (add-hook 'org-mode-hook 'my-org-mode-hook)
 (add-hook 'org-capture-mode-hook 'my-org-capture-hook)
 (add-hook 'org-src-mode-hook 'my-org-src-hook)
+(add-hook 'org-attach-after-change-hook 'my-org-attach-save-file-list-to-property)
 
 (defun my-org-clock-jump ()
   (interactive)
@@ -1730,9 +1737,17 @@ return the project path instead"
 (setq dired-dwim-target t)
 (put 'dired-find-alternate-file 'disabled nil)
 
+(defun my-org-attach-dired-move ()
+  (interactive)
+  (let ((org-attach-method 'mv))
+    (call-interactively #'org-attach-dired-to-subtree)))
+
 (define-key dired-mode-map (kbd "SPC") evil-leader--default-map)
 (define-key dired-mode-map (kbd "C-w") 'evil-window-map)
 (define-key dired-mode-map (kbd ";") 'dired-up-directory)
+(define-key dired-mode-map (kbd "C-c C-x C-a") #'org-attach-dired-to-subtree)
+(define-key dired-mode-map (kbd "C-c C-x a") #'org-attach-dired-to-subtree)
+(define-key dired-mode-map (kbd "C-c C-x m") #'my-org-attach-dired-move)
 
 (defun my-dired-hook ()
   (auto-revert-mode 1))
