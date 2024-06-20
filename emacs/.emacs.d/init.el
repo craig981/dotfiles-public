@@ -1605,6 +1605,13 @@ empty string."
   (when (file-directory-p d)
     (push `(,d . 1) my-projects)))
 
+(when (eq system-type 'windows-nt)
+  (let ((d (concat (string-replace "\\" "/" (getenv "USERPROFILE"))
+		   "/Documents/Unreal Projects")))
+    (when (file-directory-p d)
+      (push `(,d . 2) my-projects))))
+
+
 (defun my-find-projects (dir depth)
   "Return a list of projects under 'dir' up to 'depth'"
   (if (string-suffix-p "/.git" dir)
