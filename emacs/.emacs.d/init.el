@@ -2171,6 +2171,7 @@ return the project path instead"
 	     (string= name "backup")
 	     (string= name "registry")
 	     (string= name "site-packages")
+	     (string= name "Intermediate")
 	     (string= name ".git")))))
 
 (defun my-rebuild-and-load-tags (&optional prefix)
@@ -2377,7 +2378,7 @@ current project instead, and visit the tags file."
     (if (not fn)
 	(message "Buffer has no filename")
       (let* ((ext (file-name-extension fn))
-	     (regex (concat "^" (file-name-base fn) "\\." (if (string= ext "h") "c" "h")))
+	     (regex (concat "^" (file-name-base fn) "\\." (if (string= ext "h") "c\\(c\\|pp\\)?" "h") "$"))
 	     (dir (my-find-project-root))
 	     (files (directory-files-recursively dir regex nil 'my-dir-predicate))
 	     (len (length files)))
