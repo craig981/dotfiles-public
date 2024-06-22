@@ -391,6 +391,16 @@
     (back-to-indentation)
     (delete-region (point) p)))
 
+(defun my-complete-word-ispell ()
+  "Completes the symbol at point based on entries in the dictionary"
+  (interactive)
+  (let* ((word (thing-at-point 'symbol t))
+         (bounds (bounds-of-thing-at-point 'symbol))
+         (words (ispell-lookup-words word)))
+    (when-let ((selection (completing-read "Words: " words)))
+      (delete-region (car bounds) (cdr bounds))
+      (insert selection))))
+
 (evil-leader/set-key "s" #'my-substitute) ; substitute whole buffer
 (evil-leader/set-key "S" ; substitute from current line to end of buffer
   (lambda ()
@@ -803,6 +813,8 @@
 
 (defun my-text-mode-hook ()
   (setq-local show-trailing-whitespace t)
+  (setq-local completion-at-point-functions '(my-complete-word-ispell))
+  (define-key text-mode-map (kbd "C-M-i") #'complete-symbol)
   (turn-on-auto-fill)
   (my-syntax-entry)
   (when (not (buffer-file-name))
@@ -827,6 +839,7 @@
   (modify-syntax-entry ?= ".")
   ;; (setq-local my-evil-default 0)
   (my-evil-local-mode)
+  (setq-local completion-at-point-functions '(my-complete-word-ispell))
   (setq-local fill-column 72)
   (setq-local show-trailing-whitespace t)
   ;; stop paragraph lines after the first being extra indented by M-q
@@ -835,6 +848,7 @@
 (add-hook 'message-mode-hook 'my-message-mode-hook)
 
 (with-eval-after-load "message"
+  (define-key message-mode-map (kbd "C-M-i") #'complete-symbol)
   (define-key message-mode-map (kbd "C-c C-c") nil)
   (define-key message-mode-map (kbd "C-c C-s") nil))
 
@@ -984,6 +998,8 @@
   ;; / is punctuation, so evil * works on path components
   (modify-syntax-entry ?/ ".")
   (auto-fill-mode 1)
+
+  (setq-local completion-at-point-functions '(my-complete-word-ispell))
 
   (cond
    ((not (display-graphic-p))
