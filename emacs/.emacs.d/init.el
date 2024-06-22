@@ -497,6 +497,11 @@
 (evil-leader/set-key "lb" #'flyspell-buffer)
 (evil-leader/set-key "ls" #'ispell)
 
+(let ((words "~/.cache/macDict/words"))
+  (when (and (eq system-type 'gnu/linux)
+	     (file-exists-p words))
+    (setq-default ispell-alternate-dictionary (expand-file-name words))))
+
 (defun my-advise-comment (&rest args)
   (when (evil-normal-state-p)
     (call-interactively 'evil-append)))
