@@ -764,11 +764,12 @@
 ;;| Keyboard
 ;; ----------------------------------------------------------------------------
 
-(when (eq system-type 'darwin)
+(when (string= "goose" (system-name))
   ;; tilde in the same place as in US keyboard
   (keyboard-translate ?\§ ?\`)
-  (keyboard-translate ?\± ?\~)
+  (keyboard-translate ?\± ?\~))
 
+(when (eq system-type 'darwin)
   (setq-default mac-command-modifier 'meta)
   (setq-default mac-right-command-modifier 'control)
   (setq-default mac-option-modifier 'alt))
