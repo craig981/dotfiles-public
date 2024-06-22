@@ -2843,8 +2843,8 @@ current project instead, and visit the tags file."
 					     (let ((emms-seek-seconds 60))
 					       (emms-seek-forward))))
 
-    (global-set-key (kbd "<f9>") #'emms-playlist-mode-go)
-    (global-set-key (kbd "<f8>") #'emms-add-playlist))
+    (global-set-key (kbd "<f8>") #'emms-playlist-mode-go)
+    (global-set-key (kbd "<f9>") #'emms-add-playlist))
 
   (defun my-add-dired-to-playlist ()
     (interactive)
