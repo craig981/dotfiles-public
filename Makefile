@@ -119,3 +119,5 @@ update-gui:
 update-chrome:
 	sudo apt-get install --only-upgrade google-chrome-stable
 
+ssp:
+	sudo btmgmt ssp on
