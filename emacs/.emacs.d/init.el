@@ -391,6 +391,8 @@
     (back-to-indentation)
     (delete-region (point) p)))
 
+(require 'ispell)
+
 (defun my-complete-word-ispell ()
   "Completes the symbol at point based on entries in the dictionary"
   (interactive)
