@@ -815,6 +815,7 @@
   (let ((buffer (window-buffer)))
     (when buffer
       (with-current-buffer buffer
+	(text-mode)
 	(my-syntax-entry)
 	(evil-local-mode)))))
 
