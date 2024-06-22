@@ -590,20 +590,24 @@
 (advice-add 'evil-paste-after-cursor-after :after 'my-advise-paste)
 
 ;; ----------------------------------------------------------------------------
-;;| Pulsar
+;;| Pulse
 ;; ----------------------------------------------------------------------------
 
-(require 'pulsar)
+(require 'pulse)
 
-(setq pulsar-pulse t)
-(setq pulsar-delay 0.05)
-(setq pulsar-iterations 8)
-(setq pulsar-pulse-functions
-      '(bookmark-jump other-window delete-window my-kill-buffer
-	quit-window org-agenda-quit magit-mode-bury-buffer
-	winner-undo winner-redo))
+(defvar my-pulse-face)
 
-(pulsar-global-mode 1)
+(setq pulse-delay 0.06
+      pulse-iterations 8)
+
+(defun my-pulse-line (&rest r)
+  (pulse-momentary-highlight-one-line (point) my-pulse-face))
+
+(dolist (cmd '(bookmark-jump tab-new tab-close tab-next
+	       other-window delete-window my-kill-buffer
+	       quit-window org-agenda-quit magit-mode-bury-buffer
+	       winner-undo winner-redo))
+  (advice-add cmd :after 'my-pulse-line))
 
 ;; ----------------------------------------------------------------------------
 ;;| Help
@@ -2723,7 +2727,7 @@ current project instead, and visit the tags file."
     (load-theme 'ef-winter)
     (load-theme 'my-override-dark2)))
 
-  (setq pulsar-face 'next-error)
+  (setq my-pulse-face 'next-error)
   (set-cursor-color "white")
   (setq evil-normal-state-cursor '(box "white"))
   (setq evil-insert-state-cursor '(box "orange"))
@@ -2741,7 +2745,7 @@ current project instead, and visit the tags file."
     (require 'sandcastle-theme)
     (load-theme 'sandcastle)))
 
-  (setq pulsar-face 'pulsar-blue)
+  (setq my-pulse-face 'helm-match)
   (set-cursor-color "black")
   (setq evil-normal-state-cursor '(box "black"))
   (setq evil-insert-state-cursor '(box "orange"))
@@ -2938,7 +2942,6 @@ current project instead, and visit the tags file."
      orderless
      ox-pandoc
      paredit
-     pulsar
      reykjavik-theme
      soft-morning-theme
      terminal-here
