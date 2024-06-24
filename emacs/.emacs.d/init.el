@@ -1796,7 +1796,8 @@ return the project path instead"
   ('gnu/linux
    (setq dired-guess-shell-alist-user '(("\\.exr\\'" "djv")
 					("\\.mp4\\'" "mpv")
-					("\\.mkv\\'" "mpv"))))
+					("\\.mkv\\'" "mpv")
+					("" "open"))))
 
   ('darwin
    (setq dired-guess-shell-alist-user '(("" "open"))))
