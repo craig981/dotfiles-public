@@ -2447,12 +2447,13 @@ current project instead, and visit the tags file."
   (message "Finding Unreal C++ paths...")
   (setq ffap-file-name-with-spaces t)
   (setq-default my-cc-path
-		(seq-filter
-		 (lambda (x)
-		   (and (file-directory-p x)
-			(not (string-match-p "/ThirdParty/" x))))
-		 (directory-files-recursively "C:/Program Files/Epic Games/UE_5.3/Engine"
-					      "\\<\\(Private\\|Public\\|Classes\\)\\>" t))))
+		(split-string
+		 (string-trim
+		  (shell-command-to-string
+		   (concat "find \"C:/Program Files/Epic Games/UE_5.3/Engine\" "
+			   "-type d \\( -name Plugins -o -name ThirdParty \\) -prune -false "
+			   "-o \\( -name Private -o -name Public -o -name Classes \\)")))
+		 "\n")))
 
 (defun my-cc-settings (path)
   (my-evil-local-mode)
