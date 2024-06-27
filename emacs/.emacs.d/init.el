@@ -1104,7 +1104,13 @@
 
 (advice-add 'org-time-stamp-inactive :before #'my-forward-before-insert)
 
+(defun my-org-agenda-toggle-done ()
+  (interactive)
+  (setq org-agenda-skip-scheduled-if-done (not org-agenda-skip-scheduled-if-done))
+  (org-agenda-redo-all))
+
 (with-eval-after-load 'org-agenda
+  (define-key org-agenda-mode-map (kbd "d") 'my-org-agenda-toggle-done)
   (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map))
 
 (with-eval-after-load 'org
@@ -2914,6 +2920,7 @@ current project instead, and visit the tags file."
  '(olivetti-body-width 130)
  '(org-agenda-file-regexp "\\`[^.].*\\.org\\(\\.gpg\\)?\\'")
  '(org-agenda-show-future-repeats nil)
+ '(org-agenda-skip-scheduled-if-done t)
  '(org-agenda-span 4)
  '(org-blank-before-new-entry '((heading . auto) (plain-list-item)))
  '(org-imenu-depth 3)
