@@ -2685,17 +2685,20 @@ current project instead, and visit the tags file."
 
        (set-face-attribute 'default nil :font "Menlo:pixelsize=14:weight=normal:slant=normal:width=normal:spacing=100:scalable=true")
 
-       (if (string-empty-p (string-trim
-			    (shell-command-to-string
-			     "xrandr | awk '$2 == \"connected\" && $1 ~ /^(HDMI-|DP-)/ {print $1}'")))
-	   ;; laptop screen
-	   (pcase (system-name)
-	     ("goose"
-	      (set-face-attribute 'default nil :height 130))
-	     ("hedgehog"
-	      (set-face-attribute 'default nil :height 120)))
-	 ;; external monitor
-	 (set-face-attribute 'default nil :height 105)))
+       (pcase (system-name)
+	 ("goose"
+	  (if (string= "1920x1080" (string-trim
+				    (shell-command-to-string
+				     "xrandr | grep '\\*' | awk '{print $1}'")))
+	      (set-face-attribute 'default nil :height 110) ; external monitor
+	    (set-face-attribute 'default nil :height 130))) ; laptop screen
+
+	 ("hedgehog"
+	  (if (string-empty-p (string-trim
+			       (shell-command-to-string
+				"xrandr | awk '$2 == \"connected\" && $1 ~ /^(HDMI-|DP-)/ {print $1}'")))
+	      (set-face-attribute 'default nil :height 120)   ; laptop screen
+	    (set-face-attribute 'default nil :height 105))))) ; external monitor
 
       ('windows-nt
        (set-frame-font "Fira Mono 11" nil t))
