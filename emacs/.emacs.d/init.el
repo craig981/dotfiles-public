@@ -1741,6 +1741,13 @@ return the project path instead"
 (setq search-upper-case t)
 (setq isearch-lazy-count t)
 
+(defun my-advise-isearch-lax-whitespace (func &rest args)
+  (let ((isearch-lax-whitespace nil))
+    (apply func args)))
+
+(advice-add 'isearch-yank-char :around 'my-advise-isearch-lax-whitespace)
+(advice-add 'isearch-yank-until-char :around 'my-advise-isearch-lax-whitespace)
+
 (defun my-isearch-hook ()
   "Use evil-input-method in isearch minibuffer"
   (when (and (bound-and-true-p evil-local-mode)
