@@ -1087,6 +1087,9 @@
   (org-agenda-redo-all))
 
 (with-eval-after-load 'org-agenda
+  (define-key org-agenda-mode-map (kbd "C") (lambda ()
+					      (interactive)
+					      (browse-url "https://calendar.google.com/")))
   (define-key org-agenda-mode-map (kbd "d") 'my-org-agenda-toggle-done)
   (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map))
 
