@@ -391,6 +391,12 @@
     (back-to-indentation)
     (delete-region (point) p)))
 
+(defun my-duplicate-line (arg)
+  "Duplicate current line, leaving point in lower line."
+  (interactive "*p")
+  (duplicate-line arg)
+  (next-line arg))
+
 (require 'ispell)
 
 (defun my-complete-word-ispell ()
@@ -468,6 +474,7 @@
 (evil-leader/set-key "j" #'my-join-line)
 (global-set-key (kbd "C-c C-j") 'goto-last-change)
 
+(global-set-key (kbd "C-M-y") #'my-duplicate-line)
 (global-set-key (kbd "C-M-o") #'my-open-line)
 (when (display-graphic-p)
  (global-set-key (kbd "C-<backspace>") #'my-delete-to-indent))
@@ -513,36 +520,6 @@
 (when (not (display-graphic-p))
   (global-set-key (kbd "C-x ;") (kbd "C-x C-;"))
   (global-set-key (kbd "C-x C-'") (kbd "C-x '")))
-
-;; https://stackoverflow.com/a/998472
-(defun p/duplicate-line (arg)
-  "Duplicate current line, leaving point in lower line."
-  (interactive "*p")
-  ;; save the point for undo
-  (setq buffer-undo-list (cons (point) buffer-undo-list))
-  ;; local variables for start and end of line
-  (let ((bol (save-excursion (beginning-of-line) (point)))
-        eol)
-    (save-excursion
-      ;; don't use forward-line for this, because you would have
-      ;; to check whether you are at the end of the buffer
-      (end-of-line)
-      (setq eol (point))
-      ;; store the line and disable the recording of undo information
-      (let ((line (buffer-substring bol eol))
-            (buffer-undo-list t)
-            (count arg))
-        ;; insert the line arg times
-        (while (> count 0)
-          (newline)         ;; because there is no newline in 'line'
-          (insert line)
-          (setq count (1- count))))
-      ;; create the undo information
-      (setq buffer-undo-list (cons (cons eol (point)) buffer-undo-list))))
-  ;; put the point in the lowest line and return
-  (next-line arg))
-
-(global-set-key (kbd "C-M-y") 'p/duplicate-line)
 
 (defun my-toggle-word-boundary (word-regex
 				word-begin word-end
