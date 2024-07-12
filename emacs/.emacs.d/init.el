@@ -1349,6 +1349,8 @@ empty string."
 
 (setq consult-preview-key "C-j")
 
+(consult-customize consult-line :preview-key 'any)
+
 (defun my-imenu ()
   (interactive)
   (let ((f (buffer-file-name)))
