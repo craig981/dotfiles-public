@@ -378,12 +378,23 @@
     (goto-char (car r))
     (push-mark (cadr r) nil t)))
 
-(defun my-open-line ()
+(defun my-open-line-above ()
   (interactive)
   (beginning-of-line nil)
   (newline-and-indent)
   (forward-line -1)
   (indent-according-to-mode))
+
+(defun my-open-line-below ()
+  (interactive)
+  (move-end-of-line nil)
+  (newline-and-indent))
+
+(defun my-open-line (&optional prefix)
+  (interactive "P")
+  (if prefix
+      (my-open-line-above)
+    (my-open-line-below)))
 
 (defun my-delete-to-indent ()
   (interactive)
@@ -470,12 +481,11 @@
 (global-set-key (kbd "M-SPC") evil-leader--default-map)
 (evil-leader/set-key "M-i" #'tab-to-tab-stop)
 (evil-leader/set-key "M-w" #'save-buffer)
-(evil-leader/set-key "M-j" #'my-join-line)
-(evil-leader/set-key "j" #'my-join-line)
 (global-set-key (kbd "C-c C-j") 'goto-last-change)
 
 (global-set-key (kbd "C-M-y") #'my-duplicate-line)
-(global-set-key (kbd "C-M-o") #'my-open-line)
+(global-set-key (kbd "C-M-o") #'my-join-line)
+(global-set-key (kbd "C-o") #'my-open-line)
 (when (display-graphic-p)
  (global-set-key (kbd "C-<backspace>") #'my-delete-to-indent))
 
