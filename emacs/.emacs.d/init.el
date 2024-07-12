@@ -390,12 +390,6 @@
   (move-end-of-line nil)
   (newline-and-indent))
 
-(defun my-open-line (&optional prefix)
-  (interactive "P")
-  (if prefix
-      (my-open-line-above)
-    (my-open-line-below)))
-
 (defun my-delete-to-indent ()
   (interactive)
   (let ((p (point)))
@@ -484,8 +478,12 @@
 (global-set-key (kbd "C-c C-j") 'goto-last-change)
 
 (global-set-key (kbd "C-M-y") #'my-duplicate-line)
-(global-set-key (kbd "C-M-o") #'my-join-line)
-(global-set-key (kbd "C-o") #'my-open-line)
+(global-set-key (kbd "C-M-o") #'my-open-line-above)
+(global-set-key (kbd "C-o") (lambda (&optional prefix)
+			      (interactive "P")
+			      (if prefix
+				  (my-join-line)
+				(my-open-line-below))))
 (when (display-graphic-p)
  (global-set-key (kbd "C-<backspace>") #'my-delete-to-indent))
 
