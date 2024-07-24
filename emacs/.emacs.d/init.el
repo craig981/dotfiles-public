@@ -886,7 +886,7 @@
 (defun my-optional-file (fn)
   (if (file-exists-p fn) fn nil))
 
-(setq org-agenda-files (list "~/" "~/org"))
+(setq org-agenda-files (list "~/" "~/org" "~/work_org/"))
 (setq org-default-notes-file
       (or (my-optional-file "~/notes.org.gpg")
 	  (my-optional-file "~/work.org.gpg")
@@ -913,11 +913,12 @@
 (setq org-tags-exclude-from-inheritance '("crypt"))
 
 (setq org-capture-templates
-      '(("k" "Bookmark" entry (file+headline org-default-notes-file "Bookmarks")
+      `(("k" "Bookmark" entry (file+headline org-default-notes-file "Bookmarks")
 	 "* %?\n")
 	("x" "Task" entry (file+headline org-default-notes-file "Tasks")
 	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
-	("w" "Work" entry (file "~/org/work.org")
+	("w" "Work" entry (file ,(or (my-optional-file "~/work_org/work.org")
+				     "~/org/work.org"))
 	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n"
 	 :empty-lines 1)))
 
@@ -1093,11 +1094,21 @@
   (setq org-agenda-skip-scheduled-if-done (not org-agenda-skip-scheduled-if-done))
   (org-agenda-redo-all))
 
+(defun my-org-agenda-toggle-work ()
+  (interactive)
+  (let ((strip (if (or (not org-agenda-tag-filter)
+		       (string= "-work" (car org-agenda-tag-filter)))
+		   nil
+		 '(4))))
+    (org-agenda-filter-by-tag strip ?w)))
+
 (with-eval-after-load 'org-agenda
   (define-key org-agenda-mode-map (kbd "C") (lambda ()
 					      (interactive)
 					      (browse-url "https://calendar.google.com/")))
   (define-key org-agenda-mode-map (kbd "d") 'my-org-agenda-toggle-done)
+  (when (string= "goose" (system-name))
+    (define-key org-agenda-mode-map (kbd "w") 'my-org-agenda-toggle-work))
   (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map))
 
 (with-eval-after-load 'org
@@ -1198,7 +1209,10 @@ empty string."
     (define-key org-mode-map (kbd "C-,") nil))
   (global-set-key (kbd "C-,") (lambda ()
 				(interactive)
-				(org-agenda nil ","))))
+				(org-agenda nil ",")
+				(when (string= "goose" (system-name))
+				  ;; hide work tasks by default
+				 (org-agenda-filter-by-tag '(4) ?w)))))
 
 (evil-leader/set-key-for-mode 'org-mode "," 'org-insert-structure-template)
 (evil-leader/set-key-for-mode 'org-mode "c" 'my-insert-org-src-block)
