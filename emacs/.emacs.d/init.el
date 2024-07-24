@@ -905,7 +905,7 @@
 (setq org-src-fontify-natively t)
 (setq org-startup-folded nil)
 (setq org-confirm-babel-evaluate nil)
-(setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/!)" "|" "DONE(d!/!)")
+(setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/!)" "BLOCK(b@/!)" "ANY(a)" "|" "DONE(d!/!)")
 			  (sequence "|" "CANCELLED(c@/!)")))
 
 (require 'org-crypt)
@@ -937,45 +937,44 @@
 	(org-agenda-start-with-log-mode t)
 	(org-agenda-start-with-clockreport-mode t)
 	;; https://orgmode.org/manual/Special-Agenda-Views.html
-	(org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("TODO" "WAITING")))
+	(org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("TODO" "WAIT" "BLOCK")))
 	(org-agenda-archives-mode t)
 	(org-agenda-clockreport-parameter-plist '(:link t :hidefiles t :tags t :step day :maxlevel 2 :fileskip0 t :formula %))
 	;; (org-agenda-hide-tags-regexp
 	;;  (concat org-agenda-hide-tags-regexp "\\|ARCHIVE"))
 	(org-agenda-start-on-weekday 1)))
 
-(let ((tag (if (string= "goose" (system-name)) "READ|WATCH|PROJECT")))
-  (setq org-agenda-custom-commands
-	`(("d" "Done stuff" todo "DONE" )
-	  ("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
-	  ("." ,(format "Agenda and %s" tag)
-	   ((agenda "" )
-	    ,@(if (string= "asusbox" (system-name)) '((tags "PIN")))
-	    (todo "TODO|WAIT" ((org-agenda-overriding-header "Unscheduled TODO|WAIT:")
-			  (org-agenda-skip-function
-			   '(org-agenda-skip-entry-if 'scheduled 'deadline))
-			  (org-agenda-sorting-strategy
-			   '((todo priority-down alpha-up)))))
-	    ,@(if tag
-		  `((tags ,tag ((org-agenda-skip-function
-				 '(org-agenda-skip-entry-if 'todo '("DONE" "CANCELLED")))
-				(org-agenda-sorting-strategy
-				 '((tags tag-up alpha-up))))))))
-	   ((org-agenda-start-with-log-mode nil)
-	    (org-tags-match-list-sublevels nil)))
-	  ("w" "This week"
-	   agenda ""
-	   ,(append my-org-agenda-common-review-settings
-		    '((org-agenda-span 'week)
-		      (org-agenda-overriding-header "Week in Review")))
-	   ("/tmp/week.html"))
-	  ("W" "Last week"
-	   agenda ""
-	   ,(append my-org-agenda-common-review-settings
-		    '((org-agenda-span 'week)
-		      (org-agenda-start-day "-1w")
-		      (org-agenda-overriding-header "Last week in Review")))
-	   ("/tmp/lastweek.html")))))
+(setq org-agenda-custom-commands
+      `(("d" "Done stuff" todo "DONE" )
+	("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
+
+	("," "Agenda"
+	 ((agenda "" )
+	  ,@(if (string= "asusbox" (system-name)) '((tags "PIN")))
+	  (todo "TODO|WAIT|BLOCK" ((org-agenda-overriding-header "Unscheduled:")
+				   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
+				   (org-agenda-sorting-strategy '((todo priority-down alpha-up)))))
+	  ,@(if-let ((tag (if (string= "goose" (system-name)) "read|watch|project")))
+		`((tags ,tag ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "CANCELLED")))
+			      (org-agenda-sorting-strategy '((tags tag-up alpha-up))))))))
+
+	 ((org-agenda-start-with-log-mode nil)
+	  (org-tags-match-list-sublevels nil)))
+
+	("w" "This week"
+	 agenda ""
+	 ,(append my-org-agenda-common-review-settings
+		  '((org-agenda-span 'week)
+		    (org-agenda-overriding-header "Week in Review")))
+	 ("/tmp/week.html"))
+
+	("W" "Last week"
+	 agenda ""
+	 ,(append my-org-agenda-common-review-settings
+		  '((org-agenda-span 'week)
+		    (org-agenda-start-day "-1w")
+		    (org-agenda-overriding-header "Last week in Review")))
+	 ("/tmp/lastweek.html"))))
 
 (defun my-org-shift (left)
   (if (string-match-p "^[\s-]*[*-] " (thing-at-point 'line))
@@ -1199,7 +1198,7 @@ empty string."
     (define-key org-mode-map (kbd "C-,") nil))
   (global-set-key (kbd "C-,") (lambda ()
 				(interactive)
-				(org-agenda nil "."))))
+				(org-agenda nil ","))))
 
 (evil-leader/set-key-for-mode 'org-mode "," 'org-insert-structure-template)
 (evil-leader/set-key-for-mode 'org-mode "c" 'my-insert-org-src-block)
