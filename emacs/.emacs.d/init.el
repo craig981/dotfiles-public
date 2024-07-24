@@ -954,7 +954,7 @@
 	  ,@(if (string= "asusbox" (system-name)) '((tags "PIN")))
 	  (todo "TODO|WAIT|BLOCK" ((org-agenda-overriding-header "Unscheduled:")
 				   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
-				   (org-agenda-sorting-strategy '((todo priority-down alpha-up)))))
+				   (org-agenda-sorting-strategy '((todo category-up priority-down alpha-up)))))
 	  ,@(if-let ((tag (if (string= "goose" (system-name)) "read|watch|project")))
 		`((tags ,tag ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "CANCELLED")))
 			      (org-agenda-sorting-strategy '((tags tag-up alpha-up))))))))
