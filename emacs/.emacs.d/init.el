@@ -917,8 +917,10 @@
 	 "* %?\n")
 	("x" "Task" entry (file+headline org-default-notes-file "Tasks")
 	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
-	("w" "Work" entry (file ,(or (my-optional-file "~/work_org/work.org")
-				     "~/org/work.org"))
+	("w" "Work" entry (file+headline
+			   ,(or (my-optional-file "~/work_org/work.org")
+				"~/org/work.org")
+			   "Tasks")
 	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n"
 	 :empty-lines 1)))
 
