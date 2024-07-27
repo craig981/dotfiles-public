@@ -928,11 +928,14 @@
     (push '("b" "Book" entry (file+headline org-default-notes-file "Books")
 	    "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
 	  org-capture-templates)
+    (push '("s" "Show" entry (file+headline org-default-notes-file "Tasks")
+	    "* %? :show:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
+	  org-capture-templates)
     (push '("r" "Read/watch" entry (file+headline org-default-notes-file "Tasks")
-	    "* %? :READ:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
+	    "* ANY %? :read:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
 	  org-capture-templates)
     (push '("p" "Project" entry (file+headline org-default-notes-file "Tasks")
-	    "* %? :PROJECT:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
+	    "* ANY %? :project:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
 	  org-capture-templates))
 
 (setq my-org-agenda-common-review-settings
@@ -956,8 +959,9 @@
 	  ,@(if (string= "asusbox" (system-name)) '((tags "PIN")))
 	  (todo "TODO|WAIT|BLOCK" ((org-agenda-overriding-header "Unscheduled:")
 				   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
-				   (org-agenda-sorting-strategy '((todo category-up priority-down alpha-up)))))
-	  ,@(if-let ((tag (if (string= "goose" (system-name)) "read|watch|project")))
+				   (org-agenda-sorting-strategy '((todo category-up priority-down tag-down alpha-up)))))
+
+	  ,@(if-let ((tag (if (string= "goose" (system-name)) "read|watch|project|show")))
 		`((tags ,tag ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "CANCELLED")))
 			      (org-agenda-sorting-strategy '((tags tag-up alpha-up))))))))
 
@@ -2817,7 +2821,7 @@ current project instead, and visit the tags file."
 
   (let ((hour (decoded-time-hour (decode-time))))
     (if (and (> hour 7) (< hour 13))
-	(my-theme-light 0)
+	(my-theme-light 2)
       (my-theme-dark 0)))
 
   (my-font-config))
