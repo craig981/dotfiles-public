@@ -961,7 +961,11 @@
 				   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
 				   (org-agenda-sorting-strategy '((todo category-up priority-down tag-down alpha-up)))))
 
-	  ,@(if-let ((tag (if (string= "goose" (system-name)) "read|watch|project|show")))
+	  (tags "show" ((org-agenda-overriding-header "Shows:")
+			(org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "CANCELLED")))
+			(org-agenda-sorting-strategy '(priority-down))))
+
+	  ,@(if-let ((tag (if (string= "goose" (system-name)) "read|watch|project")))
 		`((tags ,tag ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "CANCELLED")))
 			      (org-agenda-sorting-strategy '((tags tag-up alpha-up))))))))
 
