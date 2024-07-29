@@ -156,6 +156,13 @@
 (evil-global-set-key 'normal (kbd "g C-a") 'evil-numbers/inc-at-pt-incremental)
 (evil-global-set-key 'normal (kbd "g C-p") 'evil-numbers/dec-at-pt-incremental)
 
+;;; don't want this in evil-motion-state-map because that affects operators, and
+;;; we want 'dj' to delete two lines
+(define-key evil-normal-state-map (kbd "j") #'evil-next-visual-line)
+(define-key evil-normal-state-map (kbd "k") #'evil-previous-visual-line)
+(define-key evil-visual-state-map (kbd "j") #'evil-next-visual-line)
+(define-key evil-visual-state-map (kbd "k") #'evil-previous-visual-line)
+
 ;; ----------------------------------------------------------------------------
 ;;| Undo
 ;; ----------------------------------------------------------------------------
