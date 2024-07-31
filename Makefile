@@ -22,6 +22,9 @@ ifeq ($(osuname),Darwin)
 endif
 ifeq ($(osuname),CYGWIN_NT-10.0-22621)
 	cp -v win/emacs.bat win/.emacs ~/
+	cp -v emacs/.emacs.d/my-override-*-theme.el ~/.emacs.d/
+	unlink ~/.gitconfig && cp ~/dotfiles-public/common/.gitconfig ~/
+
 endif
 	[ -f ~/.vim/autoload/plug.vim ] || \
 		curl -o ~/.vim/autoload/plug.vim --create-dirs \
