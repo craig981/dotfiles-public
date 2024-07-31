@@ -2835,7 +2835,7 @@ current project instead, and visit the tags file."
     (set-face-background 'default "unspecified-bg" (selected-frame)))
 
   (let ((hour (decoded-time-hour (decode-time))))
-    (if (and (> hour 7) (< hour 13))
+    (if (and (> hour 7) (< hour 16))
 	(my-theme-light 2)
       (my-theme-dark 0)))
 
