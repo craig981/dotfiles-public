@@ -2483,7 +2483,7 @@ current project instead, and visit the tags file."
 		(split-string
 		 (string-trim
 		  (shell-command-to-string
-		   (concat "find \"C:/Program Files/Epic Games/UE_5.3/Engine\" "
+		   (concat "find \"C:/Program Files/Epic Games/UE_5.4/Engine\" "
 			   "-type d \\( -name Plugins -o -name ThirdParty \\) -prune -false "
 			   "-o \\( -name Private -o -name Public -o -name Classes \\)")))
 		 "\n")))
