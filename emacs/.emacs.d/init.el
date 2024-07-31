@@ -2781,12 +2781,11 @@ current project instead, and visit the tags file."
 
 (defhydra my-theme-hydra ()
   "Theme"
-  ("t" (lambda () (interactive) (my-theme-dark 3)) "ef-autumn")
-  ("y" (lambda () (interactive) (my-theme-dark 2)) "ef-winter")
+  ("y" (lambda () (interactive) (my-theme-dark 1)) "nordic-night")
   ("u" (lambda () (interactive) (my-theme-dark 0)) "reykjavik")
   ("i" (lambda () (interactive) (my-theme-light 2)) "ef-cyprus")
-  ("o" (lambda () (interactive) (my-theme-light 0)) "soft-morning")
-  ("p" (lambda () (interactive) (my-theme-dark 1)) "nordic-night"))
+  ("o" (lambda () (interactive) (my-theme-dark 3)) "ef-autumn")
+  ("p" (lambda () (interactive) (my-theme-dark 2)) "ef-winter"))
 
 (global-set-key (kbd "C-c i") 'my-theme-hydra/body)
 
