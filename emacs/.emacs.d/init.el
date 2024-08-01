@@ -910,8 +910,8 @@
 (setq org-src-fontify-natively t)
 (setq org-startup-folded nil)
 (setq org-confirm-babel-evaluate nil)
-(setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/!)" "BLOCK(b@/!)" "ANY(a)" "|" "DONE(d!/!)")
-			  (sequence "|" "CANCELLED(c@/!)")))
+(setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/@)" "BLOCK(b@/@)" "ANY(a)" "|" "DONE(d!/!)")
+			  (sequence "|" "CANCELLED(c@/@)")))
 
 (require 'org-crypt)
 (org-crypt-use-before-save-magic)
