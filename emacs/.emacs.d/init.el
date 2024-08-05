@@ -2707,7 +2707,8 @@ current project instead, and visit the tags file."
 	    (set-face-attribute 'default nil :height 105))))) ; external monitor
 
       ('windows-nt
-       (set-frame-font "Fira Mono 11" nil t))
+       ;; (set-frame-font "Fira Mono 11" nil t)
+       (set-frame-font "JetBrains Mono 11" nil t))
 
       ('darwin
        (set-face-attribute 'default nil :family "Menlo" :height 160)))))
