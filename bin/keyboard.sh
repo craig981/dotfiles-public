@@ -139,6 +139,9 @@ fi
 # https://docs.microsoft.com/en-us/sysinternals/downloads/ctrl2cap
 # https://github.com/microsoft/PowerToys/releases/
 
+# PowerToys, Keyboard Manager, Remap a key. Caps to Ctrl.
+# PowerToys, Mouse utilities, Enable Find My Mouse = OFF
+
 # Win+G opens "Game bar". To remove it:
 # Start, search "Windows PowerShell (Admin)"
 # Get-AppxPackage Microsoft.XboxGamingOverlay | Remove-AppxPackage
