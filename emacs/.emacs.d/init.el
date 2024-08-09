@@ -910,7 +910,7 @@
 (setq org-src-fontify-natively t)
 (setq org-startup-folded nil)
 (setq org-confirm-babel-evaluate nil)
-(setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/@)" "BLOCK(b@/@)" "ANY(a)" "|" "DONE(d!/!)")
+(setq org-todo-keywords '((sequence "TODO(t)" "WAIT(w@/@)" "BLOCK(b@/@)" "|" "DONE(d!/!)")
 			  (sequence "|" "CANCELLED(c@/@)")))
 
 (require 'org-crypt)
@@ -931,10 +931,10 @@
 	    "* %? :show:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
 	  org-capture-templates)
     (push '("r" "Read/watch" entry (file+headline org-default-notes-file "Tasks")
-	    "* ANY %? :read:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
+	    "* TODO %? :read:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
 	  org-capture-templates)
     (push '("p" "Project" entry (file+headline org-default-notes-file "Tasks")
-	    "* ANY %? :project:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
+	    "* TODO %? :project:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
 	  org-capture-templates))
 
 (setq my-org-agenda-common-review-settings
