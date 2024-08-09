@@ -956,9 +956,15 @@
 	("," "Agenda"
 	 ((agenda "" )
 	  ,@(if (string= "asusbox" (system-name)) '((tags "PIN")))
-	  (todo "TODO|WAIT|BLOCK" ((org-agenda-overriding-header "Unscheduled:")
-				   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
-				   (org-agenda-sorting-strategy '((todo category-up priority-down tag-down alpha-up)))))
+
+	  ;; (todo "TODO|WAIT|BLOCK" ((org-agenda-overriding-header "Unscheduled:")
+	  ;; 			   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
+	  ;; 			   (org-agenda-sorting-strategy '((todo category-up priority-down tag-down alpha-up)))))
+
+	  (tags-todo "-read-watch-project"
+		     ((org-agenda-overriding-header "Unscheduled:")
+		      (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
+		      (org-agenda-sorting-strategy '((tags category-up priority-down tag-down)))))
 
 	  (tags "show" ((org-agenda-overriding-header "Shows:")
 			(org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "CANCELLED")))
