@@ -964,7 +964,7 @@
 	  (tags-todo "-read-watch-project-show"
 		     ((org-agenda-overriding-header "Unscheduled:")
 		      (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
-		      (org-agenda-sorting-strategy '((tags category-up priority-down tag-down)))))
+		      (org-agenda-sorting-strategy '((tags category-down priority-down tag-down)))))
 
 	  (tags "show" ((org-agenda-overriding-header "Shows:")
 			(org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "CANCELLED")))
