@@ -961,7 +961,7 @@
 	  ;; 			   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
 	  ;; 			   (org-agenda-sorting-strategy '((todo category-up priority-down tag-down alpha-up)))))
 
-	  (tags-todo "-read-watch-project"
+	  (tags-todo "-read-watch-project-show"
 		     ((org-agenda-overriding-header "Unscheduled:")
 		      (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
 		      (org-agenda-sorting-strategy '((tags category-up priority-down tag-down)))))
