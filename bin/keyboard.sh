@@ -8,12 +8,13 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     # On goose
     # XKBOPTIONS="caps:ctrl_modifier,altwin:swap_lalt_lwin,ctrl:swap_rwin_rctl,shift:both_capslock"
 
+    # system
+    gsettings set org.gnome.shell.keybindings toggle-overview "['LaunchA']"
+    # stop Super_L tap showing window overview
+    gsettings set org.gnome.mutter overlay-key ''
+
     case "$(hostname)" in
 	"goose")
-	    # system
-	    gsettings set org.gnome.shell.keybindings toggle-overview "['LaunchA']"
-	    # stop Super_L tap showing window overview
-	    gsettings set org.gnome.mutter overlay-key ''
 
 	    gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier', 'altwin:swap_lalt_lwin', 'ctrl:swap_rwin_rctl', 'shift:both_capslock', 'lv3:ralt_alt']"
 	    # gsettings set org.gnome.desktop.input-sources xkb-options "['caps:escape_shifted_capslock', 'ctrl:swap_lalt_lctl_lwin', 'ctrl:swap_rwin_rctl']"
