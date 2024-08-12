@@ -227,7 +227,16 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 		if !has("nvim")
 			set term=xterm-256color
 		endif
-		colorscheme reykjavik
+
+		let theme = "'prefer-dark'"
+		if empty($SSH_CLIENT) && empty($SSH_TTY) && $XDG_CURRENT_DESKTOP == "ubuntu:GNOME"
+			let theme = trim(system("gsettings get org.gnome.desktop.interface color-scheme"))
+		endif
+		if theme == "'prefer-dark'"
+			colorscheme reykjavik
+		else
+			colorscheme silkworm
+		endif
 	else
 		colorscheme sorcerer
 	endif
