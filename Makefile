@@ -1,6 +1,9 @@
 
 osuname := $(shell uname -s)
 
+# apt install git make stow curl
+# curl may need: apt update && apt upgrade
+# for vim: libncurses-dev
 
 all:
 	[ -d "${HOME}/.emacs.d" ] || mkdir -p "${HOME}/.emacs.d"
