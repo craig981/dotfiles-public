@@ -4,7 +4,7 @@ osuname := $(shell uname -s)
 
 all:
 	[ -d "${HOME}/.emacs.d" ] || mkdir -p "${HOME}/.emacs.d"
-	[ -d $(HOME)/dotfiles ] && $(MAKE) -C $(HOME)/dotfiles all
+	#[ -d $(HOME)/dotfiles ] && $(MAKE) -C $(HOME)/dotfiles all
 
 	stow -v common
 
