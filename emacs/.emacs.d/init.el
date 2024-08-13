@@ -2998,6 +2998,7 @@ current project instead, and visit the tags file."
      (indent-tabs-mode nil)
      (evil-shift-width . 2)
      (evil-shift-width . 4)))
+ '(shift-select-mode nil)
  '(tags-case-fold-search nil)
  '(terminal-here-mac-terminal-command 'iterm2)
  '(tramp-histfile-override "/tmp/.tramp_history")

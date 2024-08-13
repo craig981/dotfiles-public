@@ -142,6 +142,37 @@ fi
 
 # PowerToys, Keyboard Manager, Remap a key. Caps to Ctrl.
 # PowerToys, Mouse utilities, Enable Find My Mouse = OFF
+# Apple keyboard:
+#     Remap keys:
+#         Win Right -> Ctrl Right
+#         Alt Right -> Ctrl Right
+#         Win Left -> Alt Left
+#         Alt Left -> Win Left
+#         Caps Lock -> Ctrl Left
+#         F12 -> Caps Lock
+#     Remap a shortcut:
+#         Alt Left + B             -> Alt Left + Shift Left + B
+#         Ctrl Left + Alt Left + B -> Ctrl Left + Alt Left + Shift Left + B
+#             Workaround for Win+B blocked
+#             Disabled shift-select-mode in Emacs to avoid the shift taking effect.
+#
+# PowerToys stores these in a default.json.
+# See win_keyboard.sh for Apple/Dell-specific remappings.
+
+# Win+Shift+L still registers as Alt+L (downcase) in Emacs after the Win/Alt remapping.
+#
+# Can't have Win+L without shift, as it can't be remapped with PowerToys.
+# Disabling the Win+L screenlock with regedit (run as Administrator) breaks the
+# PowerToys settings:
+#
+#   - HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System
+#   - If there is no System key, create one
+#   - Create a 32bit DWORD, named DisableLockWorkstation
+#   - Set value to 1
+#   - It will take effect immediately
+
+# Win11 Settings, Accessibility, Keyboard, Sticky Keys
+# Lock shortcut keys when pressed twice in a row = OFF
 
 # Win+G opens "Game bar". To remove it:
 # Start, search "Windows PowerShell (Admin)"
