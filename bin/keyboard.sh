@@ -64,6 +64,11 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     # windows
     gsettings set org.gnome.desktop.wm.keybindings activate-window-menu "['<Alt><Super>space']" # instead of alt+space
 
+    # gnome-terminal
+    gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ next-tab "'<Alt>braceright'"
+    gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ prev-tab "'<Alt>braceleft'"
+
+
     # custom shortcuts
 
     name=()
