@@ -2735,7 +2735,8 @@ current project instead, and visit the tags file."
     (cond
      ((and (eq system-type 'gnu/linux)
 	   (string= "ubuntu:GNOME" (getenv "XDG_CURRENT_DESKTOP")))
-      (shell-command (format "gsettings set org.gnome.desktop.interface color-scheme 'prefer-%s'" (if val "dark" "light"))))
+      (shell-command (format "gsettings set org.gnome.desktop.interface color-scheme 'prefer-%s'" (if val "dark" "light")))
+      (shell-command (format "~/dotfiles-public/bin/term_theme.sh %s" (if val "dark" "light"))))
      ((eq system-type 'darwin)
       (shell-command (format "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to %s'" (if val "true" "false")))))))
 
