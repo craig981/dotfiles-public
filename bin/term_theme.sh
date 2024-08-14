@@ -27,8 +27,8 @@ case "${1}" in
 	dconf write "${key}/foreground-color" "'rgb(208,207,204)'"
 	;;
     "light")
-	# GNOME light
-	dconf write "${key}/background-color" "'rgb(255,255,255)'"
-	dconf write "${key}/foreground-color" "'rgb(23,20,33)'"
+	# Tango light
+	dconf write "${key}/background-color" "'rgb(238,238,236)'"
+	dconf write "${key}/foreground-color" "'rgb(46,52,54)'"
 	;;
 esac
