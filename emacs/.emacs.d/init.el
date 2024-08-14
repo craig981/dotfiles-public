@@ -928,7 +928,7 @@
 	    "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
 	  org-capture-templates)
     (push '("s" "Show" entry (file+headline org-default-notes-file "Tasks")
-	    "* %? :show:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
+	    "* TODO %? :show:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
 	  org-capture-templates)
     (push '("r" "Read/watch" entry (file+headline org-default-notes-file "Tasks")
 	    "* TODO %? :read:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
@@ -954,12 +954,8 @@
 	("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
 
 	("," "Agenda"
-	 ((agenda "" )
+	 ((agenda "")
 	  ,@(if (string= "asusbox" (system-name)) '((tags "PIN")))
-
-	  ;; (todo "TODO|WAIT|BLOCK" ((org-agenda-overriding-header "Unscheduled:")
-	  ;; 			   (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
-	  ;; 			   (org-agenda-sorting-strategy '((todo category-up priority-down tag-down alpha-up)))))
 
 	  (tags-todo "-read-watch-project-show"
 		     ((org-agenda-overriding-header "Unscheduled:")
@@ -977,15 +973,13 @@
 	 ((org-agenda-start-with-log-mode nil)
 	  (org-tags-match-list-sublevels nil)))
 
-	("w" "This week"
-	 agenda ""
+	("w" "This week" agenda ""
 	 ,(append my-org-agenda-common-review-settings
 		  '((org-agenda-span 'week)
 		    (org-agenda-overriding-header "Week in Review")))
 	 ("/tmp/week.html"))
 
-	("W" "Last week"
-	 agenda ""
+	("W" "Last week" agenda ""
 	 ,(append my-org-agenda-common-review-settings
 		  '((org-agenda-span 'week)
 		    (org-agenda-start-day "-1w")
