@@ -1,6 +1,9 @@
 #!/bin/bash
 
 # Set the gnome-terminal color theme
+#
+# The first time this is run the profile will not exist, so change it via GUI,
+# e.g. uncheck 'Use colours from system theme'
 
 if [[ "$#" -ne 1 ]]; then
     echo "usage: $(basename $0) <dark|light>" 1>&2
