@@ -1471,7 +1471,7 @@ empty string."
 (global-set-key (kbd "C-x k") 'my-kill-buffer)
 
 (global-set-key (kbd "C-j")     'my-switch-buffer)
-(global-set-key (kbd "C-x b")   'consult-buffer)
+(global-set-key (kbd "C-x b")   'my-switch-buffer)
 (global-set-key (kbd "C-x 4 b") 'my-switch-buffer-other-window)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
@@ -1493,6 +1493,7 @@ empty string."
 (with-eval-after-load 'icomplete
   (define-key icomplete-vertical-mode-minibuffer-map (kbd "RET") 'icomplete-force-complete-and-exit)
   (define-key icomplete-minibuffer-map (kbd "RET") 'icomplete-force-complete-and-exit)
+  ;; TAB shows all completions in popup buffer
   ;; (define-key icomplete-minibuffer-map (kbd "TAB") 'icomplete-force-complete)
   ;; (define-key icomplete-minibuffer-map (kbd "C-j") 'ignore)
   (define-key icomplete-minibuffer-map (kbd "SPC") 'self-insert-command) ;; allow orderless to work
