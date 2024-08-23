@@ -1,26 +1,11 @@
 
-(let ((trustfile
-       (cond
-	((eq system-type 'gnu/linux)
-	 (if (string-match "\\.el7\\." operating-system-release)
-	     "/etc/pki/tls/certs/ca-bundle.crt"	   ;; centos
-	   "/etc/ssl/certs/ca-certificates.crt"))  ;; ubuntu
-	(t "/usr/local/etc/openssl/cert.pem"))))   ;; darwin
-  ;; https://curl.se/docs/caextract.html
-  (setq tls-checktrust t)
-  (setq tls-program
-	(list
-	 (format "gnutls-cli --x509cafile %s -p %%p %%h" trustfile)))
-  (setq gnutls-verify-error t)
-  (setq gnutls-trustfiles (list trustfile)))
-; https://glyph.twistedmatrix.com/2015/11/editor-malware.html
-; http://elpa.gnu.org/packages/gnu-elpa-keyring-update.html
-
-(setq load-prefer-newer t)
-
 ;; ----------------------------------------------------------------------------
 ;;| Package
 ;; ----------------------------------------------------------------------------
+
+(setq tls-checktrust t)
+(setq gnutls-verify-error t)
+(setq load-prefer-newer t)
 
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
