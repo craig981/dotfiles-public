@@ -287,6 +287,7 @@
 (setq history-length 1000)
 (setq history-delete-duplicates t)
 (savehist-mode 1)
+(winner-mode 1)
 
 (when (not (version< emacs-version "28.1"))
   (setq-default bookmark-set-fringe-mark nil))
@@ -299,7 +300,6 @@
 
 (when (not (eq system-type 'darwin))
   (menu-bar-mode -1))
-
 
 (require 'thingatpt)
 
@@ -367,24 +367,6 @@
   (when (looking-at "[^[:space:]\n]+")
     (push-mark (match-end 0) nil t)))
 
-(defun my-mark-in-double-quote ()
-  (interactive)
-  (let ((r (evil-inner-double-quote)))
-    (goto-char (car r))
-    (push-mark (cadr r) nil t)))
-
-(defun my-mark-in-single-quote ()
-  (interactive)
-  (let ((r (evil-inner-single-quote)))
-    (goto-char (car r))
-    (push-mark (cadr r) nil t)))
-
-(defun my-mark-in-paren ()
-  (interactive)
-  (let ((r (evil-inner-paren)))
-    (goto-char (car r))
-    (push-mark (cadr r) nil t)))
-
 (defun my-open-line-above ()
   (interactive)
   (beginning-of-line nil)
@@ -409,6 +391,16 @@
   (duplicate-line arg)
   (next-line arg))
 
+(defun my-isearch-symbol-backward ()
+  (interactive)
+  (isearch-forward-symbol-at-point -1))
+
+(defun my-find-init-file ()
+  (interactive)
+  (find-file (if (eq system-type 'windows-nt)
+		 (concat (getenv "HOME") "\\dotfiles-public\\emacs\\.emacs.d\\init.el")
+	       user-init-file)))
+
 (require 'ispell)
 
 (defun my-complete-word-ispell ()
@@ -431,12 +423,6 @@
 (evil-leader/set-key "\\" #'c-backslash-region)
 (evil-leader/set-key "d" 'pwd)
 (evil-leader/set-key "SPC" (kbd "=i{"))
-(evil-leader/set-key "b" #'my-mark-in-paren)
-(evil-leader/set-key "'" #'my-mark-in-single-quote)
-(evil-leader/set-key "\"" #'my-mark-in-double-quote)
-
-(global-set-key (kbd "C-c d") 'pwd)
-(global-set-key (kbd "C-c c") #'my-copy-filename)
 
 (when (eq system-type 'gnu/linux)
   (evil-global-set-key 'motion (kbd "K") 'man))
@@ -451,18 +437,16 @@
   (advice-add #'Man-completion-table :override #'my-advise-man-completion))
 
 (global-set-key (kbd "C-=") #'my-close-other-window)
+(global-set-key (kbd "C-c d") #'pwd)
+(global-set-key (kbd "C-c c") #'my-copy-filename)
 (global-set-key (kbd "C-c q") #'my-close-other-window)
 (global-set-key (kbd "C-c n") #'toggle-truncate-lines)
+(global-set-key (kbd "C-c o") 'olivetti-mode)
 (global-set-key (kbd "C-c w") 'evil-window-map)
 (global-set-key (kbd "C-c w SPC") #'world-clock)
 (global-set-key (kbd "C-c m") #'my-mirror-buffer)
-(global-set-key (kbd "C-c z") (lambda ()
-				(interactive)
-				(find-file (if (eq system-type 'windows-nt)
-					       (concat (getenv "HOME") "\\dotfiles-public\\emacs\\.emacs.d\\init.el")
-					     user-init-file))))
+(global-set-key (kbd "C-c z") #'my-find-init-file)
 
-(winner-mode 1)
 (global-set-key (kbd "M-=") 'winner-undo)
 (global-set-key (kbd "M-+") 'winner-redo)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
@@ -473,6 +457,9 @@
 (global-set-key (kbd "M-u") #'upcase-dwim)
 (global-set-key (kbd "M-l") #'downcase-dwim)
 (global-set-key (kbd "M-c") #'capitalize-dwim)
+(global-set-key (kbd "M-s ,") 'my-isearch-symbol-backward)
+(global-set-key (kbd "M-s M-,") 'my-isearch-symbol-backward)
+
 (global-set-key (kbd "M-p") #'evil-scroll-up)
 (global-set-key (kbd "M-n") #'evil-scroll-down)
 (global-set-key (kbd "M-i") #'evil-scroll-line-up)
@@ -481,8 +468,8 @@
 (global-set-key (kbd "M-[") #'evil-numbers/dec-at-pt)
 (global-set-key (kbd "M-SPC") evil-leader--default-map)
 (evil-leader/set-key "M-i" #'tab-to-tab-stop)
-(evil-leader/set-key "M-w" #'save-buffer)
-(global-set-key (kbd "C-c C-j") 'goto-last-change)
+(evil-leader/set-key "M-j" #'my-join-line)
+(evil-global-set-key 'insert (kbd "M-i") #'tab-to-tab-stop)
 
 (global-set-key (kbd "C-M-y") #'my-duplicate-line)
 (global-set-key (kbd "C-M-o") #'my-open-line-above)
@@ -494,19 +481,10 @@
 (when (display-graphic-p)
  (global-set-key (kbd "C-<backspace>") #'my-delete-to-indent))
 
-(defun my-isearch-symbol-backward ()
-  (interactive)
-  (isearch-forward-symbol-at-point -1))
-
-(global-set-key (kbd "M-s ,") 'my-isearch-symbol-backward)
-(global-set-key (kbd "M-s M-,") 'my-isearch-symbol-backward)
-
-(global-set-key (kbd "C-c o") 'olivetti-mode)
-
 (push 'try-expand-line hippie-expand-try-functions-list)
 (global-set-key (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
 
-(define-key minibuffer-local-map (kbd "<escape>") 'abort-minibuffers)
+;; (define-key minibuffer-local-map (kbd "<escape>") 'abort-minibuffers)
 
 (define-key indent-rigidly-map (kbd "<") 'indent-rigidly-left-to-tab-stop)
 (define-key indent-rigidly-map (kbd ">") 'indent-rigidly-right-to-tab-stop)
@@ -516,10 +494,11 @@
 (global-set-key (kbd "C-h RET") 'man)
 (global-set-key (kbd "C-x !") 'delete-other-windows-vertically)
 (global-set-key (kbd "C-x g") 'subword-mode)
+(global-set-key (kbd "C-c C-j") 'goto-last-change)
 
-(evil-leader/set-key "li" #'flyspell-mode)
-(evil-leader/set-key "lb" #'flyspell-buffer)
-(evil-leader/set-key "ls" #'ispell)
+;; (evil-leader/set-key "li" #'flyspell-mode)
+;; (evil-leader/set-key "lb" #'flyspell-buffer)
+;; (evil-leader/set-key "ls" #'ispell)
 
 (let ((words "~/.cache/macDict/words"))
   (when (and (eq system-type 'gnu/linux)
