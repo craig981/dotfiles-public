@@ -1368,6 +1368,9 @@ empty string."
 ;;; disable vertico when rgrep asks for file type
 (advice-add #'grep-read-files :around #'my-disable-vertico)
 
+(define-key grep-mode-map (kbd "M-p") nil)
+(define-key grep-mode-map (kbd "M-n") nil)
+
 ;; ----------------------------------------------------------------------------
 ;;| Embark
 ;; ----------------------------------------------------------------------------
