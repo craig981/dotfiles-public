@@ -2311,16 +2311,6 @@ current project instead, and visit the tags file."
 (add-to-list 'auto-mode-alist '("/SConscript\\'" . python-mode))
 
 ;; ----------------------------------------------------------------------------
-;;| Eglot
-;; ----------------------------------------------------------------------------
-
-;; (require 'eglot)
-
-;; (add-to-list 'eglot-server-programs '(python-mode . ("pylsp" "-v")))
-
-;; (setq eglot-autoshutdown t)
-
-;; ----------------------------------------------------------------------------
 ;;| Cpp
 ;; ----------------------------------------------------------------------------
 
@@ -2475,10 +2465,6 @@ current project instead, and visit the tags file."
     "1" (lambda () (interactive) (my-wrap-if-endif 1))
     "3" (lambda () (interactive) (my-wrap-if-endif 1))
     "2" (lambda () (interactive) (my-wrap-if-endif 1 t))))
-
-(global-set-key (kbd "C-c 0") (lambda () (interactive) (my-wrap-if-endif 0)))
-(global-set-key (kbd "C-c 3") (lambda () (interactive) (my-wrap-if-endif 1)))
-(global-set-key (kbd "C-c 2") (lambda () (interactive) (my-wrap-if-endif 1 t)))
 
 (define-skeleton my-cpp-include "" nil
   "#include \"" - "\"")
