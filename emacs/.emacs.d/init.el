@@ -374,10 +374,10 @@
   (forward-line -1)
   (indent-according-to-mode))
 
-(defun my-open-line-below ()
-  (interactive)
+(defun my-open-line-below (&optional arg)
+  (interactive "*p")
   (move-end-of-line nil)
-  (newline-and-indent))
+  (newline-and-indent arg))
 
 (defun my-delete-to-indent ()
   (interactive)
@@ -473,11 +473,7 @@
 
 (global-set-key (kbd "C-M-y") #'my-duplicate-line)
 (global-set-key (kbd "C-M-o") #'my-open-line-above)
-(global-set-key (kbd "C-o") (lambda (&optional prefix)
-			      (interactive "P")
-			      (if prefix
-				  (my-join-line)
-				(my-open-line-below))))
+(global-set-key (kbd "C-o") #'my-open-line-below)
 (when (display-graphic-p)
  (global-set-key (kbd "C-<backspace>") #'my-delete-to-indent))
 
