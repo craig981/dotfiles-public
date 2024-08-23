@@ -393,7 +393,7 @@
   (interactive)
   (let* ((word (thing-at-point 'symbol t))
          (bounds (bounds-of-thing-at-point 'symbol))
-         (words (ispell-lookup-words word)))
+         (words (ispell-lookup-words (concat word "*"))))
     (when-let ((selection (completing-read "Words: " words)))
       (delete-region (car bounds) (cdr bounds))
       (insert selection))))
