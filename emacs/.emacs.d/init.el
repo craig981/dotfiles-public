@@ -1612,7 +1612,7 @@ empty string."
     (setq my-projects '(("~/dev/git" . 3)))
   (setq my-projects '(("~/dev" . 2))))
 
-(dolist (d '("~/dotfiles-public" "~/dotfiles" "~/notefiles" "~/.emacs.d/elpa"))
+(dolist (d '("~/dotfiles-public" "~/dotfiles" "~/notefiles"))
   (when (file-directory-p d)
     (push `(,d . 1) my-projects)))
 
