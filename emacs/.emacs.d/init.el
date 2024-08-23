@@ -1360,7 +1360,7 @@ empty string."
 
 (evil-leader/set-key "r" 'my-ripgrep-project)
 (evil-leader/set-key "i" 'my-imenu)
-(global-set-key (kbd "M-s M-f") 'my-ripgrep-project)
+(global-set-key (kbd "M-s M-r") 'my-ripgrep-project)
 (global-set-key (kbd "M-s i") 'my-imenu)
 (global-set-key (kbd "M-s M-i") 'my-imenu)
 
@@ -1572,7 +1572,7 @@ empty string."
   (rgrep (read-string "Search for: " (format "\\<%s\\>" (thing-at-point 'symbol t)))
 	 "*" (my-find-project-root)))
 
-(global-set-key (kbd "M-s M-r") 'my-rgrep-project)
+(global-set-key (kbd "M-s M-f") 'my-rgrep-project)
 (global-set-key (kbd "M-s M-g") 'rgrep)
 
 ;;; disable vertico when rgrep asks for file type
