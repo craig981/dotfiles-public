@@ -480,21 +480,16 @@
 (push 'try-expand-line hippie-expand-try-functions-list)
 (global-set-key (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
 
-;; (define-key minibuffer-local-map (kbd "<escape>") 'abort-minibuffers)
-
-(define-key indent-rigidly-map (kbd "<") 'indent-rigidly-left-to-tab-stop)
-(define-key indent-rigidly-map (kbd ">") 'indent-rigidly-right-to-tab-stop)
-
 (global-set-key (kbd "C-h h") nil)
 (global-set-key (kbd "C-h C-c") nil)
 (global-set-key (kbd "C-h RET") 'man)
 (global-set-key (kbd "C-x !") 'delete-other-windows-vertically)
 (global-set-key (kbd "C-x g") 'subword-mode)
 (global-set-key (kbd "C-c C-j") 'goto-last-change)
+(global-set-key (kbd "C-c M-f") #'flyspell-buffer)
+(global-set-key (kbd "C-c M-s") #'ispell)
 
-;; (evil-leader/set-key "li" #'flyspell-mode)
-;; (evil-leader/set-key "lb" #'flyspell-buffer)
-;; (evil-leader/set-key "ls" #'ispell)
+(evil-global-set-key 'normal (kbd "]s") 'flyspell-goto-next-error)
 
 (let ((words "~/.cache/macDict/words"))
   (when (and (eq system-type 'gnu/linux)
@@ -557,6 +552,11 @@
 (advice-add 'evil-paste-before :after 'my-advise-paste)
 (advice-add 'evil-paste-after :after 'my-advise-paste)
 (advice-add 'evil-paste-after-cursor-after :after 'my-advise-paste)
+
+(define-key indent-rigidly-map (kbd "<") 'indent-rigidly-left-to-tab-stop)
+(define-key indent-rigidly-map (kbd ">") 'indent-rigidly-right-to-tab-stop)
+
+;; (define-key minibuffer-local-map (kbd "<escape>") 'abort-minibuffers)
 
 ;; ----------------------------------------------------------------------------
 ;;| Pulse
@@ -1328,7 +1328,7 @@ empty string."
 
 (global-set-key (kbd "C-c r") 'consult-recent-file)
 
-(define-key minibuffer-local-map (kbd "C-r") 'consult-history)
+;; (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
 (define-key minibuffer-local-map (kbd "M-r") 'consult-history)
 
 (setq consult-preview-key "C-j")
