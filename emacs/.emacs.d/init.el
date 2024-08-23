@@ -1097,6 +1097,8 @@
   (recenter nil t))
 
 (advice-add 'org-time-stamp-inactive :before #'my-forward-before-insert)
+(advice-add 'org-insert-last-stored-link :before #'my-forward-before-insert)
+(advice-add 'org-insert-link :before #'my-forward-before-insert)
 
 (defun my-org-agenda-toggle-done ()
   (interactive)
