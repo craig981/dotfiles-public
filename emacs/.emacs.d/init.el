@@ -1424,8 +1424,31 @@ empty string."
 		 #'completion--in-region)
 	       args)))
 
+(defun my-icomplete-hook ()
+  (let ((inhibit-message t))
+    (toggle-truncate-lines 1)))
+(add-hook 'icomplete-minibuffer-setup-hook 'my-icomplete-hook)
+
+(setq icomplete-compute-delay 0.0)
+(setq icomplete-matches-format nil)
+(setq icomplete-show-matches-on-no-input t)
+;; (setq completion-pcm-word-delimiters "-_./:|")
+;; (setq icomplete-scroll t)
+;; (icomplete-vertical-mode 1)
+
+(with-eval-after-load 'icomplete
+  (define-key icomplete-vertical-mode-minibuffer-map (kbd "RET") 'icomplete-force-complete-and-exit)
+  (define-key icomplete-minibuffer-map (kbd "RET") 'icomplete-force-complete-and-exit)
+  ;; TAB shows all completions in popup buffer
+  ;; (define-key icomplete-minibuffer-map (kbd "TAB") 'icomplete-force-complete)
+  ;; (define-key icomplete-minibuffer-map (kbd "C-j") 'ignore)
+  (define-key icomplete-minibuffer-map (kbd "SPC") 'self-insert-command) ;; allow orderless to work
+  (define-key icomplete-minibuffer-map (kbd "C-j") 'icomplete-force-complete-and-exit)
+  (define-key icomplete-minibuffer-map (kbd "C-s") 'icomplete-forward-completions)
+  (define-key icomplete-minibuffer-map (kbd "C-r") 'icomplete-backward-completions))
+
 ;; ----------------------------------------------------------------------------
-;;| Buffers, Icomplete
+;;| Buffers
 ;; ----------------------------------------------------------------------------
 
 (setq read-buffer-completion-ignore-case t)
@@ -1477,29 +1500,6 @@ empty string."
 
 (with-eval-after-load 'ibuffer
   (define-key ibuffer-mode-map (kbd "M-o") nil))
-
-(defun my-icomplete-hook ()
-  (let ((inhibit-message t))
-    (toggle-truncate-lines 1)))
-(add-hook 'icomplete-minibuffer-setup-hook 'my-icomplete-hook)
-
-(setq icomplete-compute-delay 0.0)
-(setq icomplete-matches-format nil)
-(setq icomplete-show-matches-on-no-input t)
-;; (setq completion-pcm-word-delimiters "-_./:|")
-;; (setq icomplete-scroll t)
-;; (icomplete-vertical-mode 1)
-
-(with-eval-after-load 'icomplete
-  (define-key icomplete-vertical-mode-minibuffer-map (kbd "RET") 'icomplete-force-complete-and-exit)
-  (define-key icomplete-minibuffer-map (kbd "RET") 'icomplete-force-complete-and-exit)
-  ;; TAB shows all completions in popup buffer
-  ;; (define-key icomplete-minibuffer-map (kbd "TAB") 'icomplete-force-complete)
-  ;; (define-key icomplete-minibuffer-map (kbd "C-j") 'ignore)
-  (define-key icomplete-minibuffer-map (kbd "SPC") 'self-insert-command) ;; allow orderless to work
-  (define-key icomplete-minibuffer-map (kbd "C-j") 'icomplete-force-complete-and-exit)
-  (define-key icomplete-minibuffer-map (kbd "C-s") 'icomplete-forward-completions)
-  (define-key icomplete-minibuffer-map (kbd "C-r") 'icomplete-backward-completions))
 
 ;; ----------------------------------------------------------------------------
 ;;| Complete filenames
