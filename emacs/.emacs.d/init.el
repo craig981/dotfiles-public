@@ -1365,6 +1365,25 @@ empty string."
 (global-set-key (kbd "M-s M-i") 'my-imenu)
 
 ;; ----------------------------------------------------------------------------
+;;| Grep
+;; ----------------------------------------------------------------------------
+
+(require 'wgrep)
+
+(setq wgrep-enable-key "e")
+
+(defun my-rgrep-project ()
+  (interactive)
+  (rgrep (read-string "Search for: " (format "\\<%s\\>" (thing-at-point 'symbol t)))
+	 "*" (my-find-project-root)))
+
+(global-set-key (kbd "M-s M-f") 'my-rgrep-project)
+(global-set-key (kbd "M-s M-g") 'rgrep)
+
+;;; disable vertico when rgrep asks for file type
+(advice-add #'grep-read-files :around #'my-disable-vertico)
+
+;; ----------------------------------------------------------------------------
 ;;| Embark
 ;; ----------------------------------------------------------------------------
 
@@ -1557,26 +1576,6 @@ empty string."
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "M-s M-o") 'helm-occur)
 (evil-leader/set-key "o" 'helm-occur) ;; M-n grabs symbol under point
-
-
-;; ----------------------------------------------------------------------------
-;;| Grep
-;; ----------------------------------------------------------------------------
-
-(require 'wgrep)
-
-(setq wgrep-enable-key "e")
-
-(defun my-rgrep-project ()
-  (interactive)
-  (rgrep (read-string "Search for: " (format "\\<%s\\>" (thing-at-point 'symbol t)))
-	 "*" (my-find-project-root)))
-
-(global-set-key (kbd "M-s M-f") 'my-rgrep-project)
-(global-set-key (kbd "M-s M-g") 'rgrep)
-
-;;; disable vertico when rgrep asks for file type
-(advice-add #'grep-read-files :around #'my-disable-vertico)
 
 ;; ----------------------------------------------------------------------------
 ;;| Projects
