@@ -1312,8 +1312,7 @@ empty string."
 
 (global-set-key (kbd "C-c r") 'consult-recent-file)
 
-;;; M-r on Windows doesn't work with Apple keyboard, so bind C-r instead of M-S-r
-(define-key minibuffer-local-map (kbd "C-r") 'consult-history)
+;; (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
 (define-key minibuffer-local-map (kbd "M-r") 'consult-history)
 
 (setq consult-preview-key "C-j")
