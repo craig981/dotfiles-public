@@ -1596,9 +1596,14 @@ empty string."
 
 
 (defvar my-projects)
-(if (file-exists-p "~/dev/git")
-    (setq my-projects '(("~/dev/git" . 3)))
-  (setq my-projects '(("~/dev" . 2))))
+(cond
+ ((file-exists-p "~/dev/git")
+  (setq my-projects '(("~/dev/git" . 3))))
+ ((file-exists-p "~/dev/work")
+  (setq my-projects '(("~/dev/work" . 2)
+		      ("~/dev" . 2))))
+ (t
+  (setq my-projects '(("~/dev" . 2)))))
 
 (dolist (d '("~/dotfiles-public" "~/dotfiles" "~/notefiles"))
   (when (file-directory-p d)
