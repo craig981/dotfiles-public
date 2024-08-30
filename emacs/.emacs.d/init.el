@@ -4,9 +4,8 @@
 (setq gc-cons-threshold (* 50 1000 1000))
 
 (defun my-after-init ()
-  (message "Emacs startup %s sec, %d garbage collections"
-           (format "%.2f" (float-time
-			   (time-subtract after-init-time before-init-time)))
+  (message "Emacs startup %.2f sec, %d garbage collections"
+           (float-time (time-subtract after-init-time before-init-time))
            gcs-done)
   (setq gc-cons-threshold my-gc-cons-default))
 
