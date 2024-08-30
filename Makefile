@@ -1,5 +1,5 @@
 
-osuname := $(shell uname -s)
+osuname := $(shell uname -s | cut -d- -f1)
 
 # apt install git make stow curl
 # curl may need: apt update && apt upgrade
@@ -23,7 +23,7 @@ ifeq ($(osuname),Darwin)
 
 	# tic -o ~/.terminfo /Applications/Emacs.app/Contents/Resources/etc/e/eterm-color.ti
 endif
-ifeq ($(osuname),CYGWIN_NT-10.0-22621)
+ifeq ($(osuname),CYGWIN_NT)
 	cp -v win/emacs.bat win/.emacs ~/
 	cp -v emacs/.emacs.d/my-override-*-theme.el ~/.emacs.d/
 	unlink ~/.gitconfig && cp ~/dotfiles-public/common/.gitconfig ~/
