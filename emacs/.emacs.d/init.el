@@ -1,4 +1,17 @@
 
+;;; Reduce garbage collections during startup
+(defvar my-gc-cons-default gc-cons-threshold)
+(setq gc-cons-threshold (* 50 1000 1000))
+
+(defun my-after-init ()
+  (message "Emacs startup %s sec, %d garbage collections"
+           (format "%.2f" (float-time
+			   (time-subtract after-init-time before-init-time)))
+           gcs-done)
+  (setq gc-cons-threshold my-gc-cons-default))
+
+(add-hook 'emacs-startup-hook #'my-after-init)
+
 ;; ----------------------------------------------------------------------------
 ;;| Package
 ;; ----------------------------------------------------------------------------
