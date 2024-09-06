@@ -499,11 +499,14 @@
   (interactive)
   (isearch-forward-symbol-at-point -1))
 
+(defun my-init-file ()
+  (if (eq system-type 'windows-nt)
+      (concat (getenv "HOME") "\\dotfiles-public\\emacs\\.emacs.d\\init.el")
+    user-init-file))
+
 (defun my-find-init-file ()
   (interactive)
-  (find-file (if (eq system-type 'windows-nt)
-		 (concat (getenv "HOME") "\\dotfiles-public\\emacs\\.emacs.d\\init.el")
-	       user-init-file)))
+  (find-file (my-init-file)))
 
 (require 'ispell)
 
@@ -1431,8 +1434,9 @@ empty string."
   (interactive)
   (let ((f (buffer-file-name)))
     (cond
-     ((and f (file-equal-p f user-init-file))
-      (let ((outline-regexp "^;;|")) (consult-outline)))
+     ((and f (file-equal-p f (my-init-file)))
+      (let ((outline-regexp "^;;|"))
+	(consult-outline)))
      ((eq major-mode 'org-mode) (consult-org-heading))
      (t (consult-imenu)))))
 
