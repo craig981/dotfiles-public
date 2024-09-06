@@ -972,12 +972,11 @@
 (defun my-optional-file (fn)
   (if (file-exists-p fn) fn nil))
 
+(setq org-directory "~/org")
 (setq org-agenda-files (list "~/" "~/org"))
 (setq org-default-notes-file
       (or (my-optional-file "~/notes.org.gpg")
 	  (my-optional-file "~/org/work.org")))
-
-(setq org-directory "~/org")
 (setq org-log-done t)
 (setq org-agenda-start-on-weekday nil)
 (setq org-agenda-restore-windows-after-quit t)
@@ -1002,18 +1001,26 @@
 	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")))
 
 (when (string= "goose" (system-name))
-    (push '("b" "Book" entry (file+headline org-default-notes-file "Books")
-	    "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
-	  org-capture-templates)
-    (push '("s" "Show" entry (file+headline org-default-notes-file "Tasks")
-	    "* TODO %? :show:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
-	  org-capture-templates)
-    (push '("r" "Read/watch" entry (file+headline org-default-notes-file "Tasks")
-	    "* TODO %? :read:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
-	  org-capture-templates)
-    (push '("p" "Project" entry (file+headline org-default-notes-file "Tasks")
-	    "* TODO %? :project:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
-	  org-capture-templates))
+  (push '("b" "Book" entry (file+headline org-default-notes-file "Books")
+	  "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
+	org-capture-templates)
+  (push '("s" "Show" entry (file+headline org-default-notes-file "Tasks")
+	  "* TODO %? :show:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
+	org-capture-templates)
+  (push '("r" "Read/watch" entry (file+headline org-default-notes-file "Tasks")
+	  "* TODO %? :read:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
+	org-capture-templates)
+  (push '("p" "Project" entry (file+headline org-default-notes-file "Tasks")
+	  "* TODO %? :project:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
+	org-capture-templates)
+
+  (defun my-revert-gcal-before-agenda ()
+    "Revert buffer for gcal.org so the agenda displays the latest contents"
+    (when-let ((gcal (get-file-buffer "~/gcal.org")))
+      (with-current-buffer gcal
+	(revert-buffer t t))))
+
+  (add-hook 'org-agenda-mode-hook 'my-revert-gcal-before-agenda))
 
 (setq my-org-agenda-common-review-settings
       '((org-agenda-show-all-dates t)
