@@ -1071,17 +1071,6 @@
 		    (org-agenda-overriding-header "Last week in Review")))
 	 ("/tmp/lastweek.html"))))
 
-(defun my-org-shift (left)
-  (if (string-match-p "^[\s-]*[*-] " (thing-at-point 'line))
-      (if left
-	  (if (eolp)
-	      (org-metaleft)
-	    (delete-char 1))
-	(org-metaright))
-    (if left
-	(my-delete-or-indent-left)
-      (evil-shift-right-line 1))))
-
 (defun my-org-mode-hook ()
 
   ;; (setq-local my-evil-default 0)
@@ -1099,12 +1088,9 @@
     ;; same as tab in the terminal, which we want in org mode for
     ;; (un)collapsing headers
     (evil-local-set-key 'motion (kbd "C-i") 'org-cycle))
-   ((not (version< emacs-version "28.1"))
+   (t
     (evil-local-set-key 'normal (kbd "<tab>") 'org-cycle)))
 
-  (evil-local-set-key 'normal (kbd "[[") #'org-toggle-link-display)
-  (evil-local-set-key 'insert (kbd "C-t") (lambda () (interactive) (my-org-shift nil)))
-  (evil-local-set-key 'insert (kbd "C-d") (lambda () (interactive) (my-org-shift t)))
   (evil-local-set-key 'insert (kbd "<tab>") #'org-cycle)
   (evil-local-set-key 'insert (kbd "<backtab>") #'fancy-dabbrev-backward)
 
@@ -1191,9 +1177,6 @@
   (org-agenda-redo-all))
 
 (with-eval-after-load 'org-agenda
-  (define-key org-agenda-mode-map (kbd "C") (lambda ()
-					      (interactive)
-					      (browse-url "https://calendar.google.com/")))
   (define-key org-agenda-mode-map (kbd "d") 'my-org-agenda-toggle-done)
   (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map))
 
@@ -1290,14 +1273,12 @@ empty string."
 (global-set-key (kbd "C-c C-x C-j") 'my-org-clock-jump)
 
 (when (display-graphic-p)
-  (evil-global-set-key 'normal (kbd "C-.") nil)
   (with-eval-after-load 'org
     (define-key org-mode-map (kbd "C-,") nil))
   (global-set-key (kbd "C-,") (lambda ()
 				(interactive)
 				(org-agenda nil ","))))
 
-(evil-leader/set-key-for-mode 'org-mode "," 'org-insert-structure-template)
 (evil-leader/set-key-for-mode 'org-mode "c" 'my-insert-org-src-block)
 (evil-leader/set-key-for-mode 'org-mode "SPC" 'my-goto-random-line)
 
@@ -1324,6 +1305,7 @@ empty string."
 ;; ----------------------------------------------------------------------------
 
 (defun my-calc-copy ()
+  "Copy the number at the top of the calc stack"
   (interactive)
   (let ((x (math-format-number (calc-top))))
     (kill-new x)
