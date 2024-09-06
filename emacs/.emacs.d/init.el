@@ -23,6 +23,113 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 
 ;; ----------------------------------------------------------------------------
+;;| Customs
+;; ----------------------------------------------------------------------------
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(compilation-ask-about-save nil)
+ '(compilation-scroll-output t)
+ '(compilation-skip-threshold 2)
+ '(compile-command "make ")
+ '(consult-ripgrep-args
+   "rg --null --line-buffered --color=never --max-columns=1000  --smart-case --no-heading --with-filename --line-number --no-search-zip --hidden -g !{.git,.svn,.hg}/ -g !TAGS -g !build/ --no-ignore")
+ '(custom-safe-themes
+   '("b216e9b72dc8c2b702e4fcfd3c0af2d73c87eba46fd4db824ddb50863447d6a9" "601a9b9bf21f5c72ddfb28c7e95b842a5b0130f55ad5e0b97d2ba1e0b91b0a2c" "7776ba149258df15039b1f0aba4b180d95069b2589bc7d6570a833f05fdf7b6d" "e17d91a99e14fc72f71f531f07d3dff44238c69f599998b50e95e67b589d8fa1" "a6e8bcffe4d8cac7463c5a7c67c0908316cc616da3816d3ce35c325d5e02fd97" "adfe1d522a4a100edade12797079ebbabf742a48cf098e7d10ea14012e156ee8" "7342266ffff707cc104313c9153342e44a47a9f22ed7157e4893aac74091ad27" "aa688776604bbddbaba9e0c0d77e8eb5f88d94308f223d1962b6e6b902add6a0" default))
+ '(dabbrev-backward-only t)
+ '(dabbrev-case-distinction nil)
+ '(dabbrev-case-fold-search t)
+ '(default-input-method "swedish-postfix")
+ '(ediff-window-setup-function 'ediff-setup-windows-plain)
+ '(eldoc-echo-area-use-multiline-p nil)
+ '(eldoc-idle-delay 0.25)
+ '(electric-indent-mode t)
+ '(electric-pair-mode nil)
+ '(evil-flash-delay 60)
+ '(evil-motion-state-modes
+   '(apropos-mode Buffer-menu-mode calendar-mode color-theme-mode command-history-mode dictionary-mode ert-results-mode help-mode Info-mode Man-mode speedbar-mode undo-tree-visualizer-mode view-mode woman-mode))
+ '(find-name-arg "-iname")
+ '(grep-find-ignored-directories '(".svn" ".git" ".hg"))
+ '(grep-find-ignored-files
+   '(".#*" "*.o" "*~" "*.so" "*.a" "*.elc" "*.lib" "*.lo" "*.la" "*.pyc" "*.pyo" "TAGS"))
+ '(helm-candidate-number-limit 10000)
+ '(helm-follow-mode-persistent t)
+ '(helm-move-to-line-cycle-in-source nil)
+ '(helm-source-names-using-follow '("Imenu" "Helm occur"))
+ '(hide-ifdef-initially t)
+ '(hide-ifdef-shadow t)
+ '(initial-frame-alist '((fullscreen . maximized)))
+ '(ispell-program-name "aspell")
+ '(kill-ring-max 1000)
+ '(ledger-report-native-highlighting-arguments '("--color"))
+ '(magit-delete-by-moving-to-trash nil)
+ '(magit-log-arguments '("--graph" "--color" "--decorate" "-n256"))
+ '(magit-log-auto-more t)
+ '(magit-merge-arguments '("--no-ff"))
+ '(magit-section-initial-visibility-alist '((stashes . show) (upstream . show)))
+ '(magit-section-visibility-indicator '("" . t))
+ '(magit-status-goto-file-position t)
+ '(magit-status-headers-hook
+   '(magit-insert-error-header magit-insert-diff-filter-header magit-insert-repo-header magit-insert-head-branch-header magit-insert-upstream-branch-header magit-insert-push-branch-header magit-insert-tags-header))
+ '(magit-status-show-hashes-in-headers t)
+ '(next-error-recenter '(4))
+ '(olivetti-body-width 130)
+ '(org-agenda-file-regexp "\\`[^.].*\\.org\\(\\.gpg\\)?\\'")
+ '(org-agenda-show-future-repeats nil)
+ '(org-agenda-skip-scheduled-if-done t)
+ '(org-agenda-span 3)
+ '(org-blank-before-new-entry '((heading . auto) (plain-list-item)))
+ '(org-imenu-depth 3)
+ '(org-modules '(ol-docview org-habit ol-info))
+ '(org-refile-targets '((org-agenda-files :maxlevel . 3) (nil :maxlevel . 3)))
+ '(org-startup-indented t)
+ '(org-use-fast-todo-selection 'expert)
+ '(package-selected-packages
+   '(cape cmake-mode consult devdocs ef-themes embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless ox-pandoc paredit reykjavik-theme soft-morning-theme terminal-here undo-tree vertico wgrep which-key yaml-mode))
+ '(package-vc-selected-packages
+   '((sandcastle-theme :vc-backend Git :url "https://github.com/habamax/sandcastle-theme")))
+ '(project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
+ '(read-quoted-char-radix 16)
+ '(recentf-max-saved-items 1000)
+ '(safe-local-variable-values
+   '((my-input-method . swedish-postfix)
+     (my-input-method . german-postfix)
+     (buffer-auto-save-file-name)
+     (tab-always-indent)
+     (indent-tabs-mode nil)
+     (evil-shift-width . 2)
+     (evil-shift-width . 4)))
+ '(shift-select-mode nil)
+ '(tags-case-fold-search nil)
+ '(terminal-here-mac-terminal-command 'iterm2)
+ '(tramp-histfile-override "/tmp/.tramp_history")
+ '(tramp-ssh-controlmaster-options
+   "-o ControlMaster=auto -o ControlPath=tramp.%%C -o ControlPersist=60m" t)
+ '(undo-tree-auto-save-history nil)
+ '(use-short-answers t)
+ '(warning-suppress-types '((comp)))
+ '(world-clock-list
+   '(("America/Los_Angeles" "Los Angeles")
+     ("America/New_York" "New York")
+     ("Europe/London" "London")
+     ("Europe/Stockholm" "Stockholm")))
+ '(world-clock-time-format "%R %Z"))
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(flyspell-duplicate ((t (:background "Magenta" :foreground "white"))))
+ '(flyspell-incorrect ((t (:background "red" :foreground "white"))))
+ '(makefile-space ((t nil)))
+ '(message-cited-text-1 ((t (:foreground "#878787"))))
+ '(success ((t (:foreground "#00DD00" :weight bold)))))
+
+;; ----------------------------------------------------------------------------
 ;;| Paths
 ;; ----------------------------------------------------------------------------
 
@@ -2827,144 +2934,7 @@ current project instead, and visit the tags file."
   (define-key dired-mode-map (kbd "b") 'my-add-dired-to-playlist))
 
 ;; ----------------------------------------------------------------------------
-;;| Customs
+;;| Non-public
 ;; ----------------------------------------------------------------------------
 
 (load "~/dotfiles/init.el" t)
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(compilation-ask-about-save nil)
- '(compilation-scroll-output t)
- '(compilation-skip-threshold 2)
- '(compile-command "make ")
- '(consult-ripgrep-args
-   "rg --null --line-buffered --color=never --max-columns=1000  --smart-case --no-heading --with-filename --line-number --no-search-zip --hidden -g !{.git,.svn,.hg}/ -g !TAGS -g !build/ --no-ignore")
- '(custom-safe-themes
-   '("b216e9b72dc8c2b702e4fcfd3c0af2d73c87eba46fd4db824ddb50863447d6a9" "601a9b9bf21f5c72ddfb28c7e95b842a5b0130f55ad5e0b97d2ba1e0b91b0a2c" "7776ba149258df15039b1f0aba4b180d95069b2589bc7d6570a833f05fdf7b6d" "e17d91a99e14fc72f71f531f07d3dff44238c69f599998b50e95e67b589d8fa1" "a6e8bcffe4d8cac7463c5a7c67c0908316cc616da3816d3ce35c325d5e02fd97" "adfe1d522a4a100edade12797079ebbabf742a48cf098e7d10ea14012e156ee8" "7342266ffff707cc104313c9153342e44a47a9f22ed7157e4893aac74091ad27" "aa688776604bbddbaba9e0c0d77e8eb5f88d94308f223d1962b6e6b902add6a0" default))
- '(dabbrev-backward-only t)
- '(dabbrev-case-distinction nil)
- '(dabbrev-case-fold-search t)
- '(default-input-method "swedish-postfix")
- '(ediff-window-setup-function 'ediff-setup-windows-plain)
- '(eldoc-echo-area-use-multiline-p nil)
- '(eldoc-idle-delay 0.25)
- '(electric-indent-mode t)
- '(electric-pair-mode nil)
- '(evil-flash-delay 60)
- '(evil-motion-state-modes
-   '(apropos-mode Buffer-menu-mode calendar-mode color-theme-mode command-history-mode dictionary-mode ert-results-mode help-mode Info-mode Man-mode speedbar-mode undo-tree-visualizer-mode view-mode woman-mode))
- '(find-name-arg "-iname")
- '(grep-find-ignored-directories '(".svn" ".git" ".hg"))
- '(grep-find-ignored-files
-   '(".#*" "*.o" "*~" "*.so" "*.a" "*.elc" "*.lib" "*.lo" "*.la" "*.pyc" "*.pyo" "TAGS"))
- '(helm-candidate-number-limit 10000)
- '(helm-follow-mode-persistent t)
- '(helm-move-to-line-cycle-in-source nil)
- '(helm-source-names-using-follow '("Imenu" "Helm occur"))
- '(hide-ifdef-initially t)
- '(hide-ifdef-shadow t)
- '(initial-frame-alist '((fullscreen . maximized)))
- '(ispell-program-name "aspell")
- '(kill-ring-max 1000)
- '(ledger-report-native-highlighting-arguments '("--color"))
- '(magit-delete-by-moving-to-trash nil)
- '(magit-log-arguments '("--graph" "--color" "--decorate" "-n256"))
- '(magit-log-auto-more t)
- '(magit-merge-arguments '("--no-ff"))
- '(magit-section-initial-visibility-alist '((stashes . show) (upstream . show)))
- '(magit-section-visibility-indicator '("" . t))
- '(magit-status-goto-file-position t)
- '(magit-status-headers-hook
-   '(magit-insert-error-header magit-insert-diff-filter-header magit-insert-repo-header magit-insert-head-branch-header magit-insert-upstream-branch-header magit-insert-push-branch-header magit-insert-tags-header))
- '(magit-status-show-hashes-in-headers t)
- '(next-error-recenter '(4))
- '(olivetti-body-width 130)
- '(org-agenda-file-regexp "\\`[^.].*\\.org\\(\\.gpg\\)?\\'")
- '(org-agenda-show-future-repeats nil)
- '(org-agenda-skip-scheduled-if-done t)
- '(org-agenda-span 3)
- '(org-blank-before-new-entry '((heading . auto) (plain-list-item)))
- '(org-imenu-depth 3)
- '(org-modules '(ol-docview org-habit ol-info))
- '(org-refile-targets '((org-agenda-files :maxlevel . 3) (nil :maxlevel . 3)))
- '(org-startup-indented t)
- '(org-use-fast-todo-selection 'expert)
- '(package-selected-packages
-   '(cape
-     cmake-mode
-     consult
-     devdocs
-     ef-themes
-     embark
-     embark-consult
-     emms
-     evil
-     evil-leader
-     evil-collection
-     evil-numbers
-     fancy-dabbrev
-     gnuplot
-     helm
-     hydra
-     ledger-mode
-     magit
-     marginalia
-     markdown-mode
-     nordic-night-theme
-     olivetti
-     orderless
-     ox-pandoc
-     paredit
-     reykjavik-theme
-     soft-morning-theme
-     terminal-here
-     undo-tree
-     vertico
-     wgrep
-     which-key
-     yaml-mode))
- '(package-vc-selected-packages
-   '((sandcastle-theme :vc-backend Git :url "https://github.com/habamax/sandcastle-theme")))
- '(project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
- '(read-quoted-char-radix 16)
- '(recentf-max-saved-items 1000)
- '(safe-local-variable-values
-   '((my-input-method . swedish-postfix)
-     (my-input-method . german-postfix)
-     (buffer-auto-save-file-name . nil)
-     (tab-always-indent)
-     (indent-tabs-mode nil)
-     (evil-shift-width . 2)
-     (evil-shift-width . 4)))
- '(shift-select-mode nil)
- '(tags-case-fold-search nil)
- '(terminal-here-mac-terminal-command 'iterm2)
- '(tramp-histfile-override "/tmp/.tramp_history")
- '(tramp-ssh-controlmaster-options
-   "-o ControlMaster=auto -o ControlPath=tramp.%%C -o ControlPersist=60m" t)
- '(undo-tree-auto-save-history nil)
- '(use-short-answers t)
- '(warning-suppress-types '((comp)))
- '(world-clock-list
-   '(("America/Los_Angeles" "Los Angeles")
-     ("America/New_York" "New York")
-     ("Europe/London" "London")
-     ("Europe/Stockholm" "Stockholm")))
- '(world-clock-time-format "%R %Z"))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(flyspell-duplicate ((t (:background "Magenta" :foreground "white"))))
- '(flyspell-incorrect ((t (:background "red" :foreground "white"))))
- '(makefile-space ((t nil)))
- '(message-cited-text-1 ((t (:foreground "#878787"))))
- '(success ((t (:foreground "#00DD00" :weight bold)))))
-
-
