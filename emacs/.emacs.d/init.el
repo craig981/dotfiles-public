@@ -882,7 +882,8 @@
   (turn-on-auto-fill)
   (my-syntax-entry)
   (evil-local-mode 1)
-  (evil-emacs-state))
+  ;; (evil-emacs-state)
+  )
 
 (add-hook 'text-mode-hook 'my-text-mode-hook)
 
@@ -900,7 +901,7 @@
 (defun my-message-mode-hook ()
   (my-syntax-entry)
   (evil-local-mode 1)
-  (evil-emacs-state)
+  ;; (evil-emacs-state)
   ;; = is punctuation, so evil * works on key and val separately for key=val
   (modify-syntax-entry ?= ".")
   (setq-local completion-at-point-functions '(my-complete-word-ispell))
@@ -1054,7 +1055,7 @@
 (defun my-org-mode-hook ()
 
   (evil-local-mode 1)
-  (evil-emacs-state)
+  ;; (evil-emacs-state)
 
   ;; / is punctuation, so evil * works on path components
   (modify-syntax-entry ?/ ".")
