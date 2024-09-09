@@ -2876,10 +2876,17 @@ current project instead, and visit the tags file."
     ;; see terminal background colour/image
     (set-face-background 'default "unspecified-bg" (selected-frame)))
 
-  (let ((hour (decoded-time-hour (decode-time))))
-    (if (and (> hour 7) (< hour 16))
-	(my-theme-light 2)
-      (my-theme-dark 0)))
+  (let* ((time (decode-time))
+	 (month (decoded-time-month time))
+	 (hour (decoded-time-hour time)))
+    (cond
+     ((and (> hour 7) (< hour 16))
+      (my-theme-light 2))
+     ((and (>= month 9) (<= month 11))
+      (my-theme-dark 3))
+     ((or (= month 12) (<= month 2))
+      (my-theme-dark 2))
+     (t (my-theme-dark 0))))
 
   (my-font-config))
 
