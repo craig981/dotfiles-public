@@ -2074,6 +2074,8 @@ return the project path instead"
 
 (add-hook 'conf-mode-hook 'my-conf-settings)
 
+(add-to-list 'auto-mode-alist '("\\.gitignore\\'" . my-conf-settings))
+
 ;; ----------------------------------------------------------------------------
 ;;| Markdown
 ;; ----------------------------------------------------------------------------
