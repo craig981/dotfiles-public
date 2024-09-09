@@ -1198,7 +1198,7 @@
 	(with-current-buffer b
 	  (evil-local-mode state)
 	  (when state
-	    (evil-emacs-state)))))))
+	    (evil-normal-state)))))))
 
 (defun my-advise-org-agenda-todo (func &rest args)
   "Switch off evil-local-mode in all org-agenda-files buffers before
