@@ -162,8 +162,6 @@
 ;;| Evil mode
 ;; ----------------------------------------------------------------------------
 
-(defvar my-evil-default 1)
-
 (setq evil-want-integration t
       evil-want-keybinding nil)
 (require 'evil)
@@ -174,20 +172,11 @@
 (global-evil-leader-mode)
 (evil-esc-mode 1)			; make C-[ escape
 
+(global-set-key (kbd "<f7>") 'evil-local-mode)
 (add-hook 'evil-command-window-mode-hook 'evil-local-mode)
 
 (setq-default evil-ex-search-case 'sensitive)
 (setq-default evil-search-module 'evil-search)
-
-(defun my-evil-local-mode ()
-  (evil-local-mode 1)
-  ;; (hl-line-mode (- 1 my-evil-default))
-  (if (= my-evil-default 0)
-      (evil-emacs-state)))
-
-(defun my-toggle-evil-default ()
-  (interactive)
-  (setq my-evil-default (- 1 my-evil-default)))
 
 (setq evil-emacs-state-tag  (propertize "<E>" 'face '((:foreground "#000000" :background "goldenrod"))))
 
@@ -199,8 +188,6 @@
 (evil-declare-ignore-repeat 'hscroll-cursor-right)
 (evil-declare-ignore-repeat 'recenter-top-bottom)
 (evil-declare-ignore-repeat 'other-window)
-
-(setq evil-move-beyond-eol t)
 
 ;; (defun my-wrap-eol (func &rest args)
 ;;   "Temporarily disable evil-move-beyond-eol for evil commands,
@@ -296,7 +283,7 @@
   (modify-syntax-entry ?_ "w"))
 
 (setq-default sentence-end-double-space nil)
-(setq-default fill-column 70)      ; set tw=70
+(setq-default fill-column 80)      ; set tw=80
 (setq-default truncate-lines t)    ; set nowrap
 (setq-default tab-width 8)         ; set ts=8
 (setq-default evil-shift-width 8)
@@ -315,9 +302,9 @@
 (defun my-find-file-hook ()
   (if (file-remote-p (buffer-file-name))
       (setq-local vc-handled-backends nil))
-  (when (not (eq major-mode 'image-mode))
-    (my-evil-local-mode)
-    (when (and git-commit-mode (evil-normal-state-p) (looking-at "^$"))
+  (when git-commit-mode
+    (evil-local-mode 1)
+    (when (and (evil-normal-state-p) (looking-at "^$"))
       (evil-insert-state)))
   (if my-input-method
       (set-input-method my-input-method)))
@@ -554,9 +541,9 @@
 (global-set-key (kbd "C-c m") #'my-mirror-buffer)
 (global-set-key (kbd "C-c z") #'my-find-init-file)
 
+(global-set-key (kbd "M-z") 'zap-up-to-char)
 (global-set-key (kbd "M-=") 'winner-undo)
 (global-set-key (kbd "M-+") 'winner-redo)
-(global-set-key (kbd "M-z") 'zap-up-to-char)
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-'") #'delete-blank-lines)
 (global-set-key (kbd "M-\\") #'my-delete-whitespace)
@@ -574,9 +561,9 @@
 (global-set-key (kbd "M-]") #'evil-numbers/inc-at-pt)
 (global-set-key (kbd "M-[") #'evil-numbers/dec-at-pt)
 (global-set-key (kbd "M-SPC") evil-leader--default-map)
-(evil-leader/set-key "M-i" #'tab-to-tab-stop)
+(evil-leader/set-key "t"   #'tab-to-tab-stop)
+(evil-leader/set-key "M-t" #'tab-to-tab-stop)
 (evil-leader/set-key "M-j" #'my-join-line)
-(evil-global-set-key 'insert (kbd "M-i") #'tab-to-tab-stop)
 
 (global-set-key (kbd "C-M-y") #'my-duplicate-line)
 (global-set-key (kbd "C-M-o") #'my-open-line-above)
@@ -707,18 +694,8 @@
   (define-key Man-mode-map (kbd "M-p") nil)
   (define-key Man-mode-map (kbd "M-n") nil))
 
-(defun my-man-page-hook ()
-  (my-evil-local-mode))
-(add-hook #'Man-mode-hook #'my-man-page-hook)
-
 (require 'devdocs)
 (global-set-key (kbd "M-s M-d") #'devdocs-lookup)
-
-(defun my-devdocs-hook ()
-  (my-evil-local-mode)
-  (evil-motion-state))
-
-(add-hook 'devdocs-mode-hook 'my-devdocs-hook)
 
 ;; ----------------------------------------------------------------------------
 ;;| Abbreviations
@@ -731,25 +708,26 @@
   (if (not (nth 8 (syntax-ppss)))
       (abbrev--default-expand)))
 
+(when (display-graphic-p)
+  (global-set-key (kbd "C-x C-'") #'expand-abbrev))
+
+;; ----------------------------------------------------------------------------
+;;| Prog
+;; ----------------------------------------------------------------------------
+
 (defun my-prog-mode-hook ()
   (abbrev-mode -1)
-  (setq-local evil-move-beyond-eol nil)
-  (setq-local fill-column 80)
+  (evil-local-mode 1)
   (setq-local show-trailing-whitespace t)
   (setq-local abbrev-expand-function #'my-abbrev-expand))
 
 (add-hook 'prog-mode-hook #'my-prog-mode-hook)
-
-(when (display-graphic-p)
-  (global-set-key (kbd "C-x C-'") #'expand-abbrev))
 
 ;; ----------------------------------------------------------------------------
 ;;| Fancy dabbrev
 ;; ----------------------------------------------------------------------------
 
 (require 'fancy-dabbrev)
-
-;; (global-fancy-dabbrev-mode)
 
 (global-set-key (kbd "M-/") 'fancy-dabbrev-expand)
 (global-set-key (kbd "<backtab>") 'fancy-dabbrev-backward)
@@ -892,8 +870,7 @@
     (when buffer
       (with-current-buffer buffer
 	(text-mode)
-	(my-syntax-entry)
-	(evil-local-mode)))))
+	(my-syntax-entry)))))
 
 ;;; after :enew
 (advice-add 'evil-buffer-new :after #'my-after-evil-buffer-new)
@@ -904,8 +881,8 @@
   (define-key text-mode-map (kbd "C-M-i") #'complete-symbol)
   (turn-on-auto-fill)
   (my-syntax-entry)
-  (when (not (buffer-file-name))
-    (my-evil-local-mode)))
+  (evil-local-mode 1)
+  (evil-emacs-state))
 
 (add-hook 'text-mode-hook 'my-text-mode-hook)
 
@@ -922,10 +899,10 @@
 
 (defun my-message-mode-hook ()
   (my-syntax-entry)
+  (evil-local-mode 1)
+  (evil-emacs-state)
   ;; = is punctuation, so evil * works on key and val separately for key=val
   (modify-syntax-entry ?= ".")
-  ;; (setq-local my-evil-default 0)
-  (my-evil-local-mode)
   (setq-local completion-at-point-functions '(my-complete-word-ispell))
   (setq-local fill-column 72)
   (setq-local show-trailing-whitespace t)
@@ -1076,9 +1053,9 @@
 
 (defun my-org-mode-hook ()
 
-  ;; (setq-local my-evil-default 0)
+  (evil-local-mode 1)
+  (evil-emacs-state)
 
-  (my-evil-local-mode)
   ;; / is punctuation, so evil * works on path components
   (modify-syntax-entry ?/ ".")
   (auto-fill-mode 1)
@@ -1108,7 +1085,7 @@
     (evil-insert-state)))
 
 (defun my-org-src-hook ()
-  (my-evil-local-mode))
+  (evil-local-mode 1))
 
 ;;; https://www.youtube.com/watch?v=UpeKWYFe9fU
 (defun my-org-attach-save-file-list-to-property (dir)
@@ -1219,7 +1196,7 @@
       (when b
 	(with-current-buffer b
 	  (evil-local-mode state)
-	  (when (and state (= my-evil-default 0))
+	  (when state
 	    (evil-emacs-state)))))))
 
 (defun my-advise-org-agenda-todo (func &rest args)
@@ -1454,11 +1431,10 @@ empty string."
 	      (my-toggle-word-boundary "^#\\\\<\\(.*\\)\\\\>" "#\\<" "\\>"
 					 "^#" "#")))
 
-(evil-leader/set-key "r" 'my-ripgrep-project)
-(evil-leader/set-key "i" 'my-imenu)
-(global-set-key (kbd "M-s M-r") 'my-ripgrep-project)
-(global-set-key (kbd "M-s i") 'my-imenu)
-(global-set-key (kbd "M-s M-i") 'my-imenu)
+(evil-leader/set-key "r"   'my-ripgrep-project)
+(evil-leader/set-key "M-r" 'my-ripgrep-project)
+(evil-leader/set-key "i"   'my-imenu)
+(evil-leader/set-key "M-i" 'my-imenu)
 
 ;; ----------------------------------------------------------------------------
 ;;| Grep
@@ -1473,8 +1449,10 @@ empty string."
   (rgrep (read-string "Search for: " (format "\\<%s\\>" (thing-at-point 'symbol t)))
 	 "*" (my-find-project-root)))
 
-(global-set-key (kbd "M-s M-f") 'my-rgrep-project)
-(global-set-key (kbd "M-s M-g") 'rgrep)
+(evil-leader/set-key "M-f" 'my-rgrep-project)
+(evil-leader/set-key "f"   'my-rgrep-project)
+(evil-leader/set-key "M-g" 'rgrep)
+(evil-leader/set-key "g"   'rgrep)
 
 ;;; disable vertico when rgrep asks for file type
 (advice-add #'grep-read-files :around #'my-disable-vertico)
@@ -1674,8 +1652,8 @@ empty string."
 (define-key helm-map (kbd "<escape>") 'helm-keyboard-quit)
 
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "M-s M-o") 'helm-occur)
 (evil-leader/set-key "o" 'helm-occur) ;; M-n grabs symbol under point
+(evil-leader/set-key "M-o" 'helm-occur)
 
 ;; ----------------------------------------------------------------------------
 ;;| Projects
@@ -1945,12 +1923,12 @@ return the project path instead"
 ;; ----------------------------------------------------------------------------
 
 (defun my-magit-hook ()
-  (my-evil-local-mode)
+  (evil-local-mode 1)
   ;; want SPC to show/scroll commit at point
   (evil-leader-mode -1))
 
 (defun my-magit-repolist-hook ()
-  (my-evil-local-mode)
+  (evil-local-mode 1)
   (beginning-of-buffer))
 
 (defun my-magit-list-repos ()
@@ -2029,7 +2007,7 @@ return the project path instead"
 (defun my-compilation-mode-hook ()
   (modify-syntax-entry ?_ "w") ;; _ is word constituent, so * and # works
   (visual-line-mode)
-  (my-evil-local-mode)
+  (evil-local-mode 1)
   (evil-emacs-state)
   (evil-local-set-key 'normal (kbd "q") 'quit-window)
 
@@ -2367,8 +2345,6 @@ current project instead, and visit the tags file."
 
 (defun my-lisp-common-hook ()
   (enable-paredit-mode)
-  ;; (setq-local my-evil-default 0)
-  (my-evil-local-mode)
   (setq-local evil-move-beyond-eol t)
   (setq-local evil-symbol-word-search t))
 
@@ -2539,7 +2515,6 @@ current project instead, and visit the tags file."
 		 "\n")))
 
 (defun my-cc-settings (path)
-  (my-evil-local-mode)
   (modify-syntax-entry ?_ "w")
   (evil-local-set-key 'normal (kbd "[#") 'c-up-conditional)
   (auto-fill-mode -1)
