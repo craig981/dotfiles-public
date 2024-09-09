@@ -2056,11 +2056,40 @@ return the project path instead"
     (setq-local devdocs-current-docs '("cmake~3.26")))
   (add-hook 'cmake-mode-hook 'my-cmake-hook))
 
+;; ----------------------------------------------------------------------------
+;;| Log and conf
+;; ----------------------------------------------------------------------------
+
 (defun my-log-settings ()
   (my-syntax-entry)
+  (evil-local-mode 1)
   (toggle-truncate-lines 0))
 
 (add-to-list 'auto-mode-alist '("\\.log\\'" . my-log-settings))
+
+(defun my-conf-settings ()
+  (my-syntax-entry)
+  (evil-local-mode 1))
+
+(add-hook 'conf-mode-hook 'my-conf-settings)
+
+;; ----------------------------------------------------------------------------
+;;| Markdown
+;; ----------------------------------------------------------------------------
+
+(with-eval-after-load 'markdown-mode
+  (define-key markdown-mode-map (kbd "C-c C-c") nil)
+  (define-key markdown-mode-map (kbd "C-c C-v") markdown-mode-command-map)
+  (define-key markdown-mode-map (kbd "M-p") nil)
+  (define-key markdown-mode-map (kbd "M-n") nil))
+
+(defun my-markdown-hook ()
+  (setq-local indent-tabs-mode nil)
+  (setq-local evil-shift-width 2)
+  (setq-local tab-width 2)
+  (my-syntax-entry))
+
+(add-hook 'markdown-mode-hook 'my-markdown-hook)
 
 ;; ----------------------------------------------------------------------------
 ;;| Yaml
