@@ -1062,6 +1062,9 @@
   (auto-fill-mode 1)
 
   (setq-local completion-at-point-functions '(my-complete-word-ispell))
+  (setq-local indent-tabs-mode nil)
+  (setq-local evil-shift-width 2)
+  (setq-local tab-width 2)
 
   (cond
    ((not (display-graphic-p))
@@ -1073,11 +1076,7 @@
     (evil-local-set-key 'normal (kbd "<tab>") 'org-cycle)))
 
   (evil-local-set-key 'insert (kbd "<tab>") #'org-cycle)
-  (evil-local-set-key 'insert (kbd "<backtab>") #'fancy-dabbrev-backward)
-
-  (setq-local indent-tabs-mode nil)
-  (setq-local evil-shift-width 2)
-  (setq-local tab-width 2))
+  (evil-local-set-key 'insert (kbd "<backtab>") #'fancy-dabbrev-backward))
 
 (defun my-org-capture-hook ()
   (interactive)
