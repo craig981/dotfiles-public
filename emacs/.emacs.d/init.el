@@ -34,7 +34,6 @@
  '(compilation-ask-about-save nil)
  '(compilation-scroll-output t)
  '(compilation-skip-threshold 2)
- '(compile-command "make ")
  '(consult-ripgrep-args
    "rg --null --line-buffered --color=never --max-columns=1000  --smart-case --no-heading --with-filename --line-number --no-search-zip --hidden -g !{.git,.svn,.hg}/ -g !TAGS -g !build/ --no-ignore")
  '(custom-safe-themes
@@ -2003,6 +2002,8 @@ return the project path instead"
 ;; ----------------------------------------------------------------------------
 ;;| Compilation
 ;; ----------------------------------------------------------------------------
+
+(setq compile-command "make ")
 
 (defun my-compilation-mode-hook ()
   (modify-syntax-entry ?_ "w") ;; _ is word constituent, so * and # works
