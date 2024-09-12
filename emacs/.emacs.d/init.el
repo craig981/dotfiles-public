@@ -883,7 +883,7 @@
   (my-syntax-entry)
   (evil-local-mode 1)
   ;; (evil-emacs-state)
-  )
+  (setq-local evil-move-beyond-eol t))
 
 (add-hook 'text-mode-hook 'my-text-mode-hook)
 
@@ -899,6 +899,7 @@
     (message-mode)))
 
 (defun my-message-mode-hook ()
+  (turn-on-auto-fill)
   (my-syntax-entry)
   (evil-local-mode 1)
   ;; (evil-emacs-state)
@@ -907,6 +908,7 @@
   (setq-local completion-at-point-functions '(my-complete-word-ispell))
   (setq-local fill-column 72)
   (setq-local show-trailing-whitespace t)
+  (setq-local evil-move-beyond-eol t)
   ;; stop paragraph lines after the first being extra indented by M-q
   (setq-local fill-paragraph-function nil))
 
@@ -1065,6 +1067,7 @@
   (setq-local indent-tabs-mode nil)
   (setq-local evil-shift-width 2)
   (setq-local tab-width 2)
+  (setq-local evil-move-beyond-eol t)
 
   (cond
    ((not (display-graphic-p))
