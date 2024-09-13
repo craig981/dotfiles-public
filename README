@@ -1,0 +1,19 @@
+
+sudo apt install git make stow curl
+
+curl may need: sudo apt update && sudo apt upgrade
+
+vim may need: libncurses-dev
+
+
+git clone git@github.com:cseivad/dotfiles-public.git
+#git clone https://github.com/cseivad/dotfiles-public.git
+cd dotfiles-public
+make
+
+
+Emacs:   M-x package-install-selected-packages
+
+Vim:     :PlugInstall
+
+Git:     Set name + email in ~/dotfiles/gitconfig_user
