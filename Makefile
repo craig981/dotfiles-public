@@ -17,7 +17,6 @@ ifeq ($(osuname),Linux)
 endif
 ifeq ($(osuname),Darwin)
 	stow -v emacs
-	stow -v cmus
 	mkdir -p ~/Library/KeyBindings
 	cp -v mac/Library/KeyBindings/DefaultKeyBinding.dict ~/Library/KeyBindings/
 
@@ -42,7 +41,6 @@ macports-install:
 		aspell \
 		aspell-dict-en \
 		cmake \
-		cmus \
 		ffmpeg \
 		git \
 		gnuplot \
@@ -71,7 +69,6 @@ apt-install:
 	sudo apt-get install \
 		bash-doc \
 		cmake \
-		cmus \
 		curl \
 		feh \
 		ffmpeg \
