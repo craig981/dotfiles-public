@@ -654,7 +654,7 @@
 (define-key indent-rigidly-map (kbd "<") 'indent-rigidly-left-to-tab-stop)
 (define-key indent-rigidly-map (kbd ">") 'indent-rigidly-right-to-tab-stop)
 
-;; (define-key minibuffer-local-map (kbd "<escape>") 'abort-minibuffers)
+(define-key minibuffer-local-map (kbd "<escape>") 'abort-minibuffers)
 
 ;; ----------------------------------------------------------------------------
 ;;| Pulse
@@ -2242,7 +2242,7 @@ return the project path instead"
   (my-expose-global-binding term-raw-map (kbd "M-o"))
   (my-expose-global-binding term-raw-map (kbd "C-j")))
 
-(global-set-key (kbd "C-c t a") 'ansi-term)
+(global-set-key (kbd "C-c t t") 'ansi-term)
 
 (require 'terminal-here)
 
