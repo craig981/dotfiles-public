@@ -2800,7 +2800,6 @@ make TAGS in that directory."
 
 (require 'font-lock)
 (global-font-lock-mode t)
-(setq font-lock-maximum-decoration t)
 
 (blink-cursor-mode -1)
 (setq-default cursor-type 'box)
