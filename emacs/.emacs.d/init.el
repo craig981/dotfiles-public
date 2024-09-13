@@ -358,9 +358,13 @@
 (setq-default show-trailing-whitespace nil)
 
 (defun my-insert-enter-hook ()
+  ;; temporarily disable syntax highlighting while in insert mode, as a
+  ;; workaround for typing becoming slow in some C++ buffers
+  (jit-lock-mode nil)
   (show-paren-mode -1))
 (defun my-insert-exit-hook ()
-  (show-paren-mode 1))
+  (show-paren-mode 1)
+  (jit-lock-mode t))
 (add-hook 'evil-insert-state-entry-hook 'my-insert-enter-hook)
 (add-hook 'evil-insert-state-exit-hook 'my-insert-exit-hook)
 
@@ -2800,8 +2804,6 @@ make TAGS in that directory."
 
 (require 'font-lock)
 (global-font-lock-mode t)
-
-(setq jit-lock-defer-time 0.5)
 
 (blink-cursor-mode -1)
 (setq-default cursor-type 'box)
