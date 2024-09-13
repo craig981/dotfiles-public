@@ -358,9 +358,10 @@
 (setq-default show-trailing-whitespace nil)
 
 (defun my-insert-enter-hook ()
-  ;; temporarily disable syntax highlighting while in insert mode, as a
-  ;; workaround for typing becoming slow in some C++ buffers
-  (jit-lock-mode nil)
+  ;; temporarily disable update of syntax highlighting while in insert mode,
+  ;; as a workaround for typing becoming slow in some C++ buffers
+  (when (derived-mode-p 'prog-mode)
+    (jit-lock-mode nil))
   (show-paren-mode -1))
 (defun my-insert-exit-hook ()
   (show-paren-mode 1)
