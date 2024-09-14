@@ -570,7 +570,7 @@
 (evil-leader/set-key "M-t" #'tab-to-tab-stop)
 (evil-leader/set-key "M-j" #'my-join-line)
 
-(global-set-key (kbd "C-M-y") #'my-duplicate-line)
+(global-set-key (kbd "C-M-y") #'evil-yank-line)
 (global-set-key (kbd "C-M-o") #'my-open-line-above)
 (global-set-key (kbd "C-o") #'my-open-line-below)
 (when (display-graphic-p)
@@ -1805,7 +1805,7 @@ return the project path instead"
 (global-set-key (kbd "C-c p e") #'my-choose-project-and-find-file)
 (global-set-key (kbd "C-c p u") #'my-choose-project-and-find-file-other-window)
 (global-set-key (kbd "C-c p r") #'my-choose-project-and-search)
-(global-set-key (kbd "C-c p v") #'my-choose-project-and-magit)
+(global-set-key (kbd "C-c p h") #'my-choose-project-and-magit)
 (global-set-key (kbd "C-c p d") #'my-choose-project-and-dired)
 (global-set-key (kbd "C-c p s") #'my-choose-project-and-shell)
 (global-set-key (kbd "C-c p t") #'my-choose-project-and-term)
@@ -1996,8 +1996,8 @@ return the project path instead"
 (require 'magit)
 
 (evil-leader/set-key "v" 'magit-status)
-(global-set-key (kbd "C-c v") 'magit-status)
-(global-set-key (kbd "C-c V") #'my-magit-list-repos)
+(global-set-key (kbd "C-c h") 'magit-status)
+(global-set-key (kbd "C-c H") #'my-magit-list-repos)
 
 ;; ----------------------------------------------------------------------------
 ;;| Ediff
@@ -2230,7 +2230,7 @@ return the project path instead"
 
 (global-set-key (kbd "C-c t S") 'my-project-shell)
 (global-set-key (kbd "C-c t s") 'my-shell)
-(global-set-key (kbd "C-c h") 'my-jump-to-shell)
+(global-set-key (kbd "C-c v") 'my-jump-to-shell)
 
 (when (eq system-type 'windows-nt)
   (setq-default shell-file-name "bash.exe"))
