@@ -568,7 +568,6 @@
 (global-set-key (kbd "M-SPC") evil-leader--default-map)
 (evil-leader/set-key "t"   #'tab-to-tab-stop)
 (evil-leader/set-key "M-t" #'tab-to-tab-stop)
-(evil-leader/set-key "M-j" #'my-join-line)
 
 (global-set-key (kbd "C-M-y") #'evil-yank-line)
 (global-set-key (kbd "C-M-o") #'my-open-line-above)
@@ -584,6 +583,8 @@
 (global-set-key (kbd "C-h RET") 'man)
 (global-set-key (kbd "C-x !") 'delete-other-windows-vertically)
 (global-set-key (kbd "C-x g") 'subword-mode)
+(global-set-key (kbd "C-x j") 'my-join-line)
+(global-set-key (kbd "C-x l") 'count-words-region)
 (global-set-key (kbd "C-c C-j") 'goto-last-change)
 (global-set-key (kbd "C-c M-f") #'flyspell-buffer)
 (global-set-key (kbd "C-c M-s") #'ispell)
