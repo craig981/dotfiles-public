@@ -590,6 +590,10 @@
 (global-set-key (kbd "C-c M-s") #'ispell)
 
 (evil-global-set-key 'normal (kbd "]s") 'flyspell-goto-next-error)
+(evil-global-set-key 'normal (kbd "[s")
+		     (lambda ()
+		       (interactive)
+		       (flyspell-goto-next-error t)))
 
 (let ((words "~/.cache/macDict/words"))
   (when (and (eq system-type 'gnu/linux)
