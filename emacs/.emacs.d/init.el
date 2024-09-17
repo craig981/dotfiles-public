@@ -990,7 +990,7 @@
 (setq org-tags-exclude-from-inheritance '("crypt"))
 
 (setq org-capture-templates
-      `(("k" "Bookmark" entry (file+headline org-default-notes-file "Bookmarks")
+      `(("m" "Bookmark" entry (file+headline org-default-notes-file "Bookmarks")
 	 "* %?\n")
 	("x" "Task" entry (file+headline org-default-notes-file "Tasks")
 	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")))
@@ -1033,7 +1033,7 @@
       `(("d" "Done stuff" todo "DONE" )
 	("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
 
-	("," "Agenda"
+	("." "Agenda"
 	 ((agenda "")
 	  ,@(if (string= "asusbox" (system-name)) '((tags "PIN")))
 
@@ -1268,11 +1268,13 @@ empty string."
 (global-set-key (kbd "C-c C-x C-j") 'my-org-clock-jump)
 
 (when (display-graphic-p)
-  (with-eval-after-load 'org
-    (define-key org-mode-map (kbd "C-,") nil))
-  (global-set-key (kbd "C-,") (lambda ()
+  (evil-global-set-key 'normal (kbd "C-.") nil)
+  (global-set-key (kbd "C-.") (lambda ()
 				(interactive)
-				(org-agenda nil ","))))
+				(org-agenda nil ".")
+				(when (string= "goose" (system-name))
+				  ;; hide work tasks
+                                  (org-agenda-filter-by-tag '(4) ?w)))))
 
 (evil-leader/set-key-for-mode 'org-mode "c" 'my-insert-org-src-block)
 (evil-leader/set-key-for-mode 'org-mode "SPC" 'my-goto-random-line)
