@@ -1011,7 +1011,7 @@
 
   (defun my-revert-gcal-before-agenda ()
     "Revert buffer for gcal.org so the agenda displays the latest contents"
-    (when-let ((gcal (get-file-buffer "~/gcal.org")))
+    (when-let ((gcal (get-file-buffer "~/org/gcal.org")))
       (with-current-buffer gcal
 	(revert-buffer t t))))
 
