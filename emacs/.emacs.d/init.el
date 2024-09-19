@@ -44,7 +44,6 @@
  '(dabbrev-case-fold-search t)
  '(default-input-method "swedish-postfix")
  '(display-time-24hr-format t)
- '(display-time-day-and-date t)
  '(display-time-default-load-average nil)
  '(display-time-mode t)
  '(ediff-window-setup-function 'ediff-setup-windows-plain)
@@ -351,6 +350,9 @@
 
 (when (version< emacs-version "29.1")
   (defalias 'yes-or-no-p 'y-or-n-p))
+
+(setq display-time-day-and-date
+      (if (string= "goose" (system-name)) nil t))
 
 ;; (column-number-mode t)
 
