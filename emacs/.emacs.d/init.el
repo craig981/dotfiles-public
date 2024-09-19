@@ -38,7 +38,7 @@
  '(consult-ripgrep-args
    "rg --null --line-buffered --color=never --max-columns=1000  --smart-case --no-heading --with-filename --line-number --no-search-zip --hidden -g !{.git,.svn,.hg}/ -g !TAGS -g !build/ --no-ignore")
  '(custom-safe-themes
-   '("b216e9b72dc8c2b702e4fcfd3c0af2d73c87eba46fd4db824ddb50863447d6a9" "601a9b9bf21f5c72ddfb28c7e95b842a5b0130f55ad5e0b97d2ba1e0b91b0a2c" "7776ba149258df15039b1f0aba4b180d95069b2589bc7d6570a833f05fdf7b6d" "e17d91a99e14fc72f71f531f07d3dff44238c69f599998b50e95e67b589d8fa1" "a6e8bcffe4d8cac7463c5a7c67c0908316cc616da3816d3ce35c325d5e02fd97" "adfe1d522a4a100edade12797079ebbabf742a48cf098e7d10ea14012e156ee8" "7342266ffff707cc104313c9153342e44a47a9f22ed7157e4893aac74091ad27" "aa688776604bbddbaba9e0c0d77e8eb5f88d94308f223d1962b6e6b902add6a0" default))
+   '("9ddb83c12595e789e9abd04a5c0705661748776223a794a6f64669352b956e79" "b216e9b72dc8c2b702e4fcfd3c0af2d73c87eba46fd4db824ddb50863447d6a9" "601a9b9bf21f5c72ddfb28c7e95b842a5b0130f55ad5e0b97d2ba1e0b91b0a2c" "7776ba149258df15039b1f0aba4b180d95069b2589bc7d6570a833f05fdf7b6d" "e17d91a99e14fc72f71f531f07d3dff44238c69f599998b50e95e67b589d8fa1" "a6e8bcffe4d8cac7463c5a7c67c0908316cc616da3816d3ce35c325d5e02fd97" "adfe1d522a4a100edade12797079ebbabf742a48cf098e7d10ea14012e156ee8" "7342266ffff707cc104313c9153342e44a47a9f22ed7157e4893aac74091ad27" "aa688776604bbddbaba9e0c0d77e8eb5f88d94308f223d1962b6e6b902add6a0" default))
  '(dabbrev-backward-only t)
  '(dabbrev-case-distinction nil)
  '(dabbrev-case-fold-search t)
