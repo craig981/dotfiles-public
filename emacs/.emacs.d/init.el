@@ -170,7 +170,12 @@
 (require 'evil-numbers)
 
 (global-evil-leader-mode)
+
 (evil-esc-mode 1)			; make C-[ escape
+(evil-global-set-key 'insert   (kbd "C-c") 'evil-normal-state)
+(evil-global-set-key 'replace  (kbd "C-c") 'evil-normal-state)
+(evil-global-set-key 'operator (kbd "C-c") 'keyboard-quit)
+
 
 (global-set-key (kbd "<f7>") 'evil-local-mode)
 (add-hook 'evil-command-window-mode-hook 'evil-local-mode)
@@ -236,11 +241,6 @@
 (define-key evil-ex-completion-map (kbd "C-f") 'forward-char)
 (define-key evil-ex-completion-map (kbd "C-b") 'backward-char)
 (define-key evil-ex-completion-map (kbd "C-k") 'kill-line)
-
-(evil-global-set-key 'insert   (kbd "C-c") 'evil-normal-state)
-;; (evil-global-set-key 'visual   (kbd "C-c") 'evil-normal-state)
-(evil-global-set-key 'operator (kbd "C-c") 'evil-normal-state)
-(evil-global-set-key 'replace  (kbd "C-c") 'evil-normal-state)
 
 (evil-global-set-key 'normal (kbd "C-a") 'evil-numbers/inc-at-pt)
 (evil-global-set-key 'normal (kbd "C-p") 'evil-numbers/dec-at-pt)
