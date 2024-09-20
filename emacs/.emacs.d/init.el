@@ -64,6 +64,9 @@
  '(helm-source-names-using-follow '("Imenu" "Helm occur"))
  '(hide-ifdef-initially t)
  '(hide-ifdef-shadow t)
+ '(image-dired-dir "/tmp/image-dired")
+ '(image-dired-thumb-height 100)
+ '(image-dired-thumb-width 100)
  '(initial-frame-alist '((fullscreen . maximized)))
  '(ispell-program-name "aspell")
  '(kill-ring-max 1000)
@@ -97,6 +100,7 @@
  '(project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
  '(read-quoted-char-radix 16)
  '(recentf-max-saved-items 1000)
+ '(remote-file-name-inhibit-locks t)
  '(safe-local-variable-values
    '((my-input-method . swedish-postfix)
      (my-input-method . german-postfix)
@@ -315,9 +319,6 @@
       (set-input-method my-input-method)))
 
 (add-hook 'find-file-hook 'my-find-file-hook)
-
-(with-eval-after-load "tramp"
-  (setq remote-file-name-inhibit-locks t))
 
 ;; ----------------------------------------------------------------------------
 ;;| Find file at point
@@ -1351,7 +1352,6 @@ empty string."
 
 (setq org-file-apps '((auto-mode . emacs)
 		      (directory . emacs)
-		      ("\\.mm\\'" . default)
 		      ("\\.x?html?\\'" . "google-chrome %s")
 		      ("\\.pdf\\'" . default)))
 
@@ -1382,7 +1382,6 @@ empty string."
 ;; (setq vertico-count-format nil)
 (setq vertico-group-format nil)
 
-;; (define-key vertico-map (kbd "DEL") #'vertico-directory-delete-char)
 (define-key vertico-map (kbd "C-j") nil)
 (define-key vertico-map (kbd "C-h f")
   (lambda ()
@@ -1425,7 +1424,6 @@ empty string."
 
 (global-set-key (kbd "C-c r") 'consult-recent-file)
 
-;; (define-key minibuffer-local-map (kbd "C-r") 'consult-history)
 (define-key minibuffer-local-map (kbd "M-r") 'consult-history)
 
 (setq consult-preview-key "C-j")
@@ -1905,44 +1903,6 @@ return the project path instead"
 					("\\.tif\\'" "djv")))))
 
 (global-set-key (kbd "C-x C-j") 'dired-jump)
-
-;; ----------------------------------------------------------------------------
-;;| Image dired
-;; ----------------------------------------------------------------------------
-
-(setq-default image-dired-dir "/tmp/image-dired") ; where to store thumbnails
-(setq-default image-dired-thumb-width 100)
-(setq-default image-dired-thumb-height 100)
-
-;; (defun my-advise-image-dired (&optional args)
-;;   (when (eq major-mode 'dired-mode)
-;;     (dired-hide-details-mode)
-;;     (when (= 1 (count-windows))
-;;       (split-window-right))
-;;     (evil-window-set-width 25)))
-
-;; (advice-add 'image-dired-display-thumbs :before 'my-advise-image-dired)
-
-;; (with-eval-after-load "image-dired"
-;;   ;; show full size
-;;   (define-key image-dired-thumbnail-mode-map (kbd "M-<return>")
-;;     (lambda ()
-;;       (interactive)
-;;       (let ((current-prefix-arg 4)) ;; emulate C-u
-;; 	(call-interactively 'image-dired-display-thumbnail-original-image)))))
-
-;; ;;; stop opening multiple image buffers
-;; (push '((lambda (buf actions)
-;; 	  (eq 'image-mode (with-current-buffer buf major-mode)))
-;;         (display-buffer-reuse-window display-buffer-reuse-mode-window display-buffer-use-some-window))
-;;       display-buffer-alist)
-
-;; ;; put the thumbnail buffer at the bottom
-;; (push '((lambda (buf actions)
-;; 	  (eq 'image-dired-thumbnail-mode (with-current-buffer buf major-mode)))
-;;         (display-buffer-reuse-window display-buffer-at-bottom)
-;;         (window-height . 6))
-;;       display-buffer-alist)
 
 ;; ----------------------------------------------------------------------------
 ;;| Magit
