@@ -305,10 +305,13 @@
 (defun my-find-file-hook ()
   (if (file-remote-p (buffer-file-name))
       (setq-local vc-handled-backends nil))
+
+  (when (not (eq major-mode 'image-mode))
+    (evil-local-mode 1)) ;; default to evil mode
   (when git-commit-mode
-    (evil-local-mode 1)
     (when (and (evil-normal-state-p) (looking-at "^$"))
       (evil-insert-state)))
+
   (if my-input-method
       (set-input-method my-input-method)))
 
