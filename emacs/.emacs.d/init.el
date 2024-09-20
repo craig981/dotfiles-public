@@ -2838,7 +2838,7 @@ make TAGS in that directory."
     ;; (load-theme 'my-override-light)
     ))
 
-  (setq my-pulse-face 'helm-match)
+  (setq my-pulse-face 'next-error)
   (set-cursor-color "black")
   (setq evil-normal-state-cursor '(box "black"))
   (setq evil-insert-state-cursor '(box "orange"))
