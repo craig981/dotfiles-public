@@ -431,11 +431,17 @@
       (delete-horizontal-space))
     (message "Deleted trailing whitespace on current line"))))
 
-(defun my-copy-filename ()
-  (interactive)
-  (let ((x (or (buffer-file-name) default-directory)))
-    (kill-new x)
-    (message "Yanked %s" x)))
+(defun my-copy-filename (&optional prefix)
+  "Copy the filename of the current buffer. With the prefix arg,
+copy the basename."
+  (interactive "P")
+  (let ((y (if-let ((x (buffer-file-name)))
+	       (if prefix (file-name-nondirectory x) x)
+	     (if prefix
+		 (file-name-nondirectory (directory-file-name default-directory))
+	       default-directory))))
+    (kill-new y)
+    (message "Yanked %s" y)))
 
 (defun my-mirror-buffer ()
   "Mirror current buffer to other window"
