@@ -736,6 +736,11 @@ copy the basename."
   (define-key Man-mode-map (kbd "M-p") nil)
   (define-key Man-mode-map (kbd "M-n") nil))
 
+(push '("\\(\\*[Hh]elp\\*\\)\\|\\(\\*Man\\)"
+	(display-buffer-reuse-mode-window
+	 display-buffer-use-least-recent-window))
+      display-buffer-alist)
+
 (require 'devdocs)
 (global-set-key (kbd "M-s M-d") #'devdocs-lookup)
 
