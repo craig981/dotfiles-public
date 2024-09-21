@@ -1676,8 +1676,7 @@ empty string."
 ;; display relative paths in grep results
 (setq-default helm-grep-file-path-style 'relative)
 
-(when (string= "hedgehog" (system-name))
-  (setq helm-split-window-default-side 'right))
+(setq helm-split-window-default-side 'right)
 
 (setq helm-highlight-only-all-matches t)
 (setq helm-highlight-matches-around-point-max-lines '(25 . 25))
