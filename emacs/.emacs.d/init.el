@@ -2875,13 +2875,20 @@ make TAGS in that directory."
 
   (my-set-dark-mode nil))
 
+(defun my-toggle-alpha-background ()
+  (interactive)
+  (set-frame-parameter nil 'alpha-background
+		       (if (frame-parameter nil 'alpha-background)
+			   nil 75)))
+
 (defhydra my-theme-hydra ()
   "Theme"
   ("y" (lambda () (interactive) (my-theme-dark 1)) "nordic-night")
   ("u" (lambda () (interactive) (my-theme-dark 0)) "reykjavik")
   ("i" (lambda () (interactive) (my-theme-light 2)) "ef-cyprus")
   ("o" (lambda () (interactive) (my-theme-dark 3)) "ef-autumn")
-  ("p" (lambda () (interactive) (my-theme-dark 2)) "ef-winter"))
+  ("p" (lambda () (interactive) (my-theme-dark 2)) "ef-winter")
+  ("t" #'my-toggle-alpha-background "toggle alpha-background"))
 
 (global-set-key (kbd "C-c i") 'my-theme-hydra/body)
 
