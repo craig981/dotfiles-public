@@ -82,7 +82,7 @@
    '(magit-insert-error-header magit-insert-diff-filter-header magit-insert-repo-header magit-insert-head-branch-header magit-insert-upstream-branch-header magit-insert-push-branch-header magit-insert-tags-header))
  '(magit-status-show-hashes-in-headers t)
  '(next-error-recenter '(4))
- '(olivetti-body-width 130)
+ '(olivetti-body-width 120)
  '(org-agenda-file-regexp "\\`[^.].*\\.org\\(\\.gpg\\)?\\'")
  '(org-agenda-show-future-repeats nil)
  '(org-agenda-skip-scheduled-if-done t)
@@ -555,7 +555,6 @@ copy the basename."
 (global-set-key (kbd "C-c c") #'my-copy-filename)
 (global-set-key (kbd "C-c q") #'my-close-other-window)
 (global-set-key (kbd "C-c n") #'toggle-truncate-lines)
-(global-set-key (kbd "C-c o") 'olivetti-mode)
 (global-set-key (kbd "C-c w") 'evil-window-map)
 (global-set-key (kbd "C-c w SPC") #'world-clock)
 (global-set-key (kbd "C-c m") #'my-mirror-buffer)
@@ -678,6 +677,24 @@ copy the basename."
 (define-key minibuffer-local-map (kbd "<escape>") 'abort-minibuffers)
 
 ;; ----------------------------------------------------------------------------
+;;| Olivetti
+;; ----------------------------------------------------------------------------
+
+(defvar my-olivetti-state nil)
+
+(defun my-olivetti-mode-hook ()
+  (setq my-olivetti-state olivetti-mode))
+
+(defun my-olivetti-mode-on-hook ()
+  (toggle-truncate-lines -1)
+  (visual-line-mode -1))
+
+(add-hook 'olivetti-mode-hook 'my-olivetti-mode-hook)
+(add-hook 'olivetti-mode-on-hook 'my-olivetti-mode-on-hook)
+
+(global-set-key (kbd "C-c o") #'olivetti-mode)
+
+;; ----------------------------------------------------------------------------
 ;;| Pulse
 ;; ----------------------------------------------------------------------------
 
@@ -743,6 +760,8 @@ copy the basename."
 (defun my-prog-mode-hook ()
   (abbrev-mode -1)
   (evil-local-mode 1)
+  (when my-olivetti-state
+    (olivetti-mode 1))
   (setq-local show-trailing-whitespace t)
   (setq-local abbrev-expand-function #'my-abbrev-expand))
 
@@ -907,6 +926,8 @@ copy the basename."
   (turn-on-auto-fill)
   (my-syntax-entry)
   (evil-local-mode 1)
+  (when my-olivetti-state
+    (olivetti-mode 1))
   ;; (evil-emacs-state)
   (setq-local evil-move-beyond-eol t))
 
@@ -929,6 +950,8 @@ copy the basename."
   (turn-on-auto-fill)
   (my-syntax-entry)
   (evil-local-mode 1)
+  (when my-olivetti-state
+    (olivetti-mode 1))
   ;; (evil-emacs-state)
   ;; = is punctuation, so evil * works on key and val separately for key=val
   (modify-syntax-entry ?= ".")
@@ -1085,6 +1108,8 @@ copy the basename."
 
   (evil-local-mode 1)
   ;; (evil-emacs-state)
+  (when my-olivetti-state
+    (olivetti-mode 1))
 
   ;; / is punctuation, so evil * works on path components
   (modify-syntax-entry ?/ ".")
