@@ -733,6 +733,7 @@ copy the basename."
 (with-eval-after-load "man"
   (define-key Man-mode-map (kbd "C-w") 'evil-window-map)
   (define-key Man-mode-map (kbd "SPC") evil-leader--default-map)
+  (define-key Man-mode-map (kbd "k") nil)
   (define-key Man-mode-map (kbd "M-p") nil)
   (define-key Man-mode-map (kbd "M-n") nil))
 
