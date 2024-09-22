@@ -815,7 +815,10 @@ copy the basename."
     (format "\"%s\"" (buffer-substring-no-properties (region-beginning) (region-end))))
    ((or (eq major-mode 'c++-mode)
 	(eq major-mode 'c-mode))
-    (my-cpp-identifier-around-point))
+    ;; remove class/namespace
+    (when-let ((sym (my-cpp-identifier-around-point))
+	       (beg (string-match-p "[^:]*$" sym)))
+      (substring sym beg)))
    (t (thing-at-point 'symbol t))))
 
 (defhydra my-lookup-hydra (:exit t)
