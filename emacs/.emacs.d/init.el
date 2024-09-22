@@ -2881,11 +2881,13 @@ make TAGS in that directory."
 
   (my-set-dark-mode nil))
 
+(defvar my-alpha 90)
+
 (defun my-toggle-alpha-background ()
   (interactive)
   (set-frame-parameter nil 'alpha-background
 		       (if (frame-parameter nil 'alpha-background)
-			   nil 90)))
+			   nil my-alpha)))
 
 (defhydra my-theme-hydra ()
   "Theme"
@@ -2894,7 +2896,9 @@ make TAGS in that directory."
   ("i" (lambda () (interactive) (my-theme-light 2)) "ef-cyprus")
   ("o" (lambda () (interactive) (my-theme-dark 3)) "ef-autumn")
   ("p" (lambda () (interactive) (my-theme-dark 2)) "ef-winter")
-  ("t" #'my-toggle-alpha-background "toggle alpha-background"))
+  ("t" #'my-toggle-alpha-background "toggle alpha-background")
+  ("0" (lambda () (interactive) (set-frame-parameter nil 'alpha-background 0)) "transparent")
+  ("9" (lambda () (interactive) (set-frame-parameter nil 'alpha-background my-alpha)) "blend"))
 
 (global-set-key (kbd "C-c i") 'my-theme-hydra/body)
 
