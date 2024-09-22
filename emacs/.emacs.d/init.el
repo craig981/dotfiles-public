@@ -2884,7 +2884,7 @@ make TAGS in that directory."
   (interactive)
   (set-frame-parameter nil 'alpha-background
 		       (if (frame-parameter nil 'alpha-background)
-			   nil 75)))
+			   nil 90)))
 
 (defhydra my-theme-hydra ()
   "Theme"
