@@ -354,9 +354,6 @@
 (when (version< emacs-version "29.1")
   (defalias 'yes-or-no-p 'y-or-n-p))
 
-(setq display-time-day-and-date
-      (if (string= "goose" (system-name)) nil t))
-
 ;; (column-number-mode t)
 
 (show-paren-mode)
