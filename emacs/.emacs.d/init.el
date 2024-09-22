@@ -677,7 +677,7 @@ copy the basename."
 ;;| Olivetti
 ;; ----------------------------------------------------------------------------
 
-(defvar my-olivetti-state nil)
+(defvar my-olivetti-state t)
 
 (defun my-olivetti-mode-hook ()
   (setq my-olivetti-state olivetti-mode))
@@ -2920,7 +2920,10 @@ make TAGS in that directory."
       (my-theme-dark 2))
      (t (my-theme-dark 0))))
 
-  (my-font-config))
+  (my-font-config)
+
+  (when (string= "goose" (system-name))
+    (my-toggle-alpha-background)))
 
 (add-hook 'window-setup-hook 'my-window-setup-hook)
 
