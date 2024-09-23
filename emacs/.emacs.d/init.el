@@ -1758,7 +1758,7 @@ empty string."
  (t
   (setq my-projects '(("~/dev" . 2)))))
 
-(dolist (d '("~/dotfiles-public" "~/dotfiles" "~/notefiles"))
+(dolist (d `("~/dotfiles-public" "~/dotfiles" "~/notefiles" ,org-directory))
   (when (file-directory-p d)
     (push `(,d . 1) my-projects)))
 
