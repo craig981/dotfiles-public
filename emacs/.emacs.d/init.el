@@ -2191,20 +2191,23 @@ return the project path instead"
 	 (buf (generate-new-buffer (concat "*shell:" name "*"))))
     (shell buf)))
 
-(defun my-jump-to-shell ()
-  (interactive)
-  (let ((target (or (car (match-buffers "^\\*gud\\*$"))
-		    (car (match-buffers "^\\*gud-.*\\*$"))
-		    (get-buffer "*compilation*<2>")
-		    (get-buffer "*Async Shell Command*")
-		    ;; Not space to avoid *Shell Command Output* buffer
-		    (car (match-buffers "^\\*e?shell[^ ]+")))))
-    (if target
-	(let ((w (get-buffer-window target)))
-          (if w
-              (select-window w)
-            (switch-to-buffer target)))
-      (message "No shell to jump to"))))
+(defun my-match-shell-predicate (buffer-or-name &optional arg)
+  "Predicate for match-buffers to find shells."
+  (let ((name (if (bufferp buffer-or-name)
+		  (buffer-name buffer-or-name)
+		buffer-or-name)))
+    (or (string-match-p "^\\*e?shell[^ ]+"	     name) ;; Not space to avoid *Shell Command Output* buffer
+	(string-match-p "\\*ansi-term\\*"            name)
+	(string-match-p "\\*Async Shell Command\\*$" name)
+	(string-match-p "\\*compilation\\*<[0-9]+>"  name)
+	(string-match-p "^\\*gud\\*$"		     name)
+	(string-match-p "^\\*gud-.*\\*$"	     name))))
+
+(defun my-jump-to-shell (&optional other)
+  (interactive "P")
+  (if-let ((target (car (match-buffers 'my-match-shell-predicate))))
+      (my-jump-buffer target other)
+    (message "No shell to jump to")))
 
 (defun my-shell-ctrl-d ()
   "first C-d ends the shell, second C-d deletes the buffer and
@@ -2246,7 +2249,7 @@ return the project path instead"
 
 (global-set-key (kbd "C-c t S") 'my-project-shell)
 (global-set-key (kbd "C-c t s") 'my-shell)
-(global-set-key (kbd "C-c h") 'my-jump-to-shell)
+(global-set-key (kbd "C-M-'") 'my-jump-to-shell)
 
 (when (eq system-type 'windows-nt)
   (setq-default shell-file-name "bash.exe"))
