@@ -458,12 +458,16 @@ copy the basename."
   (when (> (count-windows) 1)
     (quit-window nil (next-window))))
 
-(defun my-jump-buffer (name)
+(defun my-jump-buffer (name &optional other)
   (interactive)
   (let ((w (get-buffer-window name)))
-      (if w
-	  (select-window w)
-	(switch-to-buffer name))))
+    (cond
+     (w
+      (select-window w))
+     (other
+      (switch-to-buffer-other-window name))
+     (t
+      (switch-to-buffer name)))))
 
 (defun my-join-line ()
   (interactive)
@@ -2054,6 +2058,7 @@ return the project path instead"
 (global-set-key (kbd "C-c C-,") #'recompile)
 (global-set-key (kbd "C-c ,") #'recompile)
 (global-set-key (kbd "C-c g") (lambda () (interactive) (my-jump-buffer "*compilation*")))
+(global-set-key (kbd "C-c h") (lambda () (interactive) (my-jump-buffer "*Help*" t)))
 (define-key compilation-mode-map (kbd "SPC") evil-leader--default-map)
 (define-key compilation-mode-map (kbd "C-w") 'evil-window-map)
 (define-key compilation-mode-map (kbd "g") nil)
