@@ -118,6 +118,7 @@
    "-o ControlMaster=auto -o ControlPath=tramp.%%C -o ControlPersist=60m" t)
  '(undo-tree-auto-save-history nil)
  '(use-short-answers t)
+ '(vertico-count 15)
  '(warning-suppress-types '((comp)))
  '(world-clock-list
    '(("America/Los_Angeles" "Los Angeles")
