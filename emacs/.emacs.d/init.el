@@ -740,7 +740,10 @@ copy the basename."
 
 (push '("\\(\\*[Hh]elp\\*\\)\\|\\(\\*Man\\)"
 	(display-buffer-reuse-mode-window
-	 display-buffer-use-least-recent-window))
+	 display-buffer-use-some-window
+	 display-buffer-in-direction)
+	(direction . right)
+	(inhibit-same-window . t))
       display-buffer-alist)
 
 (require 'devdocs)
