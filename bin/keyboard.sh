@@ -38,6 +38,10 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     gsettings set org.gnome.shell.extensions.dash-to-dock app-hotkey-2 "[]"
     gsettings set org.gnome.shell.extensions.dash-to-dock app-hotkey-3 "[]"
     gsettings set org.gnome.shell.extensions.dash-to-dock app-hotkey-4 "[]"
+    gsettings set org.gnome.shell.keybindings switch-to-application-1 "[]"
+    gsettings set org.gnome.shell.keybindings switch-to-application-2 "[]"
+    gsettings set org.gnome.shell.keybindings switch-to-application-3 "[]"
+    gsettings set org.gnome.shell.keybindings switch-to-application-4 "[]"
 
     # launchers
     gsettings set org.gnome.settings-daemon.plugins.media-keys terminal "['<Super>Return']"
