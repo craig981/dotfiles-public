@@ -1488,7 +1488,12 @@ empty string."
   "Search project"
   (interactive "P")
   (let* ((consult-preview-key 'any)
-	 (sym (thing-at-point 'symbol t))
+	 (sym (cond
+	       ((and prefix
+		     (or (eq major-mode 'c++-mode)
+			 (eq major-mode 'c-mode)))
+		(my-cpp-identifier-around-point))
+	       (t (thing-at-point 'symbol t))))
 	 (initial (if sym (format "\\<%s\\>" sym) nil)))
     (consult-ripgrep nil initial)))
 
