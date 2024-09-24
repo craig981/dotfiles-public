@@ -1651,6 +1651,8 @@ empty string."
 
 (with-eval-after-load 'ibuffer
   (define-key ibuffer-mode-map (kbd "M-o") nil)
+  (define-key ibuffer-mode-map (kbd "M-n") nil)
+  (define-key ibuffer-mode-map (kbd "M-p") nil)
 
   (require 'ibuffer-project)
 
