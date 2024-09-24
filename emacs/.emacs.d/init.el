@@ -64,6 +64,7 @@
  '(helm-source-names-using-follow '("Imenu" "Helm occur"))
  '(hide-ifdef-initially t)
  '(hide-ifdef-shadow t)
+ '(ibuffer-project-root-functions '((ibuffer-project-project-root . "Project")))
  '(image-dired-dir "/tmp/image-dired")
  '(image-dired-thumb-height 100)
  '(image-dired-thumb-width 100)
@@ -94,7 +95,7 @@
  '(org-startup-indented t)
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
-   '(cape cmake-mode consult devdocs ef-themes embark embark-consult elfeed emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless ox-pandoc paredit reykjavik-theme soft-morning-theme terminal-here undo-tree vertico wgrep which-key yaml-mode))
+   '(cape cmake-mode consult devdocs ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless ox-pandoc paredit reykjavik-theme soft-morning-theme terminal-here undo-tree vertico wgrep which-key yaml-mode))
  '(package-vc-selected-packages
    '((sandcastle-theme :vc-backend Git :url "https://github.com/habamax/sandcastle-theme")))
  '(project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
@@ -1649,7 +1650,14 @@ empty string."
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 (with-eval-after-load 'ibuffer
-  (define-key ibuffer-mode-map (kbd "M-o") nil))
+  (define-key ibuffer-mode-map (kbd "M-o") nil)
+
+  (require 'ibuffer-project)
+
+  (defun my-ibuffer-hook ()
+    (setq ibuffer-filter-groups (ibuffer-project-generate-filter-groups)))
+
+  (add-hook 'ibuffer-hook 'my-ibuffer-hook))
 
 ;; ----------------------------------------------------------------------------
 ;;| Complete filenames
