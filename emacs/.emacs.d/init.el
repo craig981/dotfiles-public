@@ -2201,7 +2201,7 @@ return the project path instead"
 		buffer-or-name)))
     (or (string-match-p "^\\*e?shell[^ ]+"	     name) ;; Not space to avoid *Shell Command Output* buffer
 	(string-match-p "\\*ansi-term\\*"            name)
-	(string-match-p "\\*Async Shell Command\\*$" name)
+	(string-match-p "\\*Async Shell Command\\*"  name)
 	(string-match-p "\\*compilation\\*<[0-9]+>"  name)
 	(string-match-p "^\\*gud\\*$"		     name)
 	(string-match-p "^\\*gud-.*\\*$"	     name))))
@@ -2256,6 +2256,10 @@ return the project path instead"
 
 (when (eq system-type 'windows-nt)
   (setq-default shell-file-name "bash.exe"))
+
+(push '("\\*Async Shell Command\\*"
+        (display-buffer-no-window))
+      display-buffer-alist)
 
 ;; ----------------------------------------------------------------------------
 ;;| Term
