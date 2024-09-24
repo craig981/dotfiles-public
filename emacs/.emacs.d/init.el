@@ -1940,6 +1940,7 @@ return the project path instead"
    (setq dired-guess-shell-alist-user '(("\\.exr\\'" "djv")
 					("\\.mp4\\'" "mpv")
 					("\\.mkv\\'" "mpv")
+					("\\.pdf\\'" "evince")
 					("" "open"))))
 
   ('darwin
