@@ -2958,6 +2958,14 @@ make TAGS in that directory."
 
   (my-font-config)
 
+  (when (eq system-type 'gnu/linux)
+    ;; hide window title bar
+    (set-frame-parameter nil 'undecorated t)
+    ;; allow mouse resize at edges
+    ;; (set-frame-parameter nil 'drag-internal-border 1)
+    ;; (set-frame-parameter nil 'internal-border-width 5)
+    )
+
   (when (string= "goose" (system-name))
     (my-toggle-alpha-background)))
 
