@@ -95,6 +95,11 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
 	command+=( ~/dev/macDict/macDict.sh )
 	binding+=( '<Super>d' )
     fi
+    if command -v kitty > /dev/null 2>&1; then
+	name+=( "kitty" )
+	command+=( kitty )
+	binding+=( '<Super>k' )
+    fi
 
     if [[ "$(hostname)" = "goose" ]]; then
 	# disable screen brightness keys with default step of 5 (requires session restart)
