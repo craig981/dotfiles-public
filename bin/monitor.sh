@@ -11,6 +11,8 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     gsettings set org.gnome.shell.extensions.dash-to-dock extend-height false
     # auto hide dock
     gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false
+    # don't display dock when no window overlaps it, e.g. on empty desktops
+    gsettings set org.gnome.shell.extensions.dash-to-dock intellihide false
     # screen blank
     gsettings set org.gnome.desktop.session idle-delay 1800
 fi
