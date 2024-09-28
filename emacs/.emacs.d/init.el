@@ -1662,7 +1662,7 @@ empty string."
   (defun my-ibuffer-hook ()
     (setq ibuffer-filter-groups (ibuffer-project-generate-filter-groups)))
 
-  (add-hook 'ibuffer-hook 'my-ibuffer-hook))
+  (add-hook 'ibuffer-mode-hook 'my-ibuffer-hook))
 
 ;; ----------------------------------------------------------------------------
 ;;| Complete filenames
