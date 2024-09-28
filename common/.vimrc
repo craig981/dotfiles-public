@@ -233,7 +233,8 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 			let theme = trim(system("gsettings get org.gnome.desktop.interface color-scheme"))
 		endif
 		if theme == "'prefer-dark'"
-			colorscheme reykjavik
+			colorscheme sorbet
+			" colorscheme reykjavik
 		else
 			colorscheme silkworm
 		endif
