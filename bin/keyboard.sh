@@ -80,6 +80,11 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     name=()
     command=()
     binding=()
+    if [[ -x /usr/bin/nautilus ]]; then
+	name+=( "nautilus" )
+	command+=( nautilus )
+	binding+=( '<Super>f' )
+    fi
     if [[ -x ~/tools/bin/emacs ]]; then
 	name+=( "emacs" )
 	command+=( ~/tools/bin/emacs )
