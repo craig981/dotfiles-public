@@ -561,7 +561,7 @@ copy the basename."
 (global-set-key (kbd "C-c w") 'evil-window-map)
 (global-set-key (kbd "C-c w SPC") #'world-clock)
 (global-set-key (kbd "C-c m") #'my-mirror-buffer)
-(global-set-key (kbd "C-c z") #'my-find-init-file)
+(global-set-key (kbd "C-c i") #'my-find-init-file)
 
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 (global-set-key (kbd "M-=") 'winner-undo)
@@ -2933,7 +2933,7 @@ make TAGS in that directory."
   ("0" (lambda () (interactive) (set-frame-parameter nil 'alpha-background 0)) "transparent")
   ("9" (lambda () (interactive) (set-frame-parameter nil 'alpha-background my-alpha)) "blend"))
 
-(global-set-key (kbd "C-c i") 'my-theme-hydra/body)
+(global-set-key (kbd "C-c z") 'my-theme-hydra/body)
 
 ;; ----------------------------------------------------------------------------
 ;;| Window setup
