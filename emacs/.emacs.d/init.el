@@ -774,6 +774,8 @@ copy the basename."
   (evil-local-mode 1)
   (when my-olivetti-state
     (olivetti-mode 1))
+  (auto-fill-mode 1)
+  (setq-local comment-auto-fill-only-comments t)
   (setq-local show-trailing-whitespace t)
   (setq-local abbrev-expand-function #'my-abbrev-expand))
 
@@ -2607,7 +2609,6 @@ make TAGS in that directory."
 (defun my-cc-settings (path)
   (modify-syntax-entry ?_ "w")
   (evil-local-set-key 'normal (kbd "[#") 'c-up-conditional)
-  (auto-fill-mode -1)
 
   (hide-ifdef-mode 1)
   (add-hook 'after-save-hook 'hide-ifdefs 'append 'local)
