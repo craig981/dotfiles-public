@@ -356,7 +356,7 @@
 (when (version< emacs-version "29.1")
   (defalias 'yes-or-no-p 'y-or-n-p))
 
-;; (column-number-mode t)
+(column-number-mode t)
 
 (show-paren-mode)
 (setq-default
