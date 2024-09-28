@@ -5,6 +5,8 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     gsettings set org.gnome.settings-daemon.plugins.power ambient-enabled false
     # show battery percentage
     gsettings set org.gnome.desktop.interface show-battery-percentage true
+    # no workspace switching animation
+    gsettings set org.gnome.desktop.interface enable-animations false
     # no home icon on desktop
     gsettings set org.gnome.shell.extensions.ding show-home false
     # dock panel mode off
