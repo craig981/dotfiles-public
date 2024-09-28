@@ -2958,8 +2958,9 @@ make TAGS in that directory."
 
   (my-font-config)
 
-  (when (eq system-type 'gnu/linux)
-    ;; hide window title bar
+  (when (and (eq system-type 'gnu/linux)
+	     (string= (getenv "XDG_SESSION_TYPE") "wayland"))
+    ;; hide window title bar. wayland only, breaks under X11 gnome.
     (set-frame-parameter nil 'undecorated t)
     ;; allow mouse resize at edges
     ;; (set-frame-parameter nil 'drag-internal-border 1)
