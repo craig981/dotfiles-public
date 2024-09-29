@@ -1263,13 +1263,16 @@ copy the basename."
 
 (defun my-set-evil-local-mode-in-agenda-buffers (state)
   "Enable/disable evil-local-mode in all org-agenda-files buffers"
-  (dolist (f (org-agenda-files))
-    (let ((b (get-file-buffer f)))
-      (when b
+  (let ((state-func (if (and state
+			     (memq 'org-mode evil-emacs-state-modes))
+			#'evil-emacs-state
+		      #'evil-normal-state)))
+    (dolist (f (org-agenda-files))
+      (when-let ((b (get-file-buffer f)))
 	(with-current-buffer b
 	  (evil-local-mode state)
 	  (when state
-	    (evil-normal-state)))))))
+	    (funcall state-func)))))))
 
 (defun my-advise-org-agenda-todo (func &rest args)
   "Switch off evil-local-mode in all org-agenda-files buffers before
