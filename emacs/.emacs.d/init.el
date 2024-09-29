@@ -1566,12 +1566,11 @@ empty string."
         (window-height . 10))
       display-buffer-alist)
 
-;;; use vertico for completion-at-point, but not in shell buffers when
-;;; completing file/directory names or when completing makefile targets in the
-;;; minibuffer after running M-x compile
+;;; use vertico for completion-at-point, but not when completing
+;;; file/directory names in shell/comint
 (setq completion-in-region-function
       (lambda (&rest args)
-        (apply (if (and vertico-mode (not (or (derived-mode-p 'minibuffer-mode)
+        (apply (if (and vertico-mode (not (or ;;(derived-mode-p 'minibuffer-mode)
 					      (derived-mode-p 'comint-mode)
 					      (derived-mode-p 'eshell-mode))))
 		   #'consult-completion-in-region
