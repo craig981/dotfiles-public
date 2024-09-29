@@ -561,7 +561,7 @@ copy the basename."
 (global-set-key (kbd "C-c w") 'evil-window-map)
 (global-set-key (kbd "C-c w SPC") #'world-clock)
 (global-set-key (kbd "C-c m") #'my-mirror-buffer)
-(global-set-key (kbd "C-c i") #'my-find-init-file)
+(global-set-key (kbd "C-c z") #'my-find-init-file)
 
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 (global-set-key (kbd "M-=") 'winner-undo)
@@ -2924,16 +2924,16 @@ make TAGS in that directory."
 
 (defhydra my-theme-hydra ()
   "Theme"
-  ("y" (lambda () (interactive) (my-theme-dark 1)) "nordic-night")
+  ("y" (lambda () (interactive) (my-theme-dark 2)) "ef-winter")
   ("u" (lambda () (interactive) (my-theme-dark 0)) "reykjavik")
-  ("i" (lambda () (interactive) (my-theme-light 2)) "ef-cyprus")
-  ("o" (lambda () (interactive) (my-theme-dark 3)) "ef-autumn")
-  ("p" (lambda () (interactive) (my-theme-dark 2)) "ef-winter")
+  ("i" (lambda () (interactive)))
+  ("o" (lambda () (interactive) (my-theme-light 2)) "ef-cyprus")
+  ("p" (lambda () (interactive) (my-theme-dark 3)) "ef-autumn")
   ("t" #'my-toggle-alpha-background "toggle alpha-background")
   ("0" (lambda () (interactive) (set-frame-parameter nil 'alpha-background 0)) "transparent")
   ("9" (lambda () (interactive) (set-frame-parameter nil 'alpha-background my-alpha)) "blend"))
 
-(global-set-key (kbd "C-c z") 'my-theme-hydra/body)
+(global-set-key (kbd "C-c i") 'my-theme-hydra/body)
 
 ;; ----------------------------------------------------------------------------
 ;;| Window setup
