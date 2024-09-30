@@ -969,7 +969,6 @@ copy the basename."
   (evil-local-mode 1)
   (when my-olivetti-state
     (olivetti-mode 1))
-  ;; (evil-emacs-state)
   ;; = is punctuation, so evil * works on key and val separately for key=val
   (modify-syntax-entry ?= ".")
   (setq-local completion-at-point-functions '(my-complete-word-ispell))
@@ -991,6 +990,8 @@ copy the basename."
 (setq compose-mail-user-agent-warnings nil)
 
 (global-set-key (kbd "C-x m") #'my-scratch-message-buffer)
+
+;; (push 'message-mode evil-emacs-state-modes)
 
 ;; ----------------------------------------------------------------------------
 ;;| Calendar
@@ -1018,6 +1019,8 @@ copy the basename."
 
 ;;; attempt to workaround org 9.6 flakey agenda display
 (setq org-element-use-cache nil)
+
+;; (push 'org-mode evil-emacs-state-modes)
 
 (defun my-optional-file (fn)
   (if (file-exists-p fn) fn nil))
@@ -1124,7 +1127,6 @@ copy the basename."
 (defun my-org-mode-hook ()
 
   (evil-local-mode 1)
-  ;; (evil-emacs-state)
   (when my-olivetti-state
     (olivetti-mode 1))
 
