@@ -538,8 +538,6 @@ copy the basename."
     (my-substitute ".,$")))
 
 (evil-leader/set-key "=" #'align-regexp)
-(evil-leader/set-key "\\" #'c-backslash-region)
-(evil-leader/set-key "d" 'pwd)
 (evil-leader/set-key "SPC" (kbd "=i{"))
 
 (when (eq system-type 'gnu/linux)
