@@ -606,6 +606,7 @@ copy the basename."
 (global-set-key (kbd "C-c C-j") 'goto-last-change)
 (global-set-key (kbd "C-c M-f") #'flyspell-buffer)
 (global-set-key (kbd "C-c M-s") #'ispell)
+(global-set-key (kbd "C-z") nil)
 
 (evil-global-set-key 'normal (kbd "]s") 'flyspell-goto-next-error)
 (evil-global-set-key 'normal (kbd "[s")
@@ -2185,9 +2186,16 @@ return the project path instead"
 ;;| Shell
 ;; ----------------------------------------------------------------------------
 
+(defun my-shell-ctrl-r ()
+  (interactive)
+  (if (comint-after-pmark-p)
+      (consult-history)
+    (call-interactively 'isearch-backward)))
+
 (with-eval-after-load 'shell
   (define-key shell-mode-map (kbd "M-_") 'comint-insert-previous-argument)
   (define-key shell-mode-map (kbd "SPC") 'comint-magic-space)
+  (define-key shell-mode-map (kbd "C-r") 'my-shell-ctrl-r)
   (define-key shell-mode-map (kbd "C-d") 'my-shell-ctrl-d))
 
 (defun my-project-buffer-name (mode)
