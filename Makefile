@@ -9,7 +9,7 @@ all:
 
 ifeq ($(osuname),Linux)
 	stow -v emacs
-	stow -v mate
+	stow -v gnome
 endif
 ifeq ($(osuname),Darwin)
 	stow -v emacs
