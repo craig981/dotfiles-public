@@ -31,6 +31,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(comint-prompt-read-only t)
  '(compilation-ask-about-save nil)
  '(compilation-scroll-output t)
  '(compilation-skip-threshold 2)
@@ -2158,42 +2159,47 @@ return the project path instead"
 ;;| Comint
 ;; ----------------------------------------------------------------------------
 
-(setq comint-prompt-read-only t)
+(defun my-comint-ctrl-r ()
+  (interactive)
+  (if (comint-after-pmark-p)
+      (if vertico-mode
+	  (consult-history)
+	(comint-dynamic-list-input-ring))
+    (call-interactively 'isearch-backward)))
+
+(defun my-comint-ret ()
+  "When the cursor is in the middle of the shell output, stop the
+return key from pasting the whole lot back and executing it."
+  (interactive)
+  (if (comint-after-pmark-p)
+      (comint-send-input)
+    (message "Point is before process mark, NOT sending")))
+
+(defun my-comint-ctrl-d ()
+  "The first C-d ends the process, second C-d deletes the buffer and
+  closes the window."
+  (interactive)
+  (if (get-buffer-process (current-buffer))
+      (progn
+	;; Fix "shell-apply-ansi-color: Text is read-only" error
+	(advice-add 'comint-send-eof :override #'process-send-eof)
+	(unwind-protect
+	    (comint-delchar-or-maybe-eof 1)
+	  (advice-remove 'comint-send-eof #'process-send-eof)))
+    (kill-buffer)
+    (if (> (count-windows) 1)
+	(delete-window))))
 
 (with-eval-after-load 'comint
-  (define-key comint-mode-map (kbd "C-c C-l") (lambda ()
-						(interactive)
-						(if vertico-mode
-						    (consult-history)
-						  (comint-dynamic-list-input-ring))))
+  (define-key comint-mode-map (kbd "M-_") 'comint-insert-previous-argument)
   (define-key comint-mode-map (kbd "M-r") 'move-to-window-line-top-bottom)
-  (define-key comint-mode-map (kbd "C-r") 'comint-history-isearch-backward)
-
-  ;; When the cursor is in the middle of the shell output, stop the
-  ;; return key from pasting the whole lot back and executing it
-  (define-key comint-mode-map
-    (kbd (if (display-graphic-p) "<return>" "RET"))
-    (lambda ()
-      (interactive)
-      (if (comint-after-pmark-p)
-	  (comint-send-input)
-	(message "Point is before process mark, NOT sending")))))
+  (define-key comint-mode-map (kbd "C-r") 'my-comint-ctrl-r)
+  (define-key comint-mode-map (kbd "C-d") 'my-comint-ctrl-d)
+  (define-key comint-mode-map (kbd "RET") 'my-comint-ret))
 
 ;; ----------------------------------------------------------------------------
 ;;| Shell
 ;; ----------------------------------------------------------------------------
-
-(defun my-shell-ctrl-r ()
-  (interactive)
-  (if (comint-after-pmark-p)
-      (consult-history)
-    (call-interactively 'isearch-backward)))
-
-(with-eval-after-load 'shell
-  (define-key shell-mode-map (kbd "M-_") 'comint-insert-previous-argument)
-  (define-key shell-mode-map (kbd "SPC") 'comint-magic-space)
-  (define-key shell-mode-map (kbd "C-r") 'my-shell-ctrl-r)
-  (define-key shell-mode-map (kbd "C-d") 'my-shell-ctrl-d))
 
 (defun my-project-buffer-name (mode)
   (concat "*" (downcase mode)
@@ -2238,21 +2244,6 @@ return the project path instead"
       (my-jump-buffer target other)
     (message "No shell to jump to")))
 
-(defun my-shell-ctrl-d ()
-  "first C-d ends the shell, second C-d deletes the buffer and
-  closes the window"
-  (interactive)
-  (if (get-buffer-process (current-buffer))
-      (progn
-	;; Fix "shell-apply-ansi-color: Text is read-only" error
-	(advice-add 'comint-send-eof :override #'process-send-eof)
-	(unwind-protect
-	    (comint-delchar-or-maybe-eof 1)
-	  (advice-remove 'comint-send-eof #'process-send-eof)))
-    (kill-buffer)
-    (if (> (count-windows) 1)
-	(delete-window))))
-
 (defun my-shell-hook ()
   (undo-tree-mode -1)			; don't shadow M-_
   (fancy-dabbrev-mode -1)
@@ -2268,17 +2259,12 @@ return the project path instead"
 
 (add-hook 'shell-mode-hook 'my-shell-hook)
 
-(defun my-sh-mode-hook ()
-  (my-syntax-entry)
-  ;; all these are symbols by default, want them as punctuation
-  (dolist (c '(?! ?% ?* ?, ?. ?: ?^ ?~))
-    (modify-syntax-entry c ".")))
-
-(add-hook 'sh-mode-hook 'my-sh-mode-hook)
-
 (global-set-key (kbd "C-c t S") 'my-project-shell)
 (global-set-key (kbd "C-c t s") 'my-shell)
 (global-set-key (kbd "C-M-'") 'my-jump-to-shell)
+
+(with-eval-after-load 'shell
+  (define-key shell-mode-map (kbd "SPC") 'comint-magic-space))
 
 (when (eq system-type 'windows-nt)
   (setq-default shell-file-name "bash.exe"))
@@ -2286,6 +2272,14 @@ return the project path instead"
 (push '("\\*Async Shell Command\\*"
         (display-buffer-no-window))
       display-buffer-alist)
+
+(defun my-sh-mode-hook ()
+  (my-syntax-entry)
+  ;; all these are symbols by default, want them as punctuation
+  (dolist (c '(?! ?% ?* ?, ?. ?: ?^ ?~))
+    (modify-syntax-entry c ".")))
+
+(add-hook 'sh-mode-hook 'my-sh-mode-hook)
 
 ;; ----------------------------------------------------------------------------
 ;;| Term
