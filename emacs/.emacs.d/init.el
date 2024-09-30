@@ -818,16 +818,18 @@ copy the basename."
 	 (sym (buffer-substring-no-properties beg end)))
     (if (string-empty-p sym) nil sym)))
 
+(defun my-cpp-identifier-without-namespace (sym)
+  (when sym
+    (when-let ((beg (string-match-p "[^:]*$" sym)))
+      (substring sym beg))))
+
 (defun my-lookup-sym ()
   (cond
    (mark-active
     (format "\"%s\"" (buffer-substring-no-properties (region-beginning) (region-end))))
    ((or (eq major-mode 'c++-mode)
 	(eq major-mode 'c-mode))
-    ;; remove class/namespace
-    (when-let ((sym (my-cpp-identifier-around-point))
-	       (beg (string-match-p "[^:]*$" sym)))
-      (substring sym beg)))
+    (my-cpp-identifier-without-namespace (my-cpp-identifier-around-point)))
    (t (thing-at-point 'symbol t))))
 
 (defhydra my-lookup-hydra (:exit t)
