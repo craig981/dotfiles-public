@@ -2663,9 +2663,23 @@ make TAGS in that directory."
   > - "\n"
   > "return 0;\n}\n")
 
+(defun my-advise-c-defun-name-and-limits (name-limits)
+  "Remove the namespace from c-display-defun-name"
+  (nconc (list (my-cpp-identifier-without-namespace (car name-limits)))
+	 (cdr name-limits)))
+
+(defun my-kill-c-function-name ()
+  "Kill the name of the current C/C++ function, without namespace"
+  (interactive)
+  (advice-add 'c-defun-name-and-limits :filter-return 'my-advise-c-defun-name-and-limits)
+  (unwind-protect
+      (c-display-defun-name t)
+    (advice-remove 'c-defun-name-and-limits 'my-advise-c-defun-name-and-limits)))
+
 (with-eval-after-load "cc-mode"
   (define-key c-mode-base-map (kbd "C-c C-b") nil) ; don't want c-submit-bug-report
   (define-key c-mode-base-map (kbd "C-c C-i") #'my-jump-to-header)
+  (define-key c-mode-base-map (kbd "C-M-d") 'my-kill-c-function-name)
 
   (dolist (table (list c-mode-abbrev-table c++-mode-abbrev-table))
     (define-abbrev table "in"   "" 'my-cpp-include)
@@ -2677,13 +2691,6 @@ make TAGS in that directory."
 
 (auto-insert-mode 1)
 (define-auto-insert "\\.h\\'" 'my-cpp-include-guard)
-
-(defun my-advise-c-defun-name-and-limits (name-limits)
-  "Remove the namespace from c-display-defun-name"
-  (nconc (list (my-cpp-identifier-without-namespace (car name-limits)))
-	 (cdr name-limits)))
-
-(advice-add 'c-defun-name-and-limits :filter-return 'my-advise-c-defun-name-and-limits)
 
 ;; ----------------------------------------------------------------------------
 ;;| Maya, Houdini, Arnold
