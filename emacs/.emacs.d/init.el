@@ -2679,7 +2679,7 @@ make TAGS in that directory."
 (with-eval-after-load "cc-mode"
   (define-key c-mode-base-map (kbd "C-c C-b") nil) ; don't want c-submit-bug-report
   (define-key c-mode-base-map (kbd "C-c C-i") #'my-jump-to-header)
-  (define-key c-mode-base-map (kbd "C-M-d") 'my-kill-c-function-name)
+  (define-key c-mode-base-map (kbd "C-c C-f") 'my-kill-c-function-name)
 
   (dolist (table (list c-mode-abbrev-table c++-mode-abbrev-table))
     (define-abbrev table "in"   "" 'my-cpp-include)
