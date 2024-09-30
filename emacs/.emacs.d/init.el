@@ -119,6 +119,7 @@
  '(undo-tree-auto-save-history nil)
  '(use-short-answers t)
  '(vertico-count 15)
+ '(vertico-group-format nil)
  '(warning-suppress-types '((comp)))
  '(world-clock-list
    '(("America/Los_Angeles" "Los Angeles")
@@ -1429,11 +1430,8 @@ empty string."
 ;; ----------------------------------------------------------------------------
 
 (require 'vertico)
-(require 'vertico-directory)
+;; (require 'vertico-directory)
 (vertico-mode)
-
-;; (setq vertico-count-format nil)
-(setq vertico-group-format nil)
 
 (define-key vertico-map (kbd "C-j") nil)
 (define-key vertico-map (kbd "C-h f")
