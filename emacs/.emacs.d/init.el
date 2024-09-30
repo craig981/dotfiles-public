@@ -2678,6 +2678,13 @@ make TAGS in that directory."
 (auto-insert-mode 1)
 (define-auto-insert "\\.h\\'" 'my-cpp-include-guard)
 
+(defun my-advise-c-defun-name-and-limits (name-limits)
+  "Remove the namespace from c-display-defun-name"
+  (nconc (list (my-cpp-identifier-without-namespace (car name-limits)))
+	 (cdr name-limits)))
+
+(advice-add 'c-defun-name-and-limits :filter-return 'my-advise-c-defun-name-and-limits)
+
 ;; ----------------------------------------------------------------------------
 ;;| Maya, Houdini, Arnold
 ;; ----------------------------------------------------------------------------
