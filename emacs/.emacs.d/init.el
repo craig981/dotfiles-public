@@ -994,19 +994,6 @@ copy the basename."
 ;; (push 'message-mode evil-emacs-state-modes)
 
 ;; ----------------------------------------------------------------------------
-;;| Calendar
-;; ----------------------------------------------------------------------------
-
-(setq-default calendar-week-start-day 1) ;; start on monday
-
-(push '("\\*Calendar\\*"
-        (display-buffer-reuse-window display-buffer-below-selected)
-        (window-height . 10))
-      display-buffer-alist)
-
-(global-set-key (kbd "C-c M-r") 'calendar)
-
-;; ----------------------------------------------------------------------------
 ;;| Org
 ;; ----------------------------------------------------------------------------
 
@@ -1358,6 +1345,19 @@ empty string."
 	       '("expenses this month" "%(binary) -f %(ledger-file) bal -S \"-abs(total)\" ^Expenses: --period 'this month'"))
   (add-to-list 'ledger-reports
 	       '("expenses last month" "%(binary) -f %(ledger-file) bal -S \"-abs(total)\" ^Expenses: --period 'last month'")))
+
+;; ----------------------------------------------------------------------------
+;;| Calendar
+;; ----------------------------------------------------------------------------
+
+(setq-default calendar-week-start-day 1) ;; start on monday
+
+(push '("\\*Calendar\\*"
+        (display-buffer-reuse-window display-buffer-below-selected)
+        (window-height . 10))
+      display-buffer-alist)
+
+(global-set-key (kbd "C-c M-r") 'calendar)
 
 ;; ----------------------------------------------------------------------------
 ;;| Calc
