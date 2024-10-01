@@ -966,7 +966,6 @@ copy the basename."
     (message-mode)))
 
 (defun my-message-mode-hook ()
-  (turn-on-auto-fill)
   (my-syntax-entry)
   (evil-local-mode 1)
   (when my-olivetti-state
@@ -974,7 +973,6 @@ copy the basename."
   ;; = is punctuation, so evil * works on key and val separately for key=val
   (modify-syntax-entry ?= ".")
   (setq-local completion-at-point-functions '(my-complete-word-ispell))
-  (setq-local fill-column 72)
   (setq-local show-trailing-whitespace t)
   (setq-local evil-move-beyond-eol t)
   ;; stop paragraph lines after the first being extra indented by M-q
