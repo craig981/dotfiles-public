@@ -980,6 +980,11 @@ copy the basename."
 
 (add-hook 'message-mode-hook 'my-message-mode-hook)
 
+;;; make auto fill work in message mode, given that we don't have headers and
+;;; are just using the message buffer as scratch space
+(defun my-advise-message-point-in-header-p () nil)
+(advice-add 'message-point-in-header-p :override 'my-advise-message-point-in-header-p)
+
 (with-eval-after-load "message"
   (define-key message-mode-map (kbd "C-M-i") #'complete-symbol)
   (define-key message-mode-map (kbd "C-c C-c") nil)
