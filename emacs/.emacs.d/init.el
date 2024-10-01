@@ -475,7 +475,9 @@ copy the basename."
 
 (defun my-join-line ()
   (interactive)
-  (join-line 1))
+  (when (or (not evil-local-mode)
+	    (evil-emacs-state-p))
+    (join-line 1)))
 
 (defun my-mark-until-whitespace ()
   "Select until the next whitespace char"
@@ -604,7 +606,7 @@ copy the basename."
 (global-set-key (kbd "C-c C-j") 'goto-last-change)
 (global-set-key (kbd "C-c M-f") #'flyspell-buffer)
 (global-set-key (kbd "C-c M-s") #'ispell)
-(global-set-key (kbd "C-z") 'my-join-line)
+(global-set-key (kbd "C-c j") 'my-join-line)
 
 (evil-global-set-key 'normal (kbd "]s") 'flyspell-goto-next-error)
 (evil-global-set-key 'normal (kbd "[s")
@@ -987,6 +989,7 @@ copy the basename."
 
 (with-eval-after-load "message"
   (define-key message-mode-map (kbd "C-M-i") #'complete-symbol)
+  (define-key message-mode-map (kbd "C-c C-j") nil)
   (define-key message-mode-map (kbd "C-c C-c") nil)
   (define-key message-mode-map (kbd "C-c C-s") nil))
 
