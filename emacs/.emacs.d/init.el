@@ -1499,16 +1499,17 @@ empty string."
      (t (consult-imenu)))))
 
 (defun my-ripgrep-project (&optional prefix)
-  "Search project. Prefix opens in other window. Would prefer to
-delay the choice of other-window, but it seems like
-consult--buffer-display has to be set before consult-ripgrep is
-invoked."
+  "Search project. Prefix takes C++ identifier instead of symbol if
+in C/C++ mode."
   (interactive "P")
   (let* ((consult-preview-key 'any)
-	 (consult--buffer-display (if prefix
-				      #'switch-to-buffer-other-window
-				    #'switch-to-buffer))
-	 (sym (thing-at-point 'symbol t))
+	 (consult--buffer-display #'switch-to-buffer-other-window)
+	 (sym (cond
+	       ((and prefix
+		     (or (eq major-mode 'c++-mode)
+			 (eq major-mode 'c-mode)))
+		(my-cpp-identifier-around-point))
+	       (t (thing-at-point 'symbol t))))
 	 (initial (if sym (format "\\<%s\\>" sym) nil)))
     (consult-ripgrep nil initial)))
 
