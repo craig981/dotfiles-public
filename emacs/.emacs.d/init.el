@@ -991,7 +991,7 @@ copy the basename."
 
 (global-set-key (kbd "C-x m") #'my-scratch-message-buffer)
 
-;; (push 'message-mode evil-emacs-state-modes)
+(push 'message-mode evil-emacs-state-modes)
 
 ;; ----------------------------------------------------------------------------
 ;;| Org
