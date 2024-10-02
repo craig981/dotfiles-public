@@ -1153,9 +1153,6 @@ copy the basename."
   (when (evil-normal-state-p)
     (evil-insert-state)))
 
-(defun my-org-src-hook ()
-  (evil-local-mode 1))
-
 ;;; https://www.youtube.com/watch?v=UpeKWYFe9fU
 (defun my-org-attach-save-file-list-to-property (dir)
   "Save list of attachments to ORG_ATTACH_FILES property."
@@ -1164,7 +1161,6 @@ copy the basename."
 
 (add-hook 'org-mode-hook 'my-org-mode-hook)
 (add-hook 'org-capture-mode-hook 'my-org-capture-hook)
-(add-hook 'org-src-mode-hook 'my-org-src-hook)
 (add-hook 'org-attach-after-change-hook 'my-org-attach-save-file-list-to-property)
 
 (defun my-org-clock-jump ()
