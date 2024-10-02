@@ -1894,6 +1894,7 @@ return the project path instead"
 (global-set-key (kbd "C-c p d") #'my-choose-project-and-dired)
 (global-set-key (kbd "C-c p s") #'my-choose-project-and-shell)
 (global-set-key (kbd "C-c p t") #'my-choose-project-and-term)
+(global-set-key (kbd "C-c p n") #'my-jump-notefiles)
 
 (global-set-key (kbd "C-c e") 'my-find-file-in-project)
 (global-set-key (kbd "C-c u") 'my-find-file-in-project-other-window)
@@ -1901,7 +1902,6 @@ return the project path instead"
 
 (evil-leader/set-key "e" 'my-find-file-in-project)
 (evil-leader/set-key "u" 'my-find-file-in-project-other-window)
-(evil-leader/set-key "n" 'my-jump-notefiles)
 
 ;; ----------------------------------------------------------------------------
 ;;| Isearch
