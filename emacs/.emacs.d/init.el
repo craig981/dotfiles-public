@@ -587,7 +587,7 @@ copy the basename."
 (evil-leader/set-key "t"   #'tab-to-tab-stop)
 (evil-leader/set-key "M-t" #'tab-to-tab-stop)
 
-(global-set-key (kbd "C-M-y") #'evil-yank-line)
+(global-set-key (kbd "C-M-y") #'my-duplicate-line)
 (global-set-key (kbd "C-M-o") #'my-open-line-above)
 (global-set-key (kbd "C-o") #'my-open-line-below)
 (when (display-graphic-p)
@@ -1328,8 +1328,7 @@ empty string."
 
 (when (display-graphic-p)
   (evil-global-set-key 'normal (kbd "C-.") nil)
-  (global-set-key (kbd "C-c q") 'my-agenda)
-  (global-set-key (kbd "<LaunchB>") 'my-agenda))
+  (global-set-key (kbd "C-c q") 'my-agenda))
 
 (evil-leader/set-key-for-mode 'org-mode "c" 'my-insert-org-src-block)
 (evil-leader/set-key-for-mode 'org-mode "SPC" 'my-goto-random-line)
