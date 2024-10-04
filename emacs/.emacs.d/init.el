@@ -558,7 +558,6 @@ copy the basename."
 (global-set-key (kbd "C-=") #'my-close-other-window)
 (global-set-key (kbd "C-c d") #'pwd)
 (global-set-key (kbd "C-c c") #'my-copy-filename)
-(global-set-key (kbd "C-c q") #'my-close-other-window)
 (global-set-key (kbd "C-c n") #'toggle-truncate-lines)
 (global-set-key (kbd "C-c w") 'evil-window-map)
 (global-set-key (kbd "C-c w SPC") #'world-clock)
@@ -1320,14 +1319,17 @@ empty string."
 (global-set-key (kbd "C-c M-t") #'my-wrap-org-link)
 (global-set-key (kbd "C-c C-x C-j") 'my-org-clock-jump)
 
+(defun my-agenda ()
+  (interactive)
+  (org-agenda nil ".")
+  (when (string= "goose" (system-name))
+    ;; hide work tasks
+    (org-agenda-filter-by-tag '(4) ?w)))
+
 (when (display-graphic-p)
   (evil-global-set-key 'normal (kbd "C-.") nil)
-  (global-set-key (kbd "C-.") (lambda ()
-				(interactive)
-				(org-agenda nil ".")
-				(when (string= "goose" (system-name))
-				  ;; hide work tasks
-                                  (org-agenda-filter-by-tag '(4) ?w)))))
+  (global-set-key (kbd "C-c q") 'my-agenda)
+  (global-set-key (kbd "<LaunchB>") 'my-agenda))
 
 (evil-leader/set-key-for-mode 'org-mode "c" 'my-insert-org-src-block)
 (evil-leader/set-key-for-mode 'org-mode "SPC" 'my-goto-random-line)
