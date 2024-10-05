@@ -1062,6 +1062,9 @@ copy the basename."
   (push '("p" "Project" entry (file+headline org-default-notes-file "Tasks")
 	  "* TODO %? :project:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
 	org-capture-templates)
+  (push '("j" "Journal" entry (file+olp+datetree "journal.org.gpg")
+	  "* %<%H:%M>\n\n%?" :jump-to-captured t :empty-lines 1)
+	org-capture-templates)
 
   (defun my-revert-gcal-before-agenda ()
     "Revert buffer for gcal.org so the agenda displays the latest contents"
