@@ -2891,9 +2891,9 @@ make TAGS in that directory."
 (defhydra my-theme-hydra ()
   "Theme"
   ("y" (lambda () (interactive) (my-theme-dark 2)) "ef-winter")
-  ("u" (lambda () (interactive) (my-theme-dark 0)) "reykjavik")
+  ("u" (lambda () (interactive) (my-theme-light 2)) "ef-cyprus")
   ("i" (lambda () (interactive)))
-  ("o" (lambda () (interactive) (my-theme-light 2)) "ef-cyprus")
+  ("o" (lambda () (interactive) (my-theme-dark 0)) "reykjavik")
   ("p" (lambda () (interactive) (my-theme-dark 3)) "ef-autumn")
   ("t" #'my-toggle-alpha-background "toggle alpha-background")
   ("0" (lambda () (interactive) (set-frame-parameter nil 'alpha-background 0)) "transparent")
