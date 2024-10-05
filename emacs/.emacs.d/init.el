@@ -98,7 +98,7 @@
  '(org-startup-indented t)
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
-   '(cape cmake-mode consult ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless ox-pandoc paredit reykjavik-theme soft-morning-theme terminal-here undo-tree vertico wgrep which-key yaml-mode))
+   '(cape cmake-mode consult ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless ox-pandoc paredit reykjavik-theme soft-morning-theme undo-tree vertico wgrep which-key yaml-mode))
  '(package-vc-selected-packages
    '((sandcastle-theme :vc-backend Git :url "https://github.com/habamax/sandcastle-theme")))
  '(project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
@@ -115,7 +115,6 @@
      (evil-shift-width . 4)))
  '(shift-select-mode nil)
  '(tags-case-fold-search nil)
- '(terminal-here-mac-terminal-command 'iterm2)
  '(tramp-histfile-override "/tmp/.tramp_history")
  '(tramp-ssh-controlmaster-options
    "-o ControlMaster=auto -o ControlPath=tramp.%%C -o ControlPersist=60m" t)
@@ -1878,7 +1877,9 @@ return the project path instead"
 
 (defun my-choose-project-and-term ()
   (interactive)
-  (my-choose-project-and-invoke #'terminal-here-launch))
+  (my-choose-project-and-invoke (lambda ()
+				  (interactive)
+				  (call-interactively #'ansi-term))))
 
 (defun my-jump-notefiles ()
   (interactive)
@@ -2302,18 +2303,6 @@ return key from pasting the whole lot back and executing it."
   (my-expose-global-binding term-raw-map (kbd "C-j")))
 
 (global-set-key (kbd "C-c t a") 'ansi-term)
-
-(require 'terminal-here)
-
-(global-set-key (kbd "C-c t h") #'terminal-here-launch)
-
-(when (eq system-type 'gnu/linux)
-  (push '(mate-terminal "mate-terminal") terminal-here-terminal-command-table)
-  (let ((desktop (getenv "XDG_CURRENT_DESKTOP")))
-    (setq terminal-here-linux-terminal-command
-	  (cond
-	   ((string= desktop "MATE") 'mate-terminal)
-	   (t 'gnome-terminal)))))
 
 ;; ----------------------------------------------------------------------------
 ;;| Tags
