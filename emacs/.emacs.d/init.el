@@ -98,7 +98,7 @@
  '(org-startup-indented t)
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
-   '(cape cmake-mode consult devdocs ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless ox-pandoc paredit reykjavik-theme soft-morning-theme terminal-here undo-tree vertico wgrep which-key yaml-mode))
+   '(cape cmake-mode consult ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless ox-pandoc paredit reykjavik-theme soft-morning-theme terminal-here undo-tree vertico wgrep which-key yaml-mode))
  '(package-vc-selected-packages
    '((sandcastle-theme :vc-backend Git :url "https://github.com/habamax/sandcastle-theme")))
  '(project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
@@ -750,9 +750,6 @@ copy the basename."
 	(direction . right)
 	(inhibit-same-window . t))
       display-buffer-alist)
-
-(require 'devdocs)
-(global-set-key (kbd "M-s M-d") #'devdocs-lookup)
 
 ;; ----------------------------------------------------------------------------
 ;;| Abbreviations
@@ -2107,8 +2104,7 @@ return the project path instead"
 ;; ----------------------------------------------------------------------------
 
 (defun my-makefile-hook ()
-  (my-syntax-entry)
-  (setq-local devdocs-current-docs '("gnu_make")))
+  (my-syntax-entry))
 (add-hook 'makefile-mode-hook 'my-makefile-hook)
 
 (defun my-makefile-no-warn-suspicious-lines ())
@@ -2116,8 +2112,7 @@ return the project path instead"
 
 (with-eval-after-load "cmake-mode"
   (defun my-cmake-hook ()
-    (my-syntax-entry)
-    (setq-local devdocs-current-docs '("cmake~3.26")))
+    (my-syntax-entry))
   (add-hook 'cmake-mode-hook 'my-cmake-hook))
 
 ;; ----------------------------------------------------------------------------
@@ -2445,7 +2440,6 @@ make TAGS in that directory."
 
 (defun my-python-mode-hook ()
   (my-syntax-entry)
-  (setq-local devdocs-current-docs '("python~3.10"))
   (setq-local tab-width 4)
   (setq-local evil-shift-width 4))
 
@@ -2596,9 +2590,7 @@ make TAGS in that directory."
 	       (or (not fn)
 		   (string-prefix-p (expand-file-name "~/")
 				    (expand-file-name fn)))))
-    (my-find-tags-files))
-
-  (setq-local devdocs-current-docs '("cpp" "c")))
+    (my-find-tags-files)))
 
 (with-eval-after-load "hideif"
   ;; don't hide #ifdef FOO ... #endif, where FOO is undefined
