@@ -592,6 +592,7 @@ copy the basename."
 (global-set-key (kbd "C-M-y") #'my-duplicate-line)
 (global-set-key (kbd "C-M-o") #'my-open-line-above)
 (global-set-key (kbd "C-o") #'my-open-line-below)
+(global-set-key (kbd "C-;") #'goto-last-change)
 (when (display-graphic-p)
  (global-set-key (kbd "C-<backspace>") #'my-delete-to-indent))
 
@@ -604,7 +605,6 @@ copy the basename."
 (global-set-key (kbd "C-x !") 'delete-other-windows-vertically)
 (global-set-key (kbd "C-x g") 'subword-mode)
 (global-set-key (kbd "C-x l") 'count-words-region)
-(global-set-key (kbd "C-c C-j") 'goto-last-change)
 (global-set-key (kbd "C-c M-f") #'flyspell-buffer)
 (global-set-key (kbd "C-c M-s") #'ispell)
 (global-set-key (kbd "C-c j") 'my-join-line)
