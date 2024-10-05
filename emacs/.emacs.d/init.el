@@ -1941,6 +1941,9 @@ return the project path instead"
 (setq dired-dwim-target t)
 (put 'dired-find-alternate-file 'disabled nil)
 
+;;; workaround annoyance of having to select the editing line with vertico
+(advice-add #'dired-do-rename :around #'my-disable-vertico)
+
 (defun my-org-attach-dired-move ()
   (interactive)
   (let ((org-attach-method 'mv))
