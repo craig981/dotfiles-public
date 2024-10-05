@@ -31,6 +31,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(calendar-date-style 'european)
+ '(calendar-week-start-day 1)
  '(comint-prompt-read-only t)
  '(compilation-ask-about-save nil)
  '(compilation-scroll-output t)
@@ -1328,7 +1330,8 @@ empty string."
 
 (when (display-graphic-p)
   (evil-global-set-key 'normal (kbd "C-.") nil)
-  (global-set-key (kbd "C-c q") 'my-agenda))
+  (global-set-key (kbd "C-c q") 'my-agenda)
+  (global-set-key (kbd "<LaunchB>") 'my-agenda))
 
 (evil-leader/set-key-for-mode 'org-mode "c" 'my-insert-org-src-block)
 (evil-leader/set-key-for-mode 'org-mode "SPC" 'my-goto-random-line)
@@ -1354,8 +1357,6 @@ empty string."
 ;; ----------------------------------------------------------------------------
 ;;| Calendar
 ;; ----------------------------------------------------------------------------
-
-(setq-default calendar-week-start-day 1) ;; start on monday
 
 (push '("\\*Calendar\\*"
         (display-buffer-reuse-window display-buffer-below-selected)
