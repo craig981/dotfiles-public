@@ -682,6 +682,9 @@ copy the basename."
 
 (define-key minibuffer-local-map (kbd "<escape>") 'abort-minibuffers)
 
+;;; stop accidentally moving out of the minibuffer
+(define-key minibuffer-local-map (kbd "M-o") (lambda () (interactive)))
+
 ;; ----------------------------------------------------------------------------
 ;;| Olivetti
 ;; ----------------------------------------------------------------------------
