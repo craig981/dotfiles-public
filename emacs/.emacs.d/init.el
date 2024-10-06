@@ -1330,6 +1330,7 @@ empty string."
 (when (display-graphic-p)
   (evil-global-set-key 'normal (kbd "C-.") nil)
   (global-set-key (kbd "C-c q") 'my-agenda)
+  (global-set-key (kbd "<XF86LaunchB>") 'my-agenda)
   (global-set-key (kbd "<LaunchB>") 'my-agenda))
 
 (evil-leader/set-key-for-mode 'org-mode "c" 'my-insert-org-src-block)
