@@ -198,7 +198,7 @@
 (setq evil-emacs-state-tag  (propertize "<E>" 'face '((:foreground "#000000" :background "goldenrod"))))
 
 (evil-leader/set-leader "<SPC>")
-(evil-leader/set-key "w" 'evil-write)
+(evil-leader/set-key "w" 'save-buffer)
 
 (evil-declare-ignore-repeat 'evil-scroll-line-to-center)
 (evil-declare-ignore-repeat 'hscroll-cursor-left)
