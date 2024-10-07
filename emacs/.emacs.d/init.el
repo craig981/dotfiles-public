@@ -478,7 +478,8 @@ copy the basename."
   (interactive)
   (when (or (not evil-local-mode)
 	    (evil-emacs-state-p))
-    (join-line 1)))
+    ;; join-line doesn't work on region
+    (call-interactively 'evil-join)))
 
 (defun my-mark-until-whitespace ()
   "Select until the next whitespace char"
