@@ -1537,13 +1537,13 @@ in C/C++ mode."
 
 (setq wgrep-enable-key "e")
 
-(defun my-rgrep-project ()
+(defun my-grep-project ()
   (interactive)
   (rgrep (read-string "Search for: " (format "\\<%s\\>" (thing-at-point 'symbol t)))
 	 "*" (my-find-project-root)))
 
-(evil-leader/set-key "M-f" 'my-rgrep-project)
-(evil-leader/set-key "f"   'my-rgrep-project)
+(evil-leader/set-key "M-f" 'my-grep-project)
+(evil-leader/set-key "f"   'my-grep-project)
 (evil-leader/set-key "M-g" 'rgrep)
 (evil-leader/set-key "g"   'rgrep)
 
