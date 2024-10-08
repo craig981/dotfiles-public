@@ -38,6 +38,7 @@
  '(compilation-scroll-output t)
  '(compilation-skip-threshold 2)
  '(compile-command "make ")
+ '(compose-mail-user-agent-warnings nil)
  '(consult-ripgrep-args
    "rg --null --line-buffered --color=never --max-columns=1000  --smart-case --no-heading --with-filename --line-number --no-search-zip --hidden -g !{.git,.svn,.hg}/ -g !TAGS -g !build/ --no-ignore")
  '(custom-safe-themes
@@ -85,6 +86,7 @@
  '(magit-status-headers-hook
    '(magit-insert-error-header magit-insert-diff-filter-header magit-insert-repo-header magit-insert-head-branch-header magit-insert-upstream-branch-header magit-insert-push-branch-header magit-insert-tags-header))
  '(magit-status-show-hashes-in-headers t)
+ '(message-auto-save-directory nil)
  '(next-error-recenter '(4))
  '(olivetti-body-width 120)
  '(org-agenda-file-regexp "\\`[^.].*\\.org\\(\\.gpg\\)?\\'")
@@ -978,6 +980,7 @@ copy the basename."
     (olivetti-mode 1))
   ;; = is punctuation, so evil * works on key and val separately for key=val
   (modify-syntax-entry ?= ".")
+  (setq-local tab-width 2)
   (setq-local completion-at-point-functions '(my-complete-word-ispell))
   (setq-local show-trailing-whitespace t)
   (setq-local evil-move-beyond-eol t)
@@ -986,24 +989,21 @@ copy the basename."
 
 (add-hook 'message-mode-hook 'my-message-mode-hook)
 
+;; (push 'message-mode evil-emacs-state-modes)
+
 ;;; make auto fill work in message mode, given that we don't have headers and
 ;;; are just using the message buffer as scratch space
 (defun my-advise-message-point-in-header-p () nil)
 (advice-add 'message-point-in-header-p :override 'my-advise-message-point-in-header-p)
 
 (with-eval-after-load "message"
+  (define-key message-mode-map (kbd "TAB") nil)
   (define-key message-mode-map (kbd "C-M-i") #'complete-symbol)
   (define-key message-mode-map (kbd "C-c C-j") nil)
   (define-key message-mode-map (kbd "C-c C-c") nil)
   (define-key message-mode-map (kbd "C-c C-s") nil))
 
-(setq-default message-auto-save-directory nil)
-
-(setq compose-mail-user-agent-warnings nil)
-
 (global-set-key (kbd "C-x m") #'my-scratch-message-buffer)
-
-(push 'message-mode evil-emacs-state-modes)
 
 ;; ----------------------------------------------------------------------------
 ;;| Org
