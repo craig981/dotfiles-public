@@ -338,10 +338,9 @@
 		(ffap-file-at-point))))
     (if (ffap-file-exists-string name)
 	(find-file name)
-      (call-interactively 'find-file-at-point))
-    (let ((file (buffer-file-name)))
-      (when file
-	(princ file)))))
+      (call-interactively 'ffap))
+    (when-let ((file (buffer-file-name)))
+      (princ file))))
 
 (defun my-ffap-match-non-existent (name)
   "Added at the end of the ffap-alist to throw a non-existent file"
