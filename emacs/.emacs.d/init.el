@@ -31,6 +31,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(auto-save-default nil)
  '(calendar-date-style 'european)
  '(calendar-week-start-day 1)
  '(comint-prompt-read-only t)
@@ -68,6 +69,8 @@
  '(helm-source-names-using-follow '("Imenu" "Helm occur"))
  '(hide-ifdef-initially t)
  '(hide-ifdef-shadow t)
+ '(history-delete-duplicates t)
+ '(history-length 1000)
  '(ibuffer-project-root-functions '((ibuffer-project-project-root . "Project")))
  '(image-dired-dir "/tmp/image-dired")
  '(image-dired-thumb-height 100)
@@ -90,23 +93,39 @@
  '(next-error-recenter '(4))
  '(olivetti-body-width 120)
  '(org-agenda-file-regexp "\\`[^.].*\\.org\\(\\.gpg\\)?\\'")
+ '(org-agenda-files '("~/" "~/org"))
+ '(org-agenda-restore-windows-after-quit t)
+ '(org-agenda-search-view-always-boolean t)
  '(org-agenda-show-future-repeats nil)
  '(org-agenda-skip-scheduled-if-done t)
  '(org-agenda-span 3)
+ '(org-agenda-start-on-weekday nil)
  '(org-blank-before-new-entry '((heading . auto) (plain-list-item)))
+ '(org-confirm-babel-evaluate nil)
+ '(org-directory "~/org")
+ '(org-fold-catch-invisible-edits 'smart)
  '(org-imenu-depth 3)
+ '(org-log-done 'time)
  '(org-modules '(ol-docview org-habit ol-info))
+ '(org-publish-use-timestamps-flag nil)
  '(org-refile-targets '((org-agenda-files :maxlevel . 3) (nil :maxlevel . 3)))
+ '(org-src-fontify-natively t)
+ '(org-startup-folded nil)
  '(org-startup-indented t)
+ '(org-todo-keywords
+   '((sequence "TODO(t)" "PROGRESS(p)" "WAIT(w@/@)" "BLOCK(b@/@)" "|" "DONE(d!/!)" "CANCELLED(c@/@)")))
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
    '(cape cmake-mode consult ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless ox-pandoc paredit reykjavik-theme soft-morning-theme undo-tree vertico wgrep which-key yaml-mode))
  '(package-vc-selected-packages
    '((sandcastle-theme :vc-backend Git :url "https://github.com/habamax/sandcastle-theme")))
  '(project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
+ '(read-buffer-completion-ignore-case t)
  '(read-quoted-char-radix 16)
  '(recentf-max-saved-items 1000)
+ '(register-preview-delay 0.5)
  '(remote-file-name-inhibit-locks t)
+ '(ring-bell-function 'ignore)
  '(safe-local-variable-values
    '((my-input-method . swedish-postfix)
      (my-input-method . german-postfix)
@@ -115,13 +134,18 @@
      (indent-tabs-mode nil)
      (evil-shift-width . 2)
      (evil-shift-width . 4)))
+ '(save-place-forget-unreadable-files nil)
  '(shift-select-mode nil)
+ '(show-paren-when-point-in-periphery t)
+ '(show-paren-when-point-inside-paren t)
+ '(show-trailing-whitespace nil)
  '(tags-case-fold-search nil)
  '(tramp-histfile-override "/tmp/.tramp_history")
  '(tramp-ssh-controlmaster-options
    "-o ControlMaster=auto -o ControlPath=tramp.%%C -o ControlPersist=60m" t)
  '(undo-tree-auto-save-history nil)
  '(use-short-answers t)
+ '(vc-follow-symlinks t)
  '(vertico-count 15)
  '(vertico-group-format nil)
  '(warning-suppress-types '((comp)))
@@ -363,11 +387,6 @@
 ;; (column-number-mode t)
 
 (show-paren-mode)
-(setq-default
- show-paren-when-point-inside-paren t
- show-paren-when-point-in-periphery t)
-
-(setq-default show-trailing-whitespace nil)
 
 (defun my-insert-enter-hook ()
   ;; temporarily disable update of syntax highlighting while in insert mode,
@@ -382,18 +401,11 @@
 (add-hook 'evil-insert-state-exit-hook 'my-insert-exit-hook)
 
 (setq next-error-highlight-no-select t) ;; leave highlight for occur
-(setq ring-bell-function 'ignore) ;; stop binging noise on C-g
-(setq register-preview-delay 0.5)
 
-(setq-default vc-follow-symlinks t)
 (setq-default backup-inhibited t)    ;; disable backup
-(setq-default auto-save-default nil) ;; disable auto save
 
 (recentf-mode 1)
 (save-place-mode 1)
-(setq save-place-forget-unreadable-files nil)
-(setq history-length 1000)
-(setq history-delete-duplicates t)
 (savehist-mode 1)
 (winner-mode 1)
 
@@ -1023,23 +1035,11 @@ copy the basename."
 (defun my-optional-file (fn)
   (if (file-exists-p fn) fn nil))
 
-(setq org-directory "~/org")
-(setq org-agenda-files (list "~/" "~/org"))
 (setq org-default-notes-file
       (or (my-optional-file "~/notes.org.gpg")
 	  (my-optional-file "~/org/work.org")))
-(setq org-log-done t)
-(setq org-agenda-start-on-weekday nil)
-(setq org-agenda-restore-windows-after-quit t)
-(setq org-agenda-search-view-always-boolean t)
 (setq org-html-validation-link nil)
-(setq org-publish-use-timestamps-flag nil)
-(setq org-catch-invisible-edits 'smart)
 (setq org-cycle-separator-lines 0)
-(setq org-src-fontify-natively t)
-(setq org-startup-folded nil)
-(setq org-confirm-babel-evaluate nil)
-(setq org-todo-keywords '((sequence "TODO(t)" "PROGRESS(p)" "WAIT(w@/@)" "BLOCK(b@/@)" "|" "DONE(d!/!)" "CANCELLED(c@/@)")))
 
 (require 'org-crypt)
 (org-crypt-use-before-save-magic)
@@ -1619,8 +1619,6 @@ in C/C++ mode."
 ;; ----------------------------------------------------------------------------
 ;;| Buffers
 ;; ----------------------------------------------------------------------------
-
-(setq read-buffer-completion-ignore-case t)
 
 (defun my-invoke-with-completion (func)
   (let ((v vertico-mode)
