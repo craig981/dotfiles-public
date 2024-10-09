@@ -934,12 +934,12 @@ copy the basename."
 
 ;; stop scrolling to centre when cursor is on first/last line and
 ;; moves up/down
-(setq-default scroll-up-aggressively 0.0)
-(setq-default scroll-down-aggressively 0.0)
-
-(setq-default auto-hscroll-mode 't
-	      hscroll-margin 5
-	      hscroll-step 5)
+(setq scroll-up-aggressively 0.0
+      scroll-down-aggressively 0.0
+      scroll-step 1
+      auto-hscroll-mode t
+      hscroll-margin 5
+      hscroll-step 0)
 
 (when (display-graphic-p)
   (pixel-scroll-precision-mode))
