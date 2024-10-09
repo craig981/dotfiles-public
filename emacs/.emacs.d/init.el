@@ -2284,6 +2284,9 @@ return key from pasting the whole lot back and executing it."
 
 (defun my-sh-mode-hook ()
   (my-syntax-entry)
+  (setq-local indent-tabs-mode nil)
+  (setq-local evil-shift-width 4)
+  (setq-local tab-width 4)
   ;; all these are symbols by default, want them as punctuation
   (dolist (c '(?! ?% ?* ?, ?. ?: ?^ ?~))
     (modify-syntax-entry c ".")))
