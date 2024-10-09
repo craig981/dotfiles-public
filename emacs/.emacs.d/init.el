@@ -1345,8 +1345,7 @@ empty string."
 ;;| Ledger
 ;; ----------------------------------------------------------------------------
 
-(when (string= "goose" (system-name))
-  (setq ledger-binary-path (expand-file-name "~/dotfiles-public/bin/ledger.bash")))
+(setq ledger-binary-path (expand-file-name "~/dotfiles-public/bin/ledger.sh"))
 
 (with-eval-after-load "ledger-report"
 
