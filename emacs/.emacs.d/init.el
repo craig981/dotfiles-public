@@ -128,7 +128,9 @@
  '(remote-file-name-inhibit-locks t)
  '(ring-bell-function 'ignore)
  '(safe-local-variable-values
-   '((my-input-method . swedish-postfix)
+   '((org-archive-location . "::")
+     (org-archive-location . "notes.org_archive.gpg::")
+     (my-input-method . swedish-postfix)
      (my-input-method . german-postfix)
      (buffer-auto-save-file-name)
      (tab-always-indent)
