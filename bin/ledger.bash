@@ -8,17 +8,17 @@ skip=0
 file=
 for a in "$@"; do
     if [[ "${a}" == "-f" ]]; then
-	new_args+=("-f")
-	new_args+=("-")
-	skip=2
+        new_args+=("-f")
+        new_args+=("-")
+        skip=2
     fi
     if (( "${skip}" )); then
-	if (( ${skip} == 1 )); then
-	    file="${a}"
-	fi
-	skip=$(( ${skip} - 1 ));
+        if (( ${skip} == 1 )); then
+            file="${a}"
+        fi
+        skip=$(( ${skip} - 1 ));
     else
-	new_args+=("${a}")
+        new_args+=("${a}")
     fi
 done
 
