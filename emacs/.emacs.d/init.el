@@ -1209,13 +1209,13 @@ copy the basename."
 		(thing-at-point 'word t))))
     (org-insert-structure-template (format "src %s" lang))))
 
-(defun my-goto-random-line ()
-  (interactive)
-  (goto-line (+ 1 (random
-		   (+ 1 (save-excursion
-			  (goto-char (point-max))
-			  (current-line))))))
-  (recenter nil t))
+;; (defun my-goto-random-line ()
+;;   (interactive)
+;;   (goto-line (+ 1 (random
+;; 		   (+ 1 (save-excursion
+;; 			  (goto-char (point-max))
+;; 			  (current-line))))))
+;;   (recenter nil t))
 
 (advice-add 'org-time-stamp-inactive :before #'my-forward-before-insert)
 (advice-add 'org-insert-last-stored-link :before #'my-forward-before-insert)
@@ -1339,7 +1339,7 @@ empty string."
   (global-set-key (kbd "<LaunchB>") 'my-agenda))
 
 (evil-leader/set-key-for-mode 'org-mode "c" 'my-insert-org-src-block)
-(evil-leader/set-key-for-mode 'org-mode "SPC" 'my-goto-random-line)
+;; (evil-leader/set-key-for-mode 'org-mode "SPC" 'my-goto-random-line)
 
 ;; ----------------------------------------------------------------------------
 ;;| Ledger
