@@ -104,6 +104,7 @@
  '(org-confirm-babel-evaluate nil)
  '(org-directory "~/org")
  '(org-fold-catch-invisible-edits 'smart)
+ '(org-html-validation-link nil)
  '(org-imenu-depth 3)
  '(org-log-done 'time)
  '(org-modules '(ol-docview org-habit ol-info))
@@ -1038,8 +1039,6 @@ copy the basename."
 (setq org-default-notes-file
       (or (my-optional-file "~/notes.org.gpg")
 	  (my-optional-file "~/org/work.org")))
-(setq org-html-validation-link nil)
-(setq org-cycle-separator-lines 0)
 
 (require 'org-crypt)
 (org-crypt-use-before-save-magic)
