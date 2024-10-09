@@ -1472,13 +1472,6 @@ empty string."
       (marginalia-mode m))))
 
 ;; ----------------------------------------------------------------------------
-;;| Orderless
-;; ----------------------------------------------------------------------------
-
-(require 'orderless)
-(setq completion-styles '(orderless flex))
-
-;; ----------------------------------------------------------------------------
 ;;| Consult
 ;; ----------------------------------------------------------------------------
 
@@ -1566,6 +1559,9 @@ in C/C++ mode."
 ;;| Completion
 ;; ----------------------------------------------------------------------------
 
+(require 'orderless)
+
+(setq completion-styles '(orderless flex))
 (setq completion-ignore-case t)
 (setq completion-show-help nil)
 (setq completion-auto-select 'second-tab)
