@@ -23,9 +23,13 @@ for a in "$@"; do
 done
 
 if [[ -z "${file}" ]]; then
-    echo "failed to find file in ledger argument list"
+    echo "$0 : failed to find file in argument list" 1>&2
     exit 1
 fi
 
-#set -xe
-gpg --decrypt "${file}" 2> /dev/null | ledger "${new_args[@]}"
+# set -xe
+if [[ "${file##*.}" == "gpg" ]]; then
+    gpg --decrypt "${file}" 2> /dev/null | ledger "${new_args[@]}"
+else
+    ledger "${@}"
+fi
