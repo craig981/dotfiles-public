@@ -10,7 +10,7 @@ if [[ "$#" -ne 1 ]]; then
     exit 1
 fi
 
-key=$(term_profile.sh)
+key=$(~/dotfiles-public/bin/term_profile.sh)
 if [[ $? -ne 0 || -z "${key}" ]]; then
     echo "$0 : failed to get gnome-terminal profile name from dconf " 1>&2
     exit 1

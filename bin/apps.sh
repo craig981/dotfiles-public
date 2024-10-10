@@ -6,7 +6,7 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
 
     # make gnome-terminal open tmux
     if command -v tmux > /dev/null 2>&1; then
-        key=$(term_profile.sh)
+        key=$(~/dotfiles-public/bin/term_profile.sh)
         if [[ $? -eq 0 && -n "${key}" ]]; then
             dconf write "${key}/use-custom-command" true
             dconf write "${key}/custom-command" "'tmux'"
