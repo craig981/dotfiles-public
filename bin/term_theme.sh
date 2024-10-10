@@ -10,14 +10,12 @@ if [[ "$#" -ne 1 ]]; then
     exit 1
 fi
 
-profile=$(dconf dump /org/gnome/terminal/  | grep -m 1 '^\[legacy/profiles' | tr -d '[]')
-
-if [[ -z "${profile}" ]]; then
-    echo "Failed to get gnome-terminal profile name from dconf " 1>&2
+key=$(term_profile.sh)
+if [[ $? -ne 0 || -z "${key}" ]]; then
+    echo "$0 : failed to get gnome-terminal profile name from dconf " 1>&2
     exit 1
 fi
 
-key="/org/gnome/terminal/${profile}"
 dconf write "${key}/use-theme-colors" false
 
 case "${1}" in
