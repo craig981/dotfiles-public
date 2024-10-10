@@ -1943,7 +1943,12 @@ return the project path instead"
 ;;; workaround annoyance of having to select the editing line with vertico
 (advice-add #'dired-do-rename :around #'my-disable-vertico)
 
-(defun my-org-attach-dired-move ()
+(defun my-org-attach-dired-cp ()
+  (interactive)
+  (let ((org-attach-method 'cp))
+    (call-interactively #'org-attach-dired-to-subtree)))
+
+(defun my-org-attach-dired-mv ()
   (interactive)
   (let ((org-attach-method 'mv))
     (call-interactively #'org-attach-dired-to-subtree)))
@@ -1951,9 +1956,8 @@ return the project path instead"
 (define-key dired-mode-map (kbd "SPC") evil-leader--default-map)
 (define-key dired-mode-map (kbd "C-w") 'evil-window-map)
 (define-key dired-mode-map (kbd ";") 'dired-up-directory)
-(define-key dired-mode-map (kbd "C-c C-x C-a") #'org-attach-dired-to-subtree)
-(define-key dired-mode-map (kbd "C-c C-x a") #'org-attach-dired-to-subtree)
-(define-key dired-mode-map (kbd "C-c C-x m") #'my-org-attach-dired-move)
+(define-key dired-mode-map (kbd "C-c C-a c") #'my-org-attach-dired-cp)
+(define-key dired-mode-map (kbd "C-c C-a m") #'my-org-attach-dired-mv)
 
 (defun my-dired-hook ()
   (auto-revert-mode 1))
