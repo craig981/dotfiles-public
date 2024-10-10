@@ -1,4 +1,8 @@
-#!/bin/tcsh -f
+#!/bin/bash
+
+case "$(hostname -s)" in
+    goose|hedgehog) exit 0 ;;
+esac
 
 echo \
 LA  `env TZ=America/Los_Angeles date +%R` " " \
