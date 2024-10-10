@@ -53,10 +53,10 @@ function lt() {
 	tree -C -a -I .git "$@" | less -R
 }
 
-alias d='imf_disp'
+# alias d='imf_disp'
 alias p='mplayer -really-quiet -loop 0 -fixed-vo'
-alias mu='cmus'
 alias abcll='abcls -almrstv'
+alias t='tmux'
 
 alias g='git st'
 alias gl='git lo'
