@@ -13,7 +13,7 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     # stop Super_L tap showing window overview
     gsettings set org.gnome.mutter overlay-key ''
 
-    case "$(hostname)" in
+    case "$(hostname -s)" in
 	"goose")
 
 	    gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier', 'altwin:swap_lalt_lwin', 'ctrl:swap_rwin_rctl', 'shift:both_capslock', 'lv3:ralt_alt']"
@@ -101,7 +101,7 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
 	binding+=( '<Super>k' )
     fi
 
-    if [[ "$(hostname)" = "goose" ]]; then
+    if [[ "$(hostname -s)" = "goose" ]]; then
 	# disable screen brightness keys with default step of 5 (requires session restart)
 	gsettings set org.gnome.settings-daemon.plugins.media-keys screen-brightness-down-static "['']"
 	gsettings set org.gnome.settings-daemon.plugins.media-keys screen-brightness-up-static "['']"
@@ -141,7 +141,7 @@ if [[ "$XDG_CURRENT_DESKTOP" = "MATE" ]]; then
     gsettings set org.mate.Marco.global-keybindings run-command-3 ''
 fi
 
-if [[ "$(hostname)" = "asusbox" ]]; then
+if [[ "$(hostname -s)" = "asusbox" ]]; then
     setxkbmap -option # back to default
     setxkbmap -option caps:ctrl_modifier
     setxkbmap -option ctrl:ralt_rctrl
