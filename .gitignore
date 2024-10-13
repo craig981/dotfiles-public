@@ -1,6 +1,6 @@
-common/.vim/autoload/plug.vim
-common/.vim/plugged
-common/.vim/.netrwhist
+vim/.vim/autoload/plug.vim
+vim/.vim/plugged
+vim/.vim/.netrwhist
 *.~undo-tree~
 emacs/.emacs.d/eshell/history
 emacs/.emacs.d/eshell/lastdir
