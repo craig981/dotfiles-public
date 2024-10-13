@@ -3,7 +3,6 @@ osuname := $(shell uname -s | cut -d- -f1)
 
 all:
 	[ -d "${HOME}/.emacs.d" ] || mkdir -p "${HOME}/.emacs.d"
-	#[ -d $(HOME)/dotfiles ] && $(MAKE) -C $(HOME)/dotfiles all
 
 	stow -v common
 	stow -v vim
@@ -16,15 +15,14 @@ ifeq ($(osuname),Darwin)
 	stow -v emacs
 	mkdir -p ~/Library/KeyBindings
 	cp -v mac/Library/KeyBindings/DefaultKeyBinding.dict ~/Library/KeyBindings/
-
 	# tic -o ~/.terminfo /Applications/Emacs.app/Contents/Resources/etc/e/eterm-color.ti
 endif
 ifeq ($(osuname),CYGWIN_NT)
 	cp -v win/emacs.bat win/.emacs ~/
 	cp -v emacs/.emacs.d/my-override-*-theme.el ~/.emacs.d/
 	unlink ~/.gitconfig && cp ~/dotfiles-public/common/.gitconfig ~/
-
 endif
+
 	[ -f ~/.vim/autoload/plug.vim ] || \
 		curl -o ~/.vim/autoload/plug.vim --create-dirs \
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
