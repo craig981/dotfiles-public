@@ -599,10 +599,10 @@ copy the basename."
 (global-set-key (kbd "M-s ,") 'my-isearch-symbol-backward)
 (global-set-key (kbd "M-s M-,") 'my-isearch-symbol-backward)
 
-(global-set-key (kbd "M-i") #'evil-scroll-up)
-(global-set-key (kbd "M-j") #'evil-scroll-down)
-(global-set-key (kbd "M-p") #'evil-scroll-line-up)
-(global-set-key (kbd "M-n") #'evil-scroll-line-down)
+(global-set-key (kbd "M-p") #'evil-scroll-up)
+(global-set-key (kbd "M-n") #'evil-scroll-down)
+(global-set-key (kbd "M-i") #'evil-scroll-line-up)
+(global-set-key (kbd "M-j") #'evil-scroll-line-down)
 (global-set-key (kbd "M-[") (kbd "M-{"))
 (global-set-key (kbd "M-]") (kbd "M-}"))
 (global-set-key (kbd "M-SPC") evil-leader--default-map)
@@ -1592,10 +1592,10 @@ in C/C++ mode."
 		 #'completion--in-region)
 	       args)))
 
-(defun my-icomplete-hook ()
-  (let ((inhibit-message t))
-    (toggle-truncate-lines 1)))
-(add-hook 'icomplete-minibuffer-setup-hook 'my-icomplete-hook)
+;; (defun my-icomplete-hook ()
+;;   (let ((inhibit-message t))
+;;     (toggle-truncate-lines 1)))
+;; (add-hook 'icomplete-minibuffer-setup-hook 'my-icomplete-hook)
 
 (setq icomplete-compute-delay 0.0)
 (setq icomplete-matches-format nil)
@@ -1605,13 +1605,9 @@ in C/C++ mode."
 ;; (icomplete-vertical-mode 1)
 
 (with-eval-after-load 'icomplete
-  (define-key icomplete-vertical-mode-minibuffer-map (kbd "RET") 'icomplete-force-complete-and-exit)
-  (define-key icomplete-minibuffer-map (kbd "RET") 'icomplete-force-complete-and-exit)
-  ;; TAB shows all completions in popup buffer
-  ;; (define-key icomplete-minibuffer-map (kbd "TAB") 'icomplete-force-complete)
-  ;; (define-key icomplete-minibuffer-map (kbd "C-j") 'ignore)
+  ;; by default TAB shows all completions in popup buffer, C-M-i does
+  ;; icomplete-force-complete, and C-j does icomplete-force-complete-and-exit
   (define-key icomplete-minibuffer-map (kbd "SPC") 'self-insert-command) ;; allow orderless to work
-  (define-key icomplete-minibuffer-map (kbd "C-j") 'icomplete-force-complete-and-exit)
   (define-key icomplete-minibuffer-map (kbd "C-s") 'icomplete-forward-completions)
   (define-key icomplete-minibuffer-map (kbd "C-r") 'icomplete-backward-completions))
 
@@ -2903,7 +2899,7 @@ make TAGS in that directory."
   "Theme"
   ("y" (lambda () (interactive) (my-theme-dark 2)) "ef-winter")
   ("u" (lambda () (interactive) (my-theme-light 2)) "ef-cyprus")
-  ("i" (lambda () (interactive)))
+  ("i" 'ignore)
   ("o" (lambda () (interactive) (my-theme-dark 0)) "reykjavik")
   ("p" (lambda () (interactive) (my-theme-dark 3)) "ef-autumn")
   ("t" #'my-toggle-alpha-background "toggle alpha-background")
