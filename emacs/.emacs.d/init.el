@@ -1343,8 +1343,9 @@ empty string."
 
 (when (display-graphic-p)
   (evil-global-set-key 'normal (kbd "C-.") nil)
-  (global-set-key (kbd "<XF86LaunchB>")	'my-org-capture-task)
-  (global-set-key (kbd "<LaunchB>")	'my-org-capture-task)
+  (global-set-key (kbd "<XF86LaunchB>")	'my-org-agenda)
+  (global-set-key (kbd "<LaunchB>")	'my-org-agenda)
+  (global-set-key (kbd "C-1")	        'my-org-capture-task)
   (global-set-key (kbd "C-c q")		'my-org-agenda))
 
 (evil-leader/set-key-for-mode 'org-mode "c" 'my-insert-org-src-block)
