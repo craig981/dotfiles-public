@@ -1321,15 +1321,6 @@ empty string."
       (setq b (cdr b)))
     (reverse res)))
 
-(global-set-key (kbd "C-'") (lambda ()
-			      (interactive)
-			      (find-file org-default-notes-file)))
-(global-set-key (kbd "C-c l") 'org-store-link)
-(global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-c x") 'org-capture)
-(global-set-key (kbd "C-c M-t") #'my-wrap-org-link)
-(global-set-key (kbd "C-c C-x C-j") 'my-org-clock-jump)
-
 (defun my-org-capture-task ()
   (interactive)
   (org-capture nil "t"))
@@ -1341,11 +1332,20 @@ empty string."
     ;; hide work tasks
     (org-agenda-filter-by-tag '(4) ?w)))
 
+(global-set-key (kbd "C-'") (lambda ()
+			      (interactive)
+			      (find-file org-default-notes-file)))
+(global-set-key (kbd "C-c l") 'org-store-link)
+(global-set-key (kbd "C-c a") 'org-agenda)
+(global-set-key (kbd "C-0")   'org-capture)
+(global-set-key (kbd "C-1")   'my-org-capture-task)
+(global-set-key (kbd "C-c M-t") 'my-wrap-org-link)
+(global-set-key (kbd "C-c C-x C-j") 'my-org-clock-jump)
+
 (when (display-graphic-p)
   (evil-global-set-key 'normal (kbd "C-.") nil)
   (global-set-key (kbd "<XF86LaunchB>")	'my-org-agenda)
   (global-set-key (kbd "<LaunchB>")	'my-org-agenda)
-  (global-set-key (kbd "C-1")	        'my-org-capture-task)
   (global-set-key (kbd "C-c q")		'my-org-agenda))
 
 (evil-leader/set-key-for-mode 'org-mode "c" 'my-insert-org-src-block)
