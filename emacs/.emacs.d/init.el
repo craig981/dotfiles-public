@@ -1052,7 +1052,7 @@ copy the basename."
 (setq org-capture-templates
       `(("m" "Bookmark" entry (file+headline org-default-notes-file "Bookmarks")
 	 "* %?\n")
-	("x" "Task" entry (file+headline org-default-notes-file "Tasks")
+	("t" "Task" entry (file+headline org-default-notes-file "Tasks")
 	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")))
 
 (when (string= "goose" (system-name))
@@ -1330,7 +1330,11 @@ empty string."
 (global-set-key (kbd "C-c M-t") #'my-wrap-org-link)
 (global-set-key (kbd "C-c C-x C-j") 'my-org-clock-jump)
 
-(defun my-agenda ()
+(defun my-org-capture-task ()
+  (interactive)
+  (org-capture nil "t"))
+
+(defun my-org-agenda ()
   (interactive)
   (org-agenda nil ".")
   (when (string= "goose" (system-name))
@@ -1339,9 +1343,9 @@ empty string."
 
 (when (display-graphic-p)
   (evil-global-set-key 'normal (kbd "C-.") nil)
-  (global-set-key (kbd "C-c q") 'my-agenda)
-  (global-set-key (kbd "<XF86LaunchB>") 'my-agenda)
-  (global-set-key (kbd "<LaunchB>") 'my-agenda))
+  (global-set-key (kbd "<XF86LaunchB>")	'my-org-capture-task)
+  (global-set-key (kbd "<LaunchB>")	'my-org-capture-task)
+  (global-set-key (kbd "C-c q")		'my-org-agenda))
 
 (evil-leader/set-key-for-mode 'org-mode "c" 'my-insert-org-src-block)
 ;; (evil-leader/set-key-for-mode 'org-mode "SPC" 'my-goto-random-line)
@@ -1606,8 +1610,10 @@ in C/C++ mode."
 
 (with-eval-after-load 'icomplete
   ;; by default TAB shows all completions in popup buffer, C-M-i does
-  ;; icomplete-force-complete, and C-j does icomplete-force-complete-and-exit
+  ;; icomplete-force-complete
   (define-key icomplete-minibuffer-map (kbd "SPC") 'self-insert-command) ;; allow orderless to work
+  (define-key icomplete-minibuffer-map (kbd "C-j") 'icomplete-ret)
+  (define-key icomplete-minibuffer-map (kbd "RET") 'icomplete-force-complete-and-exit)
   (define-key icomplete-minibuffer-map (kbd "C-s") 'icomplete-forward-completions)
   (define-key icomplete-minibuffer-map (kbd "C-r") 'icomplete-backward-completions))
 
