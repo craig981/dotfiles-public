@@ -1332,12 +1332,16 @@ empty string."
     ;; hide work tasks
     (org-agenda-filter-by-tag '(4) ?w)))
 
+(push '("\\*Org Select\\*"
+        (display-buffer-below-selected))
+      display-buffer-alist)
+
 (global-set-key (kbd "C-'") (lambda ()
 			      (interactive)
 			      (find-file org-default-notes-file)))
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
-(global-set-key (kbd "C-0")   'org-capture)
+(global-set-key (kbd "C-c x") 'org-capture)
 (global-set-key (kbd "C-1")   'my-org-capture-task)
 (global-set-key (kbd "C-c M-t") 'my-wrap-org-link)
 (global-set-key (kbd "C-c C-x C-j") 'my-org-clock-jump)
