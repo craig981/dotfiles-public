@@ -1214,14 +1214,6 @@ copy the basename."
 		(thing-at-point 'word t))))
     (org-insert-structure-template (format "src %s" lang))))
 
-;; (defun my-goto-random-line ()
-;;   (interactive)
-;;   (goto-line (+ 1 (random
-;; 		   (+ 1 (save-excursion
-;; 			  (goto-char (point-max))
-;; 			  (current-line))))))
-;;   (recenter nil t))
-
 (advice-add 'org-time-stamp-inactive :before #'my-forward-before-insert)
 (advice-add 'org-insert-last-stored-link :before #'my-forward-before-insert)
 (advice-add 'org-insert-link :before #'my-forward-before-insert)
@@ -1353,7 +1345,6 @@ empty string."
   (global-set-key (kbd "C-c q")		'my-org-agenda))
 
 (evil-leader/set-key-for-mode 'org-mode "c" 'my-insert-org-src-block)
-;; (evil-leader/set-key-for-mode 'org-mode "SPC" 'my-goto-random-line)
 
 ;; ----------------------------------------------------------------------------
 ;;| Ledger
@@ -1600,11 +1591,6 @@ in C/C++ mode."
 		   #'consult-completion-in-region
 		 #'completion--in-region)
 	       args)))
-
-;; (defun my-icomplete-hook ()
-;;   (let ((inhibit-message t))
-;;     (toggle-truncate-lines 1)))
-;; (add-hook 'icomplete-minibuffer-setup-hook 'my-icomplete-hook)
 
 (setq icomplete-compute-delay 0.0)
 (setq icomplete-matches-format nil)
