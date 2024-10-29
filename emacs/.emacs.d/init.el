@@ -2353,9 +2353,11 @@ make TAGS in that directory."
 (defun my-find-tags-files ()
   "Find TAGS files and set tags-table-list"
   (let ((all '())
-	(dirs (if (file-exists-p "~/dev/git")
-		  '("~/dev/git")
-		'("~/dev/"))))
+	(dirs (cond
+	       ((if-let ((project (project-current nil)))
+		    (list (project-root project))))
+	       ((file-exists-p "~/dev/git") '("~/dev/git"))
+	       (t '("~/dev/")))))
     (message (format "Searching for TAGS files under %s ..." dirs))
     (dolist (dir dirs)
       (setq all (nconc all (directory-files-recursively
