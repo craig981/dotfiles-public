@@ -1447,7 +1447,7 @@ empty string."
 ;; (require 'vertico-directory)
 (vertico-mode)
 
-(define-key vertico-map (kbd "C-j") nil)
+(define-key vertico-map (kbd "C-j") 'vertico-exit-input)
 (define-key vertico-map (kbd "C-h f")
   (lambda ()
     (interactive)
@@ -1484,9 +1484,10 @@ empty string."
 
 (define-key minibuffer-local-map (kbd "M-r") 'consult-history)
 
-(setq consult-preview-key "C-j")
+(setq consult-preview-key nil)
 
 (consult-customize consult-line :preview-key 'any)
+(consult-customize consult-theme :preview-key 'any)
 
 (defun my-imenu ()
   (interactive)
