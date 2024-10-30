@@ -1612,7 +1612,7 @@ in C/C++ mode."
 ;;| Buffers
 ;; ----------------------------------------------------------------------------
 
-(defun my-invoke-with-completion (func)
+(defun my-invoke-with-completion (func icomplete)
   (let ((v vertico-mode)
 	(m marginalia-mode)
 	(ic icomplete-mode)
@@ -1620,7 +1620,7 @@ in C/C++ mode."
     (vertico-mode 0)
     (marginalia-mode 0)
     (icomplete-vertical-mode -1)
-    (icomplete-mode 1)
+    (icomplete-mode icomplete)
     (unwind-protect
 	(call-interactively func)
       (icomplete-mode -1)
@@ -1638,15 +1638,15 @@ in C/C++ mode."
 	  (string= "*Async Shell Command*"
 		   (buffer-name (current-buffer))))
       (kill-this-buffer)
-    (my-invoke-with-completion #'kill-buffer)))
+    (my-invoke-with-completion #'kill-buffer -1)))
 
 (defun my-switch-buffer ()
   (interactive)
-  (my-invoke-with-completion #'consult-buffer))
+  (my-invoke-with-completion #'consult-buffer 1))
 
 (defun my-switch-buffer-other-window ()
   (interactive)
-  (my-invoke-with-completion #'consult-buffer-other-window))
+  (my-invoke-with-completion #'consult-buffer-other-window 1))
 
 (evil-global-set-key 'motion (kbd "C-w d")   'my-kill-buffer)
 (evil-global-set-key 'motion (kbd "C-w C-d") 'my-kill-buffer)
