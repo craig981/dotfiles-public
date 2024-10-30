@@ -275,9 +275,6 @@
 (evil-global-set-key 'insert (kbd "C-p") nil)
 (evil-global-set-key 'insert (kbd "C-o") nil)
 
-;; (evil-global-set-key 'normal (kbd "C-r") nil)
-;; (evil-global-set-key 'normal (kbd "R") 'evil-redo)
-
 (define-key evil-ex-completion-map (kbd "C-a") 'move-beginning-of-line)
 (define-key evil-ex-completion-map (kbd "C-f") 'forward-char)
 (define-key evil-ex-completion-map (kbd "C-b") 'backward-char)
@@ -1444,7 +1441,6 @@ empty string."
 ;; ----------------------------------------------------------------------------
 
 (require 'vertico)
-;; (require 'vertico-directory)
 (vertico-mode)
 
 (define-key vertico-map (kbd "C-j") 'vertico-exit-input)
@@ -2935,11 +2931,7 @@ make TAGS in that directory."
   (when (and (eq system-type 'gnu/linux)
 	     (string= (getenv "XDG_SESSION_TYPE") "wayland"))
     ;; hide window title bar. wayland only, breaks under X11 gnome.
-    (set-frame-parameter nil 'undecorated t)
-    ;; allow mouse resize at edges
-    ;; (set-frame-parameter nil 'drag-internal-border 1)
-    ;; (set-frame-parameter nil 'internal-border-width 5)
-    )
+    (set-frame-parameter nil 'undecorated t))
 
   (when (string= "goose" (system-name))
     (my-toggle-alpha-background)))
