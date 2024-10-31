@@ -1040,8 +1040,6 @@ copy the basename."
 ;;; attempt to workaround org 9.6 flakey agenda display
 (setq org-element-use-cache nil)
 
-;; (push 'org-mode evil-emacs-state-modes)
-
 (defun my-optional-file (fn)
   (if (file-exists-p fn) fn nil))
 
@@ -1132,6 +1130,8 @@ copy the basename."
 		    (org-agenda-start-day "-1w")
 		    (org-agenda-overriding-header "Last week in Review")))
 	 ("/tmp/lastweek.html"))))
+
+(push 'org-mode evil-emacs-state-modes)
 
 (defun my-org-mode-hook ()
 
