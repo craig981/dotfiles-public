@@ -516,6 +516,12 @@ copy the basename."
   (move-end-of-line nil)
   (newline-and-indent arg))
 
+(defun my-open-line (&optional prefix)
+  (interactive "P")
+  (if prefix
+      (my-open-line-above)
+    (my-open-line-below)))
+
 (defun my-delete-to-indent ()
   (interactive)
   (let ((p (point)))
@@ -610,8 +616,8 @@ copy the basename."
 (evil-leader/set-key "M-p" #'evil-numbers/dec-at-pt)
 
 (global-set-key (kbd "C-M-y") #'my-duplicate-line)
-(global-set-key (kbd "C-M-o") #'my-open-line-above)
-(global-set-key (kbd "C-o") #'my-open-line-below)
+(global-set-key (kbd "C-M-o") #'open-line)
+(global-set-key (kbd "C-o") #'my-open-line)
 (global-set-key (kbd "C-;") #'goto-last-change)
 (when (display-graphic-p)
  (global-set-key (kbd "C-<backspace>") #'my-delete-to-indent))
