@@ -1100,7 +1100,7 @@ copy the basename."
 	  (tags-todo "-read-watch-project-show"
 		     ((org-agenda-overriding-header "Unscheduled:")
 		      (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
-		      (org-agenda-sorting-strategy '((tags category-down priority-down tag-down)))))
+		      (org-agenda-sorting-strategy '(priority-down category-down tag-down))))
 
 	  (tags "show" ((org-agenda-overriding-header "Shows:")
 			(org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "CANCELLED")))
@@ -1108,7 +1108,7 @@ copy the basename."
 
 	  ,@(if-let ((tag (if (string= "goose" (system-name)) "read|watch|project")))
 		`((tags ,tag ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "CANCELLED")))
-			      (org-agenda-sorting-strategy '((tags tag-up alpha-up))))))))
+			      (org-agenda-sorting-strategy '(priority-down tag-up alpha-up)))))))
 
 	 ((org-agenda-start-with-log-mode nil)
 	  (org-tags-match-list-sublevels nil)))
