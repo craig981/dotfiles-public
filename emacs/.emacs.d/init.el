@@ -1215,13 +1215,7 @@ copy the basename."
 (advice-add 'org-insert-last-stored-link :before #'my-forward-before-insert)
 (advice-add 'org-insert-link :before #'my-forward-before-insert)
 
-(defun my-org-agenda-toggle-done ()
-  (interactive)
-  (setq org-agenda-skip-scheduled-if-done (not org-agenda-skip-scheduled-if-done))
-  (org-agenda-redo-all))
-
 (with-eval-after-load 'org-agenda
-  (define-key org-agenda-mode-map (kbd "d") 'my-org-agenda-toggle-done)
   (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map))
 
 (with-eval-after-load 'org
