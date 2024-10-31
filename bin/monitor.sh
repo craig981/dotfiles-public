@@ -17,6 +17,9 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     gsettings set org.gnome.shell.extensions.dash-to-dock intellihide false
     # screen blank
     gsettings set org.gnome.desktop.session idle-delay 1800
+    # stop creating new workspaces automatically
+    gsettings set org.gnome.mutter dynamic-workspaces false
+    gsettings set org.gnome.desktop.wm.preferences num-workspaces 3
 fi
 
 if [[ "$XDG_CURRENT_DESKTOP" = "MATE" ]]; then
