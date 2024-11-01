@@ -1711,11 +1711,8 @@ in C/C++ mode."
 (require 'helm)
 (require 'helm-occur)
 
-;; display relative paths in grep results
-(setq-default helm-grep-file-path-style 'relative)
-
+(setq helm-grep-file-path-style 'relative)
 (setq helm-split-window-default-side 'right)
-
 (setq helm-highlight-only-all-matches t)
 (setq helm-highlight-matches-around-point-max-lines '(25 . 25))
 ;;; no new frames
@@ -1775,16 +1772,12 @@ in C/C++ mode."
   (interactive)
   (dired (my-find-project-root)))
 
-
 (defvar my-projects)
 (cond
- ((file-exists-p "~/dev/git")
-  (setq my-projects '(("~/dev/git" . 3))))
- ((file-exists-p "~/dev/work")
-  (setq my-projects '(("~/dev/work" . 2)
-		      ("~/dev" . 2))))
- (t
-  (setq my-projects '(("~/dev" . 2)))))
+ ((file-exists-p "~/dev/git")  (setq my-projects '(("~/dev/git" . 3))))
+ ((file-exists-p "~/dev/work") (setq my-projects '(("~/dev/work" . 2)
+						   ("~/dev" . 2))))
+ (t                            (setq my-projects '(("~/dev" . 2)))))
 
 (dolist (d `("~/dotfiles-public" "~/dotfiles" "~/notefiles" ,org-directory))
   (when (file-directory-p d)
