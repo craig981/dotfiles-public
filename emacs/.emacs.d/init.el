@@ -390,17 +390,19 @@
 (show-paren-mode)
 
 (defun my-insert-enter-hook ()
+  ;; update: is this breaking esc sometimes?
   ;; temporarily disable update of syntax highlighting while in insert mode,
   ;; as a workaround for typing becoming slow in some C++ buffers
-  (when (derived-mode-p 'prog-mode)
-    (unwind-protect
-	(jit-lock-mode nil)))
+  ;; (when (derived-mode-p 'prog-mode)
+  ;;   (unwind-protect
+  ;; 	(jit-lock-mode nil)))
   (show-paren-mode -1))
 (defun my-insert-exit-hook ()
   (show-paren-mode 1)
   ;; unwind-protect workaround, sometimes get locked in insert mode
-  (unwind-protect
-      (jit-lock-mode t)))
+  ;; (unwind-protect
+  ;;     (jit-lock-mode t))
+  )
 (add-hook 'evil-insert-state-entry-hook 'my-insert-enter-hook)
 (add-hook 'evil-insert-state-exit-hook 'my-insert-exit-hook)
 
