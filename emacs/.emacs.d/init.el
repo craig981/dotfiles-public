@@ -1447,10 +1447,12 @@ empty string."
 (vertico-mode)
 
 (define-key vertico-map (kbd "C-j") 'vertico-exit-input)
-(define-key vertico-map (kbd "C-h f")
-  (lambda ()
-    (interactive)
-    (describe-function (intern (vertico--candidate)))))
+(define-key vertico-map (kbd "C-h f") (lambda ()
+					(interactive)
+					(describe-function (intern (vertico--candidate)))))
+(define-key vertico-map (kbd "C-h v") (lambda ()
+					(interactive)
+					(describe-variable (intern (vertico--candidate)))))
 
 (defun my-disable-vertico (func &rest args)
   (let ((v vertico-mode))
