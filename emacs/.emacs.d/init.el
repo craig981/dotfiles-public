@@ -611,7 +611,8 @@ copy the basename."
 (global-set-key (kbd "M-j") #'evil-scroll-line-down)
 (global-set-key (kbd "M-[") (kbd "M-{"))
 (global-set-key (kbd "M-]") (kbd "M-}"))
-(global-set-key (kbd "M-SPC") evil-leader--default-map)
+;; (global-set-key (kbd "M-SPC") evil-leader--default-map)
+(global-set-key (kbd "M-SPC") #'isearch-forward-symbol-at-point)
 (evil-leader/set-key "t"   #'tab-to-tab-stop)
 (evil-leader/set-key "M-t" #'tab-to-tab-stop)
 (evil-leader/set-key "M-a" #'evil-numbers/inc-at-pt)
@@ -1522,9 +1523,9 @@ in C/C++ mode."
 					 "^#" "#")))
 
 (evil-leader/set-key "r"   'my-ripgrep-project)
-(evil-leader/set-key "M-r" 'my-ripgrep-project)
 (evil-leader/set-key "i"   'my-imenu)
-(evil-leader/set-key "M-i" 'my-imenu)
+(global-set-key (kbd "M-s e") 'my-ripgrep-project)
+(global-set-key (kbd "M-s i") 'my-imenu)
 
 ;; ----------------------------------------------------------------------------
 ;;| Grep
@@ -1539,10 +1540,10 @@ in C/C++ mode."
   (rgrep (read-string "Search for: " (format "\\<%s\\>" (thing-at-point 'symbol t)))
 	 "*" (my-find-project-root)))
 
-(evil-leader/set-key "M-f" 'my-grep-project)
 (evil-leader/set-key "f"   'my-grep-project)
-(evil-leader/set-key "M-g" 'rgrep)
 (evil-leader/set-key "g"   'rgrep)
+(global-set-key (kbd "M-s f") 'my-grep-project)
+(global-set-key (kbd "M-s g") 'rgrep)
 
 ;;; disable vertico when rgrep asks for file type
 (advice-add #'grep-read-files :around #'my-disable-vertico)
@@ -1742,7 +1743,7 @@ in C/C++ mode."
 
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (evil-leader/set-key "o" 'helm-occur) ;; M-n grabs symbol under point
-(evil-leader/set-key "M-o" 'helm-occur)
+(global-set-key (kbd "M-s M-o") 'helm-occur)
 
 ;; ----------------------------------------------------------------------------
 ;;| Projects
