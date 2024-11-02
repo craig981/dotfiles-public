@@ -52,7 +52,7 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     gsettings set org.gnome.shell.keybindings show-screenshot-ui "['<Shift><Super>p']"
 
     # navigation
-    gsettings set org.gnome.desktop.wm.keybindings show-desktop '[]' # remove ctrl+alt+d
+    gsettings set org.gnome.desktop.wm.keybindings show-desktop "['<Super>g']" # want ctrl+alt+d for emacs
     gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-1 "['<Super>1']"
     gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-2 "['<Super>2']"
     gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-3 "['<Super>3']"
