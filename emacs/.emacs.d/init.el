@@ -2301,6 +2301,8 @@ return key from pasting the whole lot back and executing it."
   (define-key map binding (lookup-key (current-global-map) binding)))
 
 (with-eval-after-load 'term
+  (define-key term-mode-map (kbd "M-p") nil)
+  (define-key term-mode-map (kbd "M-n") nil)
   (my-expose-global-binding term-raw-map (kbd "M-o"))
   (my-expose-global-binding term-raw-map (kbd "C-j")))
 
