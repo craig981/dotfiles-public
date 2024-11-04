@@ -628,9 +628,8 @@ copy the basename."
 ;; (global-set-key (kbd "M-SPC") evil-leader--default-map)
 (global-set-key (kbd "M-SPC") #'isearch-forward-symbol-at-point)
 (evil-leader/set-key "t"   #'tab-to-tab-stop)
-(evil-leader/set-key "M-t" #'tab-to-tab-stop)
-(evil-leader/set-key "M-a" #'evil-numbers/inc-at-pt)
-(evil-leader/set-key "M-p" #'evil-numbers/dec-at-pt)
+(global-set-key (kbd "C-M-;") #'evil-numbers/inc-at-pt)
+(global-set-key (kbd "C-M-'") #'evil-numbers/dec-at-pt)
 
 (global-set-key (kbd "C-M-y") #'my-duplicate-line)
 (global-set-key (kbd "C-M-o") #'open-line)
@@ -2282,7 +2281,7 @@ return key from pasting the whole lot back and executing it."
 
 (global-set-key (kbd "C-c t S") 'my-project-shell)
 (global-set-key (kbd "C-c t s") 'my-shell)
-(global-set-key (kbd "C-M-'") 'my-jump-to-shell)
+(global-set-key (kbd "C-x j") 'my-jump-to-shell)
 
 (with-eval-after-load 'shell
   (define-key shell-mode-map (kbd "SPC") 'comint-magic-space))
