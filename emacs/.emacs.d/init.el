@@ -551,6 +551,18 @@ copy the basename."
   (interactive)
   (find-file (my-init-file)))
 
+(defun my-advise-emacs-kill (&rest args)
+  "Enter insert mode after a kill command"
+  (when (and evil-local-mode (evil-normal-state-p))
+    (evil-insert-state)))
+
+(dolist (cmd '(kill-word
+	       kill-line
+	       kill-sentence
+	       kill-sexp
+	       paredit-kill))
+  (advice-add cmd :after #'my-advise-emacs-kill))
+
 (require 'ispell)
 
 (defun my-complete-word-ispell ()
