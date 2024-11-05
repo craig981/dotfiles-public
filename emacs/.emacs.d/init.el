@@ -2000,6 +2000,7 @@ return the project path instead"
 
 (defun my-magit-repolist-hook ()
   (evil-local-mode 1)
+  (evil-emacs-state)
   (beginning-of-buffer))
 
 (defun my-magit-list-repos ()
