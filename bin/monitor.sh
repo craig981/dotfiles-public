@@ -20,6 +20,8 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     # stop creating new workspaces automatically
     gsettings set org.gnome.mutter dynamic-workspaces false
     gsettings set org.gnome.desktop.wm.preferences num-workspaces 3
+    # show weekday
+    gsettings set org.gnome.desktop.interface clock-show-weekday true
 fi
 
 if [[ "$XDG_CURRENT_DESKTOP" = "MATE" ]]; then
