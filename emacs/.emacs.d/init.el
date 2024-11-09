@@ -493,13 +493,6 @@ copy the basename."
      (t
       (switch-to-buffer name)))))
 
-(defun my-join-line ()
-  (interactive)
-  (when (or (not evil-local-mode)
-	    (evil-emacs-state-p))
-    ;; join-line doesn't work on region
-    (call-interactively 'evil-join)))
-
 (defun my-mark-until-whitespace ()
   "Select until the next whitespace char"
   (interactive)
@@ -632,7 +625,7 @@ copy the basename."
 (global-set-key (kbd "C-M-'") #'evil-numbers/dec-at-pt)
 
 (global-set-key (kbd "C-M-y") #'my-duplicate-line)
-(global-set-key (kbd "C-M-o") #'open-line)
+(global-set-key (kbd "C-M-o") #'evil-join)
 (global-set-key (kbd "C-o") #'my-open-line)
 (global-set-key (kbd "C-;") #'goto-last-change)
 (when (display-graphic-p)
@@ -649,7 +642,6 @@ copy the basename."
 (global-set-key (kbd "C-x l") 'count-words-region)
 (global-set-key (kbd "C-c M-f") #'flyspell-buffer)
 (global-set-key (kbd "C-c M-s") #'ispell)
-(global-set-key (kbd "C-c j") 'my-join-line)
 
 (evil-global-set-key 'normal (kbd "]s") 'flyspell-goto-next-error)
 (evil-global-set-key 'normal (kbd "[s")
@@ -2118,6 +2110,10 @@ return the project path instead"
 (defun my-makefile-hook ()
   (my-syntax-entry))
 (add-hook 'makefile-mode-hook 'my-makefile-hook)
+
+(with-eval-after-load "make-mode"
+  (define-key makefile-gmake-mode-map (kbd "M-n") nil)
+  (define-key makefile-gmake-mode-map (kbd "M-p") nil))
 
 (defun my-makefile-no-warn-suspicious-lines ())
 (advice-add 'makefile-warn-suspicious-lines :override #'my-makefile-no-warn-suspicious-lines)
