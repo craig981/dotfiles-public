@@ -770,7 +770,7 @@ copy the basename."
 ;; ----------------------------------------------------------------------------
 
 (require 'which-key)
-(which-key-mode)
+(which-key-mode 1)
 
 (with-eval-after-load "help"
   (define-key help-mode-map (kbd "C-w") 'evil-window-map)
