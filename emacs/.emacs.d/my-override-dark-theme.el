@@ -24,7 +24,8 @@
        '(orderless-match-face-0 ((t (:foreground "#a3d4e8" :weight bold))))
        '(font-lock-comment-face ((t (:foreground "#708080"))))
        )
-      (set-face-attribute 'region nil :foreground "white" :background "DarkBlue"))
+      (set-face-attribute 'region nil :foreground "white" :background "SkyBlue4"))
+
   (custom-theme-set-faces
    'my-override-dark
    '(default ((t (:background "#070707"))))
