@@ -23,9 +23,10 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
 	"hedgehog")
         if [[ -z $(xinput list --name-only | grep -i 'Apple.*Magic Keyboard') ]]; then
             # gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier', 'ctrl:ralt_rctrl', 'ctrl:rctrl_ralt', 'shift:both_capslock']"
-            gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier', 'altwin:swap_lalt_lwin', 'ctrl:swap_rwin_rctl', 'shift:both_capslock']"
+
+            gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:swapcaps', 'altwin:swap_lalt_lwin', 'ctrl:swap_rwin_rctl']"
         else
-            gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier', 'altwin:swap_lalt_lwin', 'ctrl:swap_rwin_rctl', 'shift:both_capslock', 'lv3:ralt_alt']"
+            gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:swapcaps', 'altwin:swap_lalt_lwin', 'ctrl:swap_rwin_rctl', 'lv3:ralt_alt']"
         fi
         ;;
     esac
