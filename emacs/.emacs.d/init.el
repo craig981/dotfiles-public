@@ -2856,8 +2856,9 @@ make TAGS in that directory."
    (t                     (load-theme 'my-override-dark2)))
 
   (set-cursor-color "white")
+  (setq evil-emacs-state-cursor '(box "orange"))
   (setq evil-normal-state-cursor '(box "white"))
-  (setq evil-insert-state-cursor '(box "orange"))
+  (setq evil-insert-state-cursor '(box "DodgerBlue"))
   (setq my-pulse-face 'next-error)
   (my-set-dark-mode t))
 
@@ -2867,8 +2868,9 @@ make TAGS in that directory."
   (load-theme theme)
 
   (set-cursor-color "black")
+  (setq evil-emacs-state-cursor '(box "orange"))
   (setq evil-normal-state-cursor '(box "black"))
-  (setq evil-insert-state-cursor '(box "orange"))
+  (setq evil-insert-state-cursor '(box "DodgerBlue"))
   (setq my-pulse-face 'next-error)
   (my-set-dark-mode nil))
 
