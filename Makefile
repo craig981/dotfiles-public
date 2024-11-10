@@ -90,6 +90,9 @@ apt-install:
 		vlc \
 		xsel
 
+apt-install-debug:
+	sudo apt-get install gdb gdb-doc
+
 apt-install-prof:
 	sudo apt-get install			\
 		valgrind			\
