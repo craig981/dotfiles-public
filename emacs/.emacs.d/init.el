@@ -1330,6 +1330,17 @@ empty string."
     ;; hide work tasks
     (org-agenda-filter-by-tag '(4) ?w)))
 
+(defun my-advise-org-fill-paragraph (func &rest args)
+  "When the region is active, revert to fill-paragraph behaviour."
+  (interactive (progn
+		 (barf-if-buffer-read-only)
+		 (list (when current-prefix-arg 'full) t)))
+  (if (region-active-p)
+      (fill-paragraph (car args) t)
+    (apply func args)))
+
+(advice-add 'org-fill-paragraph :around 'my-advise-org-fill-paragraph)
+
 (push '("\\*Org Select\\*"
         (display-buffer-below-selected))
       display-buffer-alist)
