@@ -547,6 +547,14 @@ copy the basename."
   (interactive)
   (find-file (my-init-file)))
 
+(defun my-clear-buffer ()
+  "Delete all the text in the buffer"
+  (interactive)
+  (when (or (not (called-interactively-p 'any))
+	    (yes-or-no-p "Clear buffer?"))
+    (let ((inhibit-read-only t))
+      (delete-region (point-min) (point-max)))))
+
 (defun my-advise-emacs-kill (&rest args)
   "Enter insert mode after a kill command"
   (when (and evil-local-mode (evil-normal-state-p))
@@ -2116,6 +2124,7 @@ return the project path instead"
 (define-key compilation-mode-map (kbd "g") nil)
 (define-key compilation-mode-map (kbd "M-p") nil)
 (define-key compilation-mode-map (kbd "M-n") nil)
+(define-key compilation-mode-map (kbd "C-c M-o") #'my-clear-buffer)
 
 ;; ----------------------------------------------------------------------------
 ;;| Makefile
