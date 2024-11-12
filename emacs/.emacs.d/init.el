@@ -251,7 +251,9 @@
 (defun my-forward-before-insert (&rest args)
   "Move the cursor forward before closing a tag or inserting a time stamp"
   (when (and (eq evil-state 'normal)
-	     (not (eolp)))
+	     (save-excursion
+	       (forward-char)
+	       (eolp)))
     (forward-char)))
 
 (defun my-delete-or-indent-left ()
