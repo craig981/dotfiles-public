@@ -1150,7 +1150,8 @@ copy the basename."
 		    (org-agenda-overriding-header "Last week in Review")))
 	 ("/tmp/lastweek.html"))))
 
-;; (push 'org-mode evil-emacs-state-modes)
+(when (string= "goose" (system-name))
+  (push 'org-mode evil-emacs-state-modes))
 
 (defun my-org-mode-hook ()
 
