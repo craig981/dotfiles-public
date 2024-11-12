@@ -15,18 +15,17 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
 
     case "$(hostname -s)" in
 	"goose")
-
 	    gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:swapcaps', 'altwin:swap_lalt_lwin', 'ctrl:swap_rwin_rctl', 'lv3:ralt_alt']"
 	    # gsettings set org.gnome.desktop.input-sources xkb-options "['caps:escape_shifted_capslock', 'ctrl:swap_lalt_lctl_lwin', 'ctrl:swap_rwin_rctl']"
 	    ;;
 
 	"hedgehog")
-        if [[ -z $(xinput list --name-only | grep -i 'Apple.*Magic Keyboard') ]]; then
-            # gsettings set org.gnome.desktop.input-sources xkb-options "['caps:ctrl_modifier', 'ctrl:ralt_rctrl', 'ctrl:rctrl_ralt', 'shift:both_capslock']"
-
-            gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:swapcaps', 'altwin:swap_lalt_lwin', 'ctrl:swap_rwin_rctl']"
-        else
+        if [[ -n $(xinput list --name-only | grep -i 'Apple.*Magic Keyboard') ]]; then
+            # external apple keyboard
             gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:swapcaps', 'altwin:swap_lalt_lwin', 'ctrl:swap_rwin_rctl', 'lv3:ralt_alt']"
+        else
+            # laptop keyboard
+            gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:swapcaps', 'ctrl:ralt_rctrl', 'ctrl:rctrl_ralt']"
         fi
         ;;
     esac
