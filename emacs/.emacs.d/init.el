@@ -292,6 +292,9 @@
 (define-key evil-visual-state-map (kbd "j") #'evil-next-visual-line)
 (define-key evil-visual-state-map (kbd "k") #'evil-previous-visual-line)
 
+(evil-global-set-key 'normal (kbd "C-r") nil)  ; fall through to isearch-backward
+(evil-global-set-key 'normal (kbd "C-S-r") 'evil-redo)
+
 ;; ----------------------------------------------------------------------------
 ;;| Undo
 ;; ----------------------------------------------------------------------------
@@ -299,7 +302,7 @@
 (require 'undo-tree)
 (global-undo-tree-mode)
 
-(setq amalgamating-undo-limit 2)
+(setq amalgamating-undo-limit 4)
 
 (when (fboundp 'evil-set-undo-system)
   (evil-set-undo-system 'undo-tree))
