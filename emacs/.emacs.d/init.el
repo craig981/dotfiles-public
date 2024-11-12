@@ -550,10 +550,8 @@ copy the basename."
 (defun my-clear-buffer ()
   "Delete all the text in the buffer"
   (interactive)
-  (when (or (not (called-interactively-p 'any))
-	    (yes-or-no-p "Clear buffer?"))
-    (let ((inhibit-read-only t))
-      (delete-region (point-min) (point-max)))))
+  (let ((inhibit-read-only t))
+    (delete-region (point-min) (point-max))))
 
 (defun my-advise-emacs-kill (&rest args)
   "Enter insert mode after a kill command"
