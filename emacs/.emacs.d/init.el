@@ -1853,7 +1853,7 @@ against, and the value the expanded full path to the repo"
   "Choose a project then invoke action on it. If action is nil,
 return the project path instead"
   (let* ((repos (my-list-repos))
-	 (sel (assoc (completing-read "Repo: " repos) repos)))
+	 (sel (assoc (completing-read "Project: " repos) repos)))
     (if sel
 	(let ((path (cdr sel)))
 	  (if action
