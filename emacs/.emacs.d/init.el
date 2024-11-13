@@ -1150,8 +1150,8 @@ copy the basename."
 		    (org-agenda-overriding-header "Last week in Review")))
 	 ("/tmp/lastweek.html"))))
 
-(when (string= "goose" (system-name))
-  (push 'org-mode evil-emacs-state-modes))
+;; (when (string= "goose" (system-name))
+;;   (push 'org-mode evil-emacs-state-modes))
 
 (defun my-org-mode-hook ()
 
@@ -1184,8 +1184,10 @@ copy the basename."
 (defun my-org-capture-hook ()
   (interactive)
   (my-org-mode-hook)
-  (when (evil-normal-state-p)
-    (evil-insert-state)))
+  ;; (when (evil-normal-state-p)
+  ;;   (evil-insert-state))
+  (when evil-local-mode
+    (evil-emacs-state)))
 
 ;;; https://www.youtube.com/watch?v=UpeKWYFe9fU
 (defun my-org-attach-save-file-list-to-property (dir)
