@@ -2837,11 +2837,18 @@ make TAGS in that directory."
 	    (set-face-attribute 'default nil :height 130))) ; laptop screen
 
 	 ("hedgehog"
-	  (if (string-empty-p (string-trim
-			       (shell-command-to-string
-				"xrandr | awk '$2 == \"connected\" && $1 ~ /^(HDMI-|DP-)/ {print $1}'")))
-	      (set-face-attribute 'default nil :height 120)   ; laptop screen
-	    (set-face-attribute 'default nil :height 105))))) ; external monitor
+	  (cond
+	   ;; remote display
+	   ((not (string-empty-p (getenv "SSH_CLIENT")))
+	    (set-face-attribute 'default nil :height 130))
+
+	   ;; laptop screen
+	   ((string-empty-p (string-trim (shell-command-to-string
+					  "xrandr | awk '$2 == \"connected\" && $1 ~ /^(HDMI-|DP-)/ {print $1}'")))
+	    (set-face-attribute 'default nil :height 120))
+
+	   ;; external monitor
+	   (t (set-face-attribute 'default nil :height 105))))))
 
       ('windows-nt
        ;; (set-frame-font "Fira Mono 11" nil t)
