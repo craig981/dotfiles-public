@@ -100,7 +100,7 @@
  '(org-agenda-skip-scheduled-if-done t)
  '(org-agenda-span 3)
  '(org-agenda-start-on-weekday nil)
- '(org-blank-before-new-entry '((heading . auto) (plain-list-item)))
+ '(org-blank-before-new-entry '((heading . auto) (plain-list-item . auto)))
  '(org-confirm-babel-evaluate nil)
  '(org-directory "~/org")
  '(org-fold-catch-invisible-edits 'smart)
