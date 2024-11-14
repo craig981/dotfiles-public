@@ -10,11 +10,13 @@ if [[ "$#" -ne 1 ]]; then
     exit 1
 fi
 
-key=$(~/dotfiles-public/bin/term_profile.sh)
-if [[ $? -ne 0 || -z "${key}" ]]; then
-    echo "$0 : failed to get gnome-terminal profile name from dconf " 1>&2
+profile=$(gsettings get org.gnome.Terminal.ProfilesList default | tr -d "'")
+if [[ -z "${profile}" ]]; then
+    echo "$0 : failed to get gnome-terminal profile name from gsettings " 1>&2
     exit 1
 fi
+
+key="/org/gnome/terminal/legacy/profiles:/:${profile}"
 
 dconf write "${key}/use-theme-colors" false
 
