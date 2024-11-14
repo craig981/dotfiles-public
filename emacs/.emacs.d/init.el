@@ -2711,7 +2711,7 @@ make TAGS in that directory."
 
 (with-eval-after-load "cc-mode"
   (define-key c-mode-base-map (kbd "C-c C-b") nil) ; don't want c-submit-bug-report
-  (define-key c-mode-base-map (kbd "C-c C-i") #'my-jump-to-header)
+  (define-key c-mode-base-map (kbd "C-c C-j") #'my-jump-to-header)
   (define-key c-mode-base-map (kbd "C-c C-f") 'my-kill-c-function-name)
 
   (dolist (table (list c-mode-abbrev-table c++-mode-abbrev-table))
@@ -2927,7 +2927,7 @@ make TAGS in that directory."
   ("0" (lambda () (interactive) (set-frame-parameter nil 'alpha-background 0)) "transparent")
   ("9" (lambda () (interactive) (set-frame-parameter nil 'alpha-background my-alpha)) "blend"))
 
-(global-set-key (kbd "C-c C-j") 'my-theme-hydra/body)
+(global-set-key (kbd "C-c C-i") 'my-theme-hydra/body)
 
 ;; ----------------------------------------------------------------------------
 ;;| Window setup
