@@ -2841,7 +2841,7 @@ make TAGS in that directory."
 	 ("hedgehog"
 	  (cond
 	   ;; remote display
-	   ((not (string-empty-p (getenv "SSH_CLIENT")))
+	   ((getenv "SSH_CLIENT")
 	    (set-face-attribute 'default nil :height 130))
 
 	   ;; laptop screen
