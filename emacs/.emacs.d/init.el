@@ -1116,6 +1116,8 @@ copy the basename."
 
 (setq org-agenda-custom-commands
       `(("d" "Done stuff" todo "DONE" )
+	("p" "In progress" todo "PROGRESS")
+	("w" "Waiting" todo "WAIT|BLOCK")
 	("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
 
 	("." "Agenda"
@@ -1138,13 +1140,13 @@ copy the basename."
 	 ((org-agenda-start-with-log-mode nil)
 	  (org-tags-match-list-sublevels nil)))
 
-	("w" "This week" agenda ""
+	("r" "This week" agenda ""
 	 ,(append my-org-agenda-common-review-settings
 		  '((org-agenda-span 'week)
 		    (org-agenda-overriding-header "Week in Review")))
 	 ("/tmp/week.html"))
 
-	("W" "Last week" agenda ""
+	("R" "Last week" agenda ""
 	 ,(append my-org-agenda-common-review-settings
 		  '((org-agenda-span 'week)
 		    (org-agenda-start-day "-1w")
