@@ -2927,7 +2927,7 @@ make TAGS in that directory."
   ("0" (lambda () (interactive) (set-frame-parameter nil 'alpha-background 0)) "transparent")
   ("9" (lambda () (interactive) (set-frame-parameter nil 'alpha-background my-alpha)) "blend"))
 
-(global-set-key (kbd "C-c i") 'my-theme-hydra/body)
+(global-set-key (kbd "C-c C-j") 'my-theme-hydra/body)
 
 ;; ----------------------------------------------------------------------------
 ;;| Window setup
