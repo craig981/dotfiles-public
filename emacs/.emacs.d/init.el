@@ -1116,27 +1116,23 @@ copy the basename."
 	(org-agenda-start-on-weekday 1)))
 
 (setq org-agenda-custom-commands
-      `(("d" "Done stuff" todo "DONE" )
-	("p" "In progress" todo "PROGRESS")
+      `(("p" "In progress" todo "PROGRESS")
 	("w" "Waiting" todo "WAIT|BLOCK")
-	("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
+	;; ("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
+	("l" "Learn"
+	 ((tags "read|watch|project"
+		((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "CANCELLED")))
+		 (org-agenda-sorting-strategy '(priority-down tag-up alpha-up))))))
 
 	("." "Agenda"
 	 ((agenda "")
-	  ,@(if (string= "asusbox" (system-name)) '((tags "PIN")))
-
 	  (tags-todo "-read-watch-project-show"
 		     ((org-agenda-overriding-header "Unscheduled:")
 		      (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
 		      (org-agenda-sorting-strategy '(priority-down category-down tag-down))))
-
 	  (tags "show" ((org-agenda-overriding-header "Shows:")
 			(org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "CANCELLED")))
-			(org-agenda-sorting-strategy '(priority-down))))
-
-	  ,@(if-let ((tag (if (string= "goose" (system-name)) "read|watch|project")))
-		`((tags ,tag ((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "CANCELLED")))
-			      (org-agenda-sorting-strategy '(priority-down tag-up alpha-up)))))))
+			(org-agenda-sorting-strategy '(priority-down)))))
 
 	 ((org-agenda-start-with-log-mode nil)
 	  (org-tags-match-list-sublevels nil)))
