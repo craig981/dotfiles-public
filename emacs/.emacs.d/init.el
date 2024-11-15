@@ -75,6 +75,7 @@
  '(image-dired-dir "/tmp/image-dired")
  '(image-dired-thumb-height 100)
  '(image-dired-thumb-width 100)
+ '(inhibit-startup-screen t)
  '(initial-frame-alist '((fullscreen . maximized)))
  '(ispell-program-name "aspell")
  '(kill-ring-max 1000)
@@ -1153,8 +1154,7 @@ copy the basename."
 		    (org-agenda-overriding-header "Last week in Review")))
 	 ("/tmp/lastweek.html"))))
 
-;; (when (string= "goose" (system-name))
-;;   (push 'org-mode evil-emacs-state-modes))
+;; (push 'org-mode evil-emacs-state-modes)
 
 (defun my-org-mode-hook ()
 
@@ -1186,11 +1186,9 @@ copy the basename."
 
 (defun my-org-capture-hook ()
   (interactive)
-  (my-org-mode-hook)
-  ;; (when (evil-normal-state-p)
-  ;;   (evil-insert-state))
-  (when evil-local-mode
-    (evil-emacs-state)))
+  (when (and (eq major-mode 'org-mode)
+	     (evil-normal-state-p))
+   (evil-insert-state)))
 
 ;;; https://www.youtube.com/watch?v=UpeKWYFe9fU
 (defun my-org-attach-save-file-list-to-property (dir)
