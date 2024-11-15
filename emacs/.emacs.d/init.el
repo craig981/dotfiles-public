@@ -204,6 +204,16 @@
 ;;| Evil mode
 ;; ----------------------------------------------------------------------------
 
+(defvar my-evil-emacs-state nil)
+;; (when (string= "goose" (system-name))
+;;   (setq my-evil-emacs-state t))
+
+(defun my-evil-default (&optional force-emacs)
+  (evil-local-mode 1)
+  (when (or (eq force-emacs 'emacs) my-evil-emacs-state)
+    (evil-emacs-state)))
+
+
 (setq evil-want-integration t
       evil-want-keybinding nil)
 (require 'evil)
@@ -349,7 +359,7 @@
 
   (when (and (not (eq major-mode 'image-mode))
 	     (not evil-local-mode))
-    (evil-local-mode 1))
+    (my-evil-default))
   (when (and git-commit-mode (evil-normal-state-p) (looking-at "^$"))
     (evil-insert-state))
 
@@ -820,7 +830,7 @@ copy the basename."
 
 (defun my-prog-mode-hook ()
   (abbrev-mode -1)
-  (evil-local-mode 1)
+  (my-evil-default)
   (when my-olivetti-state
     (olivetti-mode 1))
   (auto-fill-mode 1)
@@ -993,7 +1003,7 @@ copy the basename."
   (define-key text-mode-map (kbd "C-M-i") #'complete-symbol)
   (turn-on-auto-fill)
   (my-syntax-entry)
-  (evil-local-mode 1)
+  (my-evil-default)
   (when my-olivetti-state
     (olivetti-mode 1))
   ;; (evil-emacs-state)
@@ -1016,7 +1026,7 @@ copy the basename."
 
 (defun my-message-mode-hook ()
   (my-syntax-entry)
-  (evil-local-mode 1)
+  (my-evil-default)
   (when my-olivetti-state
     (olivetti-mode 1))
   ;; = is punctuation, so evil * works on key and val separately for key=val
@@ -1149,7 +1159,8 @@ copy the basename."
 		    (org-agenda-overriding-header "Last week in Review")))
 	 ("/tmp/lastweek.html"))))
 
-;; (push 'org-mode evil-emacs-state-modes)
+(when my-evil-emacs-state
+  (push 'org-mode evil-emacs-state-modes))
 
 (defun my-org-mode-hook ()
 
@@ -2007,13 +2018,12 @@ return the project path instead"
 ;; ----------------------------------------------------------------------------
 
 (defun my-magit-hook ()
-  (evil-local-mode 1)
+  (my-evil-default)
   ;; want SPC to show/scroll commit at point
   (evil-leader-mode -1))
 
 (defun my-magit-repolist-hook ()
-  (evil-local-mode 1)
-  (evil-emacs-state)
+  (my-evil-default 'emacs)
   (beginning-of-buffer))
 
 (defun my-magit-list-repos ()
@@ -2092,8 +2102,7 @@ return the project path instead"
 (defun my-compilation-mode-hook ()
   (modify-syntax-entry ?_ "w") ;; _ is word constituent, so * and # works
   (visual-line-mode)
-  (evil-local-mode 1)
-  (evil-emacs-state)
+  (my-evil-default 'emacs)
   (evil-local-set-key 'normal (kbd "q") 'quit-window)
 
   (when (and (eq system-type 'windows-nt)
@@ -2151,14 +2160,14 @@ return the project path instead"
 
 (defun my-log-settings ()
   (my-syntax-entry)
-  (evil-local-mode 1)
+  (my-evil-default)
   (toggle-truncate-lines 0))
 
 (add-to-list 'auto-mode-alist '("\\.log\\'" . my-log-settings))
 
 (defun my-conf-settings ()
   (my-syntax-entry)
-  (evil-local-mode 1))
+  (my-evil-default))
 
 (add-hook 'conf-mode-hook 'my-conf-settings)
 
