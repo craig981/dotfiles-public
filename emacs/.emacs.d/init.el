@@ -77,6 +77,7 @@
  '(image-dired-thumb-width 100)
  '(inhibit-startup-screen t)
  '(initial-frame-alist '((fullscreen . maximized)))
+ '(initial-scratch-message nil)
  '(ispell-program-name "aspell")
  '(kill-ring-max 1000)
  '(ledger-report-native-highlighting-arguments '("--color"))
