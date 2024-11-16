@@ -548,6 +548,19 @@ copy the basename."
   (duplicate-line arg)
   (next-line arg))
 
+(defun my-kill-in-quotes (&optional mark)
+  (interactive "P")
+  (push-mark)
+  (let* ((r (evil-inner-double-quote))
+	 (beg (car r))
+	 (end (cadr r)))
+    (goto-char beg)
+    (if mark
+	(push-mark end nil t)
+      (kill-region beg end)))
+  (when (evil-normal-state-p)
+    (evil-insert-state)))
+
 (defun my-isearch-symbol-backward ()
   (interactive)
   (isearch-forward-symbol-at-point -1))
@@ -622,6 +635,7 @@ copy the basename."
 (global-set-key (kbd "C-c w") 'evil-window-map)
 (global-set-key (kbd "C-c w SPC") #'world-clock)
 (global-set-key (kbd "C-c m") #'my-mirror-buffer)
+(global-set-key (kbd "C-c q") #'my-kill-in-quotes)
 
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 (global-set-key (kbd "M-=") 'winner-undo)
@@ -1381,8 +1395,7 @@ empty string."
 (when (display-graphic-p)
   (evil-global-set-key 'normal (kbd "C-.") nil)
   (global-set-key (kbd "<XF86LaunchB>")	'my-org-agenda)
-  (global-set-key (kbd "<LaunchB>")	'my-org-agenda)
-  (global-set-key (kbd "C-c q")		'my-org-agenda))
+  (global-set-key (kbd "<LaunchB>")	'my-org-agenda))
 
 (evil-leader/set-key-for-mode 'org-mode "c" 'my-insert-org-src-block)
 
