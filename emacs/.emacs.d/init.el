@@ -527,8 +527,7 @@ copy the basename."
 (defun my-open-line-below (&optional arg)
   (interactive "*p")
   (move-end-of-line nil)
-  (newline) ;; (newline-and-indent arg)
-  )
+  (newline-and-indent arg))
 
 (defun my-open-line (&optional prefix)
   (interactive "P")
