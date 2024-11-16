@@ -576,7 +576,8 @@ copy the basename."
 	       kill-sentence
 	       kill-sexp
 	       paredit-kill
-	       org-meta-return))
+	       org-meta-return
+	       org-insert-todo-heading))
   (advice-add cmd :after #'my-advise-emacs-kill))
 
 (require 'ispell)
