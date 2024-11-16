@@ -115,6 +115,7 @@
  '(org-src-fontify-natively t)
  '(org-startup-folded nil)
  '(org-startup-indented t)
+ '(org-table-automatic-realign nil)
  '(org-todo-keywords
    '((sequence "TODO(t)" "PROGRESS(p)" "WAIT(w@/@)" "BLOCK(b@/@)" "|" "DONE(d!/!)" "CANCELLED(c@/@)")))
  '(org-use-fast-todo-selection 'expert)
