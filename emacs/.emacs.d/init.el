@@ -2016,6 +2016,7 @@ return the project path instead"
 					("\\.mp4\\'" "mpv")
 					("\\.mkv\\'" "mpv")
 					("\\.pdf\\'" "evince")
+					("\\.jp[e]?g\\'" "feh -x")
 					("" "open"))))
 
   ('darwin
