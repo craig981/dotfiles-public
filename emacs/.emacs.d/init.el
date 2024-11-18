@@ -1378,6 +1378,15 @@ empty string."
 
 (advice-add 'org-fill-paragraph :around 'my-advise-org-fill-paragraph)
 
+(defun my-advise-org-exec-src-block (func &rest args)
+  "Make raw results containing a table align correctly, since we
+defaulted the setting off."
+  (let ((org-table-automatic-realign t))
+    (apply func args)))
+
+(advice-add 'org-babel-execute-src-block :around 'my-advise-org-exec-src-block)
+
+
 (push '("\\*Org Select\\*"
         (display-buffer-below-selected))
       display-buffer-alist)
