@@ -16,6 +16,7 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     case "$(hostname -s)" in
 	"goose")
 	    gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:swapcaps', 'altwin:swap_lalt_lwin', 'ctrl:swap_rwin_rctl', 'lv3:ralt_alt']"
+	    # gsettings set org.gnome.desktop.input-sources xkb-options "['caps:swapescape', 'altwin:swap_lalt_lwin', 'ctrl:swap_rwin_rctl', 'lv3:ralt_alt']"
 	    # gsettings set org.gnome.desktop.input-sources xkb-options "['caps:escape_shifted_capslock', 'ctrl:swap_lalt_lctl_lwin', 'ctrl:swap_rwin_rctl']"
 	    ;;
 

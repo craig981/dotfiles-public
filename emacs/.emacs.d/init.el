@@ -652,6 +652,7 @@ copy the basename."
 
 (global-set-key (kbd "M-p") #'evil-scroll-up)
 (global-set-key (kbd "M-n") #'evil-scroll-down)
+(evil-global-set-key 'insert (kbd "M-i") 'tab-to-tab-stop)
 (global-set-key (kbd "M-i") #'evil-scroll-line-up)
 (global-set-key (kbd "M-j") #'evil-scroll-line-down)
 (global-set-key (kbd "M-[") (kbd "M-{"))
