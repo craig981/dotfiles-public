@@ -29,6 +29,10 @@ set laststatus=2
 set nohlsearch
 " set incsearch
 
+"inoremap <C-j> <Esc>
+"vnoremap <C-j> <Esc>
+"onoremap <C-j> <Esc>
+
 let mapleader=" "
 nnoremap <leader>f :e <C-R>=expand('%:p:h') . '/'<CR>
 nnoremap <leader>u :set invwrap<CR>

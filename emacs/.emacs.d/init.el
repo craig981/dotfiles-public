@@ -226,9 +226,12 @@
 (global-evil-leader-mode)
 
 (evil-esc-mode 1)			; make C-[ escape
-(evil-global-set-key 'insert   (kbd "C-c") 'evil-normal-state)
-(evil-global-set-key 'replace  (kbd "C-c") 'evil-normal-state)
-(evil-global-set-key 'operator (kbd "C-c") 'keyboard-quit)
+;; (evil-global-set-key 'insert   (kbd "C-j") 'evil-normal-state)
+;; (evil-global-set-key 'replace  (kbd "C-j") 'evil-normal-state)
+;; (evil-global-set-key 'operator (kbd "C-j") 'evil-force-normal-state)
+;; (evil-global-set-key 'visual   (kbd "C-j") 'evil-exit-visual-state)
+;; (global-set-key (kbd "C-j") 'ignore)
+(evil-global-set-key 'insert (kbd "C-c <escape>") (kbd "<escape>"))
 
 
 (global-set-key (kbd "<f7>") 'evil-local-mode)
@@ -1718,9 +1721,10 @@ in C/C++ mode."
 (global-set-key (kbd "C-x k") 'my-kill-buffer)
 
 (global-set-key (kbd "C-j")     'my-switch-buffer)
+(global-set-key (kbd "C-x C-b") 'my-switch-buffer)
 (global-set-key (kbd "C-x b")   'my-switch-buffer)
 (global-set-key (kbd "C-x 4 b") 'my-switch-buffer-other-window)
-(global-set-key (kbd "C-x C-b") 'ibuffer)
+(global-set-key (kbd "C-x M-b") 'ibuffer)
 
 (with-eval-after-load 'ibuffer
   (define-key ibuffer-mode-map (kbd "M-o") nil)
