@@ -2741,6 +2741,10 @@ make TAGS in that directory."
   > - "\n"
   > "return 0;\n}\n")
 
+(define-skeleton my-cpp-using-cerr "" nil
+  "#include <iostream>\n\n"
+  "using std::cerr;\n")
+
 (defun my-advise-c-defun-name-and-limits (name-limits)
   "Remove the namespace from c-display-defun-name"
   (nconc (list (my-cpp-identifier-without-namespace (car name-limits)))
@@ -2762,6 +2766,7 @@ make TAGS in that directory."
   (dolist (table (list c-mode-abbrev-table c++-mode-abbrev-table))
     (define-abbrev table "in"   "" 'my-cpp-include)
     (define-abbrev table "inc"  "" 'my-cpp-include-sys)
+    (define-abbrev table "ce"   "" 'my-cpp-using-cerr)
     (define-abbrev table "for"  "" 'my-cpp-for)
     (define-abbrev table "fori" "" 'my-cpp-for-iter)
     (define-abbrev table "pv"   "" 'my-cpp-print-vec)
