@@ -1218,7 +1218,7 @@ copy the basename."
    (t
     (evil-local-set-key 'normal (kbd "<tab>") 'org-cycle)))
 
-  (evil-local-set-key 'insert (kbd "<tab>") #'org-cycle)
+  ;; (evil-local-set-key 'insert (kbd "<tab>") #'org-cycle)
   (evil-local-set-key 'insert (kbd "<backtab>") #'fancy-dabbrev-backward))
 
 (defun my-org-capture-hook ()
