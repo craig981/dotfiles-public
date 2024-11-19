@@ -234,7 +234,8 @@
 ;; (evil-global-set-key 'visual   (kbd "C-j") 'evil-exit-visual-state)
 ;; (global-set-key (kbd "C-j") 'ignore)
 (evil-global-set-key 'insert (kbd "C-c <escape>") (kbd "<escape>"))
-
+(evil-global-set-key 'insert (kbd "TAB") (kbd "<escape>"))
+;; (evil-global-set-key 'insert (kbd "C-SPC") (kbd "<escape>"))
 
 (global-set-key (kbd "<f7>") 'evil-local-mode)
 (add-hook 'evil-command-window-mode-hook 'evil-local-mode)
@@ -1615,8 +1616,6 @@ in C/C++ mode."
   (rgrep (read-string "Search for: " (format "\\<%s\\>" (thing-at-point 'symbol t)))
 	 "*" (my-find-project-root)))
 
-(evil-leader/set-key "f"   'my-grep-project)
-(evil-leader/set-key "g"   'rgrep)
 (global-set-key (kbd "M-s f") 'my-grep-project)
 (global-set-key (kbd "M-s g") 'rgrep)
 
@@ -2169,7 +2168,7 @@ return the project path instead"
 (global-set-key (kbd "C-c h") (lambda () (interactive) (my-jump-buffer "*Help*" t)))
 (define-key compilation-mode-map (kbd "SPC") evil-leader--default-map)
 (define-key compilation-mode-map (kbd "C-w") 'evil-window-map)
-(define-key compilation-mode-map (kbd "g") nil)
+;; (define-key compilation-mode-map (kbd "g") nil)
 (define-key compilation-mode-map (kbd "M-p") nil)
 (define-key compilation-mode-map (kbd "M-n") nil)
 (define-key compilation-mode-map (kbd "C-c M-o") #'my-clear-buffer)
