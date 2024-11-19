@@ -671,8 +671,10 @@ copy the basename."
 (global-set-key (kbd "C-c C-j") #'evil-join)
 (global-set-key (kbd "C-o") #'my-open-line)
 (global-set-key (kbd "C-=") #'my-close-other-window)
-(global-set-key (kbd "C-§") #'scratch-buffer)
 (global-set-key (kbd "C-;") #'goto-last-change)
+(pcase (system-name)
+  ("goose"    (global-set-key (kbd "C-§") #'scratch-buffer))
+  ("hedgehog" (global-set-key (kbd "C-<") #'scratch-buffer))))
 (when (display-graphic-p)
  (global-set-key (kbd "C-<backspace>") #'my-delete-to-indent))
 
