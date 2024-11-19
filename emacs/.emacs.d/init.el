@@ -906,7 +906,10 @@ copy the basename."
 (defun my-lookup-sym ()
   (cond
    (mark-active
-    (format "\"%s\"" (buffer-substring-no-properties (region-beginning) (region-end))))
+    (let ((text (buffer-substring-no-properties (region-beginning) (region-end))))
+      (if (string-match-p "\\s-" text)	; wrap in quotes if there's whitespace
+	  (format "\"%s\"" text)
+	text)))
    ((or (eq major-mode 'c++-mode)
 	(eq major-mode 'c-mode))
     (my-cpp-identifier-without-namespace (my-cpp-identifier-around-point)))
