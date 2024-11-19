@@ -235,7 +235,7 @@
 ;; (global-set-key (kbd "C-j") 'ignore)
 (evil-global-set-key 'insert (kbd "C-c <escape>") 'evil-normal-state)
 (evil-global-set-key 'insert (kbd "TAB") 'evil-normal-state)
-;; (evil-global-set-key 'insert (kbd "C-SPC") (kbd "<escape>"))
+;; (evil-global-set-key 'insert (kbd "C-SPC") 'evil-normal-state)
 
 (global-set-key (kbd "<f7>") 'evil-local-mode)
 (add-hook 'evil-command-window-mode-hook 'evil-local-mode)
