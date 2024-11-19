@@ -674,7 +674,7 @@ copy the basename."
 (global-set-key (kbd "C-;") #'goto-last-change)
 (pcase (system-name)
   ("goose"    (global-set-key (kbd "C-§") #'scratch-buffer))
-  ("hedgehog" (global-set-key (kbd "C-<") #'scratch-buffer))))
+  ("hedgehog" (global-set-key (kbd "C-<") #'scratch-buffer)))
 (when (display-graphic-p)
  (global-set-key (kbd "C-<backspace>") #'my-delete-to-indent))
 
