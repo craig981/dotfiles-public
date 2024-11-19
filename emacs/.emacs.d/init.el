@@ -104,6 +104,7 @@
  '(org-agenda-start-on-weekday nil)
  '(org-blank-before-new-entry '((heading . auto) (plain-list-item . auto)))
  '(org-confirm-babel-evaluate nil)
+ '(org-deadline-warning-days 7)
  '(org-directory "~/org")
  '(org-fold-catch-invisible-edits 'smart)
  '(org-html-validation-link nil)
