@@ -233,8 +233,8 @@
 ;; (evil-global-set-key 'operator (kbd "C-j") 'evil-force-normal-state)
 ;; (evil-global-set-key 'visual   (kbd "C-j") 'evil-exit-visual-state)
 ;; (global-set-key (kbd "C-j") 'ignore)
-(evil-global-set-key 'insert (kbd "C-c <escape>") (kbd "<escape>"))
-(evil-global-set-key 'insert (kbd "TAB") (kbd "<escape>"))
+(evil-global-set-key 'insert (kbd "C-c <escape>") 'evil-normal-state)
+(evil-global-set-key 'insert (kbd "TAB") 'evil-normal-state)
 ;; (evil-global-set-key 'insert (kbd "C-SPC") (kbd "<escape>"))
 
 (global-set-key (kbd "<f7>") 'evil-local-mode)
