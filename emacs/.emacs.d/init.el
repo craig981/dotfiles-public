@@ -681,6 +681,7 @@ copy the basename."
 (global-set-key (kbd "C-h C-c") nil)
 (global-set-key (kbd "C-h RET") 'man)
 (global-set-key (kbd "C-x !") 'delete-other-windows-vertically)
+(global-set-key (kbd "C-x f") 'find-file)
 (global-set-key (kbd "C-x g") 'subword-mode)
 (global-set-key (kbd "C-x l") 'count-words-region)
 (global-set-key (kbd "C-c M-f") #'flyspell-buffer)
