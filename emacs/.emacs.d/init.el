@@ -797,7 +797,8 @@ copy the basename."
       pulse-iterations 8)
 
 (defun my-pulse-line (&rest r)
-  (pulse-momentary-highlight-one-line (point) my-pulse-face))
+  (when (boundp 'my-pulse-face)
+   (pulse-momentary-highlight-one-line (point) my-pulse-face)))
 
 (dolist (cmd '(bookmark-jump tab-new tab-close tab-next
 	       other-window delete-window my-kill-buffer
