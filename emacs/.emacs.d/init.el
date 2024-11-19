@@ -2293,20 +2293,25 @@ return key from pasting the whole lot back and executing it."
 
 (defun my-project-shell ()
   (interactive)
-  (let ((evil-split-window-below t))
-    (evil-window-split))
   (if (project-current nil)
       (project-shell)
     (shell)))
 
 (defun my-shell ()
   (interactive)
-  (let ((evil-split-window-below t))
-    (evil-window-split))
   (let* ((name (file-name-nondirectory
 		(directory-file-name default-directory)))
 	 (buf (generate-new-buffer (concat "*shell:" name "*"))))
     (shell buf)))
+
+(push '("\\*shell[:*]"
+	(display-buffer-below-selected)
+	(window-height . 0.5))
+      display-buffer-alist)
+
+(push '("\\*Async Shell Command\\*"
+        (display-buffer-no-window))
+      display-buffer-alist)
 
 (defun my-match-shell-predicate (buffer-or-name &optional arg)
   "Predicate for match-buffers to find shells."
@@ -2350,10 +2355,6 @@ return key from pasting the whole lot back and executing it."
 
 (when (eq system-type 'windows-nt)
   (setq-default shell-file-name "bash.exe"))
-
-(push '("\\*Async Shell Command\\*"
-        (display-buffer-no-window))
-      display-buffer-alist)
 
 (defun my-sh-mode-hook ()
   (my-syntax-entry)
