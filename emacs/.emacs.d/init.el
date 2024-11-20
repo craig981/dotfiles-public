@@ -601,6 +601,12 @@ copy the basename."
 	       org-insert-todo-heading))
   (advice-add cmd :after #'my-advise-emacs-kill))
 
+(defun my-join-lines ()
+  (interactive)
+  (if (region-active-p)
+      (call-interactively 'delete-indentation)
+    (delete-indentation t)))
+
 (require 'ispell)
 
 (defun my-complete-word-ispell ()
@@ -670,7 +676,7 @@ copy the basename."
 (global-set-key (kbd "C-M-'") #'evil-numbers/dec-at-pt)
 
 (global-set-key (kbd "C-M-y") #'my-duplicate-line)
-(global-set-key (kbd "C-c C-j") #'evil-join)
+(global-set-key (kbd "C-c C-j") #'my-join-lines)
 (global-set-key (kbd "C-o") #'my-open-line)
 (global-set-key (kbd "C-=") #'my-close-other-window)
 (global-set-key (kbd "C-;") #'goto-last-change)
