@@ -234,6 +234,7 @@
 ;; (evil-global-set-key 'visual   (kbd "C-j") 'evil-exit-visual-state)
 ;; (global-set-key (kbd "C-j") 'ignore)
 (evil-global-set-key 'insert (kbd "C-c <escape>") 'evil-normal-state)
+(evil-global-set-key 'insert (kbd "C-c SPC") 'ignore)
 (evil-global-set-key 'insert (kbd "TAB") 'evil-normal-state)
 ;; (evil-global-set-key 'insert (kbd "C-SPC") 'evil-normal-state)
 
@@ -2160,8 +2161,13 @@ return the project path instead"
 (add-hook 'grep-mode-hook 'my-grep-mode-hook)
 (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
 
-(global-set-key (kbd "C-c SPC") #'compile)
-(global-set-key (kbd "C-c C-SPC") #'project-compile)
+(defun my-compile (&optional prefix)
+  (interactive "P")
+  (if prefix
+      (call-interactively 'compile)
+    (call-interactively 'project-compile)))
+
+(global-set-key (kbd "C-c C-SPC") 'my-compile)
 (global-set-key (kbd "C-c C-,") #'recompile)
 (global-set-key (kbd "C-c ,") #'recompile)
 (global-set-key (kbd "C-c g") (lambda () (interactive) (my-jump-buffer "*compilation*")))
