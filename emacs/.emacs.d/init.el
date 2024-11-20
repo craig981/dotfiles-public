@@ -235,7 +235,7 @@
 ;; (global-set-key (kbd "C-j") 'ignore)
 (evil-global-set-key 'insert (kbd "C-c <escape>") 'evil-normal-state)
 (evil-global-set-key 'insert (kbd "C-c SPC") 'ignore)
-(evil-global-set-key 'insert (kbd "TAB") 'evil-normal-state)
+;; (evil-global-set-key 'insert (kbd "TAB") 'evil-normal-state)
 ;; (evil-global-set-key 'insert (kbd "C-SPC") 'evil-normal-state)
 
 (global-set-key (kbd "<f7>") 'evil-local-mode)
@@ -1219,7 +1219,7 @@ copy the basename."
    (t
     (evil-local-set-key 'normal (kbd "<tab>") 'org-cycle)))
 
-  ;; (evil-local-set-key 'insert (kbd "<tab>") #'org-cycle)
+  (evil-local-set-key 'insert (kbd "<tab>") #'org-cycle)
   (evil-local-set-key 'insert (kbd "<backtab>") #'fancy-dabbrev-backward))
 
 (defun my-org-capture-hook ()
