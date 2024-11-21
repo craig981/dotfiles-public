@@ -1573,6 +1573,7 @@ defaulted the setting off."
 
 (consult-customize consult-line :preview-key 'any)
 (consult-customize consult-theme :preview-key 'any)
+(consult-customize my-imenu :preview-key 'any)
 
 (defun my-imenu ()
   (interactive)
