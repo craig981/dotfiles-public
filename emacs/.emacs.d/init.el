@@ -1565,16 +1565,6 @@ defaulted the setting off."
 
 (require 'consult)
 
-(global-set-key (kbd "C-c r") 'consult-recent-file)
-
-(define-key minibuffer-local-map (kbd "M-r") 'consult-history)
-
-(setq consult-preview-key nil)
-
-(consult-customize consult-line :preview-key 'any)
-(consult-customize consult-theme :preview-key 'any)
-(consult-customize my-imenu :preview-key 'any)
-
 (defun my-imenu ()
   (interactive)
   (let ((f (buffer-file-name)))
@@ -1600,6 +1590,11 @@ in C/C++ mode."
 	 (initial (if sym (format "\\<%s\\>" sym) nil)))
     (consult-ripgrep nil initial)))
 
+(setq consult-preview-key nil)
+(consult-customize consult-line :preview-key 'any)
+(consult-customize consult-theme :preview-key 'any)
+(consult-customize my-imenu :preview-key 'any)
+
 (define-key consult-async-map (kbd "M-w")
 	    (lambda ()
 	      (interactive)
@@ -1610,6 +1605,9 @@ in C/C++ mode."
 (evil-leader/set-key "i"   'my-imenu)
 (global-set-key (kbd "M-s e") 'my-ripgrep-project)
 (global-set-key (kbd "M-s i") 'my-imenu)
+
+(global-set-key (kbd "C-c r") 'consult-recent-file)
+(define-key minibuffer-local-map (kbd "M-r") 'consult-history)
 
 ;; ----------------------------------------------------------------------------
 ;;| Grep
