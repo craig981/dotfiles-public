@@ -1622,7 +1622,7 @@ in C/C++ mode."
   (rgrep (read-string "Search for: " (format "\\<%s\\>" (thing-at-point 'symbol t)))
 	 "*" (my-find-project-root)))
 
-(global-set-key (kbd "M-s f") 'my-grep-project)
+(global-set-key (kbd "M-s d") 'my-grep-project)
 (global-set-key (kbd "M-s g") 'rgrep)
 
 ;;; disable vertico when rgrep asks for file type
