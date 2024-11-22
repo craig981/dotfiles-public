@@ -1300,6 +1300,8 @@ copy the basename."
   (define-key org-mode-map (kbd "C-c [") 'org-toggle-link-display)
   (define-key org-mode-map (kbd "C-c ]") nil)
   (define-key org-mode-map (kbd "C-c M-e") 'org-decrypt-entry)
+  (define-key org-mode-map (kbd "M-[") 'org-backward-paragraph)
+  (define-key org-mode-map (kbd "M-]") 'org-forward-paragraph)
 
   (org-babel-do-load-languages 'org-babel-load-languages
 			       '((shell . t)
