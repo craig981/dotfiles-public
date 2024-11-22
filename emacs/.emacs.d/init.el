@@ -3017,6 +3017,11 @@ make TAGS in that directory."
 
 (add-hook 'window-setup-hook 'my-window-setup-hook)
 
+;;; disable trackpad zoom
+(global-set-key (kbd "<C-wheel-up>") 'ignore)
+(global-set-key (kbd "<C-wheel-down>") 'ignore)
+(global-set-key (kbd "<pinch>") 'ignore)
+
 ;; ----------------------------------------------------------------------------
 ;;| Music
 ;; ----------------------------------------------------------------------------
