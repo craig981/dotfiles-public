@@ -669,9 +669,7 @@ copy the basename."
 (global-set-key (kbd "M-j") #'evil-scroll-line-down)
 (global-set-key (kbd "M-[") (kbd "M-{"))
 (global-set-key (kbd "M-]") (kbd "M-}"))
-;; (global-set-key (kbd "M-SPC") evil-leader--default-map)
 (global-set-key (kbd "M-SPC") #'isearch-forward-symbol-at-point)
-(evil-leader/set-key "t"   #'tab-to-tab-stop)
 (global-set-key (kbd "C-M-;") #'evil-numbers/inc-at-pt)
 (global-set-key (kbd "C-M-'") #'evil-numbers/dec-at-pt)
 
