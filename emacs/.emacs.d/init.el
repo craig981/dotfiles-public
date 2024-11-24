@@ -677,7 +677,8 @@ copy the basename."
 
 (global-set-key (kbd "C-M-y") #'my-duplicate-line)
 (global-set-key (kbd "C-c C-j") #'my-join-lines)
-(global-set-key (kbd "C-o") #'my-open-line)
+(global-set-key (kbd "C-M-o") #'my-open-line-above)
+(global-set-key (kbd "C-o") #'my-open-line-below)
 (global-set-key (kbd "C-=") #'my-close-other-window)
 (global-set-key (kbd "C-;") #'goto-last-change)
 (pcase (system-name)
