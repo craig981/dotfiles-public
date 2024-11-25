@@ -42,7 +42,8 @@ nnoremap <leader>D :lcd %:p:h <bar> pwd<CR>
 nnoremap <leader>w :write<CR>
 nnoremap <C-j> :b<space>
 nnoremap <C-w>d :bd<CR>
-nnoremap <silent> <C-w><C-d> :Bclose<CR>
+nnoremap <silent> <C-w><C-d> :bp<bar>bd#<CR>
+
 "nnoremap <leader>i :30vs .<CR>
 "nnoremap <leader>i :Vex <bar> :vertical resize 30<CR>
 nnoremap <leader>i :set incsearch!<CR>
