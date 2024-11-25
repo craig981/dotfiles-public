@@ -2142,7 +2142,7 @@ return the project path instead"
 (defun my-compilation-mode-hook ()
   (modify-syntax-entry ?_ "w") ;; _ is word constituent, so * and # works
   (visual-line-mode)
-  (my-evil-default 'emacs)
+  (my-evil-default)
   (evil-local-set-key 'normal (kbd "q") 'quit-window)
 
   (when (and (eq system-type 'windows-nt)
