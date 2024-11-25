@@ -6,7 +6,7 @@ set nocompatible
 set nobackup
 set noswapfile
 set nohidden
-if has("nvim") || v:version >= 800
+if v:version >= 800
 	set nofixendofline
 endif
 
@@ -79,11 +79,7 @@ nnoremap <leader>o :vimgrep /\<<c-r><c-w>\>/ %<CR>:cope<CR><C-w><C-p>
 nnoremap <leader>/ /<C-R>='\V'.escape(getreg('0'), '/')<CR>
 
 "format paragraph like emacs M-q
-if has("nvim")
-	nnoremap <A-q> gwip
-else
-	nnoremap <Esc>q gwip
-endif
+nnoremap <Esc>q gwip
 
 "command line emacs keys
 cnoremap <c-n> <down>
@@ -94,17 +90,10 @@ cnoremap <c-a> <home>
 cnoremap <c-e> <End>
 "overrides show dir contents
 "cnoremap <c-d> <Del>
-if has("nvim")
-	cnoremap <A-f> <S-Right>
-	cnoremap <A-b> <S-Left>
-	cnoremap <A-BS> <c-w>
-	inoremap <A-BS> <c-w>
-else
-	cnoremap <Esc>f <S-Right>
-	cnoremap <Esc>b <S-Left>
-	cnoremap <Esc><Backspace> <c-w>
-	inoremap <Esc><Backspace> <c-w>
-endif
+cnoremap <Esc>f <S-Right>
+cnoremap <Esc>b <S-Left>
+cnoremap <Esc><Backspace> <c-w>
+inoremap <Esc><Backspace> <c-w>
 " recenter like emacs
 nnoremap <C-l> zz
 vnoremap <C-l> zz
@@ -228,9 +217,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 
 	if has("termguicolors")
 		set termguicolors
-		if !has("nvim")
-			set term=xterm-256color
-		endif
+		set term=xterm-256color
 
 		let theme = "'prefer-dark'"
 		if empty($SSH_CLIENT) && empty($SSH_TTY) && $XDG_CURRENT_DESKTOP == "ubuntu:GNOME"
@@ -253,33 +240,20 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 
 endif
 
-if has("nvim")
-	nnoremap <A-o> <C-W><C-W>
-	tnoremap <A-o> <C-\><C-n><C-W><C-W>
-	tnoremap <Esc> <C-\><C-n>
-	set guicursor=n-v-c-sm-i-ci-ve:block,r-cr-o:hor20
-
-	augroup term_group
-		autocmd!
-		" insert mode by default
-		autocmd TermOpen term://* startinsert
-	augroup END
-
-else
-	nnoremap <Esc>o <C-W><C-W>
-	if v:version >= 801
-		tnoremap <Esc>o <C-\><C-n><C-W><C-W>
-		tnoremap <C-W><C-Y> <C-W>""
-	endif
-
-	" Ctrl-[ quicker
-	set ttimeoutlen=50
-
-	"remove comment when joining lines
-	if v:version > 703
-		set formatoptions+=j
-	endif
+nnoremap <Esc>o <C-W><C-W>
+if v:version >= 801
+	tnoremap <Esc>o <C-\><C-n><C-W><C-W>
+	tnoremap <C-W><C-Y> <C-W>""
 endif
+
+" Ctrl-[ quicker
+set ttimeoutlen=50
+
+"remove comment when joining lines
+if v:version > 703
+	set formatoptions+=j
+endif
+
 " stop adding comment when opening a new line
 autocmd FileType,BufNewFile,BufRead * set formatoptions-=o
 
