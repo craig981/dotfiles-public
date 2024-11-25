@@ -1645,7 +1645,7 @@ defaulted the setting off."
 (setq completion-styles '(orderless flex))
 (setq completion-ignore-case t)
 (setq completion-show-help nil)
-(setq completion-auto-select 'second-tab)
+;; (setq completion-auto-select 'second-tab)
 
 ;; Don't want marginalia in *Completions* buffer when hitting TAB in
 ;; shell mode. Completion candidates are in a grid, and some are
