@@ -2236,6 +2236,17 @@ return the project path instead"
 
 (add-hook 'markdown-mode-hook 'my-markdown-hook)
 
+(defun my-insert-markdown-link ()
+  (interactive)
+  (let ((url (substring-no-properties (current-kill 0 t))))
+    (cond
+     ((string-match "^https://trello\\.com/[^/]+/[^/]+/\\([0-9]+\\)" url)
+      (save-excursion
+	(insert (format "[Trello %s](%s)" (match-string 1 url) url))))
+     (t (call-interactively 'markdown-insert-link)))))
+
+(evil-leader/set-key "l" 'my-insert-markdown-link)
+
 ;; ----------------------------------------------------------------------------
 ;;| Yaml
 ;; ----------------------------------------------------------------------------
