@@ -11,3 +11,8 @@ end
 set print pretty on
 set history save on
 set history filename ~/.gdb_history
+
+# emacs gets stuck asking for this
+set debuginfod enabled off
+
+

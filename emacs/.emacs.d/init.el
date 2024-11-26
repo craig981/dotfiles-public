@@ -60,6 +60,8 @@
  '(evil-motion-state-modes
    '(apropos-mode Buffer-menu-mode calendar-mode color-theme-mode command-history-mode dictionary-mode ert-results-mode help-mode Info-mode Man-mode speedbar-mode undo-tree-visualizer-mode view-mode woman-mode))
  '(find-name-arg "-iname")
+ '(gdb-many-windows t)
+ '(gdb-restore-window-configuration-after-quit t)
  '(grep-find-ignored-directories '(".svn" ".git" ".hg"))
  '(grep-find-ignored-files
    '(".#*" "*.o" "*~" "*.so" "*.a" "*.elc" "*.lib" "*.lo" "*.la" "*.pyc" "*.pyo" "TAGS"))
@@ -2820,6 +2822,11 @@ make TAGS in that directory."
 ;;| Debug, gdb
 ;; ----------------------------------------------------------------------------
 
+(defun my-jump-to-gud-comint-buffer ()
+  (interactive)
+  (if-let ((w (get-buffer-window gud-comint-buffer)))
+      (select-window w)))
+
 (defun my-gdb-mode-hook ()
   (define-key gud-mode-map (kbd "C-c C-r") 'comint-show-output)
   (define-key gud-mode-map (kbd "C-c C-p") 'comint-previous-prompt)
@@ -2827,59 +2834,12 @@ make TAGS in that directory."
   (define-key gud-mode-map (kbd "C-r") 'comint-history-isearch-backward)
   (define-key gud-mode-map (kbd "C-c C-j") 'gud-down)
   (define-key gud-mode-map (kbd "C-c C-k") 'gud-up)
-  (define-key gud-mode-map (kbd "C-c C-u") 'comint-kill-input))
+  (define-key gud-mode-map (kbd "C-c C-u") 'comint-kill-input)
+  (global-set-key (kbd "C-x C-a C-SPC") 'my-jump-to-gud-comint-buffer))
 
 (add-hook 'gdb-mode-hook 'my-gdb-mode-hook)
 
-(setq gdb-many-windows nil)
-
-;; TODO override gdb-setup-windows instead
-
-;;; https://stackoverflow.com/a/41326527
-(defun my-set-gdb-layout(&optional c-buffer)
-
-  (if (not c-buffer)
-      (setq c-buffer (window-buffer (selected-window)))) ;; save current buffer
-
-  (switch-to-buffer gud-comint-buffer)
-  (delete-other-windows)
-
-  (let* ((w-source (selected-window))						     ;; left top
-	 (w-gdb (split-window w-source nil 'right))				     ;; right bottom
-	 (w-locals (split-window w-gdb nil 'above))				     ;; right middle bottom
-	 (w-stack (split-window w-locals nil 'above))				     ;; right middle top
-	 ;; (w-breakpoints (split-window w-stack nil 'above))			     ;; right top
-	 (w-io (split-window w-source (floor (* 0.5 (window-body-height))) 'below))  ;; left bottom
-	 )
-
-    (set-window-buffer w-io (or (first (match-buffers "^\\*input/output of .*\\*$"))
-				(get-buffer "*compilation*")
-				(get-buffer "")
-				(gdb-get-buffer-create 'gdb-inferior-io)))
-    ;; (set-window-buffer w-breakpoints (gdb-get-buffer-create 'gdb-breakpoints-buffer))
-    (set-window-buffer w-locals (gdb-get-buffer-create 'gdb-locals-buffer))
-    (set-window-buffer w-stack (gdb-get-buffer-create 'gdb-stack-buffer))
-    (set-window-buffer w-gdb gud-comint-buffer)
-
-    (set-window-dedicated-p w-io t)
-    ;; (set-window-dedicated-p w-breakpoints t)
-    (set-window-dedicated-p w-locals t)
-    (set-window-dedicated-p w-stack t)
-    (set-window-dedicated-p w-gdb t)
-    (set-window-dedicated-p w-source nil)
-
-    (select-window w-source)
-    (set-window-buffer w-source c-buffer)))
-
-(defadvice gdb (around args activate)
-  (setq global-config-editing (current-window-configuration)) ;; to restore: (set-window-configuration c-editing)
-  (let ((c-buffer (window-buffer (selected-window))) ;; save current buffer
-        )
-    ad-do-it
-    (my-set-gdb-layout c-buffer)))
-(defadvice gdb-reset (around args activate)
-  ad-do-it
-  (set-window-configuration global-config-editing))
+;; TODO override gdb-setup-windows
 
 ;; ----------------------------------------------------------------------------
 ;;| Font
