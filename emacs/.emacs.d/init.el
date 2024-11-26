@@ -448,6 +448,7 @@
 (put 'narrow-to-region 'disabled nil)
 
 (when (display-graphic-p)
+  (global-set-key (kbd "C-x C-z") nil)
   (tool-bar-mode -1)
   (scroll-bar-mode -1))
 
