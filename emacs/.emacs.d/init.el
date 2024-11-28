@@ -2888,43 +2888,41 @@ make TAGS in that directory."
 (defun my-font-config ()
   (interactive)
 
-  (when (display-graphic-p)
+  (pcase system-type
 
-    (pcase system-type
-      ('gnu/linux
+    ('gnu/linux
+     ;; install to ~/.fonts/  then fc-cache -v ~/.fonts
 
-       ;; install to ~/.fonts/  then fc-cache -v ~/.fonts
+     (set-face-attribute 'default nil :family "Menlo")
 
-       (set-face-attribute 'default nil :family "Menlo")
+     (pcase (system-name)
+       ("goose"
+	(if (string= "1920x1080" (string-trim
+				  (shell-command-to-string
+				   "xrandr | grep '\\*' | awk '{print $1}'")))
+	    (set-face-attribute 'default nil :height 110) ; external monitor
+	  (set-face-attribute 'default nil :height 130))) ; laptop screen
 
-       (pcase (system-name)
-	 ("goose"
-	  (if (string= "1920x1080" (string-trim
-				    (shell-command-to-string
-				     "xrandr | grep '\\*' | awk '{print $1}'")))
-	      (set-face-attribute 'default nil :height 110) ; external monitor
-	    (set-face-attribute 'default nil :height 130))) ; laptop screen
+       ("hedgehog"
+	(cond
+	 ;; remote display
+	 ((getenv "SSH_CLIENT")
+	  (set-face-attribute 'default nil :height 130))
 
-	 ("hedgehog"
-	  (cond
-	   ;; remote display
-	   ((getenv "SSH_CLIENT")
-	    (set-face-attribute 'default nil :height 130))
+	 ;; laptop screen
+	 ((string-empty-p (string-trim (shell-command-to-string
+					"xrandr | awk '$2 == \"connected\" && $1 ~ /^(HDMI-|DP-)/ {print $1}'")))
+	  (set-face-attribute 'default nil :height 120))
 
-	   ;; laptop screen
-	   ((string-empty-p (string-trim (shell-command-to-string
-					  "xrandr | awk '$2 == \"connected\" && $1 ~ /^(HDMI-|DP-)/ {print $1}'")))
-	    (set-face-attribute 'default nil :height 120))
+	 ;; external monitor
+	 (t (set-face-attribute 'default nil :height 105))))))
 
-	   ;; external monitor
-	   (t (set-face-attribute 'default nil :height 105))))))
+    ('windows-nt
+     ;; (set-frame-font "Fira Mono 11" nil t)
+     (set-frame-font "JetBrains Mono 11" nil t))
 
-      ('windows-nt
-       ;; (set-frame-font "Fira Mono 11" nil t)
-       (set-frame-font "JetBrains Mono 11" nil t))
-
-      ('darwin
-       (set-face-attribute 'default nil :family "Menlo" :height 160)))))
+    ('darwin
+     (set-face-attribute 'default nil :family "Menlo" :height 160))))
 
 ;; ----------------------------------------------------------------------------
 ;;| Colour theme
@@ -3015,7 +3013,8 @@ make TAGS in that directory."
      ((or (= month 12) (<= month 2))   (my-theme-dark 'ef-winter))
      (t                                (my-theme-dark 'reykjavik 'reykjavik-theme))))
 
-  (my-font-config)
+  (when (display-graphic-p)
+    (my-font-config))
 
   (when (and (eq system-type 'gnu/linux)
 	     (string= (getenv "XDG_SESSION_TYPE") "wayland"))
