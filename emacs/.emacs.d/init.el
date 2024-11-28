@@ -1579,14 +1579,23 @@ defaulted the setting off."
      ((eq major-mode 'org-mode) (consult-org-heading))
      (t (consult-imenu)))))
 
-(defun my-ripgrep-project (&optional prefix)
-  "Prefix opens in other window."
-  (interactive "P")
+(defun my-ripgrep (dir other-window)
   (let* ((consult-preview-key 'any)
-	 (consult--buffer-display (if prefix #'switch-to-buffer-other-window #'switch-to-buffer))
-	 (sym (thing-at-point 'symbol t))
-	 (initial (if sym (format "\\<%s\\>" sym) nil)))
-    (consult-ripgrep nil initial)))
+	 (consult--buffer-display (if other-window #'switch-to-buffer-other-window #'switch-to-buffer))
+	 (initial (if-let ((sym (thing-at-point 'symbol t)))
+		      (format "\\<%s\\>" sym)
+		    nil)))
+    (consult-ripgrep dir initial)))
+
+(defun my-ripgrep-project (&optional prefix)
+  "Run ripgrep across the current project. Prefix opens in other window."
+  (interactive "P")
+  (my-ripgrep nil prefix))
+
+(defun my-ripgrep-dir (&optional prefix)
+  "Run ripgrep under a given directory. Prefix opens in other window."
+  (interactive "P")
+  (my-ripgrep (read-directory-name "Directory: ") prefix))
 
 (setq consult-preview-key nil)
 (consult-customize consult-line :preview-key 'any)
@@ -1601,7 +1610,8 @@ defaulted the setting off."
 
 (evil-leader/set-key "r"   'my-ripgrep-project)
 (evil-leader/set-key "i"   'my-imenu)
-(global-set-key (kbd "M-s e") 'my-ripgrep-project)
+(global-set-key (kbd "M-s M-e") 'my-ripgrep-project)
+(global-set-key (kbd "M-s e") 'my-ripgrep-dir)
 (global-set-key (kbd "M-s i") 'my-imenu)
 
 (global-set-key (kbd "C-c r") 'consult-recent-file)
@@ -1620,7 +1630,7 @@ defaulted the setting off."
   (rgrep (read-string "Search for: " (format "\\<%s\\>" (thing-at-point 'symbol t)))
 	 "*" (my-find-project-root)))
 
-(global-set-key (kbd "M-s d") 'my-grep-project)
+(global-set-key (kbd "M-s M-g") 'my-grep-project)
 (global-set-key (kbd "M-s g") 'rgrep)
 
 ;;; disable vertico when rgrep asks for file type
