@@ -2921,10 +2921,10 @@ make TAGS in that directory."
 (defun my-theme-dark (theme &optional req)
   (mapcar #'disable-theme custom-enabled-themes)
   (require (or req 'ef-themes))
-  (load-theme theme)
+  (load-theme theme t)
   (cond
-   ((eq theme 'reykjavik) (load-theme 'my-override-dark))
-   (t                     (load-theme 'my-override-dark2)))
+   ((eq theme 'reykjavik) (load-theme 'my-override-dark t))
+   (t                     (load-theme 'my-override-dark2 t)))
 
   (set-cursor-color "white")
   (setq evil-emacs-state-cursor '(box "orange"))
@@ -2936,7 +2936,7 @@ make TAGS in that directory."
 (defun my-theme-light (theme &optional req)
   (mapcar #'disable-theme custom-enabled-themes)
   (require (or req 'ef-themes))
-  (load-theme theme)
+  (load-theme theme t)
 
   (set-cursor-color "black")
   (setq evil-emacs-state-cursor '(box "orange"))
