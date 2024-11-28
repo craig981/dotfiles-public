@@ -1682,6 +1682,8 @@ defaulted the setting off."
 (require 'orderless)
 
 (setq completion-styles '(orderless flex))
+(setq completion-category-defaults nil)
+(setq completion-category-overrides nil)
 (setq completion-ignore-case t)
 (setq completion-show-help nil)
 ;; (setq completion-auto-select 'second-tab)
@@ -2044,6 +2046,7 @@ return the project path instead"
 
 (require 'dired)
 (require 'dired-x)
+(setq dired-recursive-copies 'always)
 (setq dired-dwim-target t)
 (put 'dired-find-alternate-file 'disabled nil)
 
@@ -2892,7 +2895,7 @@ make TAGS in that directory."
 
        ;; install to ~/.fonts/  then fc-cache -v ~/.fonts
 
-       (set-face-attribute 'default nil :font "Menlo:pixelsize=14:weight=normal:slant=normal:width=normal:spacing=100:scalable=true")
+       (set-face-attribute 'default nil :family "Menlo")
 
        (pcase (system-name)
 	 ("goose"
