@@ -651,7 +651,6 @@ copy the basename."
 (global-set-key (kbd "C-c w SPC") #'world-clock)
 (global-set-key (kbd "C-c m") #'my-mirror-buffer)
 (global-set-key (kbd "C-c q") #'my-kill-in-quotes)
-(global-set-key (kbd "C-c i") #'my-find-init-file)
 
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 (global-set-key (kbd "M-=") 'winner-undo)
@@ -2946,9 +2945,10 @@ make TAGS in that directory."
 
 (defhydra my-theme-hydra ()
   "Theme"
+  ("r" (lambda () (interactive) (my-theme-dark 'ef-owl)) "ef-owl")
   ("y" (lambda () (interactive) (my-theme-dark 'ef-winter)) "ef-winter")
   ("u" (lambda () (interactive) (my-theme-light 'ef-cyprus)) "ef-cyprus")
-  ("i" (lambda () (interactive) (my-theme-dark 'ef-owl)) "ef-owl")
+  ("i" (lambda () (interactive) (my-find-init-file)) "init.el" :exit t)
   ("o" (lambda () (interactive) (my-theme-dark 'reykjavik 'reykjavik-theme)) "reykjavik")
   ("p" (lambda () (interactive) (my-theme-dark 'ef-autumn)) "ef-autumn")
   ("t" #'my-toggle-alpha-background "toggle alpha-background")
