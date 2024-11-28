@@ -1625,7 +1625,7 @@ defaulted the setting off."
 
 (setq consult-preview-key nil)
 (consult-customize consult-line :preview-key 'any)
-(consult-customize consult-theme :preview-key 'any)
+(consult-customize consult-theme :preview-key "C-l")
 (consult-customize my-imenu :preview-key 'any)
 
 (define-key consult-async-map (kbd "M-w")
@@ -2981,14 +2981,14 @@ make TAGS in that directory."
 			   nil my-alpha)))
 
 (defhydra my-theme-hydra ()
-  "Theme"
-  ("r" (lambda () (interactive) (my-theme-dark 'ef-owl)) "ef-owl")
+  ("r" (lambda () (interactive) (my-theme-dark 'reykjavik 'reykjavik-theme)) "reykjavik")
+  ("t" (lambda () (interactive) (my-theme-dark 'ef-night)) "ef-night")
   ("y" (lambda () (interactive) (my-theme-dark 'ef-winter)) "ef-winter")
   ("u" (lambda () (interactive) (my-theme-light 'ef-cyprus)) "ef-cyprus")
   ("i" (lambda () (interactive) (my-find-init-file)) "init.el" :exit t)
-  ("o" (lambda () (interactive) (my-theme-dark 'reykjavik 'reykjavik-theme)) "reykjavik")
+  ("o" (lambda () (interactive) (my-theme-dark 'ef-owl)) "ef-owl")
   ("p" (lambda () (interactive) (my-theme-dark 'ef-autumn)) "ef-autumn")
-  ("t" #'my-toggle-alpha-background "toggle alpha-background")
+  ("a" #'my-toggle-alpha-background "toggle alpha-background")
   ("0" (lambda () (interactive) (set-frame-parameter nil 'alpha-background 0)) "transparent")
   ("9" (lambda () (interactive) (set-frame-parameter nil 'alpha-background my-alpha)) "blend"))
 
@@ -3011,7 +3011,7 @@ make TAGS in that directory."
      ((and (> hour 7) (< hour 16))     (my-theme-light 'ef-cyprus))
      ((and (>= month 9) (<= month 11)) (my-theme-dark 'ef-autumn))
      ((or (= month 12) (<= month 2))   (my-theme-dark 'ef-winter))
-     (t                                (my-theme-dark 'reykjavik 'reykjavik-theme))))
+     (t                                (my-theme-dark 'ef-night))))
 
   (when (display-graphic-p)
     (my-font-config))
