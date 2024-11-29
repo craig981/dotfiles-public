@@ -2406,7 +2406,7 @@ return key from pasting the whole lot back and executing it."
 
   ;; don't ignore .git, etc
   (setq-local completion-ignored-extensions nil
-	      completion-ignore-case nil))
+	      completion-ignore-case t))
 
 (add-hook 'shell-mode-hook 'my-shell-hook)
 
