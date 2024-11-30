@@ -247,7 +247,8 @@
 (setq-default evil-ex-search-case 'sensitive)
 (setq-default evil-search-module 'evil-search)
 
-(setq evil-emacs-state-tag  (propertize "<E>" 'face '((:foreground "#000000" :background "goldenrod"))))
+(when (not my-evil-emacs-state)
+  (setq evil-emacs-state-tag (propertize "<E>" 'face '((:foreground "#000000" :background "goldenrod")))))
 
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key "w" 'save-buffer)
