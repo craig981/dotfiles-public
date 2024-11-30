@@ -230,13 +230,14 @@
 (global-evil-leader-mode)
 
 (evil-esc-mode 1)			; make C-[ escape
-;; (evil-global-set-key 'insert   (kbd "C-j") 'evil-normal-state)
-;; (evil-global-set-key 'replace  (kbd "C-j") 'evil-normal-state)
-;; (evil-global-set-key 'operator (kbd "C-j") 'evil-force-normal-state)
-;; (evil-global-set-key 'visual   (kbd "C-j") 'evil-exit-visual-state)
-;; (global-set-key (kbd "C-j") 'ignore)
-(evil-global-set-key 'insert (kbd "C-c <escape>") 'evil-normal-state)
-(evil-global-set-key 'insert (kbd "C-c SPC") 'ignore)
+(evil-global-set-key 'insert     (kbd "C-c <escape>") 'evil-normal-state)
+(evil-global-set-key 'insert     (kbd "C-c SPC") 'ignore)
+(when (display-graphic-p)
+  (evil-global-set-key 'insert   (kbd "C-;") 'evil-normal-state)
+  (evil-global-set-key 'replace  (kbd "C-;") 'evil-normal-state)
+  (evil-global-set-key 'operator (kbd "C-;") 'evil-force-normal-state)
+  (evil-global-set-key 'visual   (kbd "C-;") 'evil-exit-visual-state)
+  (evil-global-set-key 'normal   (kbd "C-;") 'ignore))
 ;; (evil-global-set-key 'insert (kbd "TAB") 'evil-normal-state)
 ;; (evil-global-set-key 'insert (kbd "C-SPC") 'evil-normal-state)
 
@@ -1445,7 +1446,7 @@ defaulted the setting off."
         (display-buffer-below-selected))
       display-buffer-alist)
 
-(global-set-key (kbd "C-'") (lambda ()
+(global-set-key (kbd "C-,") (lambda ()
 			      (interactive)
 			      (find-file org-default-notes-file)))
 (global-set-key (kbd "C-c l") 'org-store-link)
