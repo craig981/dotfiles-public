@@ -892,7 +892,7 @@ copy the basename."
 ;; ----------------------------------------------------------------------------
 
 (defun my-prog-mode-hook ()
-  (abbrev-mode -1)
+  (abbrev-mode 1)
   (my-evil-default)
   (when my-olivetti-state
     (olivetti-mode 1))
@@ -2826,8 +2826,8 @@ make TAGS in that directory."
     (define-abbrev table "in"   "" 'my-cpp-include)
     (define-abbrev table "inc"  "" 'my-cpp-include-sys)
     (define-abbrev table "ce"   "" 'my-cpp-using-cerr)
-    (define-abbrev table "for"  "" 'my-cpp-for)
-    (define-abbrev table "fori" "" 'my-cpp-for-iter)
+    (define-abbrev table "fo"   "" 'my-cpp-for)
+    (define-abbrev table "for"  "" 'my-cpp-for-iter)
     (define-abbrev table "pv"   "" 'my-cpp-print-vec)
     (define-abbrev table "main" "" 'my-cpp-main)))
 
