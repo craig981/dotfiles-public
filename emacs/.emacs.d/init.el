@@ -870,7 +870,9 @@ copy the basename."
 	 display-buffer-use-some-window
 	 display-buffer-in-direction)
 	(direction . right)
-	(inhibit-same-window . t))
+	;; don't want this as jumping back/forwards opens a second help window
+	;; (inhibit-same-window . t)
+	)
       display-buffer-alist)
 
 ;; ----------------------------------------------------------------------------
