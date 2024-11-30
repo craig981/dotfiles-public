@@ -2784,10 +2784,15 @@ make TAGS in that directory."
   (upcase (setq v1 (skeleton-read "Namespace: ")))
   "_"
   (setq v2 (upcase
-	    (let ((name (buffer-file-name)))
+	    (let ((name (buffer-file-name))
+		  (case-fold-search nil))
 	      (if name
-		  (file-name-nondirectory
-		   (file-name-sans-extension name))
+		  (replace-regexp-in-string
+		   "^_" ""
+		   (replace-regexp-in-string
+		    "\\([A-Z]\\)" "_\\1"
+		    (file-name-nondirectory
+		     (file-name-sans-extension name)) t))
 		(skeleton-read "Name: "))))) "_H\n"
   "#define INCLUDED_" (upcase v1) "_" v2 "_H\n\n"
   "namespace " v1 " {\n\n"
