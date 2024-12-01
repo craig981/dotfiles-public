@@ -901,7 +901,7 @@ copy the basename."
 ;; ----------------------------------------------------------------------------
 
 (defun my-prog-mode-hook ()
-  (abbrev-mode 1)
+  (abbrev-mode -1)
   (my-evil-default)
   (when my-olivetti-state
     (olivetti-mode 1))
