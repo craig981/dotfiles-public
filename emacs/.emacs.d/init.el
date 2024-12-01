@@ -493,6 +493,12 @@ copy the basename."
     (kill-new y)
     (message "Yanked %s" y)))
 
+(defun my-sudo-find-file (filename)
+  "Open a file as root."
+  (interactive "FSudo Find file: ")
+  (let ((fn (concat "/sudo:root@localhost:" (expand-file-name filename))))
+    (find-file fn)))
+
 (defun my-mirror-buffer ()
   "Mirror current buffer to other window"
   (interactive)
