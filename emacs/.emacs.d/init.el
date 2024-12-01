@@ -124,7 +124,7 @@
    '((sequence "TODO(t)" "PROGRESS(p)" "WAIT(w@/@)" "BLOCK(b@/@)" "|" "DONE(d!/!)" "CANCELLED(c@/@)")))
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
-   '(cape cmake-mode consult ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless ox-pandoc paredit reykjavik-theme soft-morning-theme undo-tree vertico wgrep which-key yaml-mode))
+   '(calfw calfw-org cape cmake-mode consult ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless ox-pandoc paredit reykjavik-theme soft-morning-theme undo-tree vertico wgrep which-key yaml-mode))
  '(package-vc-selected-packages
    '((sandcastle-theme :vc-backend Git :url "https://github.com/habamax/sandcastle-theme")))
  '(project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
@@ -1322,6 +1322,7 @@ copy the basename."
 (advice-add 'org-insert-link :before #'my-forward-before-insert)
 
 (with-eval-after-load 'org-agenda
+  (define-key org-agenda-mode-map (kbd "C") 'calfworg)
   (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map))
 
 (with-eval-after-load 'org
@@ -1491,6 +1492,11 @@ defaulted the setting off."
       display-buffer-alist)
 
 (global-set-key (kbd "C-c M-r") 'calendar)
+
+(when (and (require 'calfw nil t)
+	   (require 'calfw-org nil t))
+  (setq cfw:display-calendar-holidays nil)
+  (defalias 'calfworg 'cfw:open-org-calendar))
 
 ;; ----------------------------------------------------------------------------
 ;;| Calc
