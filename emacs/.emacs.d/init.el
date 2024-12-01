@@ -837,10 +837,11 @@ copy the basename."
 (defvar my-pulse-face)
 
 (setq pulse-delay 0.06
-      pulse-iterations 8)
+      pulse-iterations 10)
 
 (defun my-pulse-line (&rest r)
-  (when (boundp 'my-pulse-face)
+  (when (and (boundp 'my-pulse-face)
+	     (not global-hl-line-mode))
    (pulse-momentary-highlight-one-line (point) my-pulse-face)))
 
 (dolist (cmd '(bookmark-jump tab-new tab-close tab-next
