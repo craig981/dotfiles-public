@@ -2489,15 +2489,15 @@ make TAGS in that directory."
 	;; (visit-tags-table (concat path "TAGS"))
 	))))
 
-(defun my-run-ctags (&optional prefix)
-  "Generate tags in the current project, and visit the tags file."
-  (interactive)
-  (let ((proj (my-find-project-root))
+(defun my-run-ctags (dir)
+  "Generate TAGS in a directory, and visit the tags file."
+  (interactive "DDirectory: ")
+  (let ((proj (expand-file-name (file-name-as-directory dir)))
 	(ctags (if (eq system-type 'darwin) "uctags" "ctags")))
     (when (y-or-n-p (format "Run '%s' in %s?" ctags proj))
       (message (format "Running '%s' in %s ..." ctags proj))
       (when (= 0 (shell-command
-		  (format "cd \"%s\" && %s -R -e -f TAGS --exclude=.git --exclude=build . > /dev/null"
+		  (format "cd '%s' && %s -R -e -f TAGS --exclude=.git --exclude=build . > /dev/null"
 			  proj ctags)))
 	(visit-tags-table (concat proj "TAGS"))))))
 
