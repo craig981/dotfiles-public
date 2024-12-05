@@ -57,6 +57,7 @@ function lt() {
 alias p='mplayer -really-quiet -loop 0 -fixed-vo'
 alias abcll='abcls -almrstv'
 alias t='tmux'
+alias d='cd ~/dotfiles-public'
 
 alias g='git st'
 alias gl='git lo'
