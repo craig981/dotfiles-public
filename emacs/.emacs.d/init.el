@@ -144,6 +144,7 @@
      (evil-shift-width . 2)
      (evil-shift-width . 4)))
  '(save-place-forget-unreadable-files nil)
+ '(shell-input-autoexpand nil)
  '(shift-select-mode nil)
  '(show-paren-when-point-in-periphery t)
  '(show-paren-when-point-inside-paren t)
