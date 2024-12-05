@@ -2430,9 +2430,6 @@ return key from pasting the whole lot back and executing it."
 (global-set-key (kbd "C-c t s") 'my-shell)
 (global-set-key (kbd "C-x j") 'my-jump-to-shell)
 
-(with-eval-after-load 'shell
-  (define-key shell-mode-map (kbd "SPC") 'comint-magic-space))
-
 (when (eq system-type 'windows-nt)
   (setq-default shell-file-name "bash.exe"))
 
