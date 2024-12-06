@@ -14,13 +14,13 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     gsettings set org.gnome.mutter overlay-key ''
 
     case "$(hostname -s)" in
-	"goose")
-	    gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:swapcaps', 'altwin:swap_lalt_lwin', 'ctrl:swap_rwin_rctl', 'lv3:ralt_alt']"
-	    # gsettings set org.gnome.desktop.input-sources xkb-options "['caps:swapescape', 'altwin:swap_lalt_lwin', 'ctrl:swap_rwin_rctl', 'lv3:ralt_alt']"
-	    # gsettings set org.gnome.desktop.input-sources xkb-options "['caps:escape_shifted_capslock', 'ctrl:swap_lalt_lctl_lwin', 'ctrl:swap_rwin_rctl']"
-	    ;;
+    "goose")
+        gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:swapcaps', 'altwin:swap_lalt_lwin', 'ctrl:swap_rwin_rctl', 'lv3:ralt_alt']"
+        # gsettings set org.gnome.desktop.input-sources xkb-options "['caps:swapescape', 'altwin:swap_lalt_lwin', 'ctrl:swap_rwin_rctl', 'lv3:ralt_alt']"
+        # gsettings set org.gnome.desktop.input-sources xkb-options "['caps:escape_shifted_capslock', 'ctrl:swap_lalt_lctl_lwin', 'ctrl:swap_rwin_rctl']"
+        ;;
 
-	"hedgehog")
+    "hedgehog")
         if [[ -n $(xinput list --name-only | grep -i 'Apple.*Magic Keyboard') ]]; then
             # external apple keyboard
             gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:swapcaps', 'altwin:swap_lalt_lwin', 'ctrl:swap_rwin_rctl', 'lv3:ralt_alt']"
@@ -83,52 +83,52 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     command=()
     binding=()
     if [[ -x /usr/bin/nautilus ]]; then
-	name+=( "nautilus" )
-	command+=( nautilus )
-	binding+=( '<Super>f' )
+    name+=( "nautilus" )
+    command+=( nautilus )
+    binding+=( '<Super>f' )
     fi
     if [[ -x ~/tools/bin/emacs ]]; then
-	name+=( "emacs" )
-	command+=( ~/tools/bin/emacs )
-	binding+=( '<Super>e' )
+    name+=( "emacs" )
+    command+=( ~/tools/bin/emacs )
+    binding+=( '<Super>e' )
     fi
     if [[ -x ~/dev/macDict/macDict.sh ]]; then
-	name+=( "macDict" )
-	command+=( ~/dev/macDict/macDict.sh )
-	binding+=( '<Super>d' )
+    name+=( "macDict" )
+    command+=( ~/dev/macDict/macDict.sh )
+    binding+=( '<Super>d' )
     fi
     if command -v google-chrome > /dev/null 2>&1; then
-	name+=( "youtube" )
-	command+=( "google-chrome 'https://www.youtube.com/feed/subscriptions'" )
-	binding+=( '<Super>y' )
+    name+=( "youtube" )
+    command+=( "google-chrome 'https://www.youtube.com/feed/subscriptions'" )
+    binding+=( '<Super>y' )
     fi
 
     if [[ "$(hostname -s)" = "goose" ]]; then
-	# disable screen brightness keys with default step of 5 (requires session restart)
-	gsettings set org.gnome.settings-daemon.plugins.media-keys screen-brightness-down-static "['']"
-	gsettings set org.gnome.settings-daemon.plugins.media-keys screen-brightness-up-static "['']"
+    # disable screen brightness keys with default step of 5 (requires session restart)
+    gsettings set org.gnome.settings-daemon.plugins.media-keys screen-brightness-down-static "['']"
+    gsettings set org.gnome.settings-daemon.plugins.media-keys screen-brightness-up-static "['']"
 
-	# smaller brightness step
-	name+=( "brightessUp" )
-	command+=( "${HOME}/dotfiles-public/bin/brightness.sh 1" )
-	binding+=( 'MonBrightnessUp' )
-	name+=( "brightessDown" )
-	command+=( "${HOME}/dotfiles-public/bin/brightness.sh -1" )
-	binding+=( 'MonBrightnessDown' )
+    # smaller brightness step
+    name+=( "brightessUp" )
+    command+=( "${HOME}/dotfiles-public/bin/brightness.sh 1" )
+    binding+=( 'MonBrightnessUp' )
+    name+=( "brightessDown" )
+    command+=( "${HOME}/dotfiles-public/bin/brightness.sh -1" )
+    binding+=( 'MonBrightnessDown' )
     fi
 
     len=${#name[@]}
     key=org.gnome.settings-daemon.plugins.media-keys.custom-keybinding
     custom=""
     for (( i=0; i<len; i++ )); do
-	if (( $i > 0 )); then
+    if (( $i > 0 )); then
             custom="${custom},"
-	fi
-	path="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom${i}/"
-	gsettings set "${key}:${path}" name "${name[$i]}"
-	gsettings set "${key}:${path}" command "${command[$i]}"
-	gsettings set "${key}:${path}" binding "${binding[$i]}"
-	custom="${custom}'${path}'"
+    fi
+    path="/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom${i}/"
+    gsettings set "${key}:${path}" name "${name[$i]}"
+    gsettings set "${key}:${path}" command "${command[$i]}"
+    gsettings set "${key}:${path}" binding "${binding[$i]}"
+    custom="${custom}'${path}'"
     done
     gsettings set org.gnome.settings-daemon.plugins.media-keys custom-keybindings "[${custom}]"
 
@@ -152,11 +152,11 @@ if [[ "$(hostname -s)" = "asusbox" ]]; then
 
     for id in $(xinput list | sed -e '1,/Virtual core keyboard/d' | grep -e 'Keychron' -e 'PCoIP.*Keyboard' -e 'RGS keyboard' | sed -e 's/.*id=\([0-9]\+\).*/\1/')
     do
-	setxkbmap -device "${id}" -option
-	setxkbmap -device "${id}" -option caps:ctrl_modifier
-	setxkbmap -device "${id}" -option ctrl:swap_rwin_rctl
-	setxkbmap -device "${id}" -option altwin:swap_lalt_lwin
-	setxkbmap -device "${id}" -option shift:both_capslock
+    setxkbmap -device "${id}" -option
+    setxkbmap -device "${id}" -option caps:ctrl_modifier
+    setxkbmap -device "${id}" -option ctrl:swap_rwin_rctl
+    setxkbmap -device "${id}" -option altwin:swap_lalt_lwin
+    setxkbmap -device "${id}" -option shift:both_capslock
     done
 fi
 
