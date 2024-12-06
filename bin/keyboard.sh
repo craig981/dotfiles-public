@@ -77,7 +77,9 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ new-tab "'<Alt>t'"
 
 
+    # ----------------------------------------------------------------------
     # custom shortcuts
+    # ----------------------------------------------------------------------
 
     name=()
     command=()
@@ -92,16 +94,20 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
         command+=( ~/tools/bin/emacs )
         binding+=( '<Super>e' )
     fi
-    if [[ -x ~/dev/macDict/macDict.sh ]]; then
-        name+=( "macDict" )
-        command+=( ~/dev/macDict/macDict.sh )
-        binding+=( '<Super>d' )
-    fi
-    if command -v google-chrome > /dev/null 2>&1; then
-        name+=( "youtube" )
-        command+=( "google-chrome 'https://www.youtube.com/feed/subscriptions'" )
-        binding+=( '<Super>y' )
-    fi
+    case "$(hostname -s)" in
+        goose|hedgehog)
+            if [[ -x ~/dev/macDict/macDict.sh ]]; then
+                name+=( "macDict" )
+                command+=( ~/dev/macDict/macDict.sh )
+                binding+=( '<Super>d' )
+            fi
+            if command -v google-chrome > /dev/null 2>&1; then
+                name+=( "youtube" )
+                command+=( "google-chrome 'https://www.youtube.com/feed/subscriptions'" )
+                binding+=( '<Super>y' )
+            fi
+            ;;
+    esac
 
     if [[ "$(hostname -s)" = "goose" ]]; then
         # disable screen brightness keys with default step of 5 (requires session restart)
