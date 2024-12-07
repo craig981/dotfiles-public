@@ -846,7 +846,7 @@ copy the basename."
    (pulse-momentary-highlight-one-line (point) my-pulse-face)))
 
 (dolist (cmd '(bookmark-jump tab-new tab-close tab-next
-	       other-window delete-window my-kill-buffer
+	       other-window delete-window kill-this-buffer
 	       quit-window org-agenda-quit magit-mode-bury-buffer
 	       winner-undo winner-redo))
   (advice-add cmd :after 'my-pulse-line))
@@ -1765,18 +1765,6 @@ defaulted the setting off."
       (when m (marginalia-mode 1))
       (when icv (icomplete-vertical-mode 1)))))
 
-(defun my-kill-buffer ()
-  (interactive)
-  (if (or (get-buffer-process (current-buffer))
-	  (eq major-mode 'org-agenda-mode)
-	  (eq major-mode 'dired-mode)
-	  (eq major-mode 'compilation-mode)
-	  (not (buffer-modified-p))
-	  (string= "*Async Shell Command*"
-		   (buffer-name (current-buffer))))
-      (kill-this-buffer)
-    (my-invoke-with-completion #'kill-buffer -1)))
-
 (defun my-switch-buffer ()
   (interactive)
   (my-invoke-with-completion #'consult-buffer 1))
@@ -1785,9 +1773,9 @@ defaulted the setting off."
   (interactive)
   (my-invoke-with-completion #'consult-buffer-other-window 1))
 
-(evil-global-set-key 'motion (kbd "C-w d")   'my-kill-buffer)
-(evil-global-set-key 'motion (kbd "C-w C-d") 'my-kill-buffer)
-(global-set-key (kbd "C-x k") 'my-kill-buffer)
+(evil-global-set-key 'motion (kbd "C-w d")   'kill-this-buffer)
+(evil-global-set-key 'motion (kbd "C-w C-d") 'kill-this-buffer)
+(global-set-key (kbd "C-x k")		     'kill-this-buffer)
 
 (global-set-key (kbd "C-j")     'my-switch-buffer)
 (global-set-key (kbd "C-x C-b") 'my-switch-buffer)
