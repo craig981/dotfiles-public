@@ -60,6 +60,7 @@
  '(evil-motion-state-modes
    '(apropos-mode Buffer-menu-mode calendar-mode color-theme-mode command-history-mode dictionary-mode ert-results-mode help-mode Info-mode Man-mode speedbar-mode undo-tree-visualizer-mode view-mode woman-mode))
  '(find-name-arg "-iname")
+ '(gdb-debuginfod-enable-setting nil)
  '(gdb-many-windows t)
  '(gdb-restore-window-configuration-after-quit t)
  '(grep-find-ignored-directories '(".svn" ".git" ".hg"))
