@@ -1204,6 +1204,7 @@ copy the basename."
 (setq org-agenda-custom-commands
       `(("p" "In progress" todo "PROGRESS")
 	("w" "Waiting" todo "WAIT|BLOCK")
+	("d" "Done" todo "DONE|CANCELLED")
 	;; ("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
 	("l" "Learn"
 	 ((tags "read|watch|project"
