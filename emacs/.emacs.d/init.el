@@ -450,7 +450,6 @@
 (put 'narrow-to-region 'disabled nil)
 
 (when (display-graphic-p)
-  (global-set-key (kbd "C-x C-z") nil)
   (tool-bar-mode -1)
   (scroll-bar-mode -1))
 
@@ -659,7 +658,9 @@ copy the basename."
 (global-set-key (kbd "C-c w SPC") #'world-clock)
 (global-set-key (kbd "C-c m") #'my-mirror-buffer)
 (global-set-key (kbd "C-c q") #'my-kill-in-quotes)
+(global-set-key (kbd "C-x C-z") nil)	; no suspend-frame
 
+(global-set-key (kbd "C-z") 'zap-up-to-char)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 (global-set-key (kbd "M-=") 'winner-undo)
 (global-set-key (kbd "M-+") 'winner-redo)
