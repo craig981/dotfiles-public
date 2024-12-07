@@ -2537,6 +2537,8 @@ make TAGS in that directory."
 (define-key paredit-mode-map (kbd "M-s s") 'paredit-splice-sexp)
 (define-key paredit-mode-map (kbd "M-s r") 'paredit-raise-sexp)
 (define-key paredit-mode-map (kbd "M-r") nil)
+(when (not (version< emacs-version "30"))
+  (define-key paredit-mode-map (kbd "M-q") nil))
 
 (defun my-lisp-common-hook ()
   (enable-paredit-mode)
