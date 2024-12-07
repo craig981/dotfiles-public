@@ -2089,7 +2089,7 @@ return the project path instead"
 					("\\.mp4\\'" "mpv")
 					("\\.mkv\\'" "mpv")
 					("\\.pdf\\'" "evince")
-					("\\.jp[e]?g\\'" "feh -x")
+					("\\.jp[e]?g\\'" "feh -Zx *")
 					("" "open"))))
 
   ('darwin
