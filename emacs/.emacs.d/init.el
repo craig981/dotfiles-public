@@ -1985,9 +1985,7 @@ return the project path instead"
 
 (defun my-choose-project-and-dired ()
   (interactive)
-  (my-choose-project (lambda (path)
-		       (dired path)
-		       (pwd))))
+  (my-choose-project-and-invoke #'project-find-dir))
 
 (defun my-choose-project-and-shell ()
   (interactive)
