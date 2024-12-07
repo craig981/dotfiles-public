@@ -2992,6 +2992,17 @@ make TAGS in that directory."
   (setq my-pulse-face 'next-error)
   (my-set-dark-mode nil))
 
+(defun my-preserve-compile-command (func &rest args)
+  "For some reason, changing the theme reverts the compile-command
+to its default value. Leave it alone!"
+  (let ((old compile-command))
+    (unwind-protect
+	(apply func args)
+      (setq compile-command old))))
+
+(advice-add 'my-theme-dark :around 'my-preserve-compile-command)
+(advice-add 'my-theme-light :around 'my-preserve-compile-command)
+
 (defvar my-alpha 90)
 
 (defun my-toggle-alpha-background ()
