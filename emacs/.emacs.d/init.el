@@ -2884,8 +2884,6 @@ make TAGS in that directory."
   (define-key gud-mode-map (kbd "C-c C-p") 'comint-previous-prompt)
   (define-key gud-mode-map (kbd "C-c C-n") 'comint-next-prompt)
   (define-key gud-mode-map (kbd "C-r") 'comint-history-isearch-backward)
-  (define-key gud-mode-map (kbd "C-c C-j") 'gud-down)
-  (define-key gud-mode-map (kbd "C-c C-k") 'gud-up)
   (define-key gud-mode-map (kbd "C-c C-u") 'comint-kill-input)
   (global-set-key (kbd "C-x C-a C-SPC") 'my-jump-to-gud-comint-buffer))
 
