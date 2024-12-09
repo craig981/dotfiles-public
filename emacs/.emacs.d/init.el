@@ -1217,7 +1217,7 @@ copy the basename."
 	  (tags-todo "-read-watch-project-show"
 		     ((org-agenda-overriding-header "Unscheduled:")
 		      (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled 'deadline))
-		      (org-agenda-sorting-strategy '(priority-down category-down tag-down))))
+		      (org-agenda-sorting-strategy '(todo-state-up priority-down category-down tag-down))))
 	  (tags "show" ((org-agenda-overriding-header "Shows:")
 			(org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "CANCELLED")))
 			(org-agenda-sorting-strategy '(priority-down)))))
