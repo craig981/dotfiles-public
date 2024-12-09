@@ -1908,13 +1908,6 @@ defaulted the setting off."
   (when (file-directory-p d)
     (push `(,d . 1) my-projects)))
 
-(when (eq system-type 'windows-nt)
-  (let ((d (concat (string-replace "\\" "/" (getenv "USERPROFILE"))
-		   "/Documents/Unreal Projects")))
-    (when (file-directory-p d)
-      (push `(,d . 2) my-projects))))
-
-
 (defun my-find-projects (dir depth)
   "Return a list of projects under 'dir' up to 'depth'"
   (if (string-suffix-p "/.git" dir)
@@ -2192,16 +2185,7 @@ return the project path instead"
   (modify-syntax-entry ?_ "w") ;; _ is word constituent, so * and # works
   (visual-line-mode)
   (my-evil-default)
-  (evil-local-set-key 'normal (kbd "q") 'quit-window)
-
-  (when (and (eq system-type 'windows-nt)
-	     (car (directory-files (my-find-project-root) nil ".*\\.uplugin\\'" t 1)))
-    ;; unreal plugin sources are copied to a package/staging directory before
-    ;; being compiled. make the filename in the error messages point at the
-    ;; original instead of the copy.
-    (setq-local compilation-transform-file-match-alist
-		'(("\\`.*\\\\stage\\\\HostProject\\\\Plugins\\\\[^\\]+\\\\" "")
-		  ("/bin/[a-z]*sh\\'" nil)))))
+  (evil-local-set-key 'normal (kbd "q") 'quit-window))
 
 (defun my-grep-mode-hook ()
   (evil-local-mode -1))
@@ -2697,19 +2681,6 @@ make TAGS in that directory."
 (setq c-tab-always-indent nil)
 
 (defvar my-cc-path)
-
-;;; Allow my-find-file-at-point to find Unreal headers
-(when (eq system-type 'windows-nt)
-  (message "Finding Unreal C++ paths...")
-  (setq ffap-file-name-with-spaces t)
-  (setq-default my-cc-path
-		(split-string
-		 (string-trim
-		  (shell-command-to-string
-		   (concat "find \"C:/Program Files/Epic Games/UE_5.4/Engine\" "
-			   "-type d \\( -name Plugins -o -name ThirdParty \\) -prune -false "
-			   "-o \\( -name Private -o -name Public -o -name Classes \\)")))
-		 "\n")))
 
 (defun my-cc-settings (path)
   (modify-syntax-entry ?_ "w")
