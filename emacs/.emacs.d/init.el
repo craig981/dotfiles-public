@@ -124,7 +124,7 @@
    '((sequence "TODO(t)" "PROGRESS(p)" "WAIT(w@/@)" "BLOCK(b@/@)" "|" "DONE(d!/!)" "CANCELLED(c@/@)")))
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
-   '(calfw calfw-org cape cmake-mode consult ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless ox-pandoc paredit reykjavik-theme soft-morning-theme undo-tree vertico wgrep which-key yaml-mode))
+   '(ace-window calfw calfw-org cape cmake-mode consult ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless ox-pandoc paredit reykjavik-theme soft-morning-theme undo-tree vertico wgrep which-key yaml-mode))
  '(package-vc-selected-packages
    '((sandcastle-theme :vc-backend Git :url "https://github.com/habamax/sandcastle-theme")))
  '(project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
@@ -847,7 +847,7 @@ copy the basename."
    (pulse-momentary-highlight-one-line (point) my-pulse-face)))
 
 (dolist (cmd '(bookmark-jump tab-new tab-close tab-next
-	       other-window delete-window kill-this-buffer
+	       other-window ace-window delete-window kill-this-buffer
 	       quit-window org-agenda-quit magit-mode-bury-buffer
 	       winner-undo winner-redo))
   (advice-add cmd :after 'my-pulse-line))
@@ -1868,6 +1868,16 @@ defaulted the setting off."
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (evil-leader/set-key "o" 'helm-occur) ;; M-n grabs symbol under point
 (global-set-key (kbd "M-s M-o") 'helm-occur)
+
+;; ----------------------------------------------------------------------------
+;;| Ace window
+;; ----------------------------------------------------------------------------
+
+(require 'ace-window)
+
+(global-set-key (kbd "C-'") 'ace-window)
+
+(setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 
 ;; ----------------------------------------------------------------------------
 ;;| Projects
