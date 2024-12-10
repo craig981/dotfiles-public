@@ -2465,17 +2465,23 @@ make TAGS in that directory."
 	;; (visit-tags-table (concat path "TAGS"))
 	))))
 
-(defun my-run-ctags (dir)
+(defun my-run-ctags (dir tagscmd)
   "Generate TAGS in a directory, and visit the tags file."
-  (interactive "DDirectory: ")
-  (let ((proj (expand-file-name (file-name-as-directory dir)))
-	(ctags (if (eq system-type 'darwin) "uctags" "ctags")))
-    (when (y-or-n-p (format "Run '%s' in %s?" ctags proj))
-      (message (format "Running '%s' in %s ..." ctags proj))
-      (when (= 0 (shell-command
-		  (format "cd '%s' && %s -R -e -f TAGS --exclude=.git --exclude=build . > /dev/null"
-			  proj ctags)))
-	(visit-tags-table (concat proj "TAGS"))))))
+  (interactive (let* ((tagsbin (if (eq system-type 'darwin) "uctags" "ctags"))
+		      (default-directory (read-directory-name
+					  "Directory: "
+					  (expand-file-name (file-name-as-directory default-directory)))))
+		 (list default-directory
+		       (read-shell-command
+			"Command: "
+			(format "%s -R -e -f TAGS --exclude=.git --exclude=build . > /dev/null" tagsbin)))))
+
+  (let* ((expdir (expand-file-name (file-name-as-directory dir)))
+	 (cmd (format "cd '%s' && %s" expdir tagscmd)))
+    (when (y-or-n-p (format "Run `%s`?" cmd))
+      (message (format "Running: %s ..." cmd))
+      (when (= 0 (shell-command cmd))
+	(visit-tags-table (concat expdir "TAGS"))))))
 
 (defun my-find-tags-files ()
   "Find TAGS files and set tags-table-list"
