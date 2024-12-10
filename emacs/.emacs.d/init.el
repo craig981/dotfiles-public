@@ -233,12 +233,12 @@
 (evil-esc-mode 1)			; make C-[ escape
 (evil-global-set-key 'insert     (kbd "C-c <escape>") 'evil-normal-state)
 (evil-global-set-key 'insert     (kbd "C-c SPC") 'ignore)
-(when (display-graphic-p)
-  (evil-global-set-key 'insert   (kbd "C-;") 'evil-normal-state)
-  (evil-global-set-key 'replace  (kbd "C-;") 'evil-normal-state)
-  (evil-global-set-key 'operator (kbd "C-;") 'evil-force-normal-state)
-  (evil-global-set-key 'visual   (kbd "C-;") 'evil-exit-visual-state)
-  (evil-global-set-key 'normal   (kbd "C-;") 'ignore))
+;; (when (display-graphic-p)
+;;   (evil-global-set-key 'insert   (kbd "C-;") 'evil-normal-state)
+;;   (evil-global-set-key 'replace  (kbd "C-;") 'evil-normal-state)
+;;   (evil-global-set-key 'operator (kbd "C-;") 'evil-force-normal-state)
+;;   (evil-global-set-key 'visual   (kbd "C-;") 'evil-exit-visual-state)
+;;   (evil-global-set-key 'normal   (kbd "C-;") 'ignore))
 ;; (evil-global-set-key 'insert (kbd "TAB") 'evil-normal-state)
 ;; (evil-global-set-key 'insert (kbd "C-SPC") 'evil-normal-state)
 
@@ -1875,7 +1875,7 @@ defaulted the setting off."
 
 (require 'ace-window)
 
-(global-set-key (kbd "C-'") 'ace-window)
+(global-set-key (kbd "C-;") 'ace-window)
 
 (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 
