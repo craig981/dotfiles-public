@@ -664,7 +664,7 @@ copy the basename."
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 (global-set-key (kbd "M-=") 'winner-undo)
 (global-set-key (kbd "M-+") 'winner-redo)
-(global-set-key (kbd "M-o") 'other-window)
+;; (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-'") #'delete-blank-lines)
 (global-set-key (kbd "M-\\") #'my-delete-whitespace)
 (global-set-key (kbd "M-#") #'my-mark-until-whitespace)
@@ -1875,7 +1875,7 @@ defaulted the setting off."
 
 (require 'ace-window)
 
-(global-set-key (kbd "C-;") 'ace-window)
+(global-set-key (kbd "M-o") 'ace-window)
 
 (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l))
 
