@@ -472,6 +472,8 @@
     (call-interactively 'delete-trailing-whitespace)
     (deactivate-mark)
     (message "Deleted trailing whitespace in region"))
+   ((string= "\n" (thing-at-point 'line t))
+    (delete-blank-lines))
    ((or (looking-at "[[:space:]\n]")
 	(looking-back "[[:space:]\n]" (pos-bol)))
     (delete-horizontal-space prefix))
