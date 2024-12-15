@@ -692,9 +692,7 @@ copy the basename."
 (global-set-key (kbd "C-o") #'my-open-line-above)
 (global-set-key (kbd "C-=") #'my-close-other-window)
 (global-set-key (kbd "C-;") #'goto-last-change)
-(pcase (system-name)
-  ("goose"    (global-set-key (kbd "C-§") #'scratch-buffer))
-  ("hedgehog" (global-set-key (kbd "C-<") #'scratch-buffer)))
+
 (when (display-graphic-p)
  (global-set-key (kbd "C-<backspace>") #'my-delete-to-indent))
 
@@ -1336,10 +1334,10 @@ copy the basename."
   (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map))
 
 (with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-,") nil)
   (define-key org-mode-map (kbd "C-'") nil)
   (define-key org-mode-map (kbd "C-j") nil)
   (define-key org-mode-map (kbd "C-c C-j") nil)
-  (define-key org-mode-map (kbd "C-c C-'") 'org-edit-special)
   (define-key org-mode-map (kbd "C-c [") 'org-toggle-link-display)
   (define-key org-mode-map (kbd "C-c ]") nil)
   (define-key org-mode-map (kbd "C-c M-e") 'org-decrypt-entry)
@@ -1458,13 +1456,17 @@ defaulted the setting off."
         (display-buffer-below-selected))
       display-buffer-alist)
 
-(global-set-key (kbd "C-,") (lambda ()
-			      (interactive)
-			      (find-file org-default-notes-file)))
+(defhydra my-jump-hydra ()
+  ("n" (lambda () (interactive) (find-file org-default-notes-file)) "notes")
+  ("i" #'my-find-init-file "init.el")
+  ("s" #'scratch-buffer "scratch"))
+
+(global-set-key (kbd "C-,") 'my-jump-hydra/body)
+(global-set-key (kbd "C-1") 'my-org-capture-task)
+
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
 (global-set-key (kbd "C-c x") 'org-capture)
-(global-set-key (kbd "C-1")   'my-org-capture-task)
 (global-set-key (kbd "C-c M-t") 'my-wrap-org-link)
 (global-set-key (kbd "C-c C-x C-j") 'my-org-clock-jump)
 
