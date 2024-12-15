@@ -1457,9 +1457,12 @@ defaulted the setting off."
       display-buffer-alist)
 
 (defhydra my-jump-hydra ()
+  ("s" #'scratch-buffer "scratch")
+  ("h" #'my-jump-to-shell "shell")
+  ("d" #'my-project-dired "my-project-dired" :exit t)
+  ("b" #'bookmark-jump "bookmark" :exit t)
   ("n" (lambda () (interactive) (find-file org-default-notes-file)) "notes")
-  ("i" #'my-find-init-file "init.el")
-  ("s" #'scratch-buffer "scratch"))
+  ("i" #'my-find-init-file "init.el"))
 
 (global-set-key (kbd "C-,") 'my-jump-hydra/body)
 (global-set-key (kbd "C-1") 'my-org-capture-task)
@@ -1904,7 +1907,7 @@ defaulted the setting off."
 					     (inhibit-same-window . t))))
     (my-find-file-in-project)))
 
-(defun my-jump-project-dired ()
+(defun my-project-dired ()
   (interactive)
   (dired (my-find-project-root)))
 
@@ -2018,7 +2021,6 @@ return the project path instead"
 
 (global-set-key (kbd "C-c e") 'my-find-file-in-project)
 (global-set-key (kbd "C-c u") 'my-find-file-in-project-other-window)
-(global-set-key (kbd "C-x C-d") 'my-jump-project-dired)
 
 (evil-leader/set-key "e" 'my-find-file-in-project)
 (evil-leader/set-key "u" 'my-find-file-in-project-other-window)
@@ -2396,7 +2398,7 @@ return key from pasting the whole lot back and executing it."
   (interactive "P")
   (if-let ((target (car (match-buffers 'my-match-shell-predicate))))
       (my-jump-buffer target other)
-    (message "No shell to jump to")))
+    (my-shell)))
 
 (defun my-shell-hook ()
   (undo-tree-mode -1)			; don't shadow M-_
@@ -2415,7 +2417,6 @@ return key from pasting the whole lot back and executing it."
 
 (global-set-key (kbd "C-c t S") 'my-project-shell)
 (global-set-key (kbd "C-c t s") 'my-shell)
-(global-set-key (kbd "C-x j") 'my-jump-to-shell)
 
 (when (eq system-type 'windows-nt)
   (setq-default shell-file-name "bash.exe"))
