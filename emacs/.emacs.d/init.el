@@ -688,8 +688,8 @@ copy the basename."
 
 (global-set-key (kbd "C-M-y") #'my-duplicate-line)
 (global-set-key (kbd "C-c C-j") #'my-join-lines)
-(global-set-key (kbd "C-M-o") #'my-open-line-above)
-(global-set-key (kbd "C-o") #'my-open-line-below)
+;; (global-set-key (kbd "C-M-o") #'split-line)
+(global-set-key (kbd "C-o") #'my-open-line-above)
 (global-set-key (kbd "C-=") #'my-close-other-window)
 (global-set-key (kbd "C-;") #'goto-last-change)
 (pcase (system-name)
@@ -1875,7 +1875,7 @@ defaulted the setting off."
 ;; ----------------------------------------------------------------------------
 
 (when (require 'ace-window nil t)
-  (global-set-key (kbd "M-'") 'ace-window)
+  (global-set-key (kbd "C-'") 'ace-window)
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
 ;; ----------------------------------------------------------------------------
