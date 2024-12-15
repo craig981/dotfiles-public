@@ -1457,10 +1457,13 @@ defaulted the setting off."
       display-buffer-alist)
 
 (defhydra my-jump-hydra ()
-  ("s" #'scratch-buffer "scratch")
-  ("h" #'my-jump-to-shell "shell")
-  ("d" #'my-project-dired "my-project-dired" :exit t)
-  ("b" #'bookmark-jump "bookmark" :exit t)
+  ("s" #'scratch-buffer    "scratch")
+  ("e" #'my-jump-to-shell  "jump to shell")
+  ("h" #'my-shell          "shell"	   :exit t)
+  ("H" #'my-project-shell  "project shell" :exit t)
+  ("d" #'my-project-dired  "project dired" :exit t)
+  ("c" #'calendar          "calendar"	   :exit t)
+  ("b" #'bookmark-jump     "bookmark"	   :exit t)
   ("n" (lambda () (interactive) (find-file org-default-notes-file)) "notes")
   ("i" #'my-find-init-file "init.el"))
 
@@ -1505,8 +1508,6 @@ defaulted the setting off."
         (display-buffer-reuse-window display-buffer-below-selected)
         (window-height . 10))
       display-buffer-alist)
-
-(global-set-key (kbd "C-c M-r") 'calendar)
 
 (when (and (require 'calfw nil t)
 	   (require 'calfw-org nil t))
@@ -2398,7 +2399,7 @@ return key from pasting the whole lot back and executing it."
   (interactive "P")
   (if-let ((target (car (match-buffers 'my-match-shell-predicate))))
       (my-jump-buffer target other)
-    (my-shell)))
+    (message "No shell to jump to")))
 
 (defun my-shell-hook ()
   (undo-tree-mode -1)			; don't shadow M-_
@@ -2414,9 +2415,6 @@ return key from pasting the whole lot back and executing it."
 	      completion-ignore-case t))
 
 (add-hook 'shell-mode-hook 'my-shell-hook)
-
-(global-set-key (kbd "C-c t S") 'my-project-shell)
-(global-set-key (kbd "C-c t s") 'my-shell)
 
 (when (eq system-type 'windows-nt)
   (setq-default shell-file-name "bash.exe"))
