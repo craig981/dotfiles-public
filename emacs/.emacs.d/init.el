@@ -1457,10 +1457,10 @@ defaulted the setting off."
       display-buffer-alist)
 
 (defhydra my-jump-hydra ()
-  ("s" #'scratch-buffer    "scratch")
+  ("r" #'scratch-buffer    "scratch"       :exit t)
   ("e" #'my-jump-to-shell  "jump to shell")
-  ("h" #'my-shell          "shell"	   :exit t)
-  ("H" #'my-project-shell  "project shell" :exit t)
+  ("s" #'my-shell          "shell"	   :exit t)
+  ("S" #'my-project-shell  "project shell" :exit t)
   ("d" #'my-project-dired  "project dired" :exit t)
   ("c" #'calendar          "calendar"	   :exit t)
   ("b" #'bookmark-jump     "bookmark"	   :exit t)
