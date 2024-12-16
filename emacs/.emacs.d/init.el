@@ -657,7 +657,6 @@ copy the basename."
 (global-set-key (kbd "C-c c") #'my-copy-filename)
 (global-set-key (kbd "C-c n") #'toggle-truncate-lines)
 (global-set-key (kbd "C-c w") 'evil-window-map)
-(global-set-key (kbd "C-c w SPC") #'world-clock)
 (global-set-key (kbd "C-c m") #'my-mirror-buffer)
 (global-set-key (kbd "C-c q") #'my-kill-in-quotes)
 (global-set-key (kbd "C-x C-z") nil)	; no suspend-frame
@@ -1465,7 +1464,8 @@ defaulted the setting off."
   ("c" #'calendar          "calendar"	   :exit t)
   ("b" #'bookmark-jump     "bookmark"	   :exit t)
   ("n" (lambda () (interactive) (find-file org-default-notes-file)) "notes")
-  ("i" #'my-find-init-file "init.el"))
+  ("i" #'my-find-init-file "init.el")
+  ("w" #'world-clock       "world-clock"))
 
 (global-set-key (kbd "C-,") 'my-jump-hydra/body)
 (global-set-key (kbd "C-1") 'my-org-capture-task)
