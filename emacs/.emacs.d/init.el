@@ -1457,9 +1457,10 @@ defaulted the setting off."
 
 (defhydra my-jump-hydra ()
   ("r" #'scratch-buffer    "scratch"       :exit t)
-  ("e" #'my-jump-to-shell  "jump to shell")
+  ("e" #'my-jump-to-shell  "jump shell")
   ("s" #'my-shell          "shell"	   :exit t)
   ("S" #'my-project-shell  "project shell" :exit t)
+  ("t" #'ansi-term         "term"          :exit t)
   ("d" #'my-project-dired  "project dired" :exit t)
   ("c" #'calendar          "calendar"	   :exit t)
   ("b" #'bookmark-jump     "bookmark"	   :exit t)
@@ -2442,8 +2443,6 @@ return key from pasting the whole lot back and executing it."
   (define-key term-mode-map (kbd "M-n") nil)
   (my-expose-global-binding term-raw-map (kbd "M-o"))
   (my-expose-global-binding term-raw-map (kbd "C-j")))
-
-(global-set-key (kbd "C-c t a") 'ansi-term)
 
 ;; ----------------------------------------------------------------------------
 ;;| Tags
