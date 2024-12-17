@@ -2492,18 +2492,21 @@ make TAGS in that directory."
       (when (= 0 (shell-command cmd))
 	(visit-tags-table (concat expdir "TAGS"))))))
 
-(defun my-find-tags-files ()
+(defun my-find-tags-files (dir)
   "Find TAGS files and set tags-table-list"
+  (interactive (list (read-directory-name
+		      "Find tags under directory: "
+		      (expand-file-name (file-name-as-directory (cond
+								 ((if-let ((project (project-current nil)))
+								      (project-root project)))
+								 ((file-exists-p "~/dev/git") "~/dev/git")
+								 (t "~/dev/")))))))
   (let ((all '())
-	(dirs (cond
-	       ((if-let ((project (project-current nil)))
-		    (list (project-root project))))
-	       ((file-exists-p "~/dev/git") '("~/dev/git"))
-	       (t '("~/dev/")))))
+	(dirs (list dir)))
     (message (format "Searching for TAGS files under %s ..." dirs))
-    (dolist (dir dirs)
+    (dolist (d dirs)
       (setq all (nconc all (directory-files-recursively
-			    (expand-file-name dir) "^TAGS$" nil
+			    (expand-file-name d) "^TAGS$" nil
 			    'my-dir-predicate))))
     (setq-default tags-table-list all)))
 
@@ -2697,6 +2700,11 @@ make TAGS in that directory."
 
 (defvar my-cc-path)
 
+(defun my-is-file-under-home-dir (fn)
+  (or (not fn)
+      (string-prefix-p (expand-file-name "~/")
+		       (expand-file-name fn))))
+
 (defun my-cc-settings (path)
   (modify-syntax-entry ?_ "w")
   (evil-local-set-key 'normal (kbd "[#") 'c-up-conditional)
@@ -2712,11 +2720,9 @@ make TAGS in that directory."
   (add-to-list path (my-find-project-root))
 
   (when (and (not tags-table-list)
-	     (let ((fn (buffer-file-name))) ; file under home dir?
-	       (or (not fn)
-		   (string-prefix-p (expand-file-name "~/")
-				    (expand-file-name fn)))))
-    (my-find-tags-files)))
+	     (my-is-file-under-home-dir (buffer-file-name))
+	     (y-or-n-p (format "Find and load TAGS?")))
+    (call-interactively 'my-find-tags-files)))
 
 (with-eval-after-load "hideif"
   ;; don't hide #ifdef FOO ... #endif, where FOO is undefined
