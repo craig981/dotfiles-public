@@ -1455,18 +1455,24 @@ defaulted the setting off."
         (display-buffer-below-selected))
       display-buffer-alist)
 
-(defhydra my-jump-hydra ()
-  ("r" #'scratch-buffer    "scratch"       :exit t)
-  ("e" #'my-jump-to-shell  "jump shell")
-  ("s" #'my-shell          "shell"	   :exit t)
-  ("S" #'my-project-shell  "project shell" :exit t)
-  ("t" #'ansi-term         "term"          :exit t)
-  ("d" #'my-project-dired  "project dired" :exit t)
-  ("c" #'calendar          "calendar"	   :exit t)
-  ("b" #'bookmark-jump     "bookmark"	   :exit t)
-  ("n" (lambda () (interactive) (find-file org-default-notes-file)) "notes")
-  ("i" #'my-find-init-file "init.el")
-  ("w" #'world-clock       "world-clock"))
+(defhydra my-jump-hydra (:hint nil)
+  "
+_e_: jump to shell     _s_: shell             _b_: bookmarks
+_i_: init.el           _S_: project shell     _c_: calendar
+_n_: notes             _t_: term              _d_: project dired
+_w_: world clock       ^ ^                    _r_: scratch
+"
+  ("r" #'scratch-buffer    :exit t)
+  ("e" #'my-jump-to-shell)
+  ("s" #'my-shell	   :exit t)
+  ("S" #'my-project-shell  :exit t)
+  ("t" #'ansi-term         :exit t)
+  ("d" #'my-project-dired  :exit t)
+  ("c" #'calendar	   :exit t)
+  ("b" #'bookmark-jump     :exit t)
+  ("n" (lambda () (interactive) (find-file org-default-notes-file)))
+  ("i" #'my-find-init-file)
+  ("w" #'world-clock))
 
 (global-set-key (kbd "C-,") 'my-jump-hydra/body)
 (global-set-key (kbd "C-1") 'my-org-capture-task)
