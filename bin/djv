@@ -1,6 +1,0 @@
-#!/bin/bash
-
-# Can't symlink it, fails
-
-exec $HOME/tools/DJV-2.0.8-Linux/bin/djv "$@"
-
