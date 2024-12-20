@@ -10,6 +10,7 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     if [[ -n "${profile}" ]]; then
         key="/org/gnome/terminal/legacy/profiles:/:${profile}"
         dconf write "${key}/audible-bell" false
+        dconf write "${key}/cursor-blink-mode" "'off'"
     fi
 
 
