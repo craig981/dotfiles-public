@@ -124,7 +124,7 @@
    '((sequence "TODO(t)" "PROGRESS(p)" "WAIT(w@/@)" "BLOCK(b@/@)" "|" "DONE(d!/!)" "CANCELLED(c@/@)")))
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
-   '(ace-window calfw calfw-org cape cmake-mode consult ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless ox-pandoc paredit reykjavik-theme soft-morning-theme undo-tree vertico wgrep which-key yaml-mode))
+   '(ace-window calfw calfw-org cape cmake-mode consult ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless ox-pandoc paredit reykjavik-theme soft-morning-theme tempel undo-tree vertico wgrep which-key yaml-mode))
  '(package-vc-selected-packages
    '((sandcastle-theme :vc-backend Git :url "https://github.com/habamax/sandcastle-theme")))
  '(project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
@@ -151,6 +151,7 @@
  '(show-paren-when-point-inside-paren t)
  '(show-trailing-whitespace nil)
  '(tags-case-fold-search nil)
+ '(tempel-path "~/.emacs.d/templates/*.eld")
  '(tramp-histfile-override "/tmp/.tramp_history")
  '(tramp-ssh-controlmaster-options
    "-o ControlMaster=auto -o ControlPath=tramp.%%C -o ControlPersist=60m" t)
@@ -896,6 +897,16 @@ copy the basename."
 
 (when (display-graphic-p)
   (global-set-key (kbd "C-x C-'") #'expand-abbrev))
+
+;; ----------------------------------------------------------------------------
+;;| Tempel
+;; ----------------------------------------------------------------------------
+
+(require 'tempel)
+
+(global-set-key (kbd "M-'") 'tempel-complete)
+
+(define-key tempel-map (kbd "RET") 'tempel-next)
 
 ;; ----------------------------------------------------------------------------
 ;;| Prog
@@ -2556,6 +2567,7 @@ make TAGS in that directory."
 
 (add-hook 'emacs-lisp-mode-hook       'my-lisp-common-hook 'append)
 (add-hook 'lisp-mode-hook             'my-lisp-common-hook 'append)
+(add-hook 'lisp-data-mode-hook        'my-lisp-common-hook 'append)
 (add-hook 'lisp-interaction-mode-hook 'my-lisp-common-hook 'append)
 (add-hook 'scheme-mode-hook           'my-lisp-common-hook 'append)
 
@@ -2752,36 +2764,6 @@ make TAGS in that directory."
     "3" (lambda () (interactive) (my-wrap-if-endif 1))
     "2" (lambda () (interactive) (my-wrap-if-endif 1 t))))
 
-(define-skeleton my-cpp-include "" nil
-  "#include \"" - "\"")
-
-(define-skeleton my-cpp-include-sys "" nil
-  "#include <" - ">")
-
-(define-skeleton my-cpp-for "" nil
-  > "for ("
-  (skeleton-read "Type: " "int") " "
-  (setq v1 (skeleton-read "Variable: " "")) "=0; "
-  v1 "<"
-  (skeleton-read "End: " "") "; ++" v1 ") {\n"
-  > - "\n"
-  > -1 "}\n")
-
-(define-skeleton my-cpp-for-iter "" nil
-  > "for (\t"
-  (skeleton-read "Container Type: " "std::vector<int>") "::"
-  (skeleton-read "Iterator: " "const_iterator") "\n"
-  > -1 (setq v1 (skeleton-read "Variable: " "it")) "="
-  (setq v2 (skeleton-read "Container: " "")) ".begin(); " v1 "!=" v2 ".end(); ++" v1 "\n"
-  > -2 ") {\n"
-  > - "\n"
-  > -1 "}\n")
-
-(define-skeleton my-cpp-print-vec "" "Variable: "
-  "<< " str "[0] << \" \" <<\n"
-  > str "[1] << \" \" <<\n"
-  > str "[2] << \" \" <<" -)
-
 (define-skeleton my-cpp-include-guard "" nil
   "#ifndef INCLUDED_"
   (upcase (setq v1 (skeleton-read "Namespace: ")))
@@ -2803,17 +2785,6 @@ make TAGS in that directory."
   "\n\n} // end namespace\n\n"
   "#endif\n")
 
-(define-skeleton my-cpp-main "" nil
-  "#include <iostream>\n\n"
-  "using std::cerr;\n\n"
-  "int main(int argc, const char *argv[]) {\n"
-  > - "\n"
-  > "return 0;\n}\n")
-
-(define-skeleton my-cpp-using-cerr "" nil
-  "#include <iostream>\n\n"
-  "using std::cerr;\n")
-
 (defun my-advise-c-defun-name-and-limits (name-limits)
   "Remove the namespace from c-display-defun-name"
   (nconc (list (my-cpp-identifier-without-namespace (car name-limits)))
@@ -2830,16 +2801,7 @@ make TAGS in that directory."
 (with-eval-after-load "cc-mode"
   (define-key c-mode-base-map (kbd "C-c C-b") nil) ; don't want c-submit-bug-report
   (define-key c-mode-base-map (kbd "C-c C-i") #'my-jump-to-header)
-  (define-key c-mode-base-map (kbd "C-c C-f") 'my-kill-c-function-name)
-
-  (dolist (table (list c-mode-abbrev-table c++-mode-abbrev-table))
-    (define-abbrev table "in"   "" 'my-cpp-include)
-    (define-abbrev table "inc"  "" 'my-cpp-include-sys)
-    (define-abbrev table "ce"   "" 'my-cpp-using-cerr)
-    (define-abbrev table "fo"   "" 'my-cpp-for)
-    (define-abbrev table "for"  "" 'my-cpp-for-iter)
-    (define-abbrev table "pv"   "" 'my-cpp-print-vec)
-    (define-abbrev table "main" "" 'my-cpp-main)))
+  (define-key c-mode-base-map (kbd "C-c C-f") 'my-kill-c-function-name))
 
 (auto-insert-mode 1)
 (define-auto-insert "\\.h\\'" 'my-cpp-include-guard)
