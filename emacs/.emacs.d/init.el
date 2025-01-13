@@ -568,6 +568,14 @@ copy the basename."
   (duplicate-line arg)
   (next-line arg))
 
+(defun my-zap-up-to-char (prefix char)
+  "Zap up to char that works in minibuffer"
+  (interactive "P\nc")
+  (let ((count (cond ((null prefix) 1)
+		     ((symbolp prefix) -1)
+		     (t prefix))))
+    (zap-up-to-char count char)))
+
 (defun my-kill-in-quotes (&optional mark)
   (interactive "P")
   (push-mark)
@@ -662,7 +670,7 @@ copy the basename."
 (global-set-key (kbd "C-c q") #'my-kill-in-quotes)
 (global-set-key (kbd "C-x C-z") nil)	; no suspend-frame
 
-(global-set-key (kbd "C-z") 'zap-up-to-char)
+(define-key minibuffer-local-map (kbd "M-z") 'my-zap-up-to-char)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 (global-set-key (kbd "M-=") 'winner-undo)
 (global-set-key (kbd "M-+") 'winner-redo)
