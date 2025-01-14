@@ -1517,6 +1517,10 @@ _w_: world clock       ^ ^                    _r_: scratch
 
 (with-eval-after-load "ledger-report"
 
+  (defun my-ledger-hook ()
+    (auto-fill-mode -1))
+  (add-hook 'ledger-mode-hook 'my-ledger-hook)
+
   (defun my-ledger-report-hook ()
     (toggle-truncate-lines 0))
   (add-hook 'ledger-report-mode-hook 'my-ledger-report-hook)
