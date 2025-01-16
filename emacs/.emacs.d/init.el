@@ -2522,7 +2522,7 @@ make TAGS in that directory."
       (when (= 0 (shell-command cmd))
 	(visit-tags-table (concat expdir "TAGS"))))))
 
-(defun my-find-tags-files (dir)
+(defun my-find-tags (dir)
   "Find TAGS files and set tags-table-list"
   (interactive (list (read-directory-name
 		      "Find tags under directory: "
@@ -2538,10 +2538,12 @@ make TAGS in that directory."
       (setq all (nconc all (directory-files-recursively
 			    (expand-file-name d) "^TAGS$" nil
 			    'my-dir-predicate))))
-    (setq-default tags-table-list all)))
+    (setq-default tags-table-list all)
+    (message "Found %d TAGS files" (length tags-table-list))))
 
 (global-set-key (kbd "C-c t m") 'my-make-tags)
 (global-set-key (kbd "C-c t r") 'my-run-ctags)
+(global-set-key (kbd "C-c t l") 'my-find-tags)
 
 (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
 
@@ -2731,11 +2733,6 @@ make TAGS in that directory."
 
 (defvar my-cc-path)
 
-(defun my-is-file-under-home-dir (fn)
-  (or (not fn)
-      (string-prefix-p (expand-file-name "~/")
-		       (expand-file-name fn))))
-
 (defun my-cc-settings (path)
   (modify-syntax-entry ?_ "w")
   (evil-local-set-key 'normal (kbd "[#") 'c-up-conditional)
@@ -2748,12 +2745,7 @@ make TAGS in that directory."
     (dolist (x my-cc-path)
       (add-to-list path x)))
   (vc-refresh-state)
-  (add-to-list path (my-find-project-root))
-
-  (when (and (not tags-table-list)
-	     (my-is-file-under-home-dir (buffer-file-name))
-	     (y-or-n-p (format "Find and load TAGS?")))
-    (call-interactively 'my-find-tags-files)))
+  (add-to-list path (my-find-project-root)))
 
 (with-eval-after-load "hideif"
   ;; don't hide #ifdef FOO ... #endif, where FOO is undefined
