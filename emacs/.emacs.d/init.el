@@ -112,6 +112,7 @@
  '(org-fold-catch-invisible-edits 'smart)
  '(org-html-validation-link nil)
  '(org-imenu-depth 3)
+ '(org-insert-heading-respect-content t)
  '(org-log-done 'time)
  '(org-modules '(ol-docview org-habit ol-info))
  '(org-publish-use-timestamps-flag nil)
