@@ -1477,10 +1477,10 @@ defaulted the setting off."
 
 (defhydra my-jump-hydra (:hint nil)
   "
-_e_: jump to shell     _s_: shell             _b_: bookmarks
-_i_: init.el           _S_: project shell     _c_: calendar
-_n_: notes             _t_: term              _d_: project dired
-_w_: world clock       ^ ^                    _r_: scratch
+_e_: jump to shell     _s_: shell             _b_: bookmarks       _C-c_: calendar
+_i_: init.el           _S_: project shell     _c_: calc            ^ ^
+_n_: notes             _t_: term              _d_: project dired   ^ ^
+_w_: world clock       ^ ^                    _r_: scratch         ^ ^
 "
   ("r" #'scratch-buffer    :exit t)
   ("e" #'my-jump-to-shell)
@@ -1488,11 +1488,12 @@ _w_: world clock       ^ ^                    _r_: scratch
   ("S" #'my-project-shell  :exit t)
   ("t" #'ansi-term         :exit t)
   ("d" #'my-project-dired  :exit t)
-  ("c" #'calendar	   :exit t)
+  ("C-c" #'calendar	   :exit t)
+  ("c" (lambda () (interactive) (calc nil calc-full-mode t)) :exit t)
   ("b" #'bookmark-jump     :exit t)
   ("n" (lambda () (interactive) (find-file org-default-notes-file)))
   ("i" #'my-find-init-file)
-  ("w" #'world-clock))
+  ("w" #'world-clock       :exit t))
 
 (global-set-key (kbd "C-,") 'my-jump-hydra/body)
 (global-set-key (kbd "C-1") 'my-org-capture-task)
