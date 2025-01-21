@@ -1477,10 +1477,10 @@ defaulted the setting off."
 
 (defhydra my-jump-hydra (:hint nil)
   "
-_e_: jump to shell     _s_: shell             _b_: bookmarks       _C-c_: calendar
-_i_: init.el           _S_: project shell     _c_: calc            ^ ^
-_n_: notes             _t_: term              _d_: project dired   ^ ^
-_w_: world clock       ^ ^                    _r_: scratch         ^ ^
+_e_: jump to shell     _s_: shell             _b_: bookmarks
+_i_: init.el           _S_: project shell     _c_: calendar
+_n_: notes             _t_: term              _d_: project dired
+_w_: world clock       ^ ^                    _r_: scratch
 "
   ("r" #'scratch-buffer    :exit t)
   ("e" #'my-jump-to-shell)
@@ -1488,8 +1488,7 @@ _w_: world clock       ^ ^                    _r_: scratch         ^ ^
   ("S" #'my-project-shell  :exit t)
   ("t" #'ansi-term         :exit t)
   ("d" #'my-project-dired  :exit t)
-  ("C-c" #'calendar	   :exit t)
-  ("c" (lambda () (interactive) (calc nil calc-full-mode t)) :exit t)
+  ("c" #'calendar	   :exit t)
   ("b" #'bookmark-jump     :exit t)
   ("n" (lambda () (interactive) (find-file org-default-notes-file)))
   ("i" #'my-find-init-file)
@@ -1579,7 +1578,12 @@ _w_: world clock       ^ ^                    _r_: scratch         ^ ^
       (re-search-forward "[^[:space:]]"))
     (calc-yank-internal nil (format "%s" (number-at-point)))))
 
+(defun my-calc ()
+  (interactive)
+  (calc nil calc-full-mode t))
+
 (global-set-key (kbd "C-x C-y") 'my-calc-yank)
+(global-set-key (kbd "C-x C-d") 'my-calc)
 
 ;; ----------------------------------------------------------------------------
 ;;| Browser
