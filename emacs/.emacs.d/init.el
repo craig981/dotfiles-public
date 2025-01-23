@@ -881,7 +881,12 @@ copy the basename."
   (define-key Man-mode-map (kbd "SPC") evil-leader--default-map)
   (define-key Man-mode-map (kbd "k") nil)
   (define-key Man-mode-map (kbd "M-p") nil)
-  (define-key Man-mode-map (kbd "M-n") nil))
+  (define-key Man-mode-map (kbd "M-n") nil)
+
+  (defun my-man-mode-hook ()
+    (evil-local-mode 1))
+
+  (add-hook 'Man-mode-hook 'my-man-mode-hook))
 
 (push '("\\(\\*[Hh]elp\\*\\)\\|\\(\\*Man\\)"
 	(display-buffer-reuse-mode-window
