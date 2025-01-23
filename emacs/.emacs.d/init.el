@@ -1185,7 +1185,7 @@ copy the basename."
 (setq org-capture-templates
       `(("m" "Bookmark" entry (file+headline org-default-notes-file "Bookmarks")
 	 "* %?\n")
-	("t" "Task" entry (file+headline org-default-notes-file "Tasks")
+	("x" "Task" entry (file+headline org-default-notes-file "Tasks")
 	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")))
 
 (when (string= "goose" (system-name))
@@ -1447,7 +1447,7 @@ empty string."
 
 (defun my-org-capture-task ()
   (interactive)
-  (org-capture nil "t"))
+  (org-capture nil "x"))
 
 (defun my-org-agenda ()
   (interactive)
@@ -1482,10 +1482,10 @@ defaulted the setting off."
 
 (defhydra my-jump-hydra (:hint nil)
   "
-_e_: jump to shell     _s_: shell             _b_: bookmarks
-_i_: init.el           _S_: project shell     _c_: calendar
-_n_: notes             _t_: term              _d_: project dired
-_w_: world clock       ^ ^                    _r_: scratch
+_e_: jump to shell     _s_: shell             _b_: bookmarks       _a_: agenda
+_i_: init.el           _S_: project shell     _c_: calendar        ^ ^
+_n_: notes             _t_: term              _d_: project dired   ^ ^
+_w_: world clock       ^ ^                    _r_: scratch         ^ ^
 "
   ("r" #'scratch-buffer    :exit t)
   ("e" #'my-jump-to-shell)
@@ -1497,6 +1497,7 @@ _w_: world clock       ^ ^                    _r_: scratch
   ("b" #'bookmark-jump     :exit t)
   ("n" (lambda () (interactive) (find-file org-default-notes-file)))
   ("i" #'my-find-init-file)
+  ("a" #'my-org-agenda     :exit t)
   ("w" #'world-clock       :exit t))
 
 (global-set-key (kbd "C-,") 'my-jump-hydra/body)
