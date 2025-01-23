@@ -824,7 +824,7 @@ copy the basename."
 ;;| Olivetti
 ;; ----------------------------------------------------------------------------
 
-(defvar my-olivetti-state t)
+(defvar my-olivetti-state nil)
 
 (defun my-olivetti-mode-hook ()
   (setq my-olivetti-state olivetti-mode))
