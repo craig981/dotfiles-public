@@ -1495,8 +1495,8 @@ _w_: world clock       ^ ^                    _r_: scratch         ^ ^
   ("d" #'my-project-dired  :exit t)
   ("c" #'calendar	   :exit t)
   ("b" #'bookmark-jump     :exit t)
-  ("n" (lambda () (interactive) (find-file org-default-notes-file)))
-  ("i" #'my-find-init-file)
+  ("n" (lambda () (interactive) (find-file org-default-notes-file)) :exit t)
+  ("i" #'my-find-init-file :exit t)
   ("a" #'my-org-agenda     :exit t)
   ("w" #'world-clock       :exit t))
 
@@ -1923,7 +1923,7 @@ _w_: world clock       ^ ^                    _r_: scratch         ^ ^
 ;; ----------------------------------------------------------------------------
 
 (when (require 'ace-window nil t)
-  (global-set-key (kbd "C-'") 'ace-window)
+  (global-set-key (kbd "M-o") 'ace-window)
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
 ;; ----------------------------------------------------------------------------
