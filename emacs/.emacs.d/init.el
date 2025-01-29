@@ -1340,15 +1340,6 @@ copy the basename."
 	  (goto-char (car bounds))
 	  (insert "[["))))))
 
-(defun my-insert-org-src-block  ()
-  "Insert a src block with the same language as the previous block"
-  (interactive)
-  (let ((lang (save-excursion
-		(org-babel-previous-src-block)
-		(move-end-of-line 1)
-		(thing-at-point 'word t))))
-    (org-insert-structure-template (format "src %s" lang))))
-
 (advice-add 'org-time-stamp-inactive :before #'my-forward-before-insert)
 (advice-add 'org-insert-last-stored-link :before #'my-forward-before-insert)
 (advice-add 'org-insert-link :before #'my-forward-before-insert)
@@ -1513,8 +1504,6 @@ _w_: world clock       ^ ^                    _r_: scratch         ^ ^
   (evil-global-set-key 'normal (kbd "C-.") nil)
   (global-set-key (kbd "<XF86LaunchB>")	'my-org-agenda)
   (global-set-key (kbd "<LaunchB>")	'my-org-agenda))
-
-(evil-leader/set-key-for-mode 'org-mode "c" 'my-insert-org-src-block)
 
 ;; ----------------------------------------------------------------------------
 ;;| Ledger
