@@ -108,6 +108,10 @@ security-updates:
 	sudo apt-get update
 	sudo unattended-upgrade -v
 
+# "Could not figure out development release: Distribution data outdated. Please check for an update for distro-info-data"
+update-distro-info-data:
+	sudo apt install --only-upgrade distro-info-data
+
 update-upgrade:
 	# update list of available packages, does not install or upgrade packages
 	sudo apt-get update
