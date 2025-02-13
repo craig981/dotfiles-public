@@ -695,6 +695,7 @@ copy the basename."
 (global-set-key (kbd "C-M-;") #'evil-numbers/inc-at-pt)
 (global-set-key (kbd "C-M-'") #'evil-numbers/dec-at-pt)
 
+(global-set-key (kbd "C-M-o") #'mode-line-other-buffer)
 (global-set-key (kbd "C-M-y") #'my-duplicate-line)
 (global-set-key (kbd "C-c C-j") #'my-join-lines)
 ;; (global-set-key (kbd "C-M-o") #'split-line)
