@@ -1913,7 +1913,7 @@ _w_: world clock       ^ ^                    _r_: scratch         ^ ^
 ;; ----------------------------------------------------------------------------
 
 (when (require 'ace-window nil t)
-  (global-set-key (kbd "M-o") 'ace-window)
+  (global-set-key (kbd "C-'") 'ace-window)
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
 ;; ----------------------------------------------------------------------------
