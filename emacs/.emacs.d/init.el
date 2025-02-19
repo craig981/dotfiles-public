@@ -677,6 +677,7 @@ copy the basename."
 (global-set-key (kbd "M-+") 'winner-redo)
 (global-set-key (kbd "M-\\") #'my-delete-whitespace)
 (global-set-key (kbd "M-#") #'my-mark-until-whitespace)
+(evil-global-set-key 'insert (kbd "M-#") (lambda () (interactive) (insert "£")))
 (global-set-key (kbd "M-u") #'upcase-dwim)
 (global-set-key (kbd "M-l") #'downcase-dwim)
 (global-set-key (kbd "M-c") #'capitalize-dwim)
