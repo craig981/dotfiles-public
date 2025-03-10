@@ -1476,8 +1476,8 @@ defaulted the setting off."
 (defhydra my-jump-hydra (:hint nil)
   "
 _e_: jump to shell     _s_: shell             _b_: bookmarks       _a_: agenda
-_i_: init.el           _S_: project shell     _c_: calendar        ^ ^
-_n_: notes             _t_: term              _d_: project dired   ^ ^
+_i_: init.el           _S_: project shell     _c_: calc            ^ ^
+_n_: notes             _t_: term              _d_: calendar        ^ ^
 _w_: world clock       ^ ^                    _r_: scratch         ^ ^
 "
   ("r" #'scratch-buffer    :exit t)
@@ -1486,7 +1486,8 @@ _w_: world clock       ^ ^                    _r_: scratch         ^ ^
   ("S" #'my-project-shell  :exit t)
   ("t" #'ansi-term         :exit t)
   ("d" #'my-project-dired  :exit t)
-  ("c" #'calendar	   :exit t)
+  ("c" #'my-calc	   :exit t)
+  ("d" #'calendar	   :exit t)
   ("b" #'bookmark-jump     :exit t)
   ("n" (lambda () (interactive) (find-file org-default-notes-file)) :exit t)
   ("i" #'my-find-init-file :exit t)
@@ -1580,7 +1581,6 @@ _w_: world clock       ^ ^                    _r_: scratch         ^ ^
   (calc nil calc-full-mode t))
 
 (global-set-key (kbd "C-x C-y") 'my-calc-yank)
-(global-set-key (kbd "C-x C-d") 'my-calc)
 
 ;; ----------------------------------------------------------------------------
 ;;| Browser
@@ -1695,8 +1695,8 @@ _w_: world clock       ^ ^                    _r_: scratch         ^ ^
 
 (evil-leader/set-key "r"   'my-ripgrep-project)
 (evil-leader/set-key "i"   'my-imenu)
-(global-set-key (kbd "M-s M-e") 'my-ripgrep-project)
-(global-set-key (kbd "M-s e") 'my-ripgrep-dir)
+(global-set-key (kbd "M-s M-r") 'my-ripgrep-project)
+(global-set-key (kbd "M-s r") 'my-ripgrep-dir)
 (global-set-key (kbd "M-s i") 'my-imenu)
 
 (global-set-key (kbd "C-c r") 'consult-recent-file)
@@ -2058,6 +2058,8 @@ return the project path instead"
 
 (evil-leader/set-key "e" 'my-find-file-in-project)
 (evil-leader/set-key "u" 'my-find-file-in-project-other-window)
+
+(global-set-key (kbd "C-x C-d") 'my-project-dired)
 
 ;; ----------------------------------------------------------------------------
 ;;| Isearch
@@ -2572,7 +2574,7 @@ make TAGS in that directory."
 (define-key paredit-mode-map (kbd "C-j") #'my-lisp-ctrl-j)
 (define-key paredit-mode-map (kbd "M-s") nil)
 (define-key paredit-mode-map (kbd "M-s s") 'paredit-splice-sexp)
-(define-key paredit-mode-map (kbd "M-s r") 'paredit-raise-sexp)
+(define-key paredit-mode-map (kbd "M-s u") 'paredit-raise-sexp)
 (define-key paredit-mode-map (kbd "M-r") nil)
 (when (not (version< emacs-version "30"))
   (define-key paredit-mode-map (kbd "M-q") nil))
