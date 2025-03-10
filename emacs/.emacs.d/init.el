@@ -1473,28 +1473,6 @@ defaulted the setting off."
         (display-buffer-below-selected))
       display-buffer-alist)
 
-(defhydra my-jump-hydra (:hint nil)
-  "
-_e_: jump to shell     _s_: shell             _b_: bookmarks       _a_: agenda
-_i_: init.el           _S_: project shell     _c_: calc            ^ ^
-_n_: notes             _t_: term              _d_: calendar        ^ ^
-_w_: world clock       ^ ^                    _r_: scratch         ^ ^
-"
-  ("r" #'scratch-buffer    :exit t)
-  ("e" #'my-jump-to-shell)
-  ("s" #'my-shell	   :exit t)
-  ("S" #'my-project-shell  :exit t)
-  ("t" #'ansi-term         :exit t)
-  ("d" #'my-project-dired  :exit t)
-  ("c" #'my-calc	   :exit t)
-  ("d" #'calendar	   :exit t)
-  ("b" #'bookmark-jump     :exit t)
-  ("n" (lambda () (interactive) (find-file org-default-notes-file)) :exit t)
-  ("i" #'my-find-init-file :exit t)
-  ("a" #'my-org-agenda     :exit t)
-  ("w" #'world-clock       :exit t))
-
-(global-set-key (kbd "C-,") 'my-jump-hydra/body)
 (global-set-key (kbd "C-1") 'my-org-capture-task)
 
 (global-set-key (kbd "C-c l") 'org-store-link)
@@ -2983,6 +2961,33 @@ to its default value. Leave it alone!"
   ("9" (lambda () (interactive) (set-frame-parameter nil 'alpha-background my-alpha)) "blend"))
 
 (global-set-key (kbd "C-c z") 'my-theme-hydra/body)
+
+;; ----------------------------------------------------------------------------
+;;| Jumps
+;; ----------------------------------------------------------------------------
+
+(defhydra my-jump-hydra (:hint nil)
+  "
+_e_: jump to shell     _s_: shell             _b_: bookmarks       _a_: agenda
+_i_: init.el           _S_: project shell     _c_: calc            ^ ^
+_n_: notes             _t_: term              _d_: calendar        ^ ^
+_w_: world clock       ^ ^                    _r_: scratch         ^ ^
+"
+  ("r" #'scratch-buffer    :exit t)
+  ("e" #'my-jump-to-shell)
+  ("s" #'my-shell	   :exit t)
+  ("S" #'my-project-shell  :exit t)
+  ("t" #'ansi-term         :exit t)
+  ("d" #'my-project-dired  :exit t)
+  ("c" #'my-calc	   :exit t)
+  ("d" #'calendar	   :exit t)
+  ("b" #'bookmark-jump     :exit t)
+  ("n" (lambda () (interactive) (find-file org-default-notes-file)) :exit t)
+  ("i" #'my-find-init-file :exit t)
+  ("a" #'my-org-agenda     :exit t)
+  ("w" #'world-clock       :exit t))
+
+(global-set-key (kbd "C-,") 'my-jump-hydra/body)
 
 ;; ----------------------------------------------------------------------------
 ;;| Window setup
