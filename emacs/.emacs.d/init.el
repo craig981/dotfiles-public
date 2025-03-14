@@ -2229,6 +2229,7 @@ return the project path instead"
 
 (global-set-key (kbd "C-c C-SPC") 'my-compile)
 (global-set-key (kbd "C-c SPC") 'my-compile)
+(global-set-key (kbd "C-c C-.") #'recompile)
 (global-set-key (kbd "C-c C-,") #'recompile)
 (global-set-key (kbd "C-c ,") #'recompile)
 (global-set-key (kbd "C-c g") (lambda () (interactive) (my-jump-buffer "*compilation*")))
