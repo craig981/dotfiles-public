@@ -1639,7 +1639,9 @@ defaulted the setting off."
      ((and f (file-equal-p f (my-init-file)))
       (let ((outline-regexp "^;;|"))
 	(consult-outline)))
-     ((eq major-mode 'org-mode) (consult-org-heading))
+     ;; unlike consult-imenu, consult-org-heading doesn't expand/reveal folded
+     ;; org headings.
+     ;; ((eq major-mode 'org-mode) (consult-org-heading))
      (t (consult-imenu)))))
 
 (defun my-ripgrep (dir other-window)
