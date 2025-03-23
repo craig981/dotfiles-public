@@ -36,6 +36,7 @@ macports-install:
 		aspell \
 		aspell-dict-en \
 		cmake \
+		feh \
 		ffmpeg \
 		git \
 		gnuplot \
@@ -43,8 +44,10 @@ macports-install:
 		jq \
 		ledger \
 		pandoc \
+		ripgrep \
 		stow \
-		the_silver_searcher \
+		texlive-latex \
+		texlive-latex-recommended \
 		tmux \
 		tree \
 		universal-ctags
