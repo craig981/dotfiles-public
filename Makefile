@@ -31,26 +31,30 @@ endif
 
 
 macports-install:
-	sudo port install \
+	sudo port -N install \
 		ImageMagick \
 		aspell \
 		aspell-dict-en \
 		cmake \
 		feh \
 		ffmpeg \
-		git \
 		gnuplot \
 		htop \
 		jq \
-		ledger \
 		pandoc \
+		pinentry-mac \
 		ripgrep \
 		stow \
 		texlive-latex \
 		texlive-latex-recommended \
 		tmux \
 		tree \
-		universal-ctags
+		universal-ctags \
+		wget
+
+mac-gpg-init:
+	echo 'pinentry-program /Applications/MacPorts/pinentry-mac.app/Contents/MacOS/pinentry-mac' >> ~/.gnupg/gpg-agent.conf
+	gpgconf --kill gpg-agent
 
 macports-selfupdate:
 	sudo port selfupdate

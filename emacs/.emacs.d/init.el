@@ -1047,7 +1047,8 @@ copy the basename."
 ;;| Keyboard
 ;; ----------------------------------------------------------------------------
 
-(when (string= "goose" (system-name))
+(when (or (string= "goose" (system-name))
+	  (eq system-type 'darwin))
   ;; tilde in the same place as in US keyboard
   (keyboard-translate ?\§ ?\`)
   (keyboard-translate ?\± ?\~))
@@ -2882,7 +2883,7 @@ make TAGS in that directory."
      (set-frame-font "JetBrains Mono 11" nil t))
 
     ('darwin
-     (set-face-attribute 'default nil :family "Menlo" :height 160))))
+     (set-face-attribute 'default nil :family "Menlo" :height 140))))
 
 ;; ----------------------------------------------------------------------------
 ;;| Colour theme

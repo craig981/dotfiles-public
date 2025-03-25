@@ -4,6 +4,7 @@
 
 if [[ "$(uname -s)" = "Darwin" ]]; then
 
+  alias l='/bin/ls -lrthG'
   alias ll='/bin/ls -lrthG'
   alias la='/bin/ls -lrthGA'
   alias ls='/bin/ls -G'
@@ -12,8 +13,6 @@ if [[ "$(uname -s)" = "Darwin" ]]; then
 
   export CLICOLOR=1
   export LSCOLORS=GxFxCxDxBxegedabagaced
-
-  alias vim=~/tools/vim9/bin/vim
 
 else
 
