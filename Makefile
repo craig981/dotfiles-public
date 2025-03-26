@@ -38,6 +38,7 @@ macports-install:
 		cmake \
 		feh \
 		ffmpeg \
+		gawk \
 		gnuplot \
 		htop \
 		jq \

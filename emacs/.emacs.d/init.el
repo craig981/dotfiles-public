@@ -1364,6 +1364,9 @@ copy the basename."
   (define-key org-mode-map (kbd "M-[") 'org-backward-paragraph)
   (define-key org-mode-map (kbd "M-]") 'org-forward-paragraph)
 
+  (when (eq system-type 'darwin)
+    (setq org-babel-awk-command "gawk"))
+
   (org-babel-do-load-languages 'org-babel-load-languages
 			       '((shell . t)
 				 (awk . t)
