@@ -1047,8 +1047,10 @@ copy the basename."
 ;;| Keyboard
 ;; ----------------------------------------------------------------------------
 
-(when (or (string= "goose" (system-name))
-	  (eq system-type 'darwin))
+(defvar my-machine (or (string= "goose" (system-name))
+		       (eq system-type 'darwin)))
+
+(when my-machine
   ;; tilde in the same place as in US keyboard
   (keyboard-translate ?\§ ?\`)
   (keyboard-translate ?\± ?\~))
@@ -1191,7 +1193,7 @@ copy the basename."
 	("x" "Task" entry (file+headline org-default-notes-file "Tasks")
 	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")))
 
-(when (string= "goose" (system-name))
+(when my-machine
   (push '("b" "Book" entry (file+headline org-default-notes-file "Books")
 	  "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
 	org-capture-templates)
@@ -1446,7 +1448,7 @@ empty string."
 (defun my-org-agenda ()
   (interactive)
   (org-agenda nil ".")
-  (when (string= "goose" (system-name))
+  (when my-machine
     ;; hide work tasks
     (org-agenda-filter-by-tag '(4) ?w)))
 
