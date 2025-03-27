@@ -1744,9 +1744,10 @@ defaulted the setting off."
 ;;; file/directory names in shell/comint
 (setq completion-in-region-function
       (lambda (&rest args)
-        (apply (if (and vertico-mode (not (or ;;(derived-mode-p 'minibuffer-mode)
-					      (derived-mode-p 'comint-mode)
-					      (derived-mode-p 'eshell-mode))))
+        (apply (if (and vertico-mode (or (memq major-mode '(inferior-python-mode))
+					 (not (or ;;(derived-mode-p 'minibuffer-mode)
+					       (derived-mode-p 'comint-mode)
+					       (derived-mode-p 'eshell-mode)))))
 		   #'consult-completion-in-region
 		 #'completion--in-region)
 	       args)))
