@@ -2421,7 +2421,9 @@ return key from pasting the whole lot back and executing it."
 (defun my-jump-to-shell (&optional other)
   (interactive "P")
   (if-let ((target (car (match-buffers 'my-match-shell-predicate))))
-      (my-jump-buffer target other)
+      (if other
+	  (switch-to-buffer-other-window target)
+	(switch-to-buffer target))
     (message "No shell to jump to")))
 
 (defun my-shell-hook ()
