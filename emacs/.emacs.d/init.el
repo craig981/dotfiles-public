@@ -1479,7 +1479,11 @@ defaulted the setting off."
         (display-buffer-below-selected))
       display-buffer-alist)
 
-(global-set-key (kbd "C-1") 'my-org-capture-task)
+(pcase system-type
+  ('gnu/linux
+   (global-set-key (kbd "C-`") 'my-org-capture-task))
+  ('darwin
+   (global-set-key (kbd "C-§") 'my-org-capture-task)))
 
 (global-set-key (kbd "C-c l") 'org-store-link)
 (global-set-key (kbd "C-c a") 'org-agenda)
