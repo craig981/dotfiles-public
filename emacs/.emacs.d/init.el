@@ -408,6 +408,7 @@
 (evil-global-set-key 'normal (kbd "gf") 'my-find-file-at-point)
 (evil-global-set-key 'visual (kbd "gf") 'my-find-file-at-point)
 (global-set-key (kbd "C-c f") #'my-find-file-at-point)
+(global-set-key (kbd "C-x f") #'my-find-file-at-point)
 
 ;; ----------------------------------------------------------------------------
 ;;| Convenience
@@ -648,6 +649,7 @@ copy the basename."
     (my-substitute ".,$")))
 
 (evil-leader/set-key "=" #'align-regexp)
+(evil-leader/set-key "a" #'align)
 (evil-leader/set-key "d" #'pwd)
 (evil-leader/set-key "SPC" (kbd "=i{"))
 
@@ -714,7 +716,6 @@ copy the basename."
 (global-set-key (kbd "C-h C-c") nil)
 (global-set-key (kbd "C-h RET") 'man)
 (global-set-key (kbd "C-x !") 'delete-other-windows-vertically)
-(global-set-key (kbd "C-x f") 'find-file)
 (global-set-key (kbd "C-x g") 'subword-mode)
 (global-set-key (kbd "C-x l") 'count-words-region)
 (global-set-key (kbd "C-c M-f") #'flyspell-buffer)
