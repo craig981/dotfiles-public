@@ -2831,6 +2831,15 @@ make TAGS in that directory."
 
 ;;; USD
 (when (load "~/.emacs.d/lisp/usda-syntax.el" t)
+
+  (defun my-usda-mode-hook ()
+    (my-syntax-entry)
+    (setq-local indent-tabs-mode nil)
+    (setq-local tab-width 4)
+    (setq-local evil-shift-width 4))
+
+  (add-hook 'usda-mode-hook 'my-usda-mode-hook)
+
   (add-to-list 'auto-mode-alist '("\\.usd\\'" . usda-mode))
   (add-to-list 'auto-mode-alist '("\\.usda\\'" . usda-mode)))
 
