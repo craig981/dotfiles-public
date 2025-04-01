@@ -2236,6 +2236,8 @@ return the project path instead"
 (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
 
 (defun my-compile (&optional prefix)
+  "With prefix, run `M-x compile' in the `default-directory',
+otherwise `project-compile'."
   (interactive "P")
   (if prefix
       (call-interactively 'compile)
