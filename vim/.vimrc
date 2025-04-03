@@ -122,11 +122,22 @@ noremap § `
 noremap! ± ~
 noremap! § `
 
-" copy visual selection to clipboard
-if has("mac") && has("clipboard")
-	vnoremap Y "+y
+if !exists('g:os')
+	if has('win64') || has('win32')
+		let g:os = 'windows'
+	else
+		let g:os = tolower(substitute(system('uname -s'), '\n', '', ''))
+	endif
 endif
-if has("linux")
+
+if g:os =~ 'darwin'
+	" copy visual selection to clipboard
+	if has("clipboard")
+		vnoremap Y "+y
+	endif
+endif
+" has("linux") is not always 1 on the default Linux build (e.g. Rocky 8.10)
+if g:os =~ 'linux'
 	if !empty($SSH_CLIENT) || !empty($SSH_TTY)  " in ssh
 		if has("clipboard") && has("X11")
 			" don't connect to X server, like 'vim -X'
