@@ -227,23 +227,27 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 		autocmd ColorScheme reykjavik hi Search guibg='#909090' guifg='#000000'
 	augroup END
 
-	if has("termguicolors")
-		set termguicolors
-		set term=xterm-256color
+	if g:os =~ 'linux'
+		if has("termguicolors")
+			set termguicolors
+			set term=xterm-256color
 
-		let theme = "'prefer-dark'"
-		if empty($SSH_CLIENT) && empty($SSH_TTY) && $XDG_CURRENT_DESKTOP == "ubuntu:GNOME"
-			let theme = trim(system("gsettings get org.gnome.desktop.interface color-scheme"))
-		endif
-		if theme == "'prefer-dark'"
-			colorscheme modus_vivendi
-			" colorscheme sorbet
-			" colorscheme reykjavik
+			let theme = "'prefer-dark'"
+			if empty($SSH_CLIENT) && empty($SSH_TTY) && $XDG_CURRENT_DESKTOP == "ubuntu:GNOME"
+				let theme = trim(system("gsettings get org.gnome.desktop.interface color-scheme"))
+			endif
+			if theme == "'prefer-dark'"
+				colorscheme modus_vivendi
+				" colorscheme sorbet
+				" colorscheme reykjavik
+			else
+				colorscheme silkworm
+			endif
 		else
-			colorscheme silkworm
+			colorscheme sorcerer
 		endif
-	else
-		colorscheme sorcerer
+	elseif g:os =~ 'darwin'
+		colorscheme default
 	endif
 	hi clear SpellBad
 	hi SpellBad guifg=white guibg=red
