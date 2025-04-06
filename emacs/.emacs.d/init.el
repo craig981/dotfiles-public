@@ -3057,8 +3057,7 @@ _w_: world clock       ^ ^                    _r_: scratch         ^ ^
 ;;| Music
 ;; ----------------------------------------------------------------------------
 
-(when (and (eq system-type 'gnu/linux)
-	   (file-exists-p "~/mp3"))
+(when (file-exists-p "~/mp3")
 
   (when (require 'emms nil t)
 

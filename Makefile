@@ -42,6 +42,7 @@ macports-install:
 		gnuplot \
 		htop \
 		jq \
+		mpv \
 		pandoc \
 		pinentry-mac \
 		ripgrep \
