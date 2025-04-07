@@ -46,6 +46,7 @@ macports-install:
 		pandoc \
 		pinentry-mac \
 		ripgrep \
+		rsync \
 		stow \
 		texlive-latex \
 		texlive-latex-recommended \
