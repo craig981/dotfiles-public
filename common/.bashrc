@@ -45,4 +45,12 @@ esac
 test -f ~/dotfiles-public/bash_zsh_alias && source ~/dotfiles-public/bash_zsh_alias
 test -f ~/dotfiles/bash_zsh_alias && source ~/dotfiles/bash_zsh_alias
 
-PS1='\[\033[0;36m\][\D{%H:%M}] \u@\h \W \$\[\033[00m\] '
+case "$(uname -s)" in
+    Darwin)
+        PS1='\[\033[0;36m\]\u@\h \W \$\[\033[00m\] '
+        ;;
+    *)
+    PS1='\[\033[0;36m\][\D{%H:%M}] \u@\h \W \$\[\033[00m\] '
+    ;;
+esac
+

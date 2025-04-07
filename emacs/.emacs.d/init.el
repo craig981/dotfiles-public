@@ -2448,8 +2448,12 @@ return key from pasting the whole lot back and executing it."
 
 (add-hook 'shell-mode-hook 'my-shell-hook)
 
-(when (eq system-type 'windows-nt)
-  (setq-default shell-file-name "bash.exe"))
+(pcase system-type
+  ('darwin
+   (if-let ((bash (executable-find "bash")))
+       (setq shell-file-name bash)))
+  ('windows-nt
+   (setq shell-file-name "bash.exe")))
 
 (defun my-sh-mode-hook ()
   (my-syntax-entry)

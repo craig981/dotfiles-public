@@ -35,6 +35,7 @@ macports-install:
 		ImageMagick \
 		aspell \
 		aspell-dict-en \
+		bash \
 		cmake \
 		feh \
 		ffmpeg \
