@@ -3000,7 +3000,7 @@ to its default value. Leave it alone!"
 (defhydra my-jump-hydra (:hint nil)
   "
 _e_: jump to shell     _s_: shell             _b_: bookmarks       _SPC_: agenda
-_i_: init.el           _S_: project shell     _c_: calc            ^ ^
+_i_: init.el           _S_: project shell     _c_: calc            _m_: EMMS
 _n_: notes             _t_: term              _d_: calendar        ^ ^
 _w_: world clock       ^ ^                    _r_: scratch         ^ ^
 "
@@ -3016,6 +3016,7 @@ _w_: world clock       ^ ^                    _r_: scratch         ^ ^
   ("n" (lambda () (interactive) (find-file org-default-notes-file)) :exit t)
   ("i" #'my-find-init-file :exit t)
   ("SPC" #'my-org-agenda     :exit t)
+  ("m" #'emms-playlist-mode-go :exit t)
   ("w" #'world-clock       :exit t))
 
 (global-set-key (kbd "C-,") 'my-jump-hydra/body)
