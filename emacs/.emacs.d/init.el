@@ -34,6 +34,7 @@
  '(auto-save-default nil)
  '(calendar-date-style 'european)
  '(calendar-week-start-day 1)
+ '(comint-input-ring-size 100000)
  '(comint-prompt-read-only t)
  '(compilation-ask-about-save nil)
  '(compilation-scroll-output t)
