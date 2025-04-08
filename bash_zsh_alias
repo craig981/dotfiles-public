@@ -55,7 +55,3 @@ alias g='git st'
 alias gl='git lo'
 alias gg='git log --patch -G'
 
-if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
-    alias r='pcoip-client --disable-menubar'
-fi
-

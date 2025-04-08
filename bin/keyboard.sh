@@ -94,6 +94,11 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
         command+=( ~/tools/bin/emacs )
         binding+=( '<Super>e' )
     fi
+    if [[ -x /usr/bin/pcoip-client ]]; then
+        name+=( "pcoip" )
+        command+=( "/usr/bin/pcoip-client --disable-menubar" )
+        binding+=( '<Super>r' )
+    fi
     case "$(hostname -s)" in
         goose|hedgehog)
             if [[ -x ~/dev/macDict/macDict.sh ]]; then
