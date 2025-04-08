@@ -2903,7 +2903,7 @@ make TAGS in that directory."
 	 ;; laptop screen
 	 ((string-empty-p (string-trim (shell-command-to-string
 					"xrandr | awk '$2 == \"connected\" && $1 ~ /^(HDMI-|DP-)/ {print $1}'")))
-	  (set-face-attribute 'default nil :height 120))
+	  (set-face-attribute 'default nil :height 115))
 
 	 ;; external monitor
 	 (t (set-face-attribute 'default nil :height 105))))))
