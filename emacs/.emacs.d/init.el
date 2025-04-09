@@ -1042,7 +1042,14 @@ copy the basename."
 
 (defun my-dictionary-lookup ()
   (interactive)
-  (start-process "macDict" nil "~/dev/macDict/macDict.sh" (or (thing-at-point 'word t) "")))
+  (let ((word (thing-at-point 'word t)))
+    (pcase system-type
+      ('gnu/linux
+       (start-process "macDict" nil "~/dev/macDict/macDict.sh" (or word "")))
+      ('darwin
+       (start-process "dict" nil "open" (if word
+					    (format "dict://%s" word)
+					  "/System/Applications/Dictionary.app"))))))
 
 (global-set-key (kbd "M-s =") 'my-dictionary-lookup)
 
