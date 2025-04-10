@@ -63,6 +63,10 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2 "['<Alt>2']"
     gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-3 "['<Alt>3']"
     gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Alt>4']"
+    gsettings set org.gnome.desktop.wm.keybindings switch-applications "['<Alt>Tab']"
+    gsettings set org.gnome.desktop.wm.keybindings switch-applications-backward "['<Shift><Alt>Tab']"
+    gsettings set org.gnome.desktop.wm.keybindings switch-windows "['<Super>Tab']"
+    gsettings set org.gnome.desktop.wm.keybindings switch-windows-backward "['<Shift><Super>Tab']"
 
     # typing
     gsettings set org.gnome.desktop.wm.keybindings switch-input-source "['<Super>space']"
