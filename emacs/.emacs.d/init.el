@@ -719,7 +719,7 @@ copy the basename."
 (global-set-key (kbd "C-x !") 'delete-other-windows-vertically)
 (global-set-key (kbd "C-x g") 'subword-mode)
 (global-set-key (kbd "C-x l") 'count-words-region)
-(global-set-key (kbd "C-x r B") #'bookmark-jump-other-window)
+(global-set-key (kbd "C-x r C-b") #'bookmark-jump-other-window)
 (global-set-key (kbd "C-c M-f") #'flyspell-buffer)
 (global-set-key (kbd "C-c M-s") #'ispell)
 
@@ -3008,15 +3008,15 @@ to its default value. Leave it alone!"
 
 (defhydra my-jump-hydra (:hint nil)
   "
-_e_: jump to shell     _s_: shell             _b_: bookmarks       _SPC_: agenda
-_i_: init.el           _S_: project shell     _c_: calc            _m_: EMMS
-_n_: notes             _t_: term              _d_: calendar        ^ ^
+_e_: jump to shell     _s_:   shell           _b_: bookmarks       _SPC_: agenda
+_i_: init.el           _C-s_: project shell   _c_: calc            _m_: EMMS
+_n_: notes             _t_:   term            _d_: calendar        ^ ^
 _w_: world clock       ^ ^                    _r_: scratch         ^ ^
 "
   ("r" #'scratch-buffer    :exit t)
   ("e" #'my-jump-to-shell)
   ("s" #'my-shell	   :exit t)
-  ("S" #'my-project-shell  :exit t)
+  ("C-s" #'my-project-shell  :exit t)
   ("t" #'ansi-term         :exit t)
   ("d" #'my-project-dired  :exit t)
   ("c" #'my-calc	   :exit t)
