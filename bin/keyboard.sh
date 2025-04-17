@@ -31,7 +31,7 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
             fi
 
             # system
-            gsettings set org.gnome.shell.keybindings toggle-overview "['Home']"
+            gsettings set org.gnome.shell.keybindings toggle-overview "['<Alt>grave']"
             ;;
     esac
 
