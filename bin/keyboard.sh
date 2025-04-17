@@ -8,8 +8,6 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     # On goose
     # XKBOPTIONS="caps:ctrl_modifier,altwin:swap_lalt_lwin,ctrl:swap_rwin_rctl,shift:both_capslock"
 
-    # system
-    gsettings set org.gnome.shell.keybindings toggle-overview "['LaunchA']"
     # stop Super_L tap showing window overview
     gsettings set org.gnome.mutter overlay-key ''
 
@@ -18,6 +16,9 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
             gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:swapcaps', 'altwin:swap_lalt_lwin', 'ctrl:swap_rwin_rctl', 'lv3:ralt_alt']"
             # gsettings set org.gnome.desktop.input-sources xkb-options "['caps:swapescape', 'altwin:swap_lalt_lwin', 'ctrl:swap_rwin_rctl', 'lv3:ralt_alt']"
             # gsettings set org.gnome.desktop.input-sources xkb-options "['caps:escape_shifted_capslock', 'ctrl:swap_lalt_lctl_lwin', 'ctrl:swap_rwin_rctl']"
+
+            # system
+            gsettings set org.gnome.shell.keybindings toggle-overview "['LaunchA']"
             ;;
 
         "hedgehog")
@@ -28,6 +29,9 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
                 # laptop keyboard
                 gsettings set org.gnome.desktop.input-sources xkb-options "['ctrl:swapcaps', 'ctrl:ralt_rctrl', 'ctrl:rctrl_ralt']"
             fi
+
+            # system
+            gsettings set org.gnome.shell.keybindings toggle-overview "['Home']"
             ;;
     esac
 
