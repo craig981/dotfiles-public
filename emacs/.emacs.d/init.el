@@ -1823,7 +1823,6 @@ defaulted the setting off."
 (global-set-key (kbd "C-x C-b") 'my-switch-buffer)
 (global-set-key (kbd "C-x b")   'my-switch-buffer)
 (global-set-key (kbd "C-x 4 b") 'my-switch-buffer-other-window)
-(global-set-key (kbd "C-x M-b") 'ibuffer)
 
 (with-eval-after-load 'ibuffer
   (define-key ibuffer-mode-map (kbd "M-o") nil)
@@ -3008,7 +3007,7 @@ to its default value. Leave it alone!"
 
 (defhydra my-jump-hydra (:hint nil)
   "
-_e_: jump to shell     _s_:   shell           _b_: bookmarks       _SPC_: agenda
+_e_: jump to shell     _s_:   shell           _b_: ibuffer         _SPC_: agenda
 _i_: init.el           _C-s_: project shell   _c_: calc            _m_: EMMS
 _n_: notes             _t_:   term            _d_: calendar        ^ ^
 _w_: world clock       ^ ^                    _r_: scratch         ^ ^
@@ -3021,7 +3020,7 @@ _w_: world clock       ^ ^                    _r_: scratch         ^ ^
   ("d" #'my-project-dired  :exit t)
   ("c" #'my-calc	   :exit t)
   ("d" #'calendar	   :exit t)
-  ("b" #'bookmark-jump     :exit t)
+  ("b" #'ibuffer     :exit t)
   ("n" (lambda () (interactive) (find-file org-default-notes-file)) :exit t)
   ("i" #'my-find-init-file :exit t)
   ("SPC" #'my-org-agenda     :exit t)
