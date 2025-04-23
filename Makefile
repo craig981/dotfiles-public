@@ -51,6 +51,7 @@ macports-install:
 		stow \
 		texlive-latex \
 		texlive-latex-recommended \
+		texlive-fonts-recommended \
 		tmux \
 		tree \
 		universal-ctags \
