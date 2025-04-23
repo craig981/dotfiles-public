@@ -2517,8 +2517,9 @@ make TAGS in that directory."
       (when (y-or-n-p (format "Run 'make TAGS' in %s" path))
 	(message (format "Running 'make -C %s TAGS'" path))
 	(call-process "make" nil nil nil "-C" path "TAGS")
-	;; (visit-tags-table (concat path "TAGS"))
-	))))
+	(let ((tags (concat path "TAGS")))
+	  (when (y-or-n-p (format "Visit '%s'?" tags))
+	    (visit-tags-table tags)))))))
 
 (defun my-run-ctags (dir tagscmd)
   "Generate TAGS in a directory, and visit the tags file."
