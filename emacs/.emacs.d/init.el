@@ -2212,7 +2212,6 @@ return the project path instead"
 
 (evil-leader/set-key "v" 'magit-status)
 (global-set-key (kbd "C-c v") 'magit-status)
-(global-set-key (kbd "C-c V") 'my-magit-list-repos)
 
 ;; ----------------------------------------------------------------------------
 ;;| Ediff
@@ -2251,12 +2250,16 @@ otherwise `project-compile'."
       (call-interactively 'compile)
     (call-interactively 'project-compile)))
 
+(defun my-jump-compilation ()
+  (interactive)
+  (my-jump-buffer "*compilation*"))
+
 (global-set-key (kbd "C-c C-SPC") 'my-compile)
 (global-set-key (kbd "C-c SPC") 'my-compile)
 (global-set-key (kbd "C-c C-.") #'recompile)
 (global-set-key (kbd "C-c C-,") #'recompile)
 (global-set-key (kbd "C-c ,") #'recompile)
-(global-set-key (kbd "C-c g") (lambda () (interactive) (my-jump-buffer "*compilation*")))
+(global-set-key (kbd "C-c g") #'my-jump-compilation)
 (global-set-key (kbd "C-c h") (lambda () (interactive) (my-jump-buffer "*Help*" t)))
 (define-key compilation-mode-map (kbd "SPC") evil-leader--default-map)
 (define-key compilation-mode-map (kbd "C-w") 'evil-window-map)
@@ -3008,15 +3011,18 @@ to its default value. Leave it alone!"
 (defhydra my-jump-hydra (:hint nil)
   "
 _e_: jump to shell     _s_:   shell           _b_: ibuffer         _SPC_: agenda
-_i_: init.el           _C-s_: project shell   _c_: calc            _m_: EMMS
-_n_: notes             _t_:   term            _d_: calendar        ^ ^
-_w_: world clock       ^ ^                    _r_: scratch         ^ ^
+_i_: init.el           _C-s_: project shell   _c_: calc            _m_:   EMMS
+_n_: notes             _t_:   term            _d_: calendar        _v_:   magit
+_w_: world clock       _g_:   compilation     _r_: scratch         _C-v_: magit list repos
 "
   ("r" #'scratch-buffer    :exit t)
   ("e" #'my-jump-to-shell)
   ("s" #'my-shell	   :exit t)
   ("C-s" #'my-project-shell  :exit t)
   ("t" #'ansi-term         :exit t)
+  ("g" #'my-jump-compilation :exit t)
+  ("v" #'magit-status      :exit t)
+  ("C-v" #'my-magit-list-repos :exit t)
   ("d" #'my-project-dired  :exit t)
   ("c" #'my-calc	   :exit t)
   ("d" #'calendar	   :exit t)
