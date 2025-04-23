@@ -2559,7 +2559,7 @@ make TAGS in that directory."
 
 (global-set-key (kbd "C-c t m") 'my-make-tags)
 (global-set-key (kbd "C-c t r") 'my-run-ctags)
-(global-set-key (kbd "C-c t l") 'my-find-tags)
+(global-set-key (kbd "C-c t f") 'my-find-tags)
 
 (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
 
@@ -3013,14 +3013,13 @@ to its default value. Leave it alone!"
 _e_: jump to shell     _s_:   shell           _b_: ibuffer         _SPC_: agenda
 _i_: init.el           _C-s_: project shell   _c_: calc            _m_:   EMMS
 _n_: notes             _t_:   term            _d_: calendar        _v_:   magit
-_w_: world clock       _g_:   compilation     _r_: scratch         _C-v_: magit list repos
+_w_: world clock       ^ ^                    _r_: scratch         _C-v_: magit list repos
 "
   ("r" #'scratch-buffer    :exit t)
   ("e" #'my-jump-to-shell)
   ("s" #'my-shell	   :exit t)
   ("C-s" #'my-project-shell  :exit t)
   ("t" #'ansi-term         :exit t)
-  ("g" #'my-jump-compilation :exit t)
   ("v" #'magit-status      :exit t)
   ("C-v" #'my-magit-list-repos :exit t)
   ("d" #'my-project-dired  :exit t)
