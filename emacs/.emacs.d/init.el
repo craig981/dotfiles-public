@@ -126,7 +126,7 @@
    '((sequence "TODO(t)" "PROGRESS(p)" "WAIT(w@/@)" "BLOCK(b@/@)" "|" "DONE(d!/!)" "CANCELLED(c@/@)")))
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
-   '(ace-window calfw calfw-org cape cmake-mode consult ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless ox-pandoc paredit reykjavik-theme soft-morning-theme tempel undo-tree vertico wgrep which-key yaml-mode))
+   '(ace-window calfw calfw-org cape cmake-mode consult consult-dir ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless ox-pandoc paredit reykjavik-theme soft-morning-theme tempel undo-tree vertico wgrep which-key yaml-mode))
  '(package-vc-selected-packages
    '((sandcastle-theme :vc-backend Git :url "https://github.com/habamax/sandcastle-theme")))
  '(project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
@@ -1651,6 +1651,7 @@ defaulted the setting off."
 ;; ----------------------------------------------------------------------------
 
 (require 'consult)
+(require 'consult-dir)
 
 (defun my-imenu ()
   (interactive)
@@ -1701,6 +1702,8 @@ defaulted the setting off."
 
 (global-set-key (kbd "C-c r") 'consult-recent-file)
 (define-key minibuffer-local-map (kbd "M-r") 'consult-history)
+(define-key minibuffer-local-map (kbd "C-x C-d") #'consult-dir)
+(define-key minibuffer-local-map (kbd "C-x C-j") #'consult-dir-jump-file)
 
 ;; ----------------------------------------------------------------------------
 ;;| Grep
