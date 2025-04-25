@@ -3017,15 +3017,15 @@ to its default value. Leave it alone!"
 
 (defhydra my-jump-hydra (:hint nil)
   "
-_i_: init.el        _s_: shell           _b_: ibuffer         _SPC_: agenda
-_n_: notes          _h_: project shell   _c_: calc            _m_:   EMMS
+_i_: init.el        _s_: project shell   _b_: ibuffer         _SPC_: agenda
+_n_: notes          _h_: shell           _c_: calc            _m_:   EMMS
 _w_: world clock    _e_: jump to shell   _d_: calendar        _v_:   magit
 _t_: term           ^ ^                  _r_: scratch         _C-v_: magit list repos
 "
   ("r" #'scratch-buffer    :exit t)
   ("e" #'my-jump-to-shell)
-  ("s" #'my-shell	   :exit t)
-  ("h" #'my-project-shell  :exit t)
+  ("h" #'my-shell	   :exit t)
+  ("s" #'my-project-shell  :exit t)
   ("t" #'ansi-term         :exit t)
   ("v" #'magit-status      :exit t)
   ("C-v" #'my-magit-list-repos :exit t)
