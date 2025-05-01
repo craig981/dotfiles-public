@@ -110,6 +110,7 @@
  '(org-confirm-babel-evaluate nil)
  '(org-deadline-warning-days 7)
  '(org-directory "~/org")
+ '(org-download-method 'attach)
  '(org-fold-catch-invisible-edits 'smart)
  '(org-html-validation-link nil)
  '(org-imenu-depth 3)
@@ -126,7 +127,7 @@
    '((sequence "TODO(t)" "PROGRESS(p)" "WAIT(w@/@)" "BLOCK(b@/@)" "|" "DONE(d!/!)" "CANCELLED(c@/@)")))
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
-   '(ace-window calfw calfw-org cape cmake-mode consult consult-dir ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless ox-pandoc paredit reykjavik-theme soft-morning-theme tempel undo-tree vertico wgrep which-key yaml-mode))
+   '(ace-window calfw calfw-org cape cmake-mode consult consult-dir ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless org-download ox-pandoc paredit reykjavik-theme soft-morning-theme tempel undo-tree vertico wgrep which-key yaml-mode))
  '(package-vc-selected-packages
    '((sandcastle-theme :vc-backend Git :url "https://github.com/habamax/sandcastle-theme")))
  '(project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
@@ -1182,6 +1183,7 @@ copy the basename."
 
 ;;; move slowdown to startup instead of when opening an org file
 (require 'org)
+(require 'org-download)
 
 ;;; attempt to workaround org 9.6 flakey agenda display
 (setq org-element-use-cache nil)
@@ -1284,6 +1286,10 @@ copy the basename."
   (evil-local-mode 1)
   (when my-olivetti-state
     (olivetti-mode 1))
+
+  (local-set-key (kbd "C-c t s") 'org-download-screenshot)
+  (local-set-key (kbd "C-c t y") 'org-download-yank)
+  (local-set-key (kbd "C-c t e") 'org-download-edit)
 
   ;; / is punctuation, so evil * works on path components
   (modify-syntax-entry ?/ ".")
@@ -1493,6 +1499,7 @@ defaulted the setting off."
   ('gnu/linux
    (global-set-key (kbd "C-`") 'my-org-capture-task))
   ('darwin
+   (setq org-download-screenshot-method "screencapture -i %s")
    (global-set-key (kbd "C-§") 'my-org-capture-task)))
 
 (global-set-key (kbd "C-c l") 'org-store-link)
