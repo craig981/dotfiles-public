@@ -2394,6 +2394,7 @@ return key from pasting the whole lot back and executing it."
 	(delete-window))))
 
 (with-eval-after-load 'comint
+  (define-key comint-mode-map (kbd "C-c o") 'browse-url-at-point)
   (define-key comint-mode-map (kbd "M-_") 'comint-insert-previous-argument)
   (define-key comint-mode-map (kbd "M-r") 'move-to-window-line-top-bottom)
   (define-key comint-mode-map (kbd "C-r") 'my-comint-ctrl-r)
