@@ -2415,8 +2415,9 @@ return key from pasting the whole lot back and executing it."
 (defun my-project-shell ()
   (interactive)
   (if (project-current nil)
-      (project-shell)
-    (shell)))
+      (let ((current-prefix-arg 4)) ;; emulate C-u
+	(call-interactively 'project-shell))
+    (shell (generate-new-buffer "*shell*"))))
 
 (defun my-shell ()
   (interactive)
