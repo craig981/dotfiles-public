@@ -2260,9 +2260,9 @@ otherwise `project-compile'."
       (call-interactively 'compile)
     (call-interactively 'project-compile)))
 
-(defun my-jump-compilation ()
-  (interactive)
-  (my-jump-buffer "*compilation*"))
+(defun my-jump-compilation (&optional other)
+  (interactive "P")
+  (my-jump-buffer "*compilation*" other))
 
 (global-set-key (kbd "C-c C-SPC") 'my-compile)
 (global-set-key (kbd "C-c SPC") 'my-compile)
