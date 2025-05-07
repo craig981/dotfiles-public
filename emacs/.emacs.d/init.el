@@ -2455,6 +2455,27 @@ return key from pasting the whole lot back and executing it."
 	(switch-to-buffer target))
     (message "No shell to jump to")))
 
+(defun my-choose-shell (&optional other)
+  "Complete the name and/or default-directory of a shell buffer and
+switch to it."
+  (interactive "P")
+  (let ((buffers (match-buffers 'my-match-shell-predicate)))
+    (if (null buffers)
+	(message "No shell to jump to")
+      (let* ((maxlen (apply #'max (mapcar (lambda (buf) (length (buffer-name buf))) buffers)))
+	     (buffer-alist (mapcar (lambda (buf)
+				     (cons (format "%s  ( %s )"
+						   (string-pad (buffer-name buf) maxlen)
+						   (with-current-buffer buf
+						     default-directory))
+					   buf))
+				   buffers))
+	     (choice (completing-read "Shell buffer: " buffer-alist))
+	     (target (cdr (assoc choice buffer-alist))))
+	(if other
+	    (switch-to-buffer-other-window target)
+	  (switch-to-buffer target))))))
+
 (defun my-shell-hook ()
   (undo-tree-mode -1)			; don't shadow M-_
   (fancy-dabbrev-mode -1)
@@ -3025,13 +3046,14 @@ to its default value. Leave it alone!"
 
 (defhydra my-jump-hydra (:hint nil)
   "
-_i_: init.el        _s_: project shell   _b_: ibuffer         _SPC_: agenda
-_n_: notes          _h_: shell           _c_: calc            _m_:   EMMS
-_w_: world clock    _e_: jump to shell   _d_: calendar        _v_:   magit
-_t_: term           ^ ^                  _r_: scratch         _C-v_: magit list repos
+_i_: init.el         _s_:   project shell     _b_: ibuffer      _SPC_: agenda
+_n_: notes           _h_:   shell             _c_: calc         _m_:   EMMS
+_w_: world clock     _e_:   jump to shell     _d_: calendar     _v_:   magit
+_t_: term            _C-e_: choose shell      _r_: scratch      _C-v_: magit list repos
 "
   ("r" #'scratch-buffer    :exit t)
   ("e" #'my-jump-to-shell)
+  ("C-e" #'my-choose-shell :exit t)
   ("h" #'my-shell	   :exit t)
   ("s" #'my-project-shell  :exit t)
   ("t" #'ansi-term         :exit t)
