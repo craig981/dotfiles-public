@@ -1729,7 +1729,7 @@ defaulted the setting off."
 			   ('gnu/linux '())
 			   ('darwin '("-path ./Library"
 				      "-path \"./Pictures/Photos Library.photoslibrary\"")))))
-	 (consult-find-args (format "find . -type d ( %s ) -prune -false -o -type f"
+	 (consult-find-args (format "find . -type d ( %s ) -prune -false -o ( -type f -o -type l )"
 				    (string-join exclude " -o "))))
     (consult-find "~")))
 
