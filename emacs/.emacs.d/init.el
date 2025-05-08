@@ -339,6 +339,13 @@
 
 (evil-declare-ignore-repeat 'evil-undo)
 
+(defun my-advise-undo-amalgamate (func &rest args)
+  (with-undo-amalgamate
+    (apply func args)))
+
+;;; Undo all applications of a macro across lines in the region as one operation
+(advice-add #'apply-macro-to-region-lines :around #'my-advise-undo-amalgamate)
+
 ;; ----------------------------------------------------------------------------
 ;;| Syntax and indent
 ;; ----------------------------------------------------------------------------
