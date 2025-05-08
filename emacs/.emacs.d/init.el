@@ -41,6 +41,7 @@
  '(compilation-skip-threshold 2)
  '(compile-command "make ")
  '(compose-mail-user-agent-warnings nil)
+ '(consult-find-args "find . -type f")
  '(consult-ripgrep-args
    "rg --null --line-buffered --color=never --max-columns=1000  --smart-case --no-heading --with-filename --line-number --no-search-zip --hidden -g !{.git,.svn,.hg}/ -g !TAGS -g !build/ --no-ignore")
  '(custom-safe-themes
@@ -417,7 +418,6 @@
 (evil-global-set-key 'normal (kbd "gf") 'my-find-file-at-point)
 (evil-global-set-key 'visual (kbd "gf") 'my-find-file-at-point)
 (global-set-key (kbd "C-c f") #'my-find-file-at-point)
-(global-set-key (kbd "C-x f") #'my-find-file-at-point)
 
 ;; ----------------------------------------------------------------------------
 ;;| Convenience
@@ -1718,6 +1718,22 @@ defaulted the setting off."
 (define-key minibuffer-local-map (kbd "M-r") 'consult-history)
 (define-key minibuffer-local-map (kbd "C-x C-d") #'consult-dir)
 (define-key minibuffer-local-map (kbd "C-x C-j") #'consult-dir-jump-file)
+
+(defun my-consult-find-home ()
+  "Find files under home directory."
+  (interactive)
+  (let* ((exclude (append '("-name .svn"
+			   "-name .git"
+			   "-path \"*.git/objects\"")
+			 (pcase system-type
+			   ('gnu/linux '())
+			   ('darwin '("-path ./Library"
+				      "-path \"./Pictures/Photos Library.photoslibrary\"")))))
+	 (consult-find-args (format "find . -type d ( %s ) -prune -false -o -type f"
+				    (string-join exclude " -o "))))
+    (consult-find "~")))
+
+(global-set-key (kbd "C-x f") #'my-consult-find-home)
 
 ;; ----------------------------------------------------------------------------
 ;;| Grep
