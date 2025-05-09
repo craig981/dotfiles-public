@@ -535,12 +535,9 @@ copy the basename."
   (interactive)
   (let ((w (get-buffer-window name)))
     (cond
-     (w
-      (select-window w))
-     (other
-      (switch-to-buffer-other-window name))
-     (t
-      (switch-to-buffer name)))))
+     (w     (select-window w))
+     (other (switch-to-buffer-other-window name))
+     (t     (switch-to-buffer name)))))
 
 (defun my-mark-until-whitespace ()
   "Select until the next whitespace char"
