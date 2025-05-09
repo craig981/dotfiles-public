@@ -553,16 +553,16 @@ copy the basename."
   ;; (indent-according-to-mode)
   )
 
-(defun my-open-line-below (&optional arg)
-  (interactive "*p")
-  (move-end-of-line nil)
-  (newline-and-indent arg))
+;; (defun my-open-line-below (&optional arg)
+;;   (interactive "*p")
+;;   (move-end-of-line nil)
+;;   (newline-and-indent arg))
 
-(defun my-open-line (&optional prefix)
-  (interactive "P")
-  (if prefix
-      (my-open-line-above)
-    (my-open-line-below)))
+;; (defun my-open-line (&optional prefix)
+;;   (interactive "P")
+;;   (if prefix
+;;       (my-open-line-above)
+;;     (my-open-line-below)))
 
 (defun my-delete-to-indent ()
   (interactive)
@@ -673,7 +673,9 @@ copy the basename."
 (global-set-key (kbd "C-c w") 'evil-window-map)
 (global-set-key (kbd "C-c m") #'my-mirror-buffer)
 (global-set-key (kbd "C-c q") #'my-kill-in-quotes)
+(global-set-key (kbd "C-c i") #'count-words-region)
 (global-set-key (kbd "C-x C-z") nil)	; no suspend-frame
+(global-set-key (kbd "C-x C-M-f") #'my-sudo-find-file)
 
 (define-key minibuffer-local-map (kbd "M-z") 'my-zap-up-to-char)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
@@ -694,13 +696,12 @@ copy the basename."
 (global-set-key (kbd "M-j") #'evil-scroll-line-down)
 (global-set-key (kbd "M-[") (kbd "M-{"))
 (global-set-key (kbd "M-]") (kbd "M-}"))
-(global-set-key (kbd "C-M-;") #'evil-numbers/inc-at-pt)
-(global-set-key (kbd "C-M-'") #'evil-numbers/dec-at-pt)
+;; (global-set-key (kbd "C-M-;") #'evil-numbers/inc-at-pt)
+;; (global-set-key (kbd "C-M-'") #'evil-numbers/dec-at-pt)
 
 (global-set-key (kbd "C-M-o") #'mode-line-other-buffer)
 (global-set-key (kbd "C-M-y") #'my-duplicate-line)
 (global-set-key (kbd "C-.") #'my-join-lines)
-;; (global-set-key (kbd "C-M-o") #'split-line)
 (global-set-key (kbd "C-o") #'my-open-line-above)
 (global-set-key (kbd "C-=") #'my-close-other-window)
 (global-set-key (kbd "C-;") #'goto-last-change)
@@ -716,7 +717,6 @@ copy the basename."
 (global-set-key (kbd "C-h RET") 'man)
 (global-set-key (kbd "C-x !") 'delete-other-windows-vertically)
 (global-set-key (kbd "C-x g") 'subword-mode)
-(global-set-key (kbd "C-x l") 'count-words-region)
 (global-set-key (kbd "C-c M-f") #'flyspell-buffer)
 (global-set-key (kbd "C-c M-s") #'ispell)
 
