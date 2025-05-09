@@ -1724,7 +1724,8 @@ defaulted the setting off."
   (interactive)
   (let* ((exclude (append '("-name .svn"
 			   "-name .git"
-			   "-path \"*.git/objects\"")
+			   "-path \"*.git/objects\""
+			   "-not -readable")
 			 (pcase system-type
 			   ('gnu/linux '())
 			   ('darwin '("-path ./Library"
