@@ -1724,10 +1724,9 @@ defaulted the setting off."
   (interactive)
   (let* ((exclude (append '("-name .svn"
 			   "-name .git"
-			   "-path \"*.git/objects\""
-			   "-not -readable")
+			   "-path \"*.git/objects\"")
 			 (pcase system-type
-			   ('gnu/linux '())
+			   ('gnu/linux '("-not -readable"))
 			   ('darwin '("-path ./Library"
 				      "-path \"./Pictures/Photos Library.photoslibrary\"")))))
 	 (consult-find-args (format "find . -type d ( %s ) -prune -false -o ( -type f -o -type l )"
