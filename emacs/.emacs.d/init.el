@@ -600,10 +600,6 @@ copy the basename."
   (when (evil-normal-state-p)
     (evil-insert-state)))
 
-(defun my-isearch-symbol-backward ()
-  (interactive)
-  (isearch-forward-symbol-at-point -1))
-
 (defun my-init-file ()
   (if (eq system-type 'windows-nt)
       (concat (getenv "HOME") "\\dotfiles-public\\emacs\\.emacs.d\\init.el")
@@ -660,7 +656,7 @@ copy the basename."
 (evil-leader/set-key "=" #'align-regexp)
 (evil-leader/set-key "a" #'align)
 (evil-leader/set-key "d" #'pwd)
-(evil-leader/set-key "SPC" (kbd "=i{"))
+(evil-global-set-key 'normal (kbd "C-]") (kbd "=i{"))
 
 (when (eq system-type 'gnu/linux)
   (evil-global-set-key 'motion (kbd "K") 'man))
@@ -692,8 +688,6 @@ copy the basename."
 (global-set-key (kbd "M-u") #'upcase-dwim)
 (global-set-key (kbd "M-l") #'downcase-dwim)
 (global-set-key (kbd "M-c") #'capitalize-dwim)
-(global-set-key (kbd "M-s ,") 'my-isearch-symbol-backward)
-(global-set-key (kbd "M-s M-,") 'my-isearch-symbol-backward)
 
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-p") #'evil-scroll-up)
@@ -703,13 +697,12 @@ copy the basename."
 (global-set-key (kbd "M-j") #'evil-scroll-line-down)
 (global-set-key (kbd "M-[") (kbd "M-{"))
 (global-set-key (kbd "M-]") (kbd "M-}"))
-(global-set-key (kbd "M-SPC") #'isearch-forward-symbol-at-point)
 (global-set-key (kbd "C-M-;") #'evil-numbers/inc-at-pt)
 (global-set-key (kbd "C-M-'") #'evil-numbers/dec-at-pt)
 
 (global-set-key (kbd "C-M-o") #'mode-line-other-buffer)
 (global-set-key (kbd "C-M-y") #'my-duplicate-line)
-(global-set-key (kbd "C-c C-j") #'my-join-lines)
+(global-set-key (kbd "C-.") #'my-join-lines)
 ;; (global-set-key (kbd "C-M-o") #'split-line)
 (global-set-key (kbd "C-o") #'my-open-line-above)
 (global-set-key (kbd "C-=") #'my-close-other-window)
@@ -727,7 +720,6 @@ copy the basename."
 (global-set-key (kbd "C-x !") 'delete-other-windows-vertically)
 (global-set-key (kbd "C-x g") 'subword-mode)
 (global-set-key (kbd "C-x l") 'count-words-region)
-(global-set-key (kbd "C-x r C-b") #'bookmark-jump-other-window)
 (global-set-key (kbd "C-c M-f") #'flyspell-buffer)
 (global-set-key (kbd "C-c M-s") #'ispell)
 
@@ -2072,11 +2064,6 @@ return the project path instead"
 				  (interactive)
 				  (call-interactively #'ansi-term))))
 
-(defun my-jump-notefiles ()
-  (interactive)
-  (let ((default-directory "~/notefiles"))
-    (my-find-file-in-project)))
-
 (global-set-key (kbd "C-c p e") #'my-choose-project-and-find-file)
 (global-set-key (kbd "C-c p u") #'my-choose-project-and-find-file-other-window)
 (global-set-key (kbd "C-c p r") #'my-choose-project-and-search)
@@ -2084,7 +2071,6 @@ return the project path instead"
 (global-set-key (kbd "C-c p d") #'my-choose-project-and-dired)
 (global-set-key (kbd "C-c p s") #'my-choose-project-and-shell)
 (global-set-key (kbd "C-c p t") #'my-choose-project-and-term)
-(global-set-key (kbd "C-c p n") #'my-jump-notefiles)
 
 (global-set-key (kbd "C-c e") 'my-find-file-in-project)
 (global-set-key (kbd "C-c u") 'my-find-file-in-project-other-window)
