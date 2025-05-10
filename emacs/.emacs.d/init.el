@@ -3055,8 +3055,8 @@ to its default value. Leave it alone!"
   "
 _i_: init.el         _s_:   project shell     _b_: ibuffer      _SPC_: agenda
 _n_: notes           _h_:   shell             _c_: calc         _m_:   EMMS
-_w_: world clock     _e_:   jump to shell     _d_: calendar     _v_:   magit
-_t_: term            _C-e_: choose shell      _r_: scratch      _C-v_: magit list repos
+_w_: world clock     _e_:   jump to shell     _d_: calendar     _v_:   magit list repos
+_t_: term            _C-e_: choose shell      _r_: scratch      ^ ^
 "
   ("r" #'scratch-buffer    :exit t)
   ("e" #'my-jump-to-shell)
@@ -3064,8 +3064,7 @@ _t_: term            _C-e_: choose shell      _r_: scratch      _C-v_: magit lis
   ("h" #'my-shell	   :exit t)
   ("s" #'my-project-shell  :exit t)
   ("t" #'ansi-term         :exit t)
-  ("v" #'magit-status      :exit t)
-  ("C-v" #'my-magit-list-repos :exit t)
+  ("v" #'my-magit-list-repos :exit t)
   ("d" #'my-project-dired  :exit t)
   ("c" #'my-calc	   :exit t)
   ("d" #'calendar	   :exit t)
