@@ -857,7 +857,7 @@ copy the basename."
    (pulse-momentary-highlight-one-line (point) my-pulse-face)))
 
 (dolist (cmd '(bookmark-jump tab-new tab-close tab-next
-	       other-window ace-window delete-window kill-this-buffer
+	       other-window ace-window delete-window kill-current-buffer
 	       quit-window org-agenda-quit magit-mode-bury-buffer
 	       winner-undo winner-redo))
   (advice-add cmd :after 'my-pulse-line))
@@ -1294,7 +1294,6 @@ copy the basename."
   (setq-local completion-at-point-functions '(my-complete-word-ispell))
   (setq-local indent-tabs-mode nil)
   (setq-local evil-shift-width 2)
-  (setq-local tab-width 2)
   (setq-local evil-move-beyond-eol t)
 
   (cond
@@ -1837,9 +1836,9 @@ defaulted the setting off."
   (interactive)
   (my-invoke-with-completion #'consult-buffer-other-window 1))
 
-(evil-global-set-key 'motion (kbd "C-w d")   'kill-this-buffer)
-(evil-global-set-key 'motion (kbd "C-w C-d") 'kill-this-buffer)
-(global-set-key (kbd "C-x k")		     'kill-this-buffer)
+(evil-global-set-key 'motion (kbd "C-w d")   'kill-current-buffer)
+(evil-global-set-key 'motion (kbd "C-w C-d") 'kill-current-buffer)
+(global-set-key (kbd "C-x k")		     'kill-current-buffer)
 
 (global-set-key (kbd "C-j")     'my-switch-buffer)
 (global-set-key (kbd "C-x C-b") 'my-switch-buffer)
