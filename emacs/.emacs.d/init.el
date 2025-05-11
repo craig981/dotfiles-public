@@ -1576,10 +1576,6 @@ defaulted the setting off."
       (re-search-forward "[^[:space:]]"))
     (calc-yank-internal nil (format "%s" (number-at-point)))))
 
-(defun my-calc ()
-  (interactive)
-  (calc nil calc-full-mode t))
-
 (global-set-key (kbd "C-x C-y") 'my-calc-yank)
 
 ;; ----------------------------------------------------------------------------
@@ -3053,9 +3049,9 @@ to its default value. Leave it alone!"
 (defhydra my-jump-hydra (:hint nil)
   "
 _i_: init.el         _s_:   project shell     _b_: ibuffer      _SPC_: agenda
-_n_: notes           _h_:   shell             _c_: calc         _m_:   EMMS
-_w_: world clock     _e_:   jump to shell     _d_: calendar     _v_:   magit list repos
-_t_: term            _C-e_: choose shell      _r_: scratch      ^ ^
+_n_: notes           _h_:   shell             _c_: calc         _C-c_: calc other window
+_w_: world clock     _e_:   jump to shell     _d_: calendar     _m_:   EMMS
+_t_: term            _C-e_: choose shell      _r_: scratch      _v_:   magit list repos
 "
   ("r" #'scratch-buffer    :exit t)
   ("e" #'my-jump-to-shell)
@@ -3065,7 +3061,8 @@ _t_: term            _C-e_: choose shell      _r_: scratch      ^ ^
   ("t" #'ansi-term         :exit t)
   ("v" #'my-magit-list-repos :exit t)
   ("d" #'my-project-dired  :exit t)
-  ("c" #'my-calc	   :exit t)
+  ("c"   (lambda () (interactive) (calc nil calc-full-mode t)) :exit t)
+  ("C-c" (lambda () (interactive) (calc-other-window t))       :exit t)
   ("d" #'calendar	   :exit t)
   ("b" #'ibuffer     :exit t)
   ("n" (lambda () (interactive) (find-file org-default-notes-file)) :exit t)
