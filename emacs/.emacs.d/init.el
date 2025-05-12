@@ -1369,7 +1369,14 @@ copy the basename."
   (define-key org-mode-map (kbd "C-'") nil)
   (define-key org-mode-map (kbd "C-j") nil)
   (define-key org-mode-map (kbd "C-c C-j") nil)
-  (define-key org-mode-map (kbd "C-c [") 'org-toggle-link-display)
+  (define-key org-mode-map (kbd "C-c [")
+	      (lambda ()
+		(interactive)
+		(org-toggle-link-display)
+		;; Only necessary if org-toggle-link-display is bound to a
+		;; key, for some reason. With M-x org-toggle-link-display, the
+		;; display already updates.
+		(redraw-display)))
   (define-key org-mode-map (kbd "C-c ]") nil)
   (define-key org-mode-map (kbd "C-c M-e") 'org-decrypt-entry)
   (define-key org-mode-map (kbd "M-[") 'org-backward-paragraph)
