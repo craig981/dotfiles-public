@@ -1554,6 +1554,8 @@ defaulted the setting off."
 ;;| Calc
 ;; ----------------------------------------------------------------------------
 
+(require 'calc)
+
 (defun my-calc-copy ()
   "Copy the number at the top of the calc stack"
   (interactive)
