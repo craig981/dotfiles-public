@@ -699,7 +699,7 @@ copy the basename."
 ;; (global-set-key (kbd "C-M-;") #'evil-numbers/inc-at-pt)
 ;; (global-set-key (kbd "C-M-'") #'evil-numbers/dec-at-pt)
 
-(global-set-key (kbd "C-M-o") #'mode-line-other-buffer)
+(global-set-key (kbd "C-'") #'mode-line-other-buffer)
 (global-set-key (kbd "C-M-y") #'my-duplicate-line)
 (global-set-key (kbd "C-.") #'my-join-lines)
 (global-set-key (kbd "C-o") #'my-open-line-above)
@@ -1940,7 +1940,7 @@ defaulted the setting off."
 ;; ----------------------------------------------------------------------------
 
 (when (require 'ace-window nil t)
-  (global-set-key (kbd "C-'") 'ace-window)
+  (global-set-key (kbd "C-M-o") 'ace-window)
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
 ;; ----------------------------------------------------------------------------
