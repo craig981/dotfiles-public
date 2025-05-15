@@ -2493,6 +2493,8 @@ switch to it."
   (visual-line-mode 0)
   (toggle-truncate-lines 0)
 
+  (setq-local comint-input-autoexpand 'input)
+
   ;; fill out longest common part of filename first
   (setq-local completion-styles '(emacs21 flex))
 
