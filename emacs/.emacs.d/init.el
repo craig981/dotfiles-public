@@ -2853,6 +2853,13 @@ make TAGS in that directory."
   "\n\n} // end namespace\n\n"
   "#endif\n")
 
+(define-skeleton my-cpp-default "" nil
+  "#include \"" (concat (file-name-nondirectory
+			 (file-name-sans-extension (buffer-file-name))) ".h") "\"\n\n"
+  "namespace " (skeleton-read "Namespace: ") " {\n\n"
+  -
+  "\n\n} // end namespace\n\n")
+
 (defun my-advise-c-defun-name-and-limits (name-limits)
   "Remove the namespace from c-display-defun-name"
   (nconc (list (my-cpp-identifier-without-namespace (car name-limits)))
@@ -2873,6 +2880,7 @@ make TAGS in that directory."
 
 (auto-insert-mode 1)
 (define-auto-insert "\\.h\\'" 'my-cpp-include-guard)
+(define-auto-insert "\\.c\\(pp\\|c\\)\\'" 'my-cpp-default)
 
 ;; ----------------------------------------------------------------------------
 ;;| Maya, Houdini, Arnold
