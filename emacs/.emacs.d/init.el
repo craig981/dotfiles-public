@@ -3050,7 +3050,7 @@ to its default value. Leave it alone!"
 
 (defhydra my-theme-hydra ()
   ("r" (lambda () (interactive) (my-theme-dark 'reykjavik 'reykjavik-theme)) "reykjavik")
-  ("t" (lambda () (interactive) (my-theme-dark 'ef-night)) "ef-night")
+  ("t" (lambda () (interactive) (my-theme-dark 'ef-dark)) "ef-dark")
   ("y" (lambda () (interactive) (my-theme-dark 'ef-winter)) "ef-winter")
   ("u" (lambda () (interactive) (my-theme-light 'ef-cyprus)) "ef-cyprus")
   ("i" (lambda () (interactive) (my-theme-dark 'ef-autumn)) "ef-autumn")
@@ -3109,7 +3109,7 @@ _t_: term            _C-e_: choose shell      _r_: scratch      _v_:   magit lis
      ((and (> hour 7) (< hour 16))     (my-theme-light 'ef-cyprus))
      ((and (>= month 9) (<= month 11)) (my-theme-dark 'ef-autumn))
      ((or (= month 12) (<= month 2))   (my-theme-dark 'ef-winter))
-     (t                                (my-theme-dark 'ef-winter))))
+     (t                                (my-theme-dark 'ef-dark))))
 
   (when (display-graphic-p)
     (my-font-config))
