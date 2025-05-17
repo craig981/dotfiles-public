@@ -664,8 +664,9 @@ copy the basename."
 					   (interactive)
 					   (man (thing-at-point 'word t))))
   ;; completion list for man pages is slow
-  (defun my-advise-man-completion (&rest args) '())
-  (advice-add #'Man-completion-table :override #'my-advise-man-completion))
+  ;; (defun my-advise-man-completion (&rest args) '())
+  ;; (advice-add #'Man-completion-table :override #'my-advise-man-completion)
+  )
 
 (global-set-key (kbd "C-c d") #'pwd)
 (global-set-key (kbd "C-c c") #'my-copy-filename)
