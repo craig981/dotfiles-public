@@ -3166,7 +3166,7 @@ _t_: term            _C-e_: choose shell      _r_: scratch      _v_:   magit lis
 
   (defun my-add-dired-to-playlist ()
     (interactive)
-    (when (get-buffer emms-playlist-buffer-name)
+    (when emms-playlist-buffer
       (emms-add-dired)))
 
   (define-key dired-mode-map (kbd "b") 'my-add-dired-to-playlist))
