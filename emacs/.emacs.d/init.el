@@ -932,17 +932,79 @@ copy the basename."
 (add-hook 'prog-mode-hook #'my-prog-mode-hook)
 
 ;; ----------------------------------------------------------------------------
-;;| Fancy dabbrev
+;;| Fancy dabbrev, Corfu
 ;; ----------------------------------------------------------------------------
 
 (require 'fancy-dabbrev)
 
-(global-set-key (kbd "M-/") 'fancy-dabbrev-expand)
-(global-set-key (kbd "<backtab>") 'fancy-dabbrev-backward)
-(setq-default fancy-dabbrev-menu-height 15)
-(setq-default fancy-dabbrev-preview-context 'everywhere)
-(setq-default fancy-dabbrev-preview-delay 0.15)
-;; (push 'evil-input-method fancy-dabbrev-no-preview-for)
+(if (not (and (display-graphic-p)
+	      (require 'corfu nil t)))
+
+    (progn
+      (global-set-key (kbd "M-/") 'fancy-dabbrev-expand)
+      (global-set-key (kbd "<backtab>") 'fancy-dabbrev-backward)
+      (setq-default fancy-dabbrev-menu-height 15)
+      (setq-default fancy-dabbrev-preview-context 'everywhere)
+      (setq-default fancy-dabbrev-preview-delay 0.15)
+      ;; (push 'evil-input-method fancy-dabbrev-no-preview-for)
+      )
+
+
+  (defvar my-completion-list)
+  (defvar my-completion-start-position)
+
+  (defun my-dabbrev-get-completions ()
+    "Get completions as fancy-abbrev would order them"
+    (setq fancy-dabbrev--expansions nil)
+    (fancy-dabbrev--get-first-expansion)
+    (let ((expansion (fancy-dabbrev--get-first-expansion)))
+      (if (null expansion)
+	  (error "No expansion found for \"%s\"" fancy-dabbrev--entered-abbrev)
+	(setq fancy-dabbrev--expansions (list expansion))
+	(fancy-dabbrev--init-expansions)
+	fancy-dabbrev--expansions)))
+
+  (defun my-dabbrev-completion-at-point ()
+    (when-let ((bounds (bounds-of-thing-at-point 'symbol)))
+      (list (car bounds) (point) (my-dabbrev-get-completions))))
+
+  (defun my-advise-completion-at-point (func &rest args)
+    (if (memq 'my-dabbrev-completion-at-point completion-at-point-functions)
+	(let ((vertico-sort-function nil)) ; preserve fancy-dabbrev ordering
+	  (apply func args))
+      (apply func args)))
+
+  (advice-add 'completion-at-point :around 'my-advise-completion-at-point)
+
+  (defun my-dabbrev-complete ()
+    (interactive)
+    (if (and (eq last-command 'my-dabbrev-complete) my-completion-list)
+	;; second completion, complete candidates
+	(progn
+	  (delete-region my-completion-start-position (point))
+	  (unwind-protect
+	      (let ((completion-at-point-functions '(my-dabbrev-completion-at-point)))
+		(completion-at-point))
+	    (setq my-completion-list nil)))
+
+      ;; first completion, use fancy-dabbrev
+      (setq my-completion-list (my-dabbrev-get-completions))
+      (setq my-completion-start-position (point))
+      (fancy-dabbrev--expand-first-time)))
+
+  (with-eval-after-load 'corfu
+    (define-key corfu-map (kbd "S-<tab>") 'corfu-previous)
+    (define-key corfu-map (kbd "C-M-/") 'corfu-next)
+    (define-key corfu-map (kbd "M-/") 'corfu-next))
+
+  (global-corfu-mode)
+  (setq corfu-sort-function nil)
+  (setq corfu-preselect 'valid)
+
+  ;; Have to use C-M-i instead for evil mode dot command, macros, or insert
+  ;; on visual column selection, but we haven't set
+  ;; completion-at-point-functions to include my-dabbrev-completion-at-point
+  (global-set-key (kbd "M-/") 'my-dabbrev-complete))
 
 (define-key minibuffer-local-map (kbd "M-/") 'dabbrev-expand)
 
