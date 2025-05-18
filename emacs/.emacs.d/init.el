@@ -3132,6 +3132,11 @@ _t_: term            _C-e_: choose shell      _r_: scratch      _v_:   magit lis
         (display-buffer-no-window))
       display-buffer-alist)
 
+(push `(,(format "init.el\\|%s" (file-name-base org-default-notes-file))
+	(display-buffer-reuse-window
+	 display-buffer-same-window))
+      display-buffer-alist)
+
 
 ;;; disable trackpad zoom
 (global-set-key (kbd "<C-wheel-up>") 'ignore)
