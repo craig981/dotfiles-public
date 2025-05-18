@@ -1168,8 +1168,6 @@ copy the basename."
   (define-key message-mode-map (kbd "C-c C-c") nil)
   (define-key message-mode-map (kbd "C-c C-s") nil))
 
-(global-set-key (kbd "C-x m") #'my-scratch-message-buffer)
-
 ;; ----------------------------------------------------------------------------
 ;;| Org
 ;; ----------------------------------------------------------------------------
@@ -3070,7 +3068,7 @@ to its default value. Leave it alone!"
   "
 _i_: init.el         _s_:   project shell     _b_: ibuffer      _SPC_: agenda
 _n_: notes           _h_:   shell             _c_: calc         _C-c_: calc other window
-_w_: world clock     _e_:   jump to shell     _d_: calendar     _m_:   EMMS
+_w_: world clock     _e_:   jump to shell     _d_: calendar     _m_:   message             _g_: EMMS
 _t_: term            _C-e_: choose shell      _r_: scratch      _v_:   magit list repos
 "
   ("r" #'scratch-buffer    :exit t)
@@ -3088,7 +3086,8 @@ _t_: term            _C-e_: choose shell      _r_: scratch      _v_:   magit lis
   ("n" (lambda () (interactive) (find-file org-default-notes-file)) :exit t)
   ("i" #'my-find-init-file :exit t)
   ("SPC" #'my-org-agenda     :exit t)
-  ("m" #'emms-playlist-mode-go :exit t)
+  ("m" #'my-scratch-message-buffer :exit t)
+  ("g" #'emms-playlist-mode-go :exit t)
   ("w" #'world-clock       :exit t))
 
 (global-set-key (kbd "C-,") 'my-jump-hydra/body)
@@ -3164,15 +3163,14 @@ _t_: term            _C-e_: choose shell      _r_: scratch      _v_:   magit lis
 					     (let ((emms-seek-seconds 10))
 					       (emms-seek-forward))))
 
-    (global-set-key (kbd "<f8>") #'emms-playlist-mode-go)
-    (global-set-key (kbd "<f9>") #'emms-add-playlist))
+    (global-set-key (kbd "C-c t p") #'emms-add-playlist)
 
-  (defun my-add-dired-to-playlist ()
-    (interactive)
-    (when (get-buffer emms-playlist-buffer-name)
+    (defun my-add-dired-to-playlist ()
+      (interactive)
+      (when (get-buffer emms-playlist-buffer-name)
 	(emms-add-dired)))
 
-  (define-key dired-mode-map (kbd "b") 'my-add-dired-to-playlist))
+    (define-key dired-mode-map (kbd "b") 'my-add-dired-to-playlist)))
 
 ;; ----------------------------------------------------------------------------
 ;;| Non-public
