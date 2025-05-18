@@ -3175,13 +3175,8 @@ _t_: term            _C-e_: choose shell      _r_: scratch      _v_:   magit lis
 					     (emms-seek-forward))))
 
   (global-set-key (kbd "C-c t p") #'emms-add-playlist)
-
-  (defun my-add-dired-to-playlist ()
-    (interactive)
-    (when emms-playlist-buffer
-      (emms-add-dired)))
-
-  (define-key dired-mode-map (kbd "b") 'my-add-dired-to-playlist))
+  (global-set-key (kbd "C-c t n") #'emms-playlist-new)
+  (define-key dired-mode-map (kbd "b") 'emms-add-dired))
 
 ;; ----------------------------------------------------------------------------
 ;;| Non-public
