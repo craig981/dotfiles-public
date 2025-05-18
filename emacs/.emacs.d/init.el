@@ -2446,7 +2446,12 @@ return key from pasting the whole lot back and executing it."
     (if (> (count-windows) 1)
 	(delete-window))))
 
+(defun my-comint-hook ()
+  (when (fboundp 'corfu-mode)
+    (corfu-mode -1)))
+
 (with-eval-after-load 'comint
+  (add-hook 'comint-mode-hook 'my-comint-hook)
   (define-key comint-mode-map (kbd "C-c o") 'browse-url-at-point)
   (define-key comint-mode-map (kbd "M-_") 'comint-insert-previous-argument)
   (define-key comint-mode-map (kbd "M-r") 'my-comint-meta-r)
