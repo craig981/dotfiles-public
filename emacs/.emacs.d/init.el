@@ -3133,44 +3133,43 @@ _t_: term            _C-e_: choose shell      _r_: scratch      _v_:   magit lis
 ;;| Music
 ;; ----------------------------------------------------------------------------
 
-(when (file-exists-p "~/mp3")
+(when (and (file-exists-p "~/mp3")
+	   (require 'emms nil t))
 
-  (when (require 'emms nil t)
+  (emms-all)
+  (setq emms-player-list '(emms-player-mpv)
+	emms-info-functions '(emms-info-native))
+  ;; Remove leading space so buffer is not hidden
+  (setq emms-playlist-buffer-name "*EMMS Playlist*")
+  (setq emms-seek-seconds 60)
 
-    (emms-all)
-    (setq emms-player-list '(emms-player-mpv)
-	  emms-info-functions '(emms-info-native))
-    ;; Remove leading space so buffer is not hidden
-    (setq emms-playlist-buffer-name "*EMMS Playlist*")
-    (setq emms-seek-seconds 60)
+  (define-key emms-browser-mode-map (kbd "SPC") evil-leader--default-map)
+  (define-key emms-browser-mode-map (kbd "<tab>") #'emms-browser-toggle-subitems-recursively)
+  (define-key emms-browser-mode-map (kbd ";") #'emms-browser-move-up-level)
+  (define-key emms-browser-mode-map (kbd "C-j") nil)
+  (define-key emms-playlist-mode-map (kbd "C-j") nil)
+  (define-key emms-playlist-mode-map (kbd "M-n") nil)
+  (define-key emms-playlist-mode-map (kbd "M-p") nil)
+  (define-key emms-playlist-mode-map (kbd "SPC") evil-leader--default-map)
+  (define-key emms-playlist-mode-map ";" #'emms-playlist-mode-center-current)
+  (define-key emms-playlist-mode-map "k" #'emms-pause)
+  (define-key emms-playlist-mode-map "j" (lambda ()
+					   (interactive)
+					   (let ((emms-seek-seconds 10))
+					     (emms-seek-backward))))
+  (define-key emms-playlist-mode-map "l" (lambda ()
+					   (interactive)
+					   (let ((emms-seek-seconds 10))
+					     (emms-seek-forward))))
 
-    (define-key emms-browser-mode-map (kbd "SPC") evil-leader--default-map)
-    (define-key emms-browser-mode-map (kbd "<tab>") #'emms-browser-toggle-subitems-recursively)
-    (define-key emms-browser-mode-map (kbd ";") #'emms-browser-move-up-level)
-    (define-key emms-browser-mode-map (kbd "C-j") nil)
-    (define-key emms-playlist-mode-map (kbd "C-j") nil)
-    (define-key emms-playlist-mode-map (kbd "M-n") nil)
-    (define-key emms-playlist-mode-map (kbd "M-p") nil)
-    (define-key emms-playlist-mode-map (kbd "SPC") evil-leader--default-map)
-    (define-key emms-playlist-mode-map ";" #'emms-playlist-mode-center-current)
-    (define-key emms-playlist-mode-map "k" #'emms-pause)
-    (define-key emms-playlist-mode-map "j" (lambda ()
-					     (interactive)
-					     (let ((emms-seek-seconds 10))
-					       (emms-seek-backward))))
-    (define-key emms-playlist-mode-map "l" (lambda ()
-					     (interactive)
-					     (let ((emms-seek-seconds 10))
-					       (emms-seek-forward))))
+  (global-set-key (kbd "C-c t p") #'emms-add-playlist)
 
-    (global-set-key (kbd "C-c t p") #'emms-add-playlist)
+  (defun my-add-dired-to-playlist ()
+    (interactive)
+    (when (get-buffer emms-playlist-buffer-name)
+      (emms-add-dired)))
 
-    (defun my-add-dired-to-playlist ()
-      (interactive)
-      (when (get-buffer emms-playlist-buffer-name)
-	(emms-add-dired)))
-
-    (define-key dired-mode-map (kbd "b") 'my-add-dired-to-playlist)))
+  (define-key dired-mode-map (kbd "b") 'my-add-dired-to-playlist))
 
 ;; ----------------------------------------------------------------------------
 ;;| Non-public
