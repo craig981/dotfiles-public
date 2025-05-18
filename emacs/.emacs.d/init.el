@@ -3182,6 +3182,7 @@ _t_: term            _C-e_: choose shell      _r_: scratch      _v_:   magit lis
 
   (global-set-key (kbd "C-c t p") #'emms-add-playlist)
   (global-set-key (kbd "C-c t n") #'emms-playlist-new)
+  (global-set-key (kbd "<f8>") #'emms-pause)
   (define-key dired-mode-map (kbd "b") 'emms-add-dired))
 
 ;; ----------------------------------------------------------------------------
