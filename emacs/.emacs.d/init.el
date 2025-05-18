@@ -891,16 +891,6 @@ copy the basename."
 
   (add-hook 'Man-mode-hook 'my-man-mode-hook))
 
-(push '("\\(\\*[Hh]elp\\*\\)\\|\\(\\*Man\\)"
-	(display-buffer-reuse-mode-window
-	 display-buffer-use-some-window
-	 display-buffer-in-direction)
-	(direction . right)
-	;; don't want this as jumping back/forwards opens a second help window
-	;; (inhibit-same-window . t)
-	)
-      display-buffer-alist)
-
 ;; ----------------------------------------------------------------------------
 ;;| Abbreviations
 ;; ----------------------------------------------------------------------------
@@ -1492,10 +1482,6 @@ defaulted the setting off."
 (advice-add 'org-babel-execute-src-block :around 'my-advise-org-exec-src-block)
 
 
-(push '("\\*Org Select\\*"
-        (display-buffer-below-selected))
-      display-buffer-alist)
-
 (pcase system-type
   ('gnu/linux
    (global-set-key (kbd "C-`") 'my-org-capture-task))
@@ -1538,11 +1524,6 @@ defaulted the setting off."
 ;; ----------------------------------------------------------------------------
 ;;| Calendar
 ;; ----------------------------------------------------------------------------
-
-(push '("\\*Calendar\\*"
-        (display-buffer-reuse-window display-buffer-below-selected)
-        (window-height . 10))
-      display-buffer-alist)
 
 (when (and (require 'calfw nil t)
 	   (require 'calfw-org nil t))
@@ -1778,12 +1759,6 @@ defaulted the setting off."
 ;; pushed off-screen.
 (advice-add #'completion--in-region :around #'my-disable-marginalia)
 (advice-add #'minibuffer-complete :around #'my-disable-marginalia)
-
-;;; popup the completion buffer at the bottom
-(push '("\\*Completions\\*"
-        (display-buffer-reuse-window display-buffer-at-bottom)
-        (window-height . 10))
-      display-buffer-alist)
 
 ;;; use vertico for completion-at-point, but not when completing
 ;;; file/directory names in shell/comint
@@ -2443,15 +2418,6 @@ return key from pasting the whole lot back and executing it."
 		(directory-file-name default-directory)))
 	 (buf (generate-new-buffer (concat "*shell:" name "*"))))
     (shell buf)))
-
-(push '("\\*shell[:*]"
-	(display-buffer-below-selected)
-	(window-height . 0.5))
-      display-buffer-alist)
-
-(push '("\\*Async Shell Command\\*"
-        (display-buffer-no-window))
-      display-buffer-alist)
 
 (defun my-match-shell-predicate (buffer-or-name &optional arg)
   "Predicate for match-buffers to find shells."
@@ -3131,6 +3097,41 @@ _t_: term            _C-e_: choose shell      _r_: scratch      _v_:   magit lis
     (my-toggle-alpha-background)))
 
 (add-hook 'window-setup-hook 'my-window-setup-hook)
+
+(push '("\\(\\*[Hh]elp\\*\\)\\|\\(\\*Man\\)"
+	(display-buffer-reuse-mode-window
+	 display-buffer-use-some-window
+	 display-buffer-in-direction)
+	(direction . right)
+	;; don't want this as jumping back/forwards opens a second help window
+	;; (inhibit-same-window . t)
+	)
+      display-buffer-alist)
+
+(push '("\\*Org Select\\*"
+        (display-buffer-below-selected))
+      display-buffer-alist)
+
+(push '("\\*Calendar\\*"
+        (display-buffer-reuse-window display-buffer-below-selected)
+        (window-height . 10))
+      display-buffer-alist)
+
+;;; popup the completion buffer at the bottom
+(push '("\\*Completions\\*"
+        (display-buffer-reuse-window display-buffer-at-bottom)
+        (window-height . 10))
+      display-buffer-alist)
+
+(push '("\\*shell[:*]"
+	(display-buffer-below-selected)
+	(window-height . 0.5))
+      display-buffer-alist)
+
+(push '("\\*Async Shell Command\\*"
+        (display-buffer-no-window))
+      display-buffer-alist)
+
 
 ;;; disable trackpad zoom
 (global-set-key (kbd "<C-wheel-up>") 'ignore)
