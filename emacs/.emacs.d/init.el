@@ -992,7 +992,7 @@ copy the basename."
       (fancy-dabbrev--expand-first-time)))
 
   (with-eval-after-load 'corfu
-    (define-key corfu-map (kbd "S-<tab>") 'corfu-previous)
+    (define-key corfu-map (kbd "<backtab>") 'corfu-previous)
     (define-key corfu-map (kbd "C-M-/") 'corfu-next)
     (define-key corfu-map (kbd "M-/") 'corfu-next))
 
