@@ -1023,7 +1023,8 @@ copy the basename."
 
   ;; want C-M-i without corfu, for marginalia
   (global-set-key (kbd "C-M-i") 'my-completion-at-point)
-  (define-key emacs-lisp-mode-map (kbd "C-M-i") 'my-completion-at-point))
+  (define-key emacs-lisp-mode-map (kbd "C-M-i") 'my-completion-at-point)
+  (define-key lisp-interaction-mode-map (kbd "C-M-i") 'my-completion-at-point))
 
 (define-key minibuffer-local-map (kbd "M-/") 'dabbrev-expand)
 
