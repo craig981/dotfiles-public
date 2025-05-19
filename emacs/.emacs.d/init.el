@@ -716,6 +716,7 @@ copy the basename."
 (global-set-key (kbd "C-h h") nil)
 (global-set-key (kbd "C-h C-c") nil)
 (global-set-key (kbd "C-h RET") 'man)
+(global-set-key (kbd "C-x m") 'my-scratch-message-buffer)
 (global-set-key (kbd "C-x !") 'delete-other-windows-vertically)
 (global-set-key (kbd "C-x g") 'subword-mode)
 (global-set-key (kbd "C-c M-f") #'flyspell-buffer)
@@ -3131,8 +3132,8 @@ to its default value. Leave it alone!"
   "
 _i_: init.el         _s_:   project shell     _b_: ibuffer      _SPC_: agenda
 _n_: notes           _h_:   shell             _c_: calc         _C-c_: calc other window
-_w_: world clock     _e_:   jump to shell     _d_: calendar     _m_:   message             _g_: EMMS
-_t_: term            _C-e_: choose shell      _r_: scratch      _v_:   magit list repos
+_w_: world clock     _e_:   jump to shell     _d_: calendar     _v_:   magit list repos
+_t_: term            _C-e_: choose shell      _r_: scratch      _g_:   EMMS
 "
   ("r" #'scratch-buffer    :exit t)
   ("e" #'my-jump-to-shell)
@@ -3149,7 +3150,6 @@ _t_: term            _C-e_: choose shell      _r_: scratch      _v_:   magit lis
   ("n" (lambda () (interactive) (find-file org-default-notes-file)) :exit t)
   ("i" #'my-find-init-file :exit t)
   ("SPC" #'my-org-agenda     :exit t)
-  ("m" #'my-scratch-message-buffer :exit t)
   ("g" #'emms-playlist-mode-go :exit t)
   ("w" #'world-clock       :exit t))
 
