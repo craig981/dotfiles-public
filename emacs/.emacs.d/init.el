@@ -998,7 +998,7 @@ copy the basename."
 
   (global-corfu-mode)
   (setq corfu-sort-function nil)
-  (setq corfu-preselect 'valid)
+  (setq corfu-preselect 'first) 	; for filename completion
 
   ;; Have to use C-M-i instead for evil mode dot command, macros, or insert
   ;; on visual column selection, but we haven't set
