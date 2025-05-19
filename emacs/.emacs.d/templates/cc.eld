@@ -11,13 +11,13 @@ c++-mode c-mode
  "#include <iostream>" n n
   "using std::cerr;" n)
 
-(inc-user
+(inc_user
   "#include \"" q "\"")
 
-(inc-sys
+(inc_sys
   "#include <" q ">")
 
-(for-int
+(for_int
   "for ("
   (p "int") " "
   (p "i" var) "=0; "
@@ -26,7 +26,7 @@ c++-mode c-mode
   > q n
   "\t}" n)
 
-(for-stl
+(for_stl
   "for (\t"
   (p "std::vector<int>") "::"
   (p "const_iterator") n
@@ -35,7 +35,7 @@ c++-mode c-mode
   > q n
   "\t}" n)
 
-(print-vec
+(print_vec
   "<<" n
   > (s var) "[0] << \" \" <<" n
   > var "[1] << \" \" <<" n
