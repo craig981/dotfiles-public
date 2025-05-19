@@ -1000,10 +1000,27 @@ copy the basename."
   (setq corfu-sort-function nil)
   (setq corfu-preselect 'first) 	; for filename completion
 
+  (defun my-disable-corfu (func &rest args)
+    (let ((m corfu-mode))
+      (corfu-mode 0)
+      ;; corfu overrides this, change it back
+      (setq completion-in-region-function #'my-completion-in-region-function)
+      (unwind-protect
+	  (apply func args)
+	(corfu-mode m))))
+
+  (defun my-completion-at-point ()
+    (interactive)
+    (my-disable-corfu #'completion-at-point))
+
   ;; Have to use C-M-i instead for evil mode dot command, macros, or insert
   ;; on visual column selection, but we haven't set
   ;; completion-at-point-functions to include my-dabbrev-completion-at-point
-  (global-set-key (kbd "M-/") 'my-dabbrev-complete))
+  (global-set-key (kbd "M-/") 'my-dabbrev-complete)
+
+  ;; want C-M-i without corfu, for marginalia
+  (global-set-key (kbd "C-M-i") 'my-completion-at-point)
+  (define-key emacs-lisp-mode-map (kbd "C-M-i") 'my-completion-at-point))
 
 (define-key minibuffer-local-map (kbd "M-/") 'dabbrev-expand)
 
@@ -1823,17 +1840,19 @@ defaulted the setting off."
 
 ;;; use vertico for completion-at-point, but not when completing
 ;;; file/directory names in shell/comint
-(setq completion-in-region-function
-      (lambda (&rest args)
-        (let* ((vert (and vertico-mode
-			  (or (memq major-mode '(inferior-python-mode))
-			      (not (or ;;(derived-mode-p 'minibuffer-mode)
-				    (derived-mode-p 'comint-mode)
-				    (derived-mode-p 'eshell-mode))))))
-	       (func (if vert
-			 #'consult-completion-in-region
-		       #'completion--in-region)))
-	  (apply func args))))
+(defun my-completion-in-region-function (&rest args)
+  (let* ((vert (and vertico-mode
+		    (or (memq major-mode '(inferior-python-mode))
+			(not (or ;;(derived-mode-p 'minibuffer-mode)
+			      (derived-mode-p 'comint-mode)
+			      (derived-mode-p 'eshell-mode))))))
+	 (func (if vert
+		   #'consult-completion-in-region
+		 #'completion--in-region)))
+    (apply func args)))
+
+(setq completion-in-region-function #'my-completion-in-region-function)
+
 
 (setq icomplete-compute-delay 0.0)
 (setq icomplete-matches-format nil)
