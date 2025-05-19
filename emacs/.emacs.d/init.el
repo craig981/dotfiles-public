@@ -1940,6 +1940,9 @@ defaulted the setting off."
 	(setq my-completing-filename (eq my-completing-filename 'continue)))
     (setq my-completing-filename nil)))
 
+(with-eval-after-load 'corfu
+  (advice-add 'my-complete-filename :around 'my-disable-corfu))
+
 (evil-global-set-key 'insert (kbd "C-x C-f") 'my-complete-filename)
 
 (defun my-complete-filename-continue ()
