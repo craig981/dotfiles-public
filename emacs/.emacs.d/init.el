@@ -914,6 +914,9 @@ copy the basename."
 
 (advice-add 'tempel-complete :before 'my-advise-enter-insert-state)
 
+(with-eval-after-load 'corfu
+  (advice-add 'tempel-complete :around 'my-with-corfu))
+
 (global-set-key (kbd "M-'") 'tempel-complete)
 
 (define-key tempel-map (kbd "RET") 'tempel-next)
@@ -999,32 +1002,25 @@ copy the basename."
     (define-key corfu-map (kbd "C-M-/") 'corfu-next)
     (define-key corfu-map (kbd "M-/") 'corfu-next))
 
-  (global-corfu-mode)
   (setq corfu-sort-function nil)
   (setq corfu-preselect 'first) 	; for filename completion
 
-  (defun my-disable-corfu (func &rest args)
+  (defun my-with-corfu (func &rest args)
     (let ((m corfu-mode))
-      (corfu-mode 0)
-      ;; corfu overrides this, change it back
-      (setq completion-in-region-function #'my-completion-in-region-function)
+      (corfu-mode 1)
       (unwind-protect
 	  (apply func args)
-	(corfu-mode m))))
+	(corfu-mode (if m 1 -1))
+	(when (not m)
+	  ;; corfu overrides this, change it back
+	  (setq completion-in-region-function #'my-completion-in-region-function)))))
 
-  (defun my-completion-at-point ()
-    (interactive)
-    (my-disable-corfu #'completion-at-point))
+  (advice-add 'my-dabbrev-complete :around 'my-with-corfu)
 
   ;; Have to use C-M-i instead for evil mode dot command, macros, or insert
   ;; on visual column selection, but we haven't set
   ;; completion-at-point-functions to include my-dabbrev-completion-at-point
-  (global-set-key (kbd "M-/") 'my-dabbrev-complete)
-
-  ;; want C-M-i without corfu, for marginalia
-  (global-set-key			(kbd "C-M-i") 'my-completion-at-point)
-  (define-key emacs-lisp-mode-map	(kbd "C-M-i") 'my-completion-at-point)
-  (define-key lisp-interaction-mode-map (kbd "C-M-i") 'my-completion-at-point))
+  (global-set-key (kbd "M-/") 'my-dabbrev-complete))
 
 (define-key minibuffer-local-map (kbd "M-/") 'dabbrev-expand)
 
@@ -1940,9 +1936,6 @@ defaulted the setting off."
 	(call-interactively 'cape-file)
 	(setq my-completing-filename (eq my-completing-filename 'continue)))
     (setq my-completing-filename nil)))
-
-(with-eval-after-load 'corfu
-  (advice-add 'my-complete-filename :around 'my-disable-corfu))
 
 (evil-global-set-key 'insert (kbd "C-x C-f") 'my-complete-filename)
 
