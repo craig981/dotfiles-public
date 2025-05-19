@@ -612,8 +612,8 @@ copy the basename."
   (let ((inhibit-read-only t))
     (delete-region (point-min) (point-max))))
 
-(defun my-advise-emacs-kill (&rest args)
-  "Enter insert mode after a kill command"
+(defun my-advise-enter-insert-state (&rest args)
+  "Enter insert mode, e.g. after a kill command"
   (when (and evil-local-mode (evil-normal-state-p))
     (evil-insert-state)))
 
@@ -624,7 +624,7 @@ copy the basename."
 	       paredit-kill
 	       org-meta-return
 	       org-insert-todo-heading))
-  (advice-add cmd :after #'my-advise-emacs-kill))
+  (advice-add cmd :after #'my-advise-enter-insert-state))
 
 (defun my-join-lines ()
   (interactive)
@@ -910,6 +910,8 @@ copy the basename."
 ;; ----------------------------------------------------------------------------
 
 (require 'tempel)
+
+(advice-add 'tempel-complete :before 'my-advise-enter-insert-state)
 
 (global-set-key (kbd "M-'") 'tempel-complete)
 
