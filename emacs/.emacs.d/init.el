@@ -1942,18 +1942,19 @@ defaulted the setting off."
 
 (evil-global-set-key 'insert (kbd "C-x C-f") 'my-complete-filename)
 
+(defun my-complete-filename-continue ()
+  (interactive)
+  (when my-completing-filename
+    (setq my-completing-filename 'continue)
+    (cond
+     (vertico-mode   (vertico-exit))
+     (icomplete-mode (icomplete-force-complete-and-exit)))))
+
 ;; keep completing into directory
-(define-key (if vertico-mode
-		vertico-map
-	      icomplete-minibuffer-map)
-  (kbd "C-x C-f")
-  (lambda ()
-    (interactive)
-    (when my-completing-filename
-      (setq my-completing-filename 'continue)
-      (if vertico-mode
-	  (vertico-exit)
-	(icomplete-force-complete-and-exit)))))
+(if-let ((map (cond
+	       (vertico-mode vertico-map)
+	       (icomplete-mode icomplete-minibuffer-map))))
+    (define-key map (kbd "C-x C-f") 'my-complete-filename-continue))
 
 ;; ----------------------------------------------------------------------------
 ;;| Helm
