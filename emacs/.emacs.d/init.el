@@ -1354,6 +1354,7 @@ copy the basename."
   (local-set-key (kbd "C-c t s") 'org-download-screenshot)
   (local-set-key (kbd "C-c t y") 'org-download-yank)
   (local-set-key (kbd "C-c t e") 'org-download-edit)
+  (local-set-key (kbd "C-c t h") 'org-fold-hide-block-all)
 
   ;; / is punctuation, so evil * works on path components
   (modify-syntax-entry ?/ ".")
