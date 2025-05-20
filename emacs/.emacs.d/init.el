@@ -114,6 +114,7 @@
  '(org-download-method 'attach)
  '(org-fold-catch-invisible-edits 'smart)
  '(org-html-validation-link nil)
+ '(org-image-max-width 'window)
  '(org-imenu-depth 3)
  '(org-insert-heading-respect-content t)
  '(org-log-done 'time)
