@@ -5,12 +5,13 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     gsettings set org.gtk.Settings.FileChooser show-hidden false
 
 
-    # no terminal bell noise
     profile=$(gsettings get org.gnome.Terminal.ProfilesList default | tr -d "'")
     if [[ -n "${profile}" ]]; then
         key="/org/gnome/terminal/legacy/profiles:/:${profile}"
         dconf write "${key}/audible-bell" false
         dconf write "${key}/cursor-blink-mode" "'off'"
+        dconf write "${key}/default-size-columns" 150
+        dconf write "${key}/default-size-rows" 45
     fi
 
 
