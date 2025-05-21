@@ -106,6 +106,9 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
         name+=( "pcoip" )
         command+=( "/usr/bin/pcoip-client --disable-menubar" )
         binding+=( '<Super>r' )
+        # ~/.config/Teradici/Teradici PCoIP Client.ini
+        # [General]
+        # security_mode=0
     fi
     case "$(hostname -s)" in
         goose|hedgehog)
