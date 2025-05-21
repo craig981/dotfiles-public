@@ -3188,6 +3188,8 @@ _t_: term            _C-e_: choose shell      _r_: scratch      _g_:   EMMS
 ;;| Window setup
 ;; ----------------------------------------------------------------------------
 
+(defvar my-auto-light-theme t)
+
 (defun my-window-setup-hook ()
 
   (unless (display-graphic-p)
@@ -3198,7 +3200,8 @@ _t_: term            _C-e_: choose shell      _r_: scratch      _g_:   EMMS
 	 (month (decoded-time-month time))
 	 (hour (decoded-time-hour time)))
     (cond
-     ((and (> hour 7) (< hour 16))     (my-theme-light 'ef-cyprus))
+     ((and my-auto-light-theme (> hour 7) (< hour 18))
+      (my-theme-light 'ef-cyprus))
      ((and (>= month 9) (<= month 11)) (my-theme-dark 'ef-autumn))
      ((or (= month 12) (<= month 2))   (my-theme-dark 'ef-winter))
      (t                                (my-theme-dark 'ef-dark))))
