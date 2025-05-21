@@ -2025,8 +2025,8 @@ defaulted the setting off."
 ;; ----------------------------------------------------------------------------
 
 (when (require 'ace-window nil t)
-  (global-set-key (kbd "M-o") 'ace-window)
-  (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
+  (global-set-key (kbd "C-M-o") 'ace-window)
+  (setq aw-keys '(?d ?f ?j ?k ?l ?\;)))
 
 ;; ----------------------------------------------------------------------------
 ;;| Projects
@@ -2150,13 +2150,16 @@ return the project path instead"
 				  (interactive)
 				  (call-interactively #'ansi-term))))
 
-(global-set-key (kbd "C-c p e") #'my-choose-project-and-find-file)
-(global-set-key (kbd "C-c p u") #'my-choose-project-and-find-file-other-window)
-(global-set-key (kbd "C-c p r") #'my-choose-project-and-search)
-(global-set-key (kbd "C-c p v") #'my-choose-project-and-magit)
-(global-set-key (kbd "C-c p d") #'my-choose-project-and-dired)
-(global-set-key (kbd "C-c p s") #'my-choose-project-and-shell)
-(global-set-key (kbd "C-c p t") #'my-choose-project-and-term)
+(let ((map (define-keymap
+	     "e" #'my-choose-project-and-find-file
+	     "u" #'my-choose-project-and-find-file-other-window
+	     "r" #'my-choose-project-and-search
+	     "v" #'my-choose-project-and-magit
+	     "d" #'my-choose-project-and-dired
+	     "s" #'my-choose-project-and-shell
+	     "t" #'my-choose-project-and-term)))
+  (global-set-key (kbd "C-c p") map)
+  (global-set-key (kbd "C-.") map))
 
 (global-set-key (kbd "C-c e") 'my-find-file-in-project)
 (global-set-key (kbd "C-c u") 'my-find-file-in-project-other-window)
@@ -2730,6 +2733,7 @@ make TAGS in that directory."
 
 (defun my-lisp-common-hook ()
   (enable-paredit-mode)
+  (evil-local-set-key 'normal (kbd "C-]") (kbd "=ib"))
   (setq-local evil-move-beyond-eol t)
   (setq-local evil-symbol-word-search t))
 
