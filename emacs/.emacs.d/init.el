@@ -2025,7 +2025,7 @@ defaulted the setting off."
 ;; ----------------------------------------------------------------------------
 
 (when (require 'ace-window nil t)
-  (global-set-key (kbd "M-O") 'ace-window)
+  (global-set-key (kbd "M-o") 'ace-window)
   (setq aw-keys '(?a ?s ?d ?f ?g ?h ?j ?k ?l)))
 
 ;; ----------------------------------------------------------------------------
