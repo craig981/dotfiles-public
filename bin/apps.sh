@@ -23,3 +23,10 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     #     fi
     # fi
 fi
+
+if [[ "$XDG_CURRENT_DESKTOP" = "MATE" ]]; then
+
+    dconf write /org/mate/terminal/profiles/default/default-size-columns 150
+    dconf write /org/mate/terminal/profiles/default/default-size-rows 40
+
+fi
