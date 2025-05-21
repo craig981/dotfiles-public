@@ -1609,6 +1609,8 @@ defaulted the setting off."
 ;;| Ledger
 ;; ----------------------------------------------------------------------------
 
+(defvar my-ledger-file)
+
 (setq ledger-binary-path (expand-file-name "~/dotfiles-public/bin/ledger.sh"))
 
 (with-eval-after-load "ledger-report"
@@ -2026,7 +2028,7 @@ defaulted the setting off."
 
 (when (require 'ace-window nil t)
   (global-set-key (kbd "C-M-o") 'ace-window)
-  (setq aw-keys '(?d ?f ?j ?k ?l ?\;)))
+  (setq aw-keys '(?f ?j ?k ?l ?\; ?')))
 
 ;; ----------------------------------------------------------------------------
 ;;| Projects
@@ -2158,8 +2160,7 @@ return the project path instead"
 	     "d" #'my-choose-project-and-dired
 	     "s" #'my-choose-project-and-shell
 	     "t" #'my-choose-project-and-term)))
-  (global-set-key (kbd "C-c p") map)
-  (global-set-key (kbd "C-.") map))
+  (global-set-key (kbd "C-c p") map))
 
 (global-set-key (kbd "C-c e") 'my-find-file-in-project)
 (global-set-key (kbd "C-c u") 'my-find-file-in-project-other-window)
@@ -3159,7 +3160,7 @@ to its default value. Leave it alone!"
 
 (defhydra my-jump-hydra (:hint nil)
   "
-_i_: init.el         _s_:   project shell     _b_: ibuffer      _SPC_: agenda
+_i_: init.el         _s_:   project shell     _b_: ibuffer      _SPC_: agenda               _f_: ledger
 _n_: notes           _h_:   shell             _c_: calc         _C-c_: calc other window
 _w_: world clock     _e_:   jump to shell     _d_: calendar     _v_:   magit list repos
 _t_: term            _C-e_: choose shell      _r_: scratch      _g_:   EMMS
@@ -3177,6 +3178,7 @@ _t_: term            _C-e_: choose shell      _r_: scratch      _g_:   EMMS
   ("d" #'calendar	   :exit t)
   ("b" #'ibuffer     :exit t)
   ("n" (lambda () (interactive) (find-file org-default-notes-file)) :exit t)
+  ("f" (lambda () (interactive) (when (and (boundp 'my-ledger-file) my-ledger-file) (find-file my-ledger-file))) :exit t)
   ("i" #'my-find-init-file :exit t)
   ("SPC" #'my-org-agenda     :exit t)
   ("g" #'emms-playlist-mode-go :exit t)
