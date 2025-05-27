@@ -2060,15 +2060,25 @@ defaulted the setting off."
   (dired (my-find-project-root)))
 
 (defvar my-projects)
-(cond
- ((file-exists-p "~/dev/git")  (setq my-projects '(("~/dev/git" . 3))))
- ((file-exists-p "~/dev/work") (setq my-projects '(("~/dev/work" . 2)
-						   ("~/dev" . 2))))
- (t                            (setq my-projects '(("~/dev" . 2)))))
 
-(dolist (d `("~/dotfiles-public" "~/dotfiles" "~/notefiles" ,org-directory))
-  (when (file-directory-p d)
-    (push `(,d . 1) my-projects)))
+(progn
+  (cond
+   ((file-directory-p "~/dev/git")
+    (setq my-projects '(("~/dev/git" . 3))))
+   ((file-directory-p "~/dev/work")
+    (setq my-projects '(("~/dev/work" . 2)
+			("~/dev" . 2))))
+   ((file-directory-p "~/dev")
+    (setq my-projects '(("~/dev" . 2)))))
+
+ (dolist (d `(,@(file-expand-wildcards "~/dotfiles*")
+	      ,@(file-expand-wildcards "~/orgfiles*")
+	      "~/notefiles"
+	      ,org-directory))
+   (when (file-directory-p d)
+     (push `(,d . 1) my-projects))))
+
+
 
 (defun my-find-projects (dir depth)
   "Return a list of projects under 'dir' up to 'depth'"
