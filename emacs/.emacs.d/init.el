@@ -141,6 +141,7 @@
  '(org-imenu-depth 3)
  '(org-insert-heading-respect-content t)
  '(org-log-done 'time)
+ '(org-log-redeadline 'note)
  '(org-modules '(ol-docview org-habit ol-info))
  '(org-publish-use-timestamps-flag nil)
  '(org-refile-targets '((org-agenda-files :maxlevel . 3) (nil :maxlevel . 3)))
