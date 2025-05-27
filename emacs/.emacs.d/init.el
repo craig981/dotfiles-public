@@ -3261,6 +3261,12 @@ _t_: term            _C-e_: choose shell      _r_: scratch      _g_:   EMMS
 	 display-buffer-same-window))
       display-buffer-alist)
 
+(push '("\\*scratch\\*"
+	(display-buffer-in-direction)
+	(window-height . 0.5)
+	(direction . above))
+      display-buffer-alist)
+
 
 ;;; disable trackpad zoom
 (global-set-key (kbd "<C-wheel-up>") 'ignore)
