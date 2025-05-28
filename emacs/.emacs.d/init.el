@@ -2666,10 +2666,9 @@ make TAGS in that directory."
 	(message (format "Running 'make -C %s TAGS'" path))
 	(if (= 0 (call-process "make" nil nil nil "-C" path "TAGS"))
 	    (let ((tags (concat path "TAGS")))
-	      (if (and (not (member tags tags-table-list))
-		       (y-or-n-p (format "Visit '%s'?" tags)))
-		  (visit-tags-table tags)
-		(message "Done")))
+	      (when (not (member tags tags-table-list))
+		(visit-tags-table tags))
+	      (message "Done"))
 	  (message "Failed to make TAGS"))))))
 
 (defun my-run-ctags (dir tagscmd)
