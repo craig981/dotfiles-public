@@ -1292,7 +1292,9 @@ copy the basename."
 (setq org-capture-templates
       `(("m" "Bookmark" entry (file+headline org-default-notes-file "Bookmarks")
 	 "* %?\n")
-	("x" "Task" entry (file+headline org-default-notes-file "Tasks")
+	("x" "Task" entry ,(if my-machine
+			       '(file+headline org-default-notes-file "Tasks")
+			     '(file org-default-notes-file))
 	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")))
 
 (when my-machine
