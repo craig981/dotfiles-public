@@ -2403,6 +2403,8 @@ otherwise `project-compile'."
   (define-key makefile-gmake-mode-map (kbd "M-n") nil)
   (define-key makefile-gmake-mode-map (kbd "M-p") nil))
 
+(add-to-list 'auto-mode-alist '("\\.inc\\'" . makefile-gmake-mode))
+
 (defun my-makefile-no-warn-suspicious-lines ())
 (advice-add 'makefile-warn-suspicious-lines :override #'my-makefile-no-warn-suspicious-lines)
 
