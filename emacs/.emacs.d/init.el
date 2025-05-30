@@ -2478,20 +2478,20 @@ otherwise `project-compile'."
 ;;| Comint
 ;; ----------------------------------------------------------------------------
 
-(defun my-comint-meta-r (&optional prefix)
-  (interactive "P")
-  (cond
-   (prefix       (move-to-window-line-top-bottom))
-   (vertico-mode (consult-history))
-   (t            (comint-dynamic-list-input-ring))))
+;; (defun my-comint-meta-r (&optional prefix)
+;;   (interactive "P")
+;;   (cond
+;;    (prefix       (move-to-window-line-top-bottom))
+;;    (vertico-mode (consult-history))
+;;    (t            (comint-dynamic-list-input-ring))))
 
-;; (defun my-comint-ctrl-r ()
-;;   (interactive)
-;;   (if (comint-after-pmark-p)
-;;       (if vertico-mode
-;; 	  (consult-history)
-;; 	(comint-dynamic-list-input-ring))
-;;     (call-interactively 'isearch-backward)))
+(defun my-comint-ctrl-r ()
+  (interactive)
+  (if (comint-after-pmark-p)
+      (if vertico-mode
+	  (consult-history)
+	(comint-dynamic-list-input-ring))
+    (call-interactively 'isearch-backward)))
 
 (defun my-comint-ret ()
   "When the cursor is in the middle of the shell output, stop the
@@ -2524,8 +2524,8 @@ return key from pasting the whole lot back and executing it."
   (add-hook 'comint-mode-hook 'my-comint-hook)
   (define-key comint-mode-map (kbd "C-c o") 'browse-url-at-point)
   (define-key comint-mode-map (kbd "M-_") 'comint-insert-previous-argument)
-  (define-key comint-mode-map (kbd "M-r") 'my-comint-meta-r)
-  ;; (define-key comint-mode-map (kbd "C-r") 'my-comint-ctrl-r)
+  (define-key comint-mode-map (kbd "M-r") 'move-to-window-line-top-bottom)
+  (define-key comint-mode-map (kbd "C-r") 'my-comint-ctrl-r)
   (define-key comint-mode-map (kbd "C-d") 'my-comint-ctrl-d)
   (define-key comint-mode-map (kbd "RET") 'my-comint-ret))
 
