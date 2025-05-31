@@ -2059,7 +2059,7 @@ defaulted the setting off."
   (interactive)
   (dired (my-find-project-root)))
 
-(defvar my-projects)
+(defvar my-projects nil)
 
 (progn
   (cond
