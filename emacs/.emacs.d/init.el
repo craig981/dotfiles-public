@@ -717,11 +717,9 @@ copy the basename."
 (global-set-key (kbd "M-c") #'capitalize-dwim)
 
 (global-set-key (kbd "M-o") 'other-window)
-(global-set-key (kbd "M-p") #'evil-scroll-up)
-(global-set-key (kbd "M-n") #'evil-scroll-down)
-(evil-global-set-key 'insert (kbd "M-i") 'tab-to-tab-stop)
-(global-set-key (kbd "M-i") #'evil-scroll-line-up)
-(global-set-key (kbd "M-j") #'evil-scroll-line-down)
+(global-set-key (kbd "M-j") #'my-join-lines)
+(global-set-key (kbd "M-p") #'evil-scroll-line-up)
+(global-set-key (kbd "M-n") #'evil-scroll-line-down)
 (global-set-key (kbd "M-[") (kbd "M-{"))
 (global-set-key (kbd "M-]") (kbd "M-}"))
 (global-set-key (kbd "C-M-;") #'evil-numbers/inc-at-pt)
@@ -729,7 +727,6 @@ copy the basename."
 
 (global-set-key (kbd "C-'") #'mode-line-other-buffer)
 (global-set-key (kbd "C-M-y") #'my-duplicate-line)
-(global-set-key (kbd "C-c C-j") #'my-join-lines)
 (global-set-key (kbd "C-o") #'my-open-line-above)
 (global-set-key (kbd "C-=") #'my-close-other-window)
 (global-set-key (kbd "C-;") #'goto-last-change)
