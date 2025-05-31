@@ -3229,8 +3229,7 @@ _t_: term            _C-e_: choose shell      _r_: scratch      _g_:   EMMS
     ;; hide window title bar. wayland only, breaks under X11 gnome.
     (set-frame-parameter nil 'undecorated t))
 
-  (when (string= "goose" (system-name))
-    (my-toggle-alpha-background)))
+  )
 
 (add-hook 'window-setup-hook 'my-window-setup-hook)
 
