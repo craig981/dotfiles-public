@@ -665,8 +665,8 @@ copy the basename."
     (interactive)
     (my-substitute ".,$")))
 
-(evil-leader/set-key "=" #'align-regexp)
-(evil-leader/set-key "a" #'align)
+(evil-leader/set-key "a" #'align-regexp)
+(evil-leader/set-key "A" #'align)
 (evil-leader/set-key "d" #'pwd)
 (evil-global-set-key 'normal (kbd "C-]") (kbd "=i{"))
 
@@ -1389,7 +1389,8 @@ copy the basename."
     (evil-local-set-key 'normal (kbd "<tab>") 'org-cycle)))
 
   (evil-local-set-key 'insert (kbd "<tab>") #'org-cycle)
-  (evil-local-set-key 'insert (kbd "<backtab>") #'fancy-dabbrev-backward))
+  (when (not (boundp 'corfu-mode))
+    (evil-local-set-key 'insert (kbd "<backtab>") #'fancy-dabbrev-backward)))
 
 (defun my-org-capture-hook ()
   (interactive)
