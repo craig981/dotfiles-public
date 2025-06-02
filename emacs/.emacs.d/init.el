@@ -253,14 +253,6 @@
 (evil-esc-mode 1)			; make C-[ escape
 (evil-global-set-key 'insert     (kbd "C-c <escape>") 'evil-normal-state)
 (evil-global-set-key 'insert     (kbd "C-c SPC") 'ignore)
-;; (when (display-graphic-p)
-;;   (evil-global-set-key 'insert   (kbd "C-;") 'evil-normal-state)
-;;   (evil-global-set-key 'replace  (kbd "C-;") 'evil-normal-state)
-;;   (evil-global-set-key 'operator (kbd "C-;") 'evil-force-normal-state)
-;;   (evil-global-set-key 'visual   (kbd "C-;") 'evil-exit-visual-state)
-;;   (evil-global-set-key 'normal   (kbd "C-;") 'ignore))
-;; (evil-global-set-key 'insert (kbd "TAB") 'evil-normal-state)
-;; (evil-global-set-key 'insert (kbd "C-SPC") 'evil-normal-state)
 
 (global-set-key (kbd "<f7>") 'evil-local-mode)
 (add-hook 'evil-command-window-mode-hook 'evil-local-mode)
@@ -337,9 +329,6 @@
 (define-key evil-normal-state-map (kbd "k") #'evil-previous-visual-line)
 (define-key evil-visual-state-map (kbd "j") #'evil-next-visual-line)
 (define-key evil-visual-state-map (kbd "k") #'evil-previous-visual-line)
-
-;; (evil-global-set-key 'normal (kbd "C-r") nil)  ; fall through to isearch-backward
-;; (evil-global-set-key 'normal (kbd "C-S-r") 'evil-redo)
 
 ;; ----------------------------------------------------------------------------
 ;;| Undo
@@ -807,8 +796,6 @@ copy the basename."
 
 (define-key minibuffer-local-map (kbd "<escape>") 'abort-minibuffers)
 
-;;; stop accidentally moving out of the minibuffer
-;; (define-key minibuffer-local-map (kbd "M-o") (lambda () (interactive)))
 
 (defun prot/keyboard-quit-dwim ()
   "Do-What-I-Mean behaviour for a general `keyboard-quit'.
@@ -1152,12 +1139,13 @@ copy the basename."
 ;;| Clipboard
 ;; ----------------------------------------------------------------------------
 
-(defun my-copy-to-xclipboard ()
-  (interactive)
-  (call-process-region (region-beginning) (region-end) "xsel" nil nil nil "-ib")
-  (message "Yanked region"))
-
 (when (eq system-type 'gnu/linux)
+
+  (defun my-copy-to-xclipboard ()
+    (interactive)
+    (call-process-region (region-beginning) (region-end) "xsel" nil nil nil "-ib")
+    (message "Yanked region"))
+
   (global-set-key (kbd "C-c y") 'my-copy-to-xclipboard)
   (evil-global-set-key 'visual (kbd "Y") 'my-copy-to-xclipboard))
 
@@ -2463,13 +2451,6 @@ otherwise `project-compile'."
 ;;| Comint
 ;; ----------------------------------------------------------------------------
 
-;; (defun my-comint-meta-r (&optional prefix)
-;;   (interactive "P")
-;;   (cond
-;;    (prefix       (move-to-window-line-top-bottom))
-;;    (vertico-mode (consult-history))
-;;    (t            (comint-dynamic-list-input-ring))))
-
 (defun my-comint-ctrl-r ()
   (interactive)
   (if (comint-after-pmark-p)
@@ -3030,8 +3011,6 @@ make TAGS in that directory."
 
 (add-hook 'gdb-mode-hook 'my-gdb-mode-hook)
 
-;; TODO override gdb-setup-windows
-
 ;; ----------------------------------------------------------------------------
 ;;| Font
 ;; ----------------------------------------------------------------------------
@@ -3056,9 +3035,6 @@ make TAGS in that directory."
 
        ("hedgehog"
 	(cond
-	 ;; remote display
-	 ((getenv "SSH_CLIENT")
-	  (set-face-attribute 'default nil :height 130))
 
 	 ;; laptop screen
 	 ((string-empty-p (string-trim (shell-command-to-string
@@ -3066,10 +3042,10 @@ make TAGS in that directory."
 	  (set-face-attribute 'default nil :height 115))
 
 	 ;; external monitor
-	 (t (set-face-attribute 'default nil :height 105))))))
+	 (t
+	  (set-face-attribute 'default nil :height 105))))))
 
     ('windows-nt
-     ;; (set-frame-font "Fira Mono 11" nil t)
      (set-frame-font "JetBrains Mono 11" nil t))
 
     ('darwin
@@ -3152,9 +3128,10 @@ to its default value. Leave it alone!"
   ("i" (lambda () (interactive) (my-theme-dark 'ef-autumn)) "ef-autumn")
   ("o" (lambda () (interactive) (my-theme-dark 'ef-owl)) "ef-owl")
   ("p" (lambda () (interactive) (my-theme-dark 'doric-dark 'doric-themes)) "doric-dark")
-  ("a" #'my-toggle-alpha-background "toggle alpha-background")
-  ("0" (lambda () (interactive) (set-frame-parameter nil 'alpha-background 0)) "transparent")
-  ("9" (lambda () (interactive) (set-frame-parameter nil 'alpha-background my-alpha)) "blend"))
+  ;; ("a" #'my-toggle-alpha-background "toggle alpha-background")
+  ;; ("0" (lambda () (interactive) (set-frame-parameter nil 'alpha-background 0)) "transparent")
+  ;; ("9" (lambda () (interactive) (set-frame-parameter nil 'alpha-background my-alpha)) "blend")
+  )
 
 (global-set-key (kbd "C-c z") 'my-theme-hydra/body)
 
