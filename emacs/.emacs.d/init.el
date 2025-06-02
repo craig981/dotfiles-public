@@ -45,21 +45,7 @@
  '(consult-ripgrep-args
    "rg --null --line-buffered --color=never --max-columns=1000  --smart-case --no-heading --with-filename --line-number --no-search-zip --hidden -g !{.git,.svn,.hg}/ -g !TAGS -g !build/ --no-ignore")
  '(custom-safe-themes
-   '("0ef72d410faac2f0bd2a76dfd3e7595d024daeeaccd3eb6c32951dcb0a209819"
-     "699bcf84060181ce3fe52e84c083632ced5f3c0d6370ba5a755f94fe86ea7b41"
-     "29a073e66535bad18e11e9bcaa17d7f2d17e4c79f01023e59e9841633915c232"
-     "fb7595c9571f2bd41635745d12551f35322296b70330056ddd0020ab2374671c"
-     "d0dc7861b33d68caa92287d39cf8e8d9bc3764ec9c76bdb8072e87d90546c8a3"
-     "9ddb83c12595e789e9abd04a5c0705661748776223a794a6f64669352b956e79"
-     "b216e9b72dc8c2b702e4fcfd3c0af2d73c87eba46fd4db824ddb50863447d6a9"
-     "601a9b9bf21f5c72ddfb28c7e95b842a5b0130f55ad5e0b97d2ba1e0b91b0a2c"
-     "7776ba149258df15039b1f0aba4b180d95069b2589bc7d6570a833f05fdf7b6d"
-     "e17d91a99e14fc72f71f531f07d3dff44238c69f599998b50e95e67b589d8fa1"
-     "a6e8bcffe4d8cac7463c5a7c67c0908316cc616da3816d3ce35c325d5e02fd97"
-     "adfe1d522a4a100edade12797079ebbabf742a48cf098e7d10ea14012e156ee8"
-     "7342266ffff707cc104313c9153342e44a47a9f22ed7157e4893aac74091ad27"
-     "aa688776604bbddbaba9e0c0d77e8eb5f88d94308f223d1962b6e6b902add6a0"
-     default))
+   '("0ef72d410faac2f0bd2a76dfd3e7595d024daeeaccd3eb6c32951dcb0a209819" "699bcf84060181ce3fe52e84c083632ced5f3c0d6370ba5a755f94fe86ea7b41" "29a073e66535bad18e11e9bcaa17d7f2d17e4c79f01023e59e9841633915c232" "fb7595c9571f2bd41635745d12551f35322296b70330056ddd0020ab2374671c" "d0dc7861b33d68caa92287d39cf8e8d9bc3764ec9c76bdb8072e87d90546c8a3" "9ddb83c12595e789e9abd04a5c0705661748776223a794a6f64669352b956e79" "b216e9b72dc8c2b702e4fcfd3c0af2d73c87eba46fd4db824ddb50863447d6a9" "601a9b9bf21f5c72ddfb28c7e95b842a5b0130f55ad5e0b97d2ba1e0b91b0a2c" "7776ba149258df15039b1f0aba4b180d95069b2589bc7d6570a833f05fdf7b6d" "e17d91a99e14fc72f71f531f07d3dff44238c69f599998b50e95e67b589d8fa1" "a6e8bcffe4d8cac7463c5a7c67c0908316cc616da3816d3ce35c325d5e02fd97" "adfe1d522a4a100edade12797079ebbabf742a48cf098e7d10ea14012e156ee8" "7342266ffff707cc104313c9153342e44a47a9f22ed7157e4893aac74091ad27" "aa688776604bbddbaba9e0c0d77e8eb5f88d94308f223d1962b6e6b902add6a0" default))
  '(dabbrev-backward-only t)
  '(dabbrev-case-distinction nil)
  '(dabbrev-case-fold-search t)
@@ -154,7 +140,7 @@
 	       "DONE(d!/!)" "CANCELLED(c@/@)")))
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
-   '(ace-window calfw calfw-org cape cmake-mode consult consult-dir ef-themes
+   '(ace-window calfw calfw-org cape cmake-mode consult consult-dir doric-themes ef-themes
 		elfeed embark embark-consult emms evil evil-leader
 		evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra
 		ibuffer-project ledger-mode magit marginalia markdown-mode
@@ -3113,13 +3099,15 @@ make TAGS in that directory."
   (require (or req 'ef-themes))
   (load-theme theme t)
   (cond
-   ((eq theme 'reykjavik) (load-theme 'my-override-dark t))
-   (t                     (load-theme 'my-override-dark2 t)))
+   ((eq theme 'reykjavik)
+    (load-theme 'my-override-dark t))
+   (t
+    (load-theme 'my-override-dark2 t)))
 
   (set-cursor-color "white")
-  (setq evil-emacs-state-cursor '(box "orange"))
-  (setq evil-normal-state-cursor '(box "white"))
-  (setq evil-insert-state-cursor '(box "goldenrod"))
+  (setq evil-normal-state-cursor '(box "white")
+	evil-insert-state-cursor '(box "goldenrod")
+	evil-emacs-state-cursor  '(box "goldenrod"))
   (setq my-pulse-face 'next-error)
   (my-set-dark-mode t))
 
@@ -3129,9 +3117,9 @@ make TAGS in that directory."
   (load-theme theme t)
 
   (set-cursor-color "black")
-  (setq evil-emacs-state-cursor '(box "orange"))
-  (setq evil-normal-state-cursor '(box "black"))
-  (setq evil-insert-state-cursor '(box "goldenrod"))
+  (setq evil-normal-state-cursor '(box "black")
+	evil-insert-state-cursor '(box "goldenrod")
+	evil-emacs-state-cursor  '(box "goldenrod"))
   (setq my-pulse-face 'next-error)
   (my-set-dark-mode nil))
 
@@ -3161,6 +3149,7 @@ to its default value. Leave it alone!"
   ("u" (lambda () (interactive) (my-theme-light 'ef-cyprus)) "ef-cyprus")
   ("i" (lambda () (interactive) (my-theme-dark 'ef-autumn)) "ef-autumn")
   ("o" (lambda () (interactive) (my-theme-dark 'ef-owl)) "ef-owl")
+  ("p" (lambda () (interactive) (my-theme-dark 'doric-dark 'doric-themes)) "doric-dark")
   ("a" #'my-toggle-alpha-background "toggle alpha-background")
   ("0" (lambda () (interactive) (set-frame-parameter nil 'alpha-background 0)) "transparent")
   ("9" (lambda () (interactive) (set-frame-parameter nil 'alpha-background my-alpha)) "blend"))
