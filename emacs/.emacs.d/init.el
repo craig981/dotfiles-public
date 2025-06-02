@@ -1280,8 +1280,8 @@ copy the basename."
 
 (setq org-default-notes-file
       (or (my-optional-file "~/notes.org.gpg")
-	  (my-optional-file "~/org/notes.org")
-	  (my-optional-file "~/org/work.org")))
+	  (my-optional-file "~/org/work.org")
+	  "~/notes.org"))
 
 (require 'org-crypt)
 (org-crypt-use-before-save-magic)
