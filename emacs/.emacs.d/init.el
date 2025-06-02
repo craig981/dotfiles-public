@@ -2423,6 +2423,7 @@ otherwise `project-compile'."
 ;; ----------------------------------------------------------------------------
 
 (with-eval-after-load 'markdown-mode
+  (define-key markdown-mode-map (kbd "C-c M-l") 'my-insert-markdown-link)
   (define-key markdown-mode-map (kbd "C-c C-c") nil)
   (define-key markdown-mode-map (kbd "C-c C-v") markdown-mode-command-map)
   (define-key markdown-mode-map (kbd "M-p") nil)
@@ -2444,8 +2445,6 @@ otherwise `project-compile'."
       (save-excursion
 	(insert (format "[Trello %s](%s)" (match-string 1 url) url))))
      (t (call-interactively 'markdown-insert-link)))))
-
-(evil-leader/set-key "l" 'my-insert-markdown-link)
 
 ;; ----------------------------------------------------------------------------
 ;;| Yaml
