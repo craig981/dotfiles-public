@@ -3128,6 +3128,7 @@ to its default value. Leave it alone!"
   ("i" (lambda () (interactive) (my-theme-dark 'ef-autumn)) "ef-autumn")
   ("o" (lambda () (interactive) (my-theme-dark 'ef-owl)) "ef-owl")
   ("p" (lambda () (interactive) (my-theme-dark 'doric-dark 'doric-themes)) "doric-dark")
+  ("w" (lambda () (interactive) (my-theme-dark 'doric-obsidian 'doric-themes)) "doric-obsidian")
   ;; ("a" #'my-toggle-alpha-background "toggle alpha-background")
   ;; ("0" (lambda () (interactive) (set-frame-parameter nil 'alpha-background 0)) "transparent")
   ;; ("9" (lambda () (interactive) (set-frame-parameter nil 'alpha-background my-alpha)) "blend")
