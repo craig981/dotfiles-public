@@ -129,6 +129,8 @@
  '(org-log-done 'time)
  '(org-log-redeadline 'note)
  '(org-modules '(ol-docview org-habit ol-info))
+ '(org-priority-default 67)
+ '(org-priority-lowest 68)
  '(org-publish-use-timestamps-flag nil)
  '(org-refile-targets '((org-agenda-files :maxlevel . 3) (nil :maxlevel . 3)))
  '(org-src-fontify-natively t)
