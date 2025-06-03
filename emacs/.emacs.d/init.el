@@ -2719,7 +2719,8 @@ make TAGS in that directory."
 
 (defun my-lisp-common-hook ()
   (enable-paredit-mode)
-  (evil-local-set-key 'normal (kbd "C-]") (kbd "=ib"))
+  (evil-emacs-state)
+  (hl-line-mode)
   (setq-local evil-move-beyond-eol t)
   (setq-local evil-symbol-word-search t))
 
