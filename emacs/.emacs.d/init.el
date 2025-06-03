@@ -260,8 +260,8 @@
 (setq-default evil-ex-search-case 'sensitive)
 (setq-default evil-search-module 'evil-search)
 
-(when (not my-evil-emacs-state)
-  (setq evil-emacs-state-tag (propertize "<E>" 'face '((:foreground "#000000" :background "goldenrod")))))
+;; (when (not my-evil-emacs-state)
+;;   (setq evil-emacs-state-tag (propertize "<E>" 'face '((:foreground "#000000" :background "goldenrod")))))
 
 (evil-leader/set-leader "<SPC>")
 (evil-leader/set-key "w" 'save-buffer)
@@ -1352,6 +1352,9 @@ copy the basename."
   (evil-local-mode 1)
   (when my-olivetti-state
     (olivetti-mode 1))
+
+  (when (memq 'org-mode evil-emacs-state-modes)
+    (hl-line-mode))
 
   (local-set-key (kbd "C-c t s") 'org-download-screenshot)
   (local-set-key (kbd "C-c t y") 'org-download-yank)
@@ -3085,7 +3088,7 @@ make TAGS in that directory."
   (set-cursor-color "white")
   (setq evil-normal-state-cursor '(box "white")
 	evil-insert-state-cursor '(box "goldenrod")
-	evil-emacs-state-cursor  '(box "goldenrod"))
+	evil-emacs-state-cursor  '(box "white"))
   (setq my-pulse-face 'next-error)
   (my-set-dark-mode t))
 
@@ -3097,7 +3100,7 @@ make TAGS in that directory."
   (set-cursor-color "black")
   (setq evil-normal-state-cursor '(box "black")
 	evil-insert-state-cursor '(box "goldenrod")
-	evil-emacs-state-cursor  '(box "goldenrod"))
+	evil-emacs-state-cursor  '(box "black"))
   (setq my-pulse-face 'next-error)
   (my-set-dark-mode nil))
 
