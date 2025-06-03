@@ -678,7 +678,7 @@ copy the basename."
 (global-set-key (kbd "C-c w") 'evil-window-map)
 (global-set-key (kbd "C-c m") #'my-mirror-buffer)
 (global-set-key (kbd "C-c q") #'my-kill-in-quotes)
-(global-set-key (kbd "C-c i") #'count-words-region)
+(global-set-key (kbd "C-c .") #'count-words-region)
 (global-set-key (kbd "C-x C-z") nil)	; no suspend-frame
 (global-set-key (kbd "C-x C-M-f") #'my-sudo-find-file)
 
@@ -1774,6 +1774,7 @@ defaulted the setting off."
 (global-set-key (kbd "M-s r") 'my-ripgrep-dir)
 (global-set-key (kbd "M-s i") 'my-imenu)
 (global-set-key (kbd "M-s M-i") 'my-imenu)
+(global-set-key (kbd "C-c i") 'my-imenu)
 
 (global-set-key (kbd "C-c r") 'consult-recent-file)
 (define-key minibuffer-local-map (kbd "M-r") 'consult-history)
