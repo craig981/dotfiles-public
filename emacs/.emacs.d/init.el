@@ -1353,8 +1353,7 @@ copy the basename."
   (when my-olivetti-state
     (olivetti-mode 1))
 
-  (when (memq 'org-mode evil-emacs-state-modes)
-    (hl-line-mode))
+  (hl-line-mode)
 
   (local-set-key (kbd "C-c t s") 'org-download-screenshot)
   (local-set-key (kbd "C-c t y") 'org-download-yank)
