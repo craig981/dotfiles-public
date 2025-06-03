@@ -41,6 +41,7 @@
  '(compilation-skip-threshold 2)
  '(compile-command "make ")
  '(compose-mail-user-agent-warnings nil)
+ '(confirm-kill-emacs 'y-or-n-p)
  '(consult-find-args "find . -type f")
  '(consult-ripgrep-args
    "rg --null --line-buffered --color=never --max-columns=1000  --smart-case --no-heading --with-filename --line-number --no-search-zip --hidden -g !{.git,.svn,.hg}/ -g !TAGS -g !build/ --no-ignore")
