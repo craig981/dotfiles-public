@@ -3,7 +3,8 @@
 
 (custom-theme-set-faces
  'my-override-dark3
- '(default ((t :foreground "#b8c6d5")))
+ '(magit-diff-hunk-heading-highlight ((t :background "#332d38")))
+ '(magit-diff-hunk-heading ((t :background "#231d28")))
  '(helm-match ((t (:foreground "#ffffff" :background "#005f5f"))))
 )
 
