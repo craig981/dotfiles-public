@@ -2255,19 +2255,6 @@ return the project path instead"
   ;; want SPC to show/scroll commit at point
   (evil-leader-mode -1))
 
-(defun my-magit-repolist-hook ()
-  (my-evil-default 'emacs)
-  (beginning-of-buffer))
-
-(defun my-magit-list-repos ()
-  (interactive)
-  (other-window 1)
-  (setq magit-repository-directories '())
-  (dolist (proj (my-list-repos))
-    (let ((dir (cdr proj)))
-      (push `(,dir . 0) magit-repository-directories)))
-  (magit-list-repositories))
-
 (defun my-git-commit-mode-hook ()
   ;; want completion on elisp symbols
   (modify-syntax-entry ?- "_"))
@@ -2290,6 +2277,19 @@ return the project path instead"
   (evil-define-key 'normal magit-mode-map (kbd "p") 'magit-section-backward)
   (evil-define-key 'normal magit-mode-map (kbd "n") 'magit-section-forward))
 
+
+(defun my-magit-repolist-hook ()
+  (my-evil-default 'emacs)
+  (beginning-of-buffer))
+
+(defun my-magit-list-repos ()
+  (interactive)
+  (setq magit-repository-directories '())
+  (dolist (proj (my-list-repos))
+    (let ((dir (cdr proj)))
+      (push `(,dir . 0) magit-repository-directories)))
+  (magit-list-repositories))
+
 (with-eval-after-load 'magit-repos
 
   (add-hook 'magit-repolist-mode-hook #'my-magit-repolist-hook)
@@ -2301,14 +2301,20 @@ return the project path instead"
 					   (magit-staged-files . "S"))
 	magit-repolist-columns '(("Branch" 20 magit-repolist-column-branch nil)
 				 ("Flag" 4 magit-repolist-column-flag)
-				 ("Path" 50 magit-repolist-column-path nil)
+				 ("Path" 45 magit-repolist-column-path nil)
 				 ;; ("Name" 25 magit-repolist-column-ident nil)
-				 ("B<U" 3 magit-repolist-column-unpulled-from-upstream
+				 ("B<U" 4 magit-repolist-column-unpulled-from-upstream
 				  ((:right-align t)
 				   (:help-echo "Upstream changes not in branch")))
-				 ("B>U" 3 magit-repolist-column-unpushed-to-upstream
+				 ("B>U" 4 magit-repolist-column-unpushed-to-upstream
 				  ((:right-align t)
-				   (:help-echo "Local changes not in upstream"))))))
+				   (:help-echo "Local changes not in upstream")))
+				 ("B<P" 4 magit-repolist-column-unpulled-from-pushremote
+				  ((:right-align t)
+				   (:help-echo "Pushremote changes not in branch")))
+				 ("B>P" 3 magit-repolist-column-unpushed-to-pushremote
+				  ((:right-align t)
+				   (:help-echo "Local changes not in pushremote"))))))
 
 (require 'magit)
 
