@@ -2720,8 +2720,7 @@ make TAGS in that directory."
 
 (defun my-lisp-common-hook ()
   (enable-paredit-mode)
-  (evil-emacs-state)
-  (hl-line-mode)
+  ;; (evil-emacs-state)
   (setq-local evil-move-beyond-eol t)
   (setq-local evil-symbol-word-search t))
 
