@@ -850,7 +850,7 @@ copy the basename."
 
 (defvar my-pulse-face)
 
-(setq pulse-delay 0.06
+(setq pulse-delay 0.04
       pulse-iterations 10)
 
 (defun my-pulse-line (&rest r)
@@ -3094,7 +3094,7 @@ make TAGS in that directory."
   (setq evil-normal-state-cursor '(box "white")
 	evil-insert-state-cursor '(box "goldenrod")
 	evil-emacs-state-cursor  '(box "white"))
-  (setq my-pulse-face 'next-error)
+  (setq my-pulse-face 'region)
   (my-set-dark-mode t))
 
 (defun my-theme-light (theme &optional req)
@@ -3106,7 +3106,7 @@ make TAGS in that directory."
   (setq evil-normal-state-cursor '(box "black")
 	evil-insert-state-cursor '(box "goldenrod")
 	evil-emacs-state-cursor  '(box "black"))
-  (setq my-pulse-face 'next-error)
+  (setq my-pulse-face 'region)
   (my-set-dark-mode nil))
 
 (defun my-preserve-compile-command (func &rest args)
