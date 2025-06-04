@@ -687,7 +687,6 @@ copy the basename."
 (global-set-key (kbd "M-z") 'zap-up-to-char)
 (global-set-key (kbd "M-=") 'winner-undo)
 (global-set-key (kbd "M-+") 'winner-redo)
-(global-set-key (kbd "M-'") #'mode-line-other-buffer)
 (global-set-key (kbd "M-\\") #'my-delete-whitespace)
 (global-set-key (kbd "M-#") #'my-mark-until-whitespace)
 (evil-global-set-key 'insert (kbd "M-#") (lambda () (interactive) (insert "£")))
@@ -708,6 +707,7 @@ copy the basename."
 (global-set-key (kbd "C-o") #'my-open-line-above)
 (global-set-key (kbd "C-=") #'my-close-other-window)
 (global-set-key (kbd "C-;") #'goto-last-change)
+(global-set-key (kbd "C-'") #'mode-line-other-buffer)
 
 (when (display-graphic-p)
  (global-set-key (kbd "C-<backspace>") #'my-delete-to-indent))
@@ -917,7 +917,7 @@ copy the basename."
 (with-eval-after-load 'corfu
   (advice-add 'tempel-complete :around 'my-with-corfu))
 
-(global-set-key (kbd "C-'") 'tempel-complete)
+(global-set-key (kbd "M-'") 'tempel-complete)
 
 (define-key tempel-map (kbd "RET") 'tempel-next)
 
