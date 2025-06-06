@@ -1605,6 +1605,9 @@ defaulted the setting off."
     (toggle-truncate-lines 0))
   (add-hook 'ledger-report-mode-hook 'my-ledger-report-hook)
 
+  (define-key ledger-report-mode-map (kbd "M-p") nil)
+  (define-key ledger-report-mode-map (kbd "M-n") nil)
+
   (add-to-list 'ledger-reports
 	       '("expenses this month" "%(binary) -f %(ledger-file) bal -S \"-abs(total)\" ^Expenses: --period 'this month'"))
   (add-to-list 'ledger-reports
