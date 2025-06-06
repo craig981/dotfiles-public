@@ -1274,21 +1274,6 @@ copy the basename."
 	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")))
 
 (when my-machine
-  (push '("b" "Book" entry (file+headline org-default-notes-file "Books")
-	  "* %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
-	org-capture-templates)
-  (push '("s" "Show" entry (file+headline org-default-notes-file "Tasks")
-	  "* TODO %? :show:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
-	org-capture-templates)
-  (push '("r" "Read/watch" entry (file+headline org-default-notes-file "Tasks")
-	  "* TODO %? :read:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
-	org-capture-templates)
-  (push '("p" "Project" entry (file+headline org-default-notes-file "Tasks")
-	  "* TODO %? :project:\n:PROPERTIES:\n:CREATED: %U\n:END:\n")
-	org-capture-templates)
-  (push '("j" "Journal" entry (file+olp+datetree "journal.org.gpg")
-	  "* %<%H:%M>\n\n%?" :jump-to-captured t :empty-lines 1)
-	org-capture-templates)
 
   (defun my-revert-gcal-before-agenda ()
     "Revert buffer for gcal.org so the agenda displays the latest contents"
