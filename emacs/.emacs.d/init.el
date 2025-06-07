@@ -1340,7 +1340,7 @@ copy the basename."
   (when my-olivetti-state
     (olivetti-mode 1))
 
-  (hl-line-mode)
+  ;; (hl-line-mode)
 
   (local-set-key (kbd "C-c t s") 'org-download-screenshot)
   (local-set-key (kbd "C-c t y") 'org-download-yank)
@@ -2950,6 +2950,7 @@ make TAGS in that directory."
     (advice-remove 'c-defun-name-and-limits 'my-advise-c-defun-name-and-limits)))
 
 (with-eval-after-load "cc-mode"
+  (define-key c-mode-base-map (kbd "C-c .") nil)
   (define-key c-mode-base-map (kbd "C-c C-b") nil) ; don't want c-submit-bug-report
   (define-key c-mode-base-map (kbd "C-c C-i") #'my-jump-to-header)
   (define-key c-mode-base-map (kbd "C-c C-f") 'my-kill-c-function-name))
