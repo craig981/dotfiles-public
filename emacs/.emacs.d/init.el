@@ -1426,6 +1426,8 @@ copy the basename."
   (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map))
 
 (with-eval-after-load 'org
+  (define-key org-mode-map (kbd "C-c C-,") nil)
+  (define-key org-mode-map (kbd "C-c C-.") 'org-insert-structure-template)
   (define-key org-mode-map (kbd "C-,") nil)
   (define-key org-mode-map (kbd "C-'") nil)
   (define-key org-mode-map (kbd "C-j") nil)
@@ -2352,7 +2354,6 @@ otherwise `project-compile'."
 
 (global-set-key (kbd "C-c C-SPC") 'my-compile)
 (global-set-key (kbd "C-c SPC") 'my-compile)
-(global-set-key (kbd "C-c C-.") #'recompile)
 (global-set-key (kbd "C-c C-,") #'recompile)
 (global-set-key (kbd "C-c ,") #'recompile)
 (global-set-key (kbd "C-c g") #'my-jump-compilation)
