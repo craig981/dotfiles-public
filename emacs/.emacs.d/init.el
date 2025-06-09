@@ -1764,8 +1764,6 @@ defaulted the setting off."
 (evil-leader/set-key "i"   'my-imenu)
 (global-set-key (kbd "M-s M-r") 'my-ripgrep-project)
 (global-set-key (kbd "M-s r") 'my-ripgrep-dir)
-(global-set-key (kbd "M-s i") 'my-imenu)
-(global-set-key (kbd "M-s M-i") 'my-imenu)
 (global-set-key (kbd "C-c i") 'my-imenu)
 
 (global-set-key (kbd "C-c r") 'consult-recent-file)
