@@ -87,6 +87,7 @@
  '(image-dired-thumb-width 100)
  '(inhibit-startup-screen t)
  '(initial-frame-alist '((fullscreen . maximized)))
+ '(initial-major-mode 'text-mode)
  '(initial-scratch-message nil)
  '(ispell-program-name "aspell")
  '(kill-ring-max 1000)
