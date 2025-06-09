@@ -9,8 +9,6 @@ if [[ "$(uname -s)" = "Darwin" ]]; then
   alias la='/bin/ls -lrthGA'
   alias ls='/bin/ls -G'
 
-  alias e='/Applications/Emacs.app/Contents/MacOS/Emacs -nw'
-
   export CLICOLOR=1
   export LSCOLORS=GxFxCxDxBxegedabagaced
 
@@ -27,8 +25,6 @@ else
   alias ll='/bin/ls -lrth --color=auto'
   alias la='/bin/ls -lrthA --color=auto'
 
-  alias e='emacs -nw'
-  alias ee='emacs'
   alias ke='killall -s 9 emacs'
   alias km='killall -s 9 maya.bin'
 
@@ -40,6 +36,7 @@ fi
 
 export EDITOR=vim
 alias vi=vim
+alias e='emacs -nw'
 
 function lt() {
 	tree -C -a -I .git "$@" | less -R

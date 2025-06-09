@@ -13,6 +13,7 @@ ifeq ($(osuname),Linux)
 endif
 ifeq ($(osuname),Darwin)
 	stow -v emacs
+	stow -v emacs_mac
 	mkdir -p ~/Library/KeyBindings
 	cp -v mac/Library/KeyBindings/DefaultKeyBinding.dict ~/Library/KeyBindings/
 	# tic -o ~/.terminfo /Applications/Emacs.app/Contents/Resources/etc/e/eterm-color.ti
