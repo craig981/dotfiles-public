@@ -1242,15 +1242,12 @@ copy the basename."
 ;;| Org
 ;; ----------------------------------------------------------------------------
 
-;;; override org version. 9.6 randomly fails to display tasks scheduled for the
-;;; current day in the agenda.
-;; (add-to-list 'load-path "~/dev/org-mode/lisp")
-
 ;;; move slowdown to startup instead of when opening an org file
 (require 'org)
 (require 'org-download)
 
-;;; attempt to workaround org 9.6 flakey agenda display
+;;; workaround org 9.6 flakey agenda display, randomly failing to display
+;;; tasks scheduled for the current day.
 (setq org-element-use-cache nil)
 
 (defun my-optional-file (fn)
