@@ -354,6 +354,8 @@
 ;;; Undo all applications of a macro across lines in the region as one operation
 (advice-add #'apply-macro-to-region-lines :around #'my-advise-undo-amalgamate)
 
+(advice-add #'kmacro-end-and-call-macro :around #'my-advise-undo-amalgamate)
+
 ;; ----------------------------------------------------------------------------
 ;;| Syntax and indent
 ;; ----------------------------------------------------------------------------
