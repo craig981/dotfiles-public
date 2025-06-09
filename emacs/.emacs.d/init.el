@@ -355,6 +355,7 @@
 (advice-add #'apply-macro-to-region-lines :around #'my-advise-undo-amalgamate)
 
 (advice-add #'kmacro-end-and-call-macro :around #'my-advise-undo-amalgamate)
+(advice-add #'call-last-kbd-macro :around #'my-advise-undo-amalgamate)
 
 ;; ----------------------------------------------------------------------------
 ;;| Syntax and indent
