@@ -391,7 +391,7 @@
   (when (and (not (eq major-mode 'image-mode))
 	     (not evil-local-mode))
     (my-evil-default))
-  (when (and git-commit-mode (evil-normal-state-p) (looking-at "^$"))
+  (when (and (bound-and-true-p git-commit-mode) (evil-normal-state-p) (looking-at "^$"))
     (evil-insert-state))
 
   (if my-input-method
