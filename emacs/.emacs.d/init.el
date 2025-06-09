@@ -2714,7 +2714,6 @@ make TAGS in that directory."
 
 (defun my-lisp-common-hook ()
   (enable-paredit-mode)
-  ;; (evil-emacs-state)
   (setq-local evil-move-beyond-eol t)
   (setq-local evil-symbol-word-search t))
 
@@ -2723,6 +2722,9 @@ make TAGS in that directory."
 (add-hook 'lisp-data-mode-hook        'my-lisp-common-hook 'append)
 (add-hook 'lisp-interaction-mode-hook 'my-lisp-common-hook 'append)
 (add-hook 'scheme-mode-hook           'my-lisp-common-hook 'append)
+
+(push 'emacs-lisp-mode       evil-emacs-state-modes)
+(push 'lisp-interaction-mode evil-emacs-state-modes)
 
 (advice-add 'paredit-comment-dwim :after 'my-advise-comment)
 
