@@ -369,11 +369,11 @@
   (modify-syntax-entry ?_ "w"))
 
 (setq-default sentence-end-double-space nil)
-(setq-default fill-column 78)      ; set tw=78
-(setq-default truncate-lines t)    ; set nowrap
-(setq-default tab-width 8)         ; set ts=8
+(setq-default fill-column 78)	     ; set tw=78
+(setq-default truncate-lines t)	     ; set nowrap
+(setq-default tab-width 8)	     ; set ts=8
 (setq-default evil-shift-width 8)
-(setq-default indent-tabs-mode t)  ; set noexpandtab
+(setq-default indent-tabs-mode t)    ; set noexpandtab
 (setq-default align-to-tab-stop nil) ; tabs+spaces instead of all tabs
 (setq-default tab-always-indent nil)
 
@@ -386,13 +386,17 @@
 (setq my-input-method nil)
 
 (defun my-find-file-hook ()
+
   (if (file-remote-p (buffer-file-name))
       (setq-local vc-handled-backends nil))
 
   (when (and (not (eq major-mode 'image-mode))
 	     (not evil-local-mode))
     (my-evil-default))
-  (when (and (bound-and-true-p git-commit-mode) (evil-normal-state-p) (looking-at "^$"))
+
+  (when (and (bound-and-true-p git-commit-mode)
+	     (evil-normal-state-p)
+	     (looking-at "^$"))
     (evil-insert-state))
 
   (if my-input-method
