@@ -1645,6 +1645,8 @@ defaulted the setting off."
     (calc-yank-internal nil (format "%s" (number-at-point)))))
 
 (global-set-key (kbd "C-x C-y") 'my-calc-yank)
+;;; C-c C-y key combination sometimes sticks via pcoip
+(global-set-key (kbd "C-x y") 'my-calc-yank)
 
 ;; ----------------------------------------------------------------------------
 ;;| Browser
