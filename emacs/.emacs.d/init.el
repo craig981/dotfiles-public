@@ -351,11 +351,10 @@
   (with-undo-amalgamate
     (apply func args)))
 
-;;; Undo all applications of a macro across lines in the region as one operation
+;;; Undo macro application as one operation
 (advice-add #'apply-macro-to-region-lines :around #'my-advise-undo-amalgamate)
-
-(advice-add #'kmacro-end-and-call-macro :around #'my-advise-undo-amalgamate)
-(advice-add #'call-last-kbd-macro :around #'my-advise-undo-amalgamate)
+(advice-add #'kmacro-end-and-call-macro	  :around #'my-advise-undo-amalgamate)
+(advice-add #'call-last-kbd-macro	  :around #'my-advise-undo-amalgamate)
 
 ;; ----------------------------------------------------------------------------
 ;;| Syntax and indent
