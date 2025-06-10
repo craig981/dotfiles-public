@@ -71,8 +71,7 @@
  '(gdb-restore-window-configuration-after-quit t)
  '(grep-find-ignored-directories '(".svn" ".git" ".hg"))
  '(grep-find-ignored-files
-   '(".#*" "*.o" "*~" "*.so" "*.a" "*.elc" "*.lib" "*.lo" "*.la" "*.pyc" "*.pyo"
-     "TAGS"))
+   '(".#*" "*.o" "*~" "*.so" "*.a" "*.elc" "*.lib" "*.lo" "*.la" "*.pyc" "*.pyo" "TAGS" "callgrind.out.*"))
  '(helm-candidate-number-limit 10000)
  '(helm-follow-mode-persistent t)
  '(helm-move-to-line-cycle-in-source nil)
