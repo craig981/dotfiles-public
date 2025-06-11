@@ -1427,12 +1427,10 @@ copy the basename."
   (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map))
 
 (with-eval-after-load 'org
-  (define-key org-mode-map (kbd "C-c C-,") nil)
-  (define-key org-mode-map (kbd "C-c C-.") 'org-insert-structure-template)
   (define-key org-mode-map (kbd "C-,") nil)
   (define-key org-mode-map (kbd "C-'") nil)
   (define-key org-mode-map (kbd "C-j") nil)
-  (define-key org-mode-map (kbd "C-c C-j") nil)
+  (define-key org-mode-map (kbd "C-c C-j") 'recompile)
   (define-key org-mode-map (kbd "C-c [")
 	      (lambda ()
 		(interactive)
@@ -2355,6 +2353,7 @@ otherwise `project-compile'."
 
 (global-set-key (kbd "C-c C-SPC") 'my-compile)
 (global-set-key (kbd "C-c SPC") 'my-compile)
+(global-set-key (kbd "C-c C-j") #'recompile)
 (global-set-key (kbd "C-c C-,") #'recompile)
 (global-set-key (kbd "C-c ,") #'recompile)
 (global-set-key (kbd "C-c g") #'my-jump-compilation)
@@ -2726,8 +2725,8 @@ make TAGS in that directory."
 (add-hook 'lisp-interaction-mode-hook 'my-lisp-common-hook 'append)
 (add-hook 'scheme-mode-hook           'my-lisp-common-hook 'append)
 
-(push 'emacs-lisp-mode       evil-emacs-state-modes)
-(push 'lisp-interaction-mode evil-emacs-state-modes)
+;; (push 'emacs-lisp-mode       evil-emacs-state-modes)
+;; (push 'lisp-interaction-mode evil-emacs-state-modes)
 
 (advice-add 'paredit-comment-dwim :after 'my-advise-comment)
 
