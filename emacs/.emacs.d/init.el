@@ -1430,7 +1430,7 @@ copy the basename."
   (define-key org-mode-map (kbd "C-,") nil)
   (define-key org-mode-map (kbd "C-'") nil)
   (define-key org-mode-map (kbd "C-j") nil)
-  (define-key org-mode-map (kbd "C-c C-j") 'recompile)
+  (define-key org-mode-map (kbd "C-c C-j") nil)
   (define-key org-mode-map (kbd "C-c [")
 	      (lambda ()
 		(interactive)
@@ -2353,7 +2353,7 @@ otherwise `project-compile'."
 
 (global-set-key (kbd "C-c C-SPC") 'my-compile)
 (global-set-key (kbd "C-c SPC") 'my-compile)
-(global-set-key (kbd "C-c C-j") #'recompile)
+(global-set-key (kbd "C-c C-.") #'recompile)
 (global-set-key (kbd "C-c C-,") #'recompile)
 (global-set-key (kbd "C-c ,") #'recompile)
 (global-set-key (kbd "C-c g") #'my-jump-compilation)
