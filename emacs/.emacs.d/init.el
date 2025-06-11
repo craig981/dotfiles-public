@@ -847,8 +847,6 @@ copy the basename."
 (add-hook 'olivetti-mode-hook 'my-olivetti-mode-hook)
 (add-hook 'olivetti-mode-on-hook 'my-olivetti-mode-on-hook)
 
-(global-set-key (kbd "C-c o") #'olivetti-mode)
-
 ;; ----------------------------------------------------------------------------
 ;;| Pulse
 ;; ----------------------------------------------------------------------------
@@ -1345,10 +1343,10 @@ copy the basename."
 
   ;; (hl-line-mode)
 
-  (local-set-key (kbd "C-c t s") 'org-download-screenshot)
-  (local-set-key (kbd "C-c t y") 'org-download-yank)
-  (local-set-key (kbd "C-c t e") 'org-download-edit)
-  (local-set-key (kbd "C-c t h") 'org-fold-hide-block-all)
+  (local-set-key (kbd "C-c o s") 'org-download-screenshot)
+  (local-set-key (kbd "C-c o y") 'org-download-yank)
+  (local-set-key (kbd "C-c o e") 'org-download-edit)
+  (local-set-key (kbd "C-c o h") 'org-fold-hide-block-all)
 
   ;; / is punctuation, so evil * works on path components
   (modify-syntax-entry ?/ ".")
@@ -3151,10 +3149,10 @@ to its default value. Leave it alone!"
 
 (defhydra my-jump-hydra (:hint nil)
   "
-_i_: init.el         _s_:   project shell     _b_: ibuffer      _SPC_: agenda               _f_: ledger
-_n_: notes           _h_:   shell             _c_: calc         _C-c_: calc other window
-_w_: world clock     _e_:   jump to shell     _d_: calendar     _v_:   magit list repos
-_t_: term            _C-e_: choose shell      _r_: scratch      _g_:   EMMS
+_i_: init.el         _s_:   project shell     _b_: ibuffer      _SPC_: agenda               _g_: EMMS
+_n_: notes           _h_:   shell             _c_: calc         _C-c_: calc other window    _a_: Add playlist
+_w_: world clock     _e_:   jump to shell     _d_: calendar     _v_:   magit list repos     _p_: Playlist new
+_t_: term            _C-e_: choose shell      _r_: scratch      _f_:   ledger               _o_: olivetti
 "
   ("r"	 #'scratch-buffer        :exit t)
   ("e"	 #'my-jump-to-shell)
@@ -3173,6 +3171,9 @@ _t_: term            _C-e_: choose shell      _r_: scratch      _g_:   EMMS
   ("i"   #'my-find-init-file     :exit t)
   ("SPC" #'my-org-agenda	 :exit t)
   ("g"   #'emms-playlist-mode-go :exit t)
+  ("a"   #'emms-add-playlist     :exit t)
+  ("p"   #'emms-playlist-new     :exit t)
+  ("o"   #'olivetti-mode         :exit t)
   ("w"   #'world-clock           :exit t))
 
 (global-set-key (kbd "C-,") 'my-jump-hydra/body)
@@ -3299,8 +3300,6 @@ _t_: term            _C-e_: choose shell      _r_: scratch      _g_:   EMMS
 					   (let ((emms-seek-seconds 10))
 					     (emms-seek-forward))))
 
-  (global-set-key (kbd "C-c t p") #'emms-add-playlist)
-  (global-set-key (kbd "C-c t n") #'emms-playlist-new)
   (global-set-key (kbd "<f8>") #'emms-pause)
   (define-key dired-mode-map (kbd "b") 'emms-add-dired))
 
