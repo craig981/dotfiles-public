@@ -1344,7 +1344,7 @@ copy the basename."
   ;; (hl-line-mode)
 
   (local-set-key (kbd "C-c o s") 'org-download-screenshot)
-  (local-set-key (kbd "C-c o y") 'org-download-yank)
+  (local-set-key (kbd "C-c o i") 'org-download-image)
   (local-set-key (kbd "C-c o e") 'org-download-edit)
   (local-set-key (kbd "C-c o h") 'org-fold-hide-block-all)
 
