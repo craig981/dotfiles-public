@@ -1528,6 +1528,13 @@ empty string."
   (interactive)
   (org-capture nil "x"))
 
+(defun my-advise-org-capture (func &rest args)
+  "Workaround delay in opening capture buffer"
+  (cl-flet ((org-get-x-clipboard (value) nil))
+    (apply func args)))
+
+(advice-add 'org-capture :around 'my-advise-org-capture)
+
 (defun my-org-agenda ()
   (interactive)
   (org-agenda nil ".")
