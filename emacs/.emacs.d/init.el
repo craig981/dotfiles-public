@@ -172,6 +172,7 @@
  '(show-paren-when-point-in-periphery t)
  '(show-paren-when-point-inside-paren t)
  '(show-trailing-whitespace nil)
+ '(split-height-threshold nil)
  '(tags-case-fold-search nil)
  '(tempel-path "~/.emacs.d/templates/*.eld")
  '(tramp-histfile-override "/tmp/.tramp_history")
@@ -532,11 +533,10 @@ copy the basename."
     (split-window-right))
   (let ((buf (current-buffer))
 	(line (line-number-at-pos)))
-    (save-selected-window
-      (other-window 1)
-      (switch-to-buffer buf)
-      (goto-line line)
-      (recenter-top-bottom))))
+    (other-window 1)
+    (switch-to-buffer buf)
+    (goto-line line)
+    (recenter-top-bottom)))
 
 (defun my-close-other-window ()
   (interactive)
