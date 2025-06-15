@@ -1417,7 +1417,7 @@ copy the basename."
 (advice-add 'org-insert-link :before #'my-forward-before-insert)
 
 (with-eval-after-load 'org-agenda
-  (define-key org-agenda-mode-map (kbd "C") 'calfworg)
+  ;; (define-key org-agenda-mode-map (kbd "C") 'calfworg)
   (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map))
 
 (with-eval-after-load 'org
@@ -1569,11 +1569,6 @@ defaulted the setting off."
 (global-set-key (kbd "C-c M-t") 'my-wrap-org-link)
 (global-set-key (kbd "C-c C-x C-j") 'my-org-clock-jump)
 
-(when (display-graphic-p)
-  (evil-global-set-key 'normal (kbd "C-.") nil)
-  (global-set-key (kbd "<XF86LaunchB>")	'my-org-agenda)
-  (global-set-key (kbd "<LaunchB>")	'my-org-agenda))
-
 ;; ----------------------------------------------------------------------------
 ;;| Ledger
 ;; ----------------------------------------------------------------------------
@@ -1668,11 +1663,10 @@ defaulted the setting off."
 
 (defun my-html-hook ()
   (define-key html-mode-map (kbd "M-o") nil)
-  (evil-local-set-key 'normal (kbd "gb")
-		      (lambda ()
-			(interactive)
-			(save-buffer)
-			(browse-url-of-file))))
+  (evil-local-set-key 'normal (kbd "gb") (lambda ()
+					   (interactive)
+					   (save-buffer)
+					   (browse-url-of-file))))
 
 (add-hook 'html-mode-hook #'my-html-hook)
 
