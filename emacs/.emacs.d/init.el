@@ -692,8 +692,7 @@ copy the basename."
 (global-set-key (kbd "C-x g") 'subword-mode)
 
 (when (not (display-graphic-p))
-  (global-set-key (kbd "C-x ;") (kbd "C-x C-;"))
-  (global-set-key (kbd "C-x C-'") (kbd "C-x '")))
+  (global-set-key (kbd "C-x ;") (kbd "C-x C-;")))
 
 (defun my-advise-comment (&rest args)
   (when (evil-normal-state-p)
