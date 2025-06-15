@@ -3126,27 +3126,20 @@ to its default value. Leave it alone!"
 (advice-add 'my-theme-dark :around 'my-preserve-compile-command)
 (advice-add 'my-theme-light :around 'my-preserve-compile-command)
 
-(defvar my-alpha 90)
-
 (defun my-toggle-alpha-background ()
   (interactive)
   (set-frame-parameter nil 'alpha-background
-		       (if (frame-parameter nil 'alpha-background)
-			   nil my-alpha)))
+		       (if (frame-parameter nil 'alpha-background) nil 90)))
 
 (defhydra my-theme-hydra ()
-  ("r" (lambda () (interactive) (my-theme-dark 'reykjavik 'reykjavik-theme)) "reykjavik")
-  ("t" (lambda () (interactive) (my-theme-dark 'ef-dark)) "ef-dark")
-  ("y" (lambda () (interactive) (my-theme-dark 'ef-winter)) "ef-winter")
+  ("r" (lambda () (interactive) (my-theme-dark	'reykjavik 'reykjavik-theme)) "reykjavik")
+  ("t" (lambda () (interactive) (my-theme-dark	'ef-dark)) "ef-dark")
+  ("y" (lambda () (interactive) (my-theme-dark	'ef-winter)) "ef-winter")
   ("u" (lambda () (interactive) (my-theme-light 'ef-cyprus)) "ef-cyprus")
-  ("i" (lambda () (interactive) (my-theme-dark 'ef-autumn)) "ef-autumn")
-  ("o" (lambda () (interactive) (my-theme-dark 'ef-owl)) "ef-owl")
-  ("p" (lambda () (interactive) (my-theme-dark 'doric-dark 'doric-themes)) "doric-dark")
-  ("w" (lambda () (interactive) (my-theme-dark 'doric-obsidian 'doric-themes)) "doric-obsidian")
-  ;; ("a" #'my-toggle-alpha-background "toggle alpha-background")
-  ;; ("0" (lambda () (interactive) (set-frame-parameter nil 'alpha-background 0)) "transparent")
-  ;; ("9" (lambda () (interactive) (set-frame-parameter nil 'alpha-background my-alpha)) "blend")
-  )
+  ("i" (lambda () (interactive) (my-theme-dark	'ef-autumn)) "ef-autumn")
+  ("o" (lambda () (interactive) (my-theme-dark	'ef-owl)) "ef-owl")
+  ("p" (lambda () (interactive) (my-theme-dark	'doric-dark 'doric-themes)) "doric-dark")
+  ("w" (lambda () (interactive) (my-theme-dark	'doric-obsidian 'doric-themes)) "doric-obsidian"))
 
 (global-set-key (kbd "C-c z") 'my-theme-hydra/body)
 
@@ -3213,11 +3206,10 @@ _t_: term            _C-e_: choose shell      _r_: scratch      _f_:   ledger   
   (when (and (eq system-type 'gnu/linux)
 	     (string= (getenv "XDG_SESSION_TYPE") "wayland"))
     ;; hide window title bar. wayland only, breaks under X11 gnome.
-    (set-frame-parameter nil 'undecorated t))
-
-  )
+    (set-frame-parameter nil 'undecorated t)))
 
 (add-hook 'window-setup-hook 'my-window-setup-hook)
+
 
 (push '("\\(\\*[Hh]elp\\*\\)\\|\\(\\*Man\\)"
 	(display-buffer-reuse-mode-window
