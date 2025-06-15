@@ -638,23 +638,6 @@ copy the basename."
       (call-interactively 'delete-indentation)
     (delete-indentation t)))
 
-(require 'ispell)
-
-(defun my-complete-word-ispell ()
-  "Completes the symbol at point based on entries in the dictionary"
-  (interactive)
-  (let* ((word (thing-at-point 'symbol t))
-         (bounds (bounds-of-thing-at-point 'symbol))
-         (words (ispell-lookup-words (concat word "*"))))
-    (when-let ((selection (completing-read "Words: " words)))
-      (delete-region (car bounds) (cdr bounds))
-      (insert selection))))
-
-(let ((words "~/.cache/macDict/words"))
-  (when (and (eq system-type 'gnu/linux)
-	     (file-exists-p words))
-    (setq-default ispell-alternate-dictionary (expand-file-name words))))
-
 
 (evil-leader/set-key "d" #'pwd)
 (evil-leader/set-key "a" #'align-regexp)
@@ -666,11 +649,7 @@ copy the basename."
     (my-substitute ".,$")))
 
 (evil-global-set-key 'normal (kbd "C-]") (kbd "=i{"))
-(evil-global-set-key 'normal (kbd "]s") 'flyspell-goto-next-error)
-(evil-global-set-key 'normal (kbd "[s")
-		     (lambda ()
-		       (interactive)
-		       (flyspell-goto-next-error t)))
+
 (pcase system-type
   ('gnu/linux
    (evil-global-set-key 'motion (kbd "K") 'man))
@@ -697,8 +676,6 @@ copy the basename."
 (global-set-key (kbd "C-c m") #'my-mirror-buffer)
 (global-set-key (kbd "C-c q") #'my-kill-in-quotes)
 (global-set-key (kbd "C-c .") #'count-words-region)
-(global-set-key (kbd "C-c M-f") #'flyspell-buffer)
-(global-set-key (kbd "C-c M-s") #'ispell)
 
 (define-key minibuffer-local-map (kbd "M-z") 'my-zap-up-to-char)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
@@ -1163,6 +1140,36 @@ copy the basename."
 
 (when (display-graphic-p)
   (pixel-scroll-precision-mode))
+
+;; ----------------------------------------------------------------------------
+;;| Spelling
+;; ----------------------------------------------------------------------------
+
+(require 'ispell)
+
+(defun my-complete-word-ispell ()
+  "Completes the symbol at point based on entries in the dictionary"
+  (interactive)
+  (let* ((word (thing-at-point 'symbol t))
+         (bounds (bounds-of-thing-at-point 'symbol))
+         (words (ispell-lookup-words (concat word "*"))))
+    (when-let ((selection (completing-read "Words: " words)))
+      (delete-region (car bounds) (cdr bounds))
+      (insert selection))))
+
+(let ((words "~/.cache/macDict/words"))
+  (when (and (eq system-type 'gnu/linux)
+	     (file-exists-p words))
+    (setq-default ispell-alternate-dictionary (expand-file-name words))))
+
+(evil-global-set-key 'normal (kbd "]s") 'flyspell-goto-next-error)
+(evil-global-set-key 'normal (kbd "[s")
+		     (lambda ()
+		       (interactive)
+		       (flyspell-goto-next-error t)))
+
+(global-set-key (kbd "C-c M-f") #'flyspell-buffer)
+(global-set-key (kbd "C-c M-s") #'ispell)
 
 ;; ----------------------------------------------------------------------------
 ;;| Text
