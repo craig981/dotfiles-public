@@ -570,12 +570,6 @@ copy the basename."
 ;;   (move-end-of-line nil)
 ;;   (newline-and-indent arg))
 
-;; (defun my-open-line (&optional prefix)
-;;   (interactive "P")
-;;   (if prefix
-;;       (my-open-line-above)
-;;     (my-open-line-below)))
-
 (defun my-delete-to-indent ()
   (interactive)
   (let ((p (point)))
@@ -656,29 +650,45 @@ copy the basename."
       (delete-region (car bounds) (cdr bounds))
       (insert selection))))
 
+(let ((words "~/.cache/macDict/words"))
+  (when (and (eq system-type 'gnu/linux)
+	     (file-exists-p words))
+    (setq-default ispell-alternate-dictionary (expand-file-name words))))
+
+
+(evil-leader/set-key "d" #'pwd)
+(evil-leader/set-key "a" #'align-regexp)
+(evil-leader/set-key "A" #'align)
 (evil-leader/set-key "s" #'my-substitute) ; substitute whole buffer
 (evil-leader/set-key "S" ; substitute from current line to end of buffer
   (lambda ()
     (interactive)
     (my-substitute ".,$")))
 
-(evil-leader/set-key "a" #'align-regexp)
-(evil-leader/set-key "A" #'align)
-(evil-leader/set-key "d" #'pwd)
 (evil-global-set-key 'normal (kbd "C-]") (kbd "=i{"))
+(evil-global-set-key 'normal (kbd "]s") 'flyspell-goto-next-error)
+(evil-global-set-key 'normal (kbd "[s")
+		     (lambda ()
+		       (interactive)
+		       (flyspell-goto-next-error t)))
+(pcase system-type
+  ('gnu/linux
+   (evil-global-set-key 'motion (kbd "K") 'man))
 
-(when (eq system-type 'gnu/linux)
-  (evil-global-set-key 'motion (kbd "K") 'man))
+  ('darwin
+   ;; skip slow vertico minibuffer prompt for man pages
+   (evil-global-set-key 'motion (kbd "K")
+			(lambda ()
+			  (interactive)
+			  (man (thing-at-point 'word t))))
+   ;; completion list for man pages is slow
+   ;; (defun my-advise-man-completion (&rest args) '())
+   ;; (advice-add #'Man-completion-table :override #'my-advise-man-completion)
+   ))
 
-(when (eq system-type 'darwin)
-  ;; skip slow vertico minibuffer prompt for man pages
-  (evil-global-set-key 'motion (kbd "K") (lambda ()
-					   (interactive)
-					   (man (thing-at-point 'word t))))
-  ;; completion list for man pages is slow
-  ;; (defun my-advise-man-completion (&rest args) '())
-  ;; (advice-add #'Man-completion-table :override #'my-advise-man-completion)
-  )
+(global-set-key (kbd "C-h h") nil)
+(global-set-key (kbd "C-h C-c") nil)
+(global-set-key (kbd "C-h RET") 'man)
 
 (global-set-key (kbd "C-c d") #'pwd)
 (global-set-key (kbd "C-c c") #'my-copy-filename)
@@ -687,8 +697,8 @@ copy the basename."
 (global-set-key (kbd "C-c m") #'my-mirror-buffer)
 (global-set-key (kbd "C-c q") #'my-kill-in-quotes)
 (global-set-key (kbd "C-c .") #'count-words-region)
-(global-set-key (kbd "C-x C-z") nil)	; no suspend-frame
-(global-set-key (kbd "C-x C-M-f") #'my-sudo-find-file)
+(global-set-key (kbd "C-c M-f") #'flyspell-buffer)
+(global-set-key (kbd "C-c M-s") #'ispell)
 
 (define-key minibuffer-local-map (kbd "M-z") 'my-zap-up-to-char)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
@@ -700,57 +710,40 @@ copy the basename."
 (global-set-key (kbd "M-u") #'upcase-dwim)
 (global-set-key (kbd "M-l") #'downcase-dwim)
 (global-set-key (kbd "M-c") #'capitalize-dwim)
-
 (global-set-key (kbd "M-o") 'other-window)
 (global-set-key (kbd "M-j") #'my-join-lines)
 (global-set-key (kbd "M-p") #'evil-scroll-line-up)
 (global-set-key (kbd "M-n") #'evil-scroll-line-down)
 (global-set-key (kbd "M-[") (kbd "M-{"))
 (global-set-key (kbd "M-]") (kbd "M-}"))
+
 (global-set-key (kbd "C-M-;") #'evil-numbers/inc-at-pt)
 (global-set-key (kbd "C-M-'") #'evil-numbers/dec-at-pt)
-
 (global-set-key (kbd "C-M-y") #'my-duplicate-line)
 (global-set-key (kbd "C-o") #'my-open-line-above)
 (global-set-key (kbd "C-=") #'my-close-other-window)
 (global-set-key (kbd "C-;") #'goto-last-change)
 (global-set-key (kbd "C-'") #'mode-line-other-buffer)
-
 (when (display-graphic-p)
  (global-set-key (kbd "C-<backspace>") #'my-delete-to-indent))
 
 (push 'try-expand-line hippie-expand-try-functions-list)
 (global-set-key (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
-
-(global-set-key (kbd "C-h h") nil)
-(global-set-key (kbd "C-h C-c") nil)
-(global-set-key (kbd "C-h RET") 'man)
+(global-set-key (kbd "C-x C-z") nil)	; no suspend-frame
+(global-set-key (kbd "C-x C-M-f") #'my-sudo-find-file)
 (global-set-key (kbd "C-x m") 'my-scratch-message-buffer)
 (global-set-key (kbd "C-x !") 'delete-other-windows-vertically)
 (global-set-key (kbd "C-x g") 'subword-mode)
-(global-set-key (kbd "C-c M-f") #'flyspell-buffer)
-(global-set-key (kbd "C-c M-s") #'ispell)
 
-(evil-global-set-key 'normal (kbd "]s") 'flyspell-goto-next-error)
-(evil-global-set-key 'normal (kbd "[s")
-		     (lambda ()
-		       (interactive)
-		       (flyspell-goto-next-error t)))
-
-(let ((words "~/.cache/macDict/words"))
-  (when (and (eq system-type 'gnu/linux)
-	     (file-exists-p words))
-    (setq-default ispell-alternate-dictionary (expand-file-name words))))
+(when (not (display-graphic-p))
+  (global-set-key (kbd "C-x ;") (kbd "C-x C-;"))
+  (global-set-key (kbd "C-x C-'") (kbd "C-x '")))
 
 (defun my-advise-comment (&rest args)
   (when (evil-normal-state-p)
     (call-interactively 'evil-append)))
 
 (advice-add 'comment-dwim :after 'my-advise-comment)
-
-(when (not (display-graphic-p))
-  (global-set-key (kbd "C-x ;") (kbd "C-x C-;"))
-  (global-set-key (kbd "C-x C-'") (kbd "C-x '")))
 
 (defun my-toggle-word-boundary (word-regex
 				word-begin word-end
