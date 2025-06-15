@@ -32,6 +32,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auto-save-default nil)
+ '(bookmark-fringe-mark nil)
  '(calendar-date-style 'european)
  '(calendar-week-start-day 1)
  '(comint-input-ring-size 100000)
@@ -468,9 +469,6 @@
 (save-place-mode 1)
 (savehist-mode 1)
 (winner-mode 1)
-
-(when (not (version< emacs-version "28.1"))
-  (setq-default bookmark-set-fringe-mark nil))
 
 (put 'narrow-to-region 'disabled nil)
 
