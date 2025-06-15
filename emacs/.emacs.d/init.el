@@ -580,6 +580,12 @@ copy the basename."
   (duplicate-line arg)
   (next-line arg))
 
+(defun my-join-lines ()
+  (interactive)
+  (if (region-active-p)
+      (call-interactively 'delete-indentation)
+    (delete-indentation t)))
+
 (defun my-zap-up-to-char (prefix char)
   "Zap up to char that works in minibuffer"
   (interactive "P\nc")
@@ -616,6 +622,43 @@ copy the basename."
   (let ((inhibit-read-only t))
     (delete-region (point-min) (point-max))))
 
+(defun my-toggle-word-boundary (word-regex
+				word-begin word-end
+				non-word-regex non-word-begin)
+  "Insert/remove word boundary around search term in the minibuffer"
+  (let* (
+	 (line (or (thing-at-point 'line)
+		   (progn
+		     (next-history-element 1)
+		     (end-of-line)
+		     (thing-at-point 'line)))))
+
+    (if (string-match word-regex line)
+	(let ((keep (match-string 1 line))
+	      (remove (- (match-end 0)
+			 (match-beginning 0))))
+	  (beginning-of-line)
+	  (delete-char remove)
+	  (insert non-word-begin keep)
+	  (end-of-line))
+
+      (if (string-empty-p non-word-regex)
+	  (progn
+	    (beginning-of-line)
+	    (insert word-begin)
+	    (end-of-line)
+	    (insert word-end))
+
+	(if (string-match non-word-regex line)
+	    (let ((remove (- (match-end 0)
+			     (match-beginning 0))))
+	      (beginning-of-line)
+	      (delete-char remove)
+	      (insert word-begin)
+	      (end-of-line)
+	      (insert word-end)))))))
+
+
 (defun my-advise-enter-insert-state (&rest args)
   "Enter insert mode, e.g. after a kill command"
   (when (and evil-local-mode (evil-normal-state-p))
@@ -629,12 +672,6 @@ copy the basename."
 	       org-meta-return
 	       org-insert-todo-heading))
   (advice-add cmd :after #'my-advise-enter-insert-state))
-
-(defun my-join-lines ()
-  (interactive)
-  (if (region-active-p)
-      (call-interactively 'delete-indentation)
-    (delete-indentation t)))
 
 
 (evil-global-set-key 'normal (kbd "C-]") (kbd "=i{"))
@@ -700,41 +737,6 @@ copy the basename."
 
 (advice-add 'comment-dwim :after 'my-advise-comment)
 
-(defun my-toggle-word-boundary (word-regex
-				word-begin word-end
-				non-word-regex non-word-begin)
-  "Insert/remove word boundary around search term in the minibuffer"
-  (let* (
-	 (line (or (thing-at-point 'line)
-		   (progn
-		     (next-history-element 1)
-		     (end-of-line)
-		     (thing-at-point 'line)))))
-
-    (if (string-match word-regex line)
-	(let ((keep (match-string 1 line))
-	      (remove (- (match-end 0)
-			 (match-beginning 0))))
-	  (beginning-of-line)
-	  (delete-char remove)
-	  (insert non-word-begin keep)
-	  (end-of-line))
-
-      (if (string-empty-p non-word-regex)
-	  (progn
-	    (beginning-of-line)
-	    (insert word-begin)
-	    (end-of-line)
-	    (insert word-end))
-
-	(if (string-match non-word-regex line)
-	    (let ((remove (- (match-end 0)
-			     (match-beginning 0))))
-	      (beginning-of-line)
-	      (delete-char remove)
-	      (insert word-begin)
-	      (end-of-line)
-	      (insert word-end)))))))
 
 (defun my-advise-paste (&rest args)
   "Set the mark so we can indent the pasted text with indent-region"
