@@ -235,14 +235,11 @@
 ;; ----------------------------------------------------------------------------
 
 (defvar my-evil-emacs-state nil)
-;; (when (string= "goose" (system-name))
-;;   (setq my-evil-emacs-state t))
 
 (defun my-evil-default (&optional force-emacs)
   (evil-local-mode 1)
   (when (or (eq force-emacs 'emacs) my-evil-emacs-state)
     (evil-emacs-state)))
-
 
 (setq evil-want-integration t
       evil-want-keybinding nil)
@@ -252,56 +249,22 @@
 (require 'evil-numbers)
 
 (global-evil-leader-mode)
+(evil-leader/set-leader "<SPC>")
 
-(evil-esc-mode 1)			; make C-[ escape
-(evil-global-set-key 'insert     (kbd "C-c <escape>") 'evil-normal-state)
-(evil-global-set-key 'insert     (kbd "C-c SPC") 'ignore)
+(evil-esc-mode 1) ; make C-[ escape
+(evil-global-set-key 'insert (kbd "C-c <escape>") 'evil-normal-state)
+(evil-global-set-key 'insert (kbd "C-c SPC") 'ignore)
 
-(global-set-key (kbd "<f7>") 'evil-local-mode)
 (add-hook 'evil-command-window-mode-hook 'evil-local-mode)
 
 (setq-default evil-ex-search-case 'sensitive)
 (setq-default evil-search-module 'evil-search)
-
-;; (when (not my-evil-emacs-state)
-;;   (setq evil-emacs-state-tag (propertize "<E>" 'face '((:foreground "#000000" :background "goldenrod")))))
-
-(evil-leader/set-leader "<SPC>")
-(evil-leader/set-key "w" 'save-buffer)
 
 (evil-declare-ignore-repeat 'evil-scroll-line-to-center)
 (evil-declare-ignore-repeat 'hscroll-cursor-left)
 (evil-declare-ignore-repeat 'hscroll-cursor-right)
 (evil-declare-ignore-repeat 'recenter-top-bottom)
 (evil-declare-ignore-repeat 'other-window)
-
-;; (defun my-wrap-eol (func &rest args)
-;;   "Temporarily disable evil-move-beyond-eol for evil commands,
-;; leave it at 't' for Emacs commands"
-;;   (if (and real-this-command
-;; 	   (symbolp real-this-command)
-;; 	   (string-match-p "^evil-" (symbol-name real-this-command)))
-;;       (let ((evil-move-beyond-eol nil))
-;; 	(apply func args))
-;;     (apply func args)))
-
-;; (dolist (func '(evil-normal-post-command evil-eolp))
-;;   (advice-add func :around #'my-wrap-eol))
-
-(defun my-forward-before-insert (&rest args)
-  "Move the cursor forward before closing a tag or inserting a time stamp"
-  (when (and (eq evil-state 'normal)
-	     (save-excursion
-	       (forward-char)
-	       (eolp)))
-    (forward-char)))
-
-(defun my-delete-or-indent-left ()
-  (interactive)
-  (if (eolp)
-      (evil-shift-left-line 1)
-    (delete-char 1)))
-(evil-global-set-key 'insert (kbd "C-d") 'my-delete-or-indent-left)
 
 ;; fall through to emacs keys, C/M-f/b and M-d M-m already works in insert mode
 (define-key evil-normal-state-map (kbd "M-.") nil)
@@ -317,11 +280,6 @@
 (evil-global-set-key 'insert (kbd "C-p") nil)
 (evil-global-set-key 'insert (kbd "C-o") nil)
 
-(define-key evil-ex-completion-map (kbd "C-a") 'move-beginning-of-line)
-(define-key evil-ex-completion-map (kbd "C-f") 'forward-char)
-(define-key evil-ex-completion-map (kbd "C-b") 'backward-char)
-(define-key evil-ex-completion-map (kbd "C-k") 'kill-line)
-
 (evil-global-set-key 'normal (kbd "C-a") 'evil-numbers/inc-at-pt)
 (evil-global-set-key 'normal (kbd "C-p") 'evil-numbers/dec-at-pt)
 (evil-global-set-key 'normal (kbd "g C-a") 'evil-numbers/inc-at-pt-incremental)
@@ -333,6 +291,27 @@
 (define-key evil-normal-state-map (kbd "k") #'evil-previous-visual-line)
 (define-key evil-visual-state-map (kbd "j") #'evil-next-visual-line)
 (define-key evil-visual-state-map (kbd "k") #'evil-previous-visual-line)
+
+(define-key evil-ex-completion-map (kbd "C-a") 'move-beginning-of-line)
+(define-key evil-ex-completion-map (kbd "C-f") 'forward-char)
+(define-key evil-ex-completion-map (kbd "C-b") 'backward-char)
+(define-key evil-ex-completion-map (kbd "C-k") 'kill-line)
+
+;; (when (not my-evil-emacs-state)
+;;   (setq evil-emacs-state-tag (propertize "<E>" 'face '((:foreground "#000000" :background "goldenrod")))))
+
+;; (defun my-wrap-eol (func &rest args)
+;;   "Temporarily disable evil-move-beyond-eol for evil commands,
+;; leave it at 't' for Emacs commands"
+;;   (if (and real-this-command
+;; 	   (symbolp real-this-command)
+;; 	   (string-match-p "^evil-" (symbol-name real-this-command)))
+;;       (let ((evil-move-beyond-eol nil))
+;; 	(apply func args))
+;;     (apply func args)))
+
+;; (dolist (func '(evil-normal-post-command evil-eolp))
+;;   (advice-add func :around #'my-wrap-eol))
 
 ;; ----------------------------------------------------------------------------
 ;;| Undo
@@ -574,6 +553,12 @@ copy the basename."
     (back-to-indentation)
     (delete-region (point) p)))
 
+(defun my-delete-or-indent-left ()
+  (interactive)
+  (if (eolp)
+      (evil-shift-left-line 1)
+    (delete-char 1)))
+
 (defun my-duplicate-line (arg)
   "Duplicate current line, leaving point in lower line."
   (interactive "*p")
@@ -593,6 +578,14 @@ copy the basename."
 		     ((symbolp prefix) -1)
 		     (t prefix))))
     (zap-up-to-char count char)))
+
+(defun my-forward-before-insert (&rest args)
+  "Move the cursor forward before closing a tag or inserting a time stamp"
+  (when (and (eq evil-state 'normal)
+	     (save-excursion
+	       (forward-char)
+	       (eolp)))
+    (forward-char)))
 
 (defun my-kill-in-quotes (&optional mark)
   (interactive "P")
@@ -675,7 +668,9 @@ copy the basename."
 
 
 (evil-global-set-key 'normal (kbd "C-]") (kbd "=i{"))
+(evil-global-set-key 'insert (kbd "C-d") 'my-delete-or-indent-left)
 
+(evil-leader/set-key "w" #'save-buffer)
 (evil-leader/set-key "d" #'pwd)
 (evil-leader/set-key "a" #'align-regexp)
 (evil-leader/set-key "A" #'align)
@@ -722,7 +717,7 @@ copy the basename."
 
 (push 'try-expand-line hippie-expand-try-functions-list)
 (global-set-key (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
-(global-set-key (kbd "C-x C-z") nil)	; no suspend-frame
+(global-set-key (kbd "C-x C-z") #'evil-local-mode)	; no suspend-frame
 (global-set-key (kbd "C-x C-M-f") #'my-sudo-find-file)
 (global-set-key (kbd "C-x m") 'my-scratch-message-buffer)
 (global-set-key (kbd "C-x !") 'delete-other-windows-vertically)
