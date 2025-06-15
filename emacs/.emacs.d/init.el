@@ -1783,11 +1783,11 @@ defaulted the setting off."
   "Find files under home directory."
   (interactive)
   (let* ((exclude (append '("-name .svn"
-			   "-name .git"
+			   ;; "-name .git"
 			   "-path \"*.git/objects\"")
 			 (pcase system-type
 			   ('gnu/linux '("-not -readable"))
-			   ('darwin '("-path ./Library"
+			   ('darwin '(;; "-path ./Library"
 				      "-path \"./Pictures/Photos Library.photoslibrary\"")))))
 	 (consult-find-args (format "find . -type d ( %s ) -prune -false -o ( -type f -o -type l )"
 				    (string-join exclude " -o "))))
