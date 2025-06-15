@@ -1610,10 +1610,10 @@ defaulted the setting off."
 ;;| Calendar
 ;; ----------------------------------------------------------------------------
 
-(when (and (require 'calfw nil t)
-	   (require 'calfw-org nil t))
-  (setq cfw:display-calendar-holidays nil)
-  (defalias 'calfworg 'cfw:open-org-calendar))
+;; (when (and (require 'calfw nil t)
+;; 	   (require 'calfw-org nil t))
+;;   (setq cfw:display-calendar-holidays nil)
+;;   (defalias 'calfworg 'cfw:open-org-calendar))
 
 ;; ----------------------------------------------------------------------------
 ;;| Calc
