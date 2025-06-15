@@ -637,6 +637,8 @@ copy the basename."
     (delete-indentation t)))
 
 
+(evil-global-set-key 'normal (kbd "C-]") (kbd "=i{"))
+
 (evil-leader/set-key "d" #'pwd)
 (evil-leader/set-key "a" #'align-regexp)
 (evil-leader/set-key "A" #'align)
@@ -645,27 +647,6 @@ copy the basename."
   (lambda ()
     (interactive)
     (my-substitute ".,$")))
-
-(evil-global-set-key 'normal (kbd "C-]") (kbd "=i{"))
-
-(pcase system-type
-  ('gnu/linux
-   (evil-global-set-key 'motion (kbd "K") 'man))
-
-  ('darwin
-   ;; skip slow vertico minibuffer prompt for man pages
-   (evil-global-set-key 'motion (kbd "K")
-			(lambda ()
-			  (interactive)
-			  (man (thing-at-point 'word t))))
-   ;; completion list for man pages is slow
-   ;; (defun my-advise-man-completion (&rest args) '())
-   ;; (advice-add #'Man-completion-table :override #'my-advise-man-completion)
-   ))
-
-(global-set-key (kbd "C-h h") nil)
-(global-set-key (kbd "C-h C-c") nil)
-(global-set-key (kbd "C-h RET") 'man)
 
 (global-set-key (kbd "C-c d") #'pwd)
 (global-set-key (kbd "C-c c") #'my-copy-filename)
@@ -864,6 +845,25 @@ copy the basename."
     (evil-local-mode 1))
 
   (add-hook 'Man-mode-hook 'my-man-mode-hook))
+
+(pcase system-type
+  ('gnu/linux
+   (evil-global-set-key 'motion (kbd "K") 'man))
+
+  ('darwin
+   ;; skip slow vertico minibuffer prompt for man pages
+   (evil-global-set-key 'motion (kbd "K")
+			(lambda ()
+			  (interactive)
+			  (man (thing-at-point 'word t))))
+   ;; completion list for man pages is slow
+   ;; (defun my-advise-man-completion (&rest args) '())
+   ;; (advice-add #'Man-completion-table :override #'my-advise-man-completion)
+   ))
+
+(global-set-key (kbd "C-h h") nil)
+(global-set-key (kbd "C-h C-c") nil)
+(global-set-key (kbd "C-h RET") 'man)
 
 ;; ----------------------------------------------------------------------------
 ;;| Abbreviations
