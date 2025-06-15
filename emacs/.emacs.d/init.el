@@ -2223,11 +2223,14 @@ return the project path instead"
 
 (pcase system-type
   ('gnu/linux
-   (setq dired-guess-shell-alist-user '(("\\.exr\\'" "djv")
+   (setq dired-guess-shell-alist-user `(("\\.exr\\'" "djv")
 					("\\.mp4\\'" "mpv")
 					("\\.mkv\\'" "mpv")
 					("\\.pdf\\'" "evince")
-					("\\.jp[e]?g\\'" "feh -Zx *")
+					("\\.jp[e]?g\\'" ,(cond
+							   ((executable-find "feh")
+							    "feh -Zx *")
+							   (t "display")))
 					("" "open"))))
 
   ('darwin
