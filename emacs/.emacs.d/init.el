@@ -3129,12 +3129,12 @@ to its default value. Leave it alone!"
 
 (defhydra my-theme-hydra ()
   ("r" (lambda () (interactive) (my-theme-dark	'reykjavik 'reykjavik-theme)) "reykjavik")
-  ("t" (lambda () (interactive) (my-theme-dark	'ef-dark)) "ef-dark")
-  ("y" (lambda () (interactive) (my-theme-dark	'ef-winter)) "ef-winter")
-  ("u" (lambda () (interactive) (my-theme-light 'ef-cyprus)) "ef-cyprus")
+  ("t" (lambda () (interactive) (my-theme-dark	'ef-dark))   "ef-dark")
+  ("y" (lambda () (interactive) (my-theme-dark	'ef-night))  "ef-night")
+  ("u" (lambda () (interactive) (my-theme-dark	'ef-winter)) "ef-winter")
   ("i" (lambda () (interactive) (my-theme-dark	'ef-autumn)) "ef-autumn")
-  ("o" (lambda () (interactive) (my-theme-dark	'ef-owl)) "ef-owl")
-  ("p" (lambda () (interactive) (my-theme-dark	'doric-dark 'doric-themes)) "doric-dark")
+  ("o" (lambda () (interactive) (my-theme-dark	'ef-owl))    "ef-owl")
+  ("p" (lambda () (interactive) (my-theme-light 'ef-cyprus)) "ef-cyprus")
   ("w" (lambda () (interactive) (my-theme-dark	'doric-obsidian 'doric-themes)) "doric-obsidian"))
 
 (global-set-key (kbd "C-c z") 'my-theme-hydra/body)
@@ -3194,7 +3194,7 @@ _t_: term            _C-e_: choose shell      _r_: scratch      _f_:   ledger   
       (my-theme-light 'ef-cyprus))
      ((and (>= month 9) (<= month 11)) (my-theme-dark 'ef-autumn))
      ((or (= month 12) (<= month 2))   (my-theme-dark 'ef-winter))
-     (t                                (my-theme-dark 'ef-dark))))
+     (t                                (my-theme-dark 'ef-night))))
 
   (when (display-graphic-p)
     (my-font-config))
