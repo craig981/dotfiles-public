@@ -2677,6 +2677,7 @@ make TAGS in that directory."
       (setq all (nconc all (directory-files-recursively
 			    (expand-file-name d) "^TAGS$" nil
 			    'my-dir-predicate))))
+    (tags-reset-tags-tables)
     (setq-default tags-table-list all)
     (message "Found %d TAGS files" (length tags-table-list))))
 
