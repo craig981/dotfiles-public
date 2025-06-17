@@ -865,7 +865,7 @@ copy the basename."
 ;;| Abbreviations
 ;; ----------------------------------------------------------------------------
 
-(setq save-abbrevs nil)
+(global-set-key (kbd "C-c t s") 'write-abbrev-file)
 
 (defun my-abbrev-expand ()
   "Don't expand in strings or comments"
