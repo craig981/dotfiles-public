@@ -1694,6 +1694,8 @@ defaulted the setting off."
 	(apply func args)
       (vertico-mode v))))
 
+(global-set-key (kbd "C-c t v") 'vertico-mode)
+
 ;; ----------------------------------------------------------------------------
 ;;| Marginalia
 ;; ----------------------------------------------------------------------------
