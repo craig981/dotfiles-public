@@ -3122,14 +3122,14 @@ to its default value. Leave it alone!"
 		       (if (frame-parameter nil 'alpha-background) nil 90)))
 
 (defhydra my-theme-hydra ()
+  ("d" (lambda () (interactive) (my-theme-light	'default))   "default")
   ("r" (lambda () (interactive) (my-theme-dark	'reykjavik 'reykjavik-theme)) "reykjavik")
-  ("t" (lambda () (interactive) (my-theme-dark	'ef-dark))   "ef-dark")
-  ("y" (lambda () (interactive) (my-theme-dark	'ef-night))  "ef-night")
-  ("u" (lambda () (interactive) (my-theme-dark	'ef-winter)) "ef-winter")
-  ("i" (lambda () (interactive) (my-theme-dark	'ef-autumn)) "ef-autumn")
+  ("t" (lambda () (interactive) (my-theme-dark	'ef-night))  "ef-night")
+  ("y" (lambda () (interactive) (my-theme-light 'ef-cyprus)) "ef-cyprus")
+  ("u" (lambda () (interactive) (my-theme-dark	'ef-autumn)) "ef-autumn")
+  ("i" (lambda () (interactive) (my-theme-dark	'ef-winter)) "ef-winter")
   ("o" (lambda () (interactive) (my-theme-dark	'ef-owl))    "ef-owl")
-  ("p" (lambda () (interactive) (my-theme-light 'ef-cyprus)) "ef-cyprus")
-  ("w" (lambda () (interactive) (my-theme-dark	'doric-obsidian 'doric-themes)) "doric-obsidian"))
+  ("p" (lambda () (interactive) (my-theme-dark	'doric-obsidian 'doric-themes)) "doric-obsidian"))
 
 (global-set-key (kbd "C-c z") 'my-theme-hydra/body)
 
