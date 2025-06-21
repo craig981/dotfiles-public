@@ -3151,7 +3151,7 @@ to its default value. Leave it alone!"
 
 (defhydra my-jump-hydra (:hint nil)
   "
-_i_: init.el         _s_:   project shell     _b_: ibuffer      _SPC_: agenda               _g_: EMMS
+_i_: init.el         _s_:   project shell     _b_: ibuffer      _SPC_: agenda               _g_: EMMS             _._: dotfiles-public
 _n_: notes           _h_:   shell             _c_: calc         _C-c_: calc other window    _a_: Add playlist
 _w_: world clock     _e_:   jump to shell     _d_: calendar     _v_:   magit list repos     _p_: Playlist new
 _t_: term            _C-e_: choose shell      _r_: scratch      _f_:   ledger               _o_: olivetti
@@ -3163,6 +3163,7 @@ _t_: term            _C-e_: choose shell      _r_: scratch      _f_:   ledger   
   ("s"	 #'my-project-shell      :exit t)
   ("t"	 #'my-term	         :exit t)
   ("v"	 #'my-magit-list-repos   :exit t)
+  ("."	 (lambda () (interactive) (magit "~/dotfiles-public"))   :exit t)
   ("d"	 #'my-project-dired      :exit t)
   ("c"   (lambda () (interactive) (calc nil calc-full-mode t)) :exit t)
   ("C-c" (lambda () (interactive) (calc-other-window t))       :exit t)
