@@ -149,7 +149,7 @@
 		evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra
 		ibuffer-project ledger-mode magit marginalia markdown-mode
 		nordic-night-theme olivetti orderless org-download ox-pandoc
-		paredit reykjavik-theme soft-morning-theme tempel undo-tree
+		paredit reykjavik-theme soft-morning-theme tempel terminal-here undo-tree
 		vertico wgrep which-key yaml-mode))
  '(package-vc-selected-packages
    '((sandcastle-theme :vc-backend Git :url
@@ -176,6 +176,7 @@
  '(split-height-threshold nil)
  '(tags-case-fold-search nil)
  '(tempel-path "~/.emacs.d/templates/*.eld")
+ '(terminal-here-mac-terminal-command 'iterm2)
  '(tramp-histfile-override "/tmp/.tramp_history")
  '(tramp-ssh-controlmaster-options
    "-o ControlMaster=auto -o ControlPath=tramp.%%C -o ControlPersist=60m" t)
@@ -2131,9 +2132,7 @@ return the project path instead"
 
 (defun my-choose-project-and-term ()
   (interactive)
-  (my-choose-project-and-invoke (lambda ()
-				  (interactive)
-				  (call-interactively #'ansi-term))))
+  (my-choose-project-and-invoke #'terminal-here-launch))
 
 (let ((map (define-keymap
 	     "e" #'my-choose-project-and-find-file
@@ -2624,6 +2623,20 @@ switch to it."
   (define-key term-mode-map (kbd "M-n") nil)
   (my-expose-global-binding term-raw-map (kbd "M-o"))
   (my-expose-global-binding term-raw-map (kbd "C-j")))
+
+(global-set-key (kbd "C-c t a") 'ansi-term)
+
+(require 'terminal-here)
+
+(global-set-key (kbd "C-c t h") #'terminal-here-launch)
+
+(when (eq system-type 'gnu/linux)
+  (push '(mate-terminal "mate-terminal") terminal-here-terminal-command-table)
+  (let ((desktop (getenv "XDG_CURRENT_DESKTOP")))
+    (setq terminal-here-linux-terminal-command
+	  (cond
+	   ((string= desktop "MATE") 'mate-terminal)
+	   (t 'gnome-terminal)))))
 
 ;; ----------------------------------------------------------------------------
 ;;| Tags
