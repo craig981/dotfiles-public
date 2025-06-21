@@ -2508,24 +2508,26 @@ return key from pasting the whole lot back and executing it."
 	(string-match-p "^\\*gud\\*$"		     name)
 	(string-match-p "^\\*gud-.*\\*$"	     name))))
 
-(defun my-jump-to-shell (&optional prefix)
-  "Select successive windows holding shells. With prefix,
-cycle through shells in the current window."
-  (interactive "P")
+(defun my-cycle-shell ()
+  "Cycle through shells in the current window."
+  (interactive)
   (let ((buffers (match-buffers 'my-match-shell-predicate)))
-    (if prefix
-	(if-let ((target (car buffers)))
-	  (switch-to-buffer target)
-	(message "No shell to jump to"))
+    (if-let ((target (car buffers)))
+	(switch-to-buffer target)
+      (message "No shell to jump to"))))
 
-      (let ((target))
-	  (dolist (b buffers)
-	    (when (not target)
-	      (if-let ((w (get-buffer-window b)))
-		  (setq target w))))
-	  (if target
-	      (select-window target)
-	    (message "No window displaying shell to jump to"))))))
+(defun my-jump-to-shell ()
+  "Select successive windows holding shells"
+  (interactive)
+  (let ((buffers (match-buffers 'my-match-shell-predicate))
+	(target))
+    (dolist (b buffers)
+      (when (not target)
+	(if-let ((w (get-buffer-window b)))
+	    (setq target w))))
+    (if target
+	(select-window target)
+      (message "No window displaying shell to jump to"))))
 
 (defun my-choose-shell (&optional other)
   "Complete the name and/or default-directory of a shell buffer and
