@@ -62,10 +62,7 @@
  '(electric-pair-mode nil)
  '(evil-flash-delay 60)
  '(evil-motion-state-modes
-   '(apropos-mode Buffer-menu-mode calendar-mode color-theme-mode
-		  command-history-mode dictionary-mode ert-results-mode
-		  help-mode Info-mode Man-mode speedbar-mode
-		  undo-tree-visualizer-mode view-mode woman-mode))
+   '(apropos-mode Buffer-menu-mode calendar-mode color-theme-mode command-history-mode dictionary-mode ert-results-mode help-mode Info-mode Man-mode speedbar-mode undo-tree-visualizer-mode view-mode woman-mode))
  '(find-name-arg "-iname")
  '(gdb-debuginfod-enable-setting nil)
  '(gdb-many-windows t)
@@ -100,12 +97,7 @@
  '(magit-section-visibility-indicator '("" . t))
  '(magit-status-goto-file-position t)
  '(magit-status-headers-hook
-   '(magit-insert-error-header magit-insert-diff-filter-header
-			       magit-insert-repo-header
-			       magit-insert-head-branch-header
-			       magit-insert-upstream-branch-header
-			       magit-insert-push-branch-header
-			       magit-insert-tags-header))
+   '(magit-insert-error-header magit-insert-diff-filter-header magit-insert-repo-header magit-insert-head-branch-header magit-insert-upstream-branch-header magit-insert-push-branch-header magit-insert-tags-header))
  '(magit-status-show-hashes-in-headers t)
  '(message-auto-save-directory nil)
  '(next-error-recenter '(4))
@@ -140,20 +132,12 @@
  '(org-startup-indented t)
  '(org-table-automatic-realign nil)
  '(org-todo-keywords
-   '((sequence "TODO(t)" "PROGRESS(p)" "WAIT(w@/@)" "BLOCK(b@/@)" "|"
-	       "DONE(d!/!)" "CANCELLED(c@/@)")))
+   '((sequence "TODO(t)" "PROGRESS(p)" "WAIT(w@/@)" "BLOCK(b@/@)" "|" "DONE(d!/!)" "CANCELLED(c@/@)")))
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
-   '(ace-window calfw calfw-org cape cmake-mode consult consult-dir doric-themes ef-themes
-		elfeed embark embark-consult emms evil evil-leader
-		evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra
-		ibuffer-project ledger-mode magit marginalia markdown-mode
-		nordic-night-theme olivetti orderless org-download ox-pandoc
-		paredit reykjavik-theme soft-morning-theme tempel terminal-here undo-tree
-		vertico wgrep which-key yaml-mode))
+   '(ace-window calfw calfw-org cape cmake-mode consult consult-dir doric-themes ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless org-download ox-pandoc paredit reykjavik-theme soft-morning-theme tempel terminal-here undo-tree vertico wgrep which-key yaml-mode))
  '(package-vc-selected-packages
-   '((sandcastle-theme :vc-backend Git :url
-		       "https://github.com/habamax/sandcastle-theme")))
+   '((sandcastle-theme :vc-backend Git :url "https://github.com/habamax/sandcastle-theme")))
  '(project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
  '(read-buffer-completion-ignore-case t)
  '(read-quoted-char-radix 16)
@@ -164,9 +148,13 @@
  '(safe-local-variable-values
    '((org-archive-location . "::")
      (org-archive-location . "notes.org_archive.gpg::")
-     (my-input-method . swedish-postfix) (my-input-method . german-postfix)
-     (buffer-auto-save-file-name) (tab-always-indent) (indent-tabs-mode nil)
-     (evil-shift-width . 2) (evil-shift-width . 4)))
+     (my-input-method . swedish-postfix)
+     (my-input-method . german-postfix)
+     (buffer-auto-save-file-name)
+     (tab-always-indent)
+     (indent-tabs-mode nil)
+     (evil-shift-width . 2)
+     (evil-shift-width . 4)))
  '(save-place-forget-unreadable-files nil)
  '(shell-input-autoexpand nil)
  '(shift-select-mode nil)
@@ -186,8 +174,10 @@
  '(vertico-group-format nil)
  '(warning-suppress-types '((comp)))
  '(world-clock-list
-   '(("America/Los_Angeles" "Los Angeles") ("America/New_York" "New York")
-     ("Europe/London" "London") ("Europe/Stockholm" "Stockholm")))
+   '(("America/Los_Angeles" "Los Angeles")
+     ("America/New_York" "New York")
+     ("Europe/London" "London")
+     ("Europe/Stockholm" "Stockholm")))
  '(world-clock-time-format "%R %Z"))
 
 (custom-set-faces
