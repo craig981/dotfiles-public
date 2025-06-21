@@ -135,7 +135,7 @@
    '((sequence "TODO(t)" "PROGRESS(p)" "WAIT(w@/@)" "BLOCK(b@/@)" "|" "DONE(d!/!)" "CANCELLED(c@/@)")))
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
-   '(ace-window calfw calfw-org cape cmake-mode consult consult-dir doric-themes ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless org-download ox-pandoc paredit reykjavik-theme soft-morning-theme tempel terminal-here undo-tree vertico wgrep which-key yaml-mode))
+   '(ace-window cape cmake-mode consult consult-dir doric-themes ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless org-download ox-pandoc paredit reykjavik-theme soft-morning-theme tempel terminal-here undo-tree vertico wgrep which-key yaml-mode))
  '(package-vc-selected-packages
    '((sandcastle-theme :vc-backend Git :url "https://github.com/habamax/sandcastle-theme")))
  '(project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
@@ -850,6 +850,7 @@ copy the basename."
 (global-set-key (kbd "C-h h") nil)
 (global-set-key (kbd "C-h C-c") nil)
 (global-set-key (kbd "C-h RET") 'man)
+(global-set-key (kbd "C-c h") (lambda () (interactive) (my-jump-buffer "*Help*" t)))
 
 ;; ----------------------------------------------------------------------------
 ;;| Abbreviations
@@ -861,9 +862,6 @@ copy the basename."
   "Don't expand in strings or comments"
   (if (not (nth 8 (syntax-ppss)))
       (abbrev--default-expand)))
-
-(when (display-graphic-p)
-  (global-set-key (kbd "C-x C-'") #'expand-abbrev))
 
 ;; ----------------------------------------------------------------------------
 ;;| Tempel
@@ -1410,7 +1408,6 @@ copy the basename."
 (advice-add 'org-insert-link :before #'my-forward-before-insert)
 
 (with-eval-after-load 'org-agenda
-  ;; (define-key org-agenda-mode-map (kbd "C") 'calfworg)
   (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map))
 
 (with-eval-after-load 'org
@@ -1590,15 +1587,6 @@ defaulted the setting off."
 	       '("expenses last month" "%(binary) -f %(ledger-file) bal -S \"-abs(total)\" ^Expenses: --period 'last month'")))
 
 ;; ----------------------------------------------------------------------------
-;;| Calendar
-;; ----------------------------------------------------------------------------
-
-;; (when (and (require 'calfw nil t)
-;; 	   (require 'calfw-org nil t))
-;;   (setq cfw:display-calendar-holidays nil)
-;;   (defalias 'calfworg 'cfw:open-org-calendar))
-
-;; ----------------------------------------------------------------------------
 ;;| Calc
 ;; ----------------------------------------------------------------------------
 
@@ -1767,14 +1755,13 @@ defaulted the setting off."
   "Find files under home directory."
   (interactive)
   (let* ((exclude (append '("-name .svn"
-			   ;; "-name .git"
-			   "-path \"*.git/objects\"")
-			 (pcase system-type
-			   ('gnu/linux '("-not -readable"))
-			   ('darwin '(;; "-path ./Library"
-				      "-path \"./Pictures/Photos Library.photoslibrary\"")))))
-	 (consult-find-args (format "find . -type d ( %s ) -prune -false -o ( -type f -o -type l )"
-				    (string-join exclude " -o "))))
+			    "-path \"*.git/objects\"")
+			  (pcase system-type
+			    ('gnu/linux '("-not -readable"))
+			    ('darwin '("-path \"./Pictures/Photos Library.photoslibrary\"")))))
+	 (consult-find-args
+	  (format "find . -type d ( %s ) -prune -false -o ( -type f -o -type l )"
+		  (string-join exclude " -o "))))
     (consult-find "~")))
 
 (global-set-key (kbd "C-x f") #'my-consult-find-home)
@@ -2344,15 +2331,12 @@ otherwise `project-compile'."
   (my-jump-buffer "*compilation*" other))
 
 (global-set-key (kbd "C-c C-SPC") 'my-compile)
-(global-set-key (kbd "C-c SPC") 'my-compile)
 (global-set-key (kbd "C-c C-.") #'recompile)
 (global-set-key (kbd "C-c C-,") #'recompile)
 (global-set-key (kbd "C-c ,") #'recompile)
 (global-set-key (kbd "C-c g") #'my-jump-compilation)
-(global-set-key (kbd "C-c h") (lambda () (interactive) (my-jump-buffer "*Help*" t)))
 (define-key compilation-mode-map (kbd "SPC") evil-leader--default-map)
 (define-key compilation-mode-map (kbd "C-w") 'evil-window-map)
-;; (define-key compilation-mode-map (kbd "g") nil)
 (define-key compilation-mode-map (kbd "M-p") nil)
 (define-key compilation-mode-map (kbd "M-n") nil)
 (define-key compilation-mode-map (kbd "C-c M-o") #'my-clear-buffer)
