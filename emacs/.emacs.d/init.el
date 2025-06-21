@@ -2527,7 +2527,7 @@ return key from pasting the whole lot back and executing it."
 	    (setq target w))))
     (if target
 	(select-window target)
-      (message "No window displaying shell to jump to"))))
+      (my-cycle-shell))))
 
 (defun my-choose-shell (&optional other)
   "Complete the name and/or default-directory of a shell buffer and
