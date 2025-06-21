@@ -176,7 +176,6 @@
  '(split-height-threshold nil)
  '(tags-case-fold-search nil)
  '(tempel-path "~/.emacs.d/templates/*.eld")
- '(terminal-here-mac-terminal-command 'iterm2)
  '(tramp-histfile-override "/tmp/.tramp_history")
  '(tramp-ssh-controlmaster-options
    "-o ControlMaster=auto -o ControlPath=tramp.%%C -o ControlPersist=60m" t)
@@ -2624,19 +2623,28 @@ switch to it."
   (my-expose-global-binding term-raw-map (kbd "M-o"))
   (my-expose-global-binding term-raw-map (kbd "C-j")))
 
-(global-set-key (kbd "C-c t a") 'ansi-term)
+(defun my-ansi-term ()
+  (interactive)
+  (ansi-term shell-file-name))
 
-(require 'terminal-here)
+(global-set-key (kbd "C-c t a") 'my-ansi-term)
 
-(global-set-key (kbd "C-c t h") #'terminal-here-launch)
+(when (require 'terminal-here nil t)
+  (pcase system-type
+    ('gnu/linux
+     (let ((desktop (getenv "XDG_CURRENT_DESKTOP")))
+       (cond
+	((string= desktop "MATE")
+	 (push '(mate-terminal "mate-terminal") terminal-here-terminal-command-table)
+	 (setq terminal-here-linux-terminal-command 'mate-terminal))
+	(t
+	 (setq terminal-here-linux-terminal-command 'gnome-terminal)))))))
 
-(when (eq system-type 'gnu/linux)
-  (push '(mate-terminal "mate-terminal") terminal-here-terminal-command-table)
-  (let ((desktop (getenv "XDG_CURRENT_DESKTOP")))
-    (setq terminal-here-linux-terminal-command
-	  (cond
-	   ((string= desktop "MATE") 'mate-terminal)
-	   (t 'gnome-terminal)))))
+(defun my-term ()
+  (interactive)
+  (if (fboundp 'terminal-here-launch)
+      (terminal-here-launch)
+    (my-ansi-term)))
 
 ;; ----------------------------------------------------------------------------
 ;;| Tags
@@ -3180,7 +3188,7 @@ _t_: term            _C-e_: choose shell      _r_: scratch      _f_:   ledger   
   ("C-e" #'my-choose-shell       :exit t)
   ("h"	 #'my-shell	         :exit t)
   ("s"	 #'my-project-shell      :exit t)
-  ("t"	 #'ansi-term	         :exit t)
+  ("t"	 #'my-term	         :exit t)
   ("v"	 #'my-magit-list-repos   :exit t)
   ("d"	 #'my-project-dired      :exit t)
   ("c"   (lambda () (interactive) (calc nil calc-full-mode t)) :exit t)
