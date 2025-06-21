@@ -677,6 +677,7 @@ copy the basename."
 (global-set-key (kbd "C-c m") #'my-mirror-buffer)
 (global-set-key (kbd "C-c q") #'my-kill-in-quotes)
 (global-set-key (kbd "C-c .") #'count-words-region)
+(global-set-key (kbd "C-c o") #'browse-url-at-point)
 
 (define-key minibuffer-local-map (kbd "M-z") 'my-zap-up-to-char)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
@@ -2463,7 +2464,6 @@ return key from pasting the whole lot back and executing it."
 
 (with-eval-after-load 'comint
   (add-hook 'comint-mode-hook 'my-comint-hook)
-  (define-key comint-mode-map (kbd "C-c o") 'browse-url-at-point)
   (define-key comint-mode-map (kbd "M-_") 'comint-insert-previous-argument)
   (define-key comint-mode-map (kbd "M-r") 'move-to-window-line-top-bottom)
   (define-key comint-mode-map (kbd "C-r") 'my-comint-ctrl-r)
@@ -3154,12 +3154,13 @@ to its default value. Leave it alone!"
 (defhydra my-jump-hydra (:hint nil)
   "
 _i_: init.el         _s_:   project shell     _b_: ibuffer      _SPC_: agenda               _g_: EMMS             _._: dotfiles-public
-_n_: notes           _h_:   shell             _c_: calc         _C-c_: calc other window    _a_: Add playlist
+_n_: notes           _h_:   shell             _c_: calc         _C-c_: calc other window    _a_: Add playlist     _t_: term
 _w_: world clock     _e_:   jump to shell     _d_: calendar     _v_:   magit list repos     _p_: Playlist new
-_t_: term            _C-e_: choose shell      _r_: scratch      _f_:   ledger               _o_: olivetti
+_C-e_: choose shell  _M-e_: cycle shell       _r_: scratch      _f_:   ledger               _o_: olivetti
 "
   ("r"	 #'scratch-buffer        :exit t)
   ("e"	 #'my-jump-to-shell)
+  ("M-e" #'my-cycle-shell)
   ("C-e" #'my-choose-shell       :exit t)
   ("h"	 #'my-shell	         :exit t)
   ("s"	 #'my-project-shell      :exit t)
