@@ -1295,7 +1295,7 @@ copy the basename."
 	("w" "Waiting" todo "WAIT|BLOCK")
 	("d" "Done" todo "DONE|CANCELLED")
 	;; ("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
-	("l" "Learn"
+	("l" "Read|Watch|Project"
 	 ((tags "read|watch|project"
 		((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "CANCELLED")))
 		 (org-agenda-sorting-strategy '(priority-down tag-up alpha-up))))))
@@ -1306,6 +1306,9 @@ copy the basename."
 		     ((org-agenda-overriding-header "Unscheduled:")
 		      (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))
 		      (org-agenda-sorting-strategy '(todo-state-up priority-down category-down tag-down))))
+	  (tags "reminder" ((org-agenda-overriding-header "Reminder:")
+			    (org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "CANCELLED")))
+			    (org-agenda-sorting-strategy '(priority-down))))
 	  (tags "show" ((org-agenda-overriding-header "Shows:")
 			(org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "CANCELLED")))
 			(org-agenda-sorting-strategy '(priority-down)))))
@@ -1532,9 +1535,10 @@ empty string."
 (defun my-org-agenda ()
   (interactive)
   (org-agenda nil ".")
-  (when my-machine
-    ;; hide work tasks
-    (org-agenda-filter-by-tag '(4) ?w)))
+  ;; (when my-machine
+  ;;   ;; hide work tasks
+  ;;   (org-agenda-filter-by-tag '(4) ?w))
+  )
 
 (defun my-advise-org-fill-paragraph (func &rest args)
   "When the region is active, revert to fill-paragraph behaviour."
