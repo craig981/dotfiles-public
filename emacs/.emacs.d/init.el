@@ -867,16 +867,14 @@ copy the basename."
 ;;| Tempel
 ;; ----------------------------------------------------------------------------
 
-(require 'tempel)
+(when (require 'tempel nil t)
 
-(advice-add 'tempel-complete :before 'my-advise-enter-insert-state)
+  (advice-add 'tempel-complete :before 'my-advise-enter-insert-state)
+  (with-eval-after-load 'corfu
+    (advice-add 'tempel-complete :around 'my-with-corfu))
 
-(with-eval-after-load 'corfu
-  (advice-add 'tempel-complete :around 'my-with-corfu))
-
-(global-set-key (kbd "M-'") 'tempel-complete)
-
-(define-key tempel-map (kbd "RET") 'tempel-next)
+  (global-set-key (kbd "M-'") 'tempel-complete)
+  (define-key tempel-map (kbd "RET") 'tempel-next))
 
 ;; ----------------------------------------------------------------------------
 ;;| Prog
@@ -1230,7 +1228,7 @@ copy the basename."
 
 ;;; move slowdown to startup instead of when opening an org file
 (require 'org)
-(require 'org-download)
+(require 'org-download nil t)
 
 ;;; workaround org 9.6 flakey agenda display, randomly failing to display
 ;;; tasks scheduled for the current day.
@@ -1448,7 +1446,7 @@ copy the basename."
 
   ;; org to pdf export
   (when (executable-find "pandoc")
-    (require 'ox-pandoc)))
+    (require 'ox-pandoc nil t)))
 
 
 (defun my-set-evil-local-mode-in-agenda-buffers (state)
@@ -1697,7 +1695,6 @@ defaulted the setting off."
 ;; ----------------------------------------------------------------------------
 
 (require 'consult)
-(require 'consult-dir)
 
 (defun my-imenu ()
   (interactive)
@@ -1748,8 +1745,10 @@ defaulted the setting off."
 
 (global-set-key (kbd "C-c r") 'consult-recent-file)
 (define-key minibuffer-local-map (kbd "M-r") 'consult-history)
-(define-key minibuffer-local-map (kbd "C-x C-d") #'consult-dir)
-(define-key minibuffer-local-map (kbd "C-x C-j") #'consult-dir-jump-file)
+
+(when (require 'consult-dir nil t)
+   (define-key minibuffer-local-map (kbd "C-x C-d") #'consult-dir)
+   (define-key minibuffer-local-map (kbd "C-x C-j") #'consult-dir-jump-file))
 
 (defun my-consult-find-home ()
   "Find files under home directory."
@@ -1770,9 +1769,8 @@ defaulted the setting off."
 ;;| Grep
 ;; ----------------------------------------------------------------------------
 
-(require 'wgrep)
-
-(setq wgrep-enable-key "e")
+(when (require 'wgrep nil t)
+  (setq wgrep-enable-key "e"))
 
 (defun my-grep-project ()
   (interactive)
@@ -1792,11 +1790,11 @@ defaulted the setting off."
 ;;| Embark
 ;; ----------------------------------------------------------------------------
 
-(require 'embark)
-(require 'embark-consult)
+(when (and (require 'embark nil t)
+	   (require 'embark-consult nil t))
 
-;;; export consult-ripgrep results to grep buffer
-(define-key consult-async-map (kbd "C-c C-o") #'embark-export)
+  ;; export consult-ripgrep results to grep buffer
+  (define-key consult-async-map (kbd "C-c C-o") #'embark-export))
 
 ;; ----------------------------------------------------------------------------
 ;;| Completion
@@ -1891,12 +1889,12 @@ defaulted the setting off."
   (define-key ibuffer-mode-map (kbd "M-n") nil)
   (define-key ibuffer-mode-map (kbd "M-p") nil)
 
-  (require 'ibuffer-project)
+  (when (require 'ibuffer-project nil t)
 
-  (defun my-ibuffer-hook ()
-    (setq ibuffer-filter-groups (ibuffer-project-generate-filter-groups)))
+   (defun my-ibuffer-hook ()
+     (setq ibuffer-filter-groups (ibuffer-project-generate-filter-groups)))
 
-  (add-hook 'ibuffer-mode-hook 'my-ibuffer-hook))
+   (add-hook 'ibuffer-mode-hook 'my-ibuffer-hook)))
 
 ;; ----------------------------------------------------------------------------
 ;;| Complete filenames
@@ -2162,6 +2160,7 @@ return the project path instead"
 
 (require 'dired)
 (require 'dired-x)
+
 (setq dired-recursive-copies 'always)
 (setq dired-dwim-target t)
 (put 'dired-find-alternate-file 'disabled nil)
