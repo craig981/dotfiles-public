@@ -708,11 +708,12 @@ copy the basename."
 
 (push 'try-expand-line hippie-expand-try-functions-list)
 (global-set-key (kbd "C-x C-l") 'hippie-expand) ;; line completion like vim
-(global-set-key (kbd "C-x C-z") #'evil-local-mode)	; no suspend-frame
+(global-set-key (kbd "C-x C-z") nil)	; no suspend-frame
 (global-set-key (kbd "C-x C-M-f") #'my-sudo-find-file)
 (global-set-key (kbd "C-x m") 'my-scratch-message-buffer)
 (global-set-key (kbd "C-x !") 'delete-other-windows-vertically)
 (global-set-key (kbd "C-x g") 'subword-mode)
+(global-set-key (kbd "C-z") #'evil-local-mode)
 
 (when (not (display-graphic-p))
   (global-set-key (kbd "C-x ;") (kbd "C-x C-;")))
