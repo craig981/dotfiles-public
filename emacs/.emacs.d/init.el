@@ -3104,7 +3104,7 @@ make TAGS in that directory."
   (set-cursor-color "white")
   (setq evil-normal-state-cursor '(box "white")
 	evil-insert-state-cursor '(box "goldenrod")
-	evil-emacs-state-cursor  '(box "white"))
+	evil-emacs-state-cursor  '(box "#d570af"))
   (setq my-pulse-face 'region)
   (my-set-dark-mode t))
 
@@ -3116,7 +3116,7 @@ make TAGS in that directory."
   (set-cursor-color "black")
   (setq evil-normal-state-cursor '(box "black")
 	evil-insert-state-cursor '(box "goldenrod")
-	evil-emacs-state-cursor  '(box "black"))
+	evil-emacs-state-cursor  '(box "#d570af"))
   (setq my-pulse-face 'region)
   (my-set-dark-mode nil))
 
