@@ -370,7 +370,7 @@
 	     (bound-and-true-p evil-local-mode)
 	     (evil-normal-state-p)
 	     (looking-at "^$"))
-    (evil-emacs-state))
+    (evil-insert-state))
 
   (if my-input-method
       (set-input-method my-input-method)))
