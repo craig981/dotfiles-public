@@ -3093,6 +3093,12 @@ make TAGS in that directory."
        ((eq system-type 'darwin)
 	(shell-command (format "osascript -e 'tell app \"System Events\" to tell appearance preferences to set dark mode to %s'" (if val "true" "false"))))))))
 
+(defun my-cursor (color)
+  (set-cursor-color color)
+  (setq evil-normal-state-cursor `(box ,color)
+	evil-insert-state-cursor '(box "goldenrod")
+	evil-emacs-state-cursor  `(box ,(if my-evil-emacs-state color "#d570af"))))
+
 (defun my-theme-dark (theme &optional req)
   (mapcar #'disable-theme custom-enabled-themes)
   (require (or req 'ef-themes))
@@ -3106,10 +3112,7 @@ make TAGS in that directory."
    (t
     (load-theme 'my-override-dark2 t)))
 
-  (set-cursor-color "white")
-  (setq evil-normal-state-cursor '(box "white")
-	evil-insert-state-cursor '(box "goldenrod")
-	evil-emacs-state-cursor  '(box "#d570af"))
+  (my-cursor "white")
   (setq my-pulse-face 'region)
   (my-set-dark-mode t))
 
@@ -3118,10 +3121,7 @@ make TAGS in that directory."
   (require (or req 'ef-themes))
   (load-theme theme t)
 
-  (set-cursor-color "black")
-  (setq evil-normal-state-cursor '(box "black")
-	evil-insert-state-cursor '(box "goldenrod")
-	evil-emacs-state-cursor  '(box "#d570af"))
+  (my-cursor "black")
   (setq my-pulse-face 'region)
   (my-set-dark-mode nil))
 
