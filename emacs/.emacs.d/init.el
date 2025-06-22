@@ -362,14 +362,15 @@
   (if (file-remote-p (buffer-file-name))
       (setq-local vc-handled-backends nil))
 
-  (when (and (not (eq major-mode 'image-mode))
+  (when (and (not (memq major-mode '(image-mode)))
 	     (not evil-local-mode))
     (my-evil-default))
 
   (when (and (bound-and-true-p git-commit-mode)
+	     (bound-and-true-p evil-local-mode)
 	     (evil-normal-state-p)
 	     (looking-at "^$"))
-    (evil-insert-state))
+    (evil-emacs-state))
 
   (if my-input-method
       (set-input-method my-input-method)))
@@ -1341,6 +1342,10 @@ copy the basename."
   (setq-local indent-tabs-mode nil)
   (setq-local evil-shift-width 2)
   (setq-local evil-move-beyond-eol t)
+
+  (if (and evil-local-mode
+	   (string= "*Org Note*" (buffer-name)))
+      (evil-emacs-state))
 
   (cond
    ((not (display-graphic-p))
