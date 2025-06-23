@@ -2849,7 +2849,7 @@ make TAGS in that directory."
 
     (when endpos
       (goto-char endpos)
-      (evil-open-above 1)
+      ;; (evil-open-above 1)
       (indent-to the-indent))))
 
 (defun my-jump-to-header (&optional open-in-other-window)
