@@ -538,6 +538,13 @@ copy the basename."
 ;;   (move-end-of-line nil)
 ;;   (newline-and-indent arg))
 
+(defun my-split-line (&optional num)
+  "Insert `NUM' blank lines after the current line, without indentation"
+  (interactive "p")
+  (save-excursion
+    (end-of-line)
+    (newline num)))
+
 (defun my-delete-to-indent ()
   (interactive)
   (let ((p (point)))
@@ -697,13 +704,14 @@ copy the basename."
 (global-set-key (kbd "M-[") (kbd "M-{"))
 (global-set-key (kbd "M-]") (kbd "M-}"))
 
+(global-set-key (kbd "C-M-o") #'my-split-line)
 (global-set-key (kbd "C-M-;") #'evil-numbers/inc-at-pt)
 (global-set-key (kbd "C-M-'") #'evil-numbers/dec-at-pt)
 (global-set-key (kbd "C-M-y") #'my-duplicate-line)
 (global-set-key (kbd "C-o") #'my-open-line-above)
 (global-set-key (kbd "C-=") #'my-close-other-window)
 (global-set-key (kbd "C-;") #'goto-last-change)
-(global-set-key (kbd "C-'") #'mode-line-other-buffer)
+;; (global-set-key (kbd "C-'") #'mode-line-other-buffer)
 (when (display-graphic-p)
  (global-set-key (kbd "C-<backspace>") #'my-delete-to-indent))
 
@@ -1984,7 +1992,7 @@ defaulted the setting off."
 ;; ----------------------------------------------------------------------------
 
 (when (require 'ace-window nil t)
-  (global-set-key (kbd "C-M-o") 'ace-window)
+  (global-set-key (kbd "C-'") 'ace-window)
   (setq aw-keys '(?f ?j ?k ?l ?\; ?')))
 
 ;; ----------------------------------------------------------------------------
