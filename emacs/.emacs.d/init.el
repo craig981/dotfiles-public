@@ -143,6 +143,7 @@
  '(read-quoted-char-radix 16)
  '(recentf-max-saved-items 1000)
  '(register-preview-delay 0.5)
+ '(remote-file-name-inhibit-auto-save-visited t)
  '(remote-file-name-inhibit-locks t)
  '(ring-bell-function 'ignore)
  '(safe-local-variable-values
@@ -167,6 +168,7 @@
  '(tramp-histfile-override "/tmp/.tramp_history")
  '(tramp-ssh-controlmaster-options
    "-o ControlMaster=auto -o ControlPath=tramp.%%C -o ControlPersist=60m" t)
+ '(tramp-use-scp-direct-remote-copying t)
  '(undo-tree-auto-save-history nil)
  '(use-short-answers t)
  '(vc-follow-symlinks t)
