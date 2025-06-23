@@ -664,7 +664,7 @@ copy the basename."
 (evil-leader/set-key "w" #'save-buffer)
 (evil-leader/set-key "d" #'pwd)
 (evil-leader/set-key "a" #'align-regexp)
-(evil-leader/set-key "A" #'align)
+(evil-leader/set-key "l" #'align)
 (evil-leader/set-key "s" #'my-substitute) ; substitute whole buffer
 (evil-leader/set-key "S" ; substitute from current line to end of buffer
   (lambda ()
