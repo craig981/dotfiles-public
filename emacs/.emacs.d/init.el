@@ -1339,13 +1339,6 @@ copy the basename."
 
   ;; (hl-line-mode)
 
-  (local-set-key (kbd "C-c o s") 'org-download-screenshot)
-  (local-set-key (kbd "C-c o i") 'org-download-image)
-  (local-set-key (kbd "C-c o e") 'org-download-edit)
-  (local-set-key (kbd "C-c o h") 'org-fold-hide-block-all)
-
-  (local-set-key (kbd "C-c b") (lambda () (interactive) (org-toggle-checkbox '(4))))
-
   ;; / is punctuation, so evil * works on path components
   (modify-syntax-entry ?/ ".")
   (auto-fill-mode 1)
@@ -1441,7 +1434,15 @@ copy the basename."
 		;; display already updates.
 		(redraw-display)))
   (define-key org-mode-map (kbd "C-c ]") nil)
-  (define-key org-mode-map (kbd "C-c M-e") 'org-decrypt-entry)
+  (define-key org-mode-map (kbd "C-c b")
+	      (lambda ()
+		(interactive)
+		(org-toggle-checkbox '(4))))
+  (define-key org-mode-map (kbd "C-c o d") 'org-decrypt-entry)
+  (define-key org-mode-map (kbd "C-c o s") 'org-download-screenshot)
+  (define-key org-mode-map (kbd "C-c o i") 'org-download-image)
+  (define-key org-mode-map (kbd "C-c o e") 'org-download-edit)
+  (define-key org-mode-map (kbd "C-c o h") 'org-fold-hide-block-all)
   (define-key org-mode-map (kbd "M-[") 'org-backward-paragraph)
   (define-key org-mode-map (kbd "M-]") 'org-forward-paragraph)
 
