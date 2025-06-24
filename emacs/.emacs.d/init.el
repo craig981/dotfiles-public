@@ -1305,14 +1305,15 @@ empty string."
 (setq org-tags-exclude-from-inheritance '("crypt"))
 
 
-
 (defun my-org-mode-hook ()
 
   (evil-local-mode 1)
   (when my-olivetti-state
     (olivetti-mode 1))
 
-  ;; (hl-line-mode)
+  (if (and (bound-and-true-p evil-local-mode)
+	   (string= "*Org Note*" (buffer-name)))
+      (evil-emacs-state))
 
   ;; / is punctuation, so evil * works on path components
   (modify-syntax-entry ?/ ".")
@@ -1322,10 +1323,6 @@ empty string."
   (setq-local indent-tabs-mode nil)
   (setq-local evil-shift-width 2)
   (setq-local evil-move-beyond-eol t)
-
-  (if (and evil-local-mode
-	   (string= "*Org Note*" (buffer-name)))
-      (evil-emacs-state))
 
   (cond
    ((not (display-graphic-p))
@@ -1470,7 +1467,6 @@ defaulted the setting off."
       `(("p" "In progress" todo "PROGRESS")
 	("w" "Waiting" todo "WAIT|BLOCK")
 	("d" "Done" todo "DONE|CANCELLED")
-	;; ("n" "Agenda and all TODOs" ((agenda "") (alltodo "")))
 	("l" "Read|Watch|Project"
 	 ((tags "read|watch|project"
 		((org-agenda-skip-function '(org-agenda-skip-entry-if 'todo '("DONE" "CANCELLED")))
