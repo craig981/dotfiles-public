@@ -478,6 +478,9 @@
       (delete-horizontal-space))
     (message "Deleted trailing whitespace on current line"))))
 
+(defun my-optional-file (fn)
+  (if (file-exists-p fn) fn nil))
+
 (defun my-copy-filename (&optional prefix)
   "Copy the filename of the current buffer. With the prefix arg,
 copy the basename."
@@ -614,6 +617,51 @@ copy the basename."
   (interactive)
   (let ((inhibit-read-only t))
     (delete-region (point-min) (point-max))))
+
+(defun my-www-get-page-title (url)
+  (with-current-buffer (url-retrieve-synchronously url)
+    (goto-char (point-min))
+    (re-search-forward "<title[^>]*>\\([^<]*\\)</title>" nil t 1)
+    (let ((title (match-string 1)))
+      (goto-char (point-min))
+      (re-search-forward "charset=\\([-0-9a-zA-Z]*\\)" nil t 1)
+      (let* ((c (match-string 1))
+	     (coding (if (or (not c)
+			     (string= c "UTF-8")
+			     (string= c title))
+			 "utf-8" c)))
+	(decode-coding-string title (intern coding))))))
+
+(defun my-merge-tables-by-date (a b &optional empty)
+  "'a' and 'b' are tables (lists where each element is a row). The first
+column of each is a date of the form YYYY-MM-DD. Merge the tables
+by date. Modifies the lists in 'a' and 'b'. 'empty' is used to
+fill empty cells when the rows don't match, and defaults to the
+empty string."
+  (let* ((blank (or empty ""))
+    	 (cols (if a (- (length (car a)) 1) 1))
+    	 res)
+    (while (and a b)
+      (let ((ta (date-to-time (caar a)))
+    	    (tb (date-to-time (caar b))))
+    	(cond
+    	 ((time-less-p ta tb)
+    	  (push (nconc (car a) (list blank)) res)
+    	  (setq a (cdr a)))
+    	 ((time-less-p tb ta)
+    	  (push (nconc (list (caar b)) (make-list cols blank) (cdar b)) res)
+    	  (setq b (cdr b)))
+    	 (t
+    	  (push (nconc (car a) (cdar b)) res)
+    	  (setq a (cdr a))
+    	  (setq b (cdr b))))))
+    (while a
+      (push (nconc (car a) (list blank)) res)
+      (setq a (cdr a)))
+    (while b
+      (push (nconc (list (caar b)) (make-list cols blank) (cdar b)) res)
+      (setq b (cdr b)))
+    (reverse res)))
 
 (defun my-toggle-word-boundary (word-regex
 				word-begin word-end
@@ -1247,9 +1295,6 @@ copy the basename."
 ;;; tasks scheduled for the current day.
 (setq org-element-use-cache nil)
 
-(defun my-optional-file (fn)
-  (if (file-exists-p fn) fn nil))
-
 (setq org-default-notes-file
       (or (my-optional-file "~/notes.org.gpg")
 	  (my-optional-file "~/org/work.org")
@@ -1259,13 +1304,130 @@ copy the basename."
 (org-crypt-use-before-save-magic)
 (setq org-tags-exclude-from-inheritance '("crypt"))
 
-(setq org-capture-templates
-      `(("m" "Bookmark" entry (file+headline org-default-notes-file "Bookmarks")
-	 "* %?\n")
-	("x" "Task" entry ,(if my-machine
-			       '(file+headline org-default-notes-file "Tasks")
-			     '(file org-default-notes-file))
-	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")))
+
+
+(defun my-org-mode-hook ()
+
+  (evil-local-mode 1)
+  (when my-olivetti-state
+    (olivetti-mode 1))
+
+  ;; (hl-line-mode)
+
+  ;; / is punctuation, so evil * works on path components
+  (modify-syntax-entry ?/ ".")
+  (auto-fill-mode 1)
+
+  (setq-local completion-at-point-functions '(my-complete-word-ispell))
+  (setq-local indent-tabs-mode nil)
+  (setq-local evil-shift-width 2)
+  (setq-local evil-move-beyond-eol t)
+
+  (if (and evil-local-mode
+	   (string= "*Org Note*" (buffer-name)))
+      (evil-emacs-state))
+
+  (cond
+   ((not (display-graphic-p))
+    ;; override the evil binding of C-i (jump forward), as C-i is the
+    ;; same as tab in the terminal, which we want in org mode for
+    ;; (un)collapsing headers
+    (evil-local-set-key 'motion (kbd "C-i") 'org-cycle))
+   (t
+    (evil-local-set-key 'normal (kbd "<tab>") 'org-cycle)))
+
+  (evil-local-set-key 'insert (kbd "<tab>") #'org-cycle)
+  (when (not (boundp 'corfu-mode))
+    (evil-local-set-key 'insert (kbd "<backtab>") #'fancy-dabbrev-backward)))
+
+(defun my-org-capture-hook ()
+  (interactive)
+  (when (and (eq major-mode 'org-mode)
+	     (evil-normal-state-p))
+   (evil-insert-state)))
+
+(defun my-advise-org-capture (func &rest args)
+  "Workaround delay in opening capture buffer"
+  (cl-flet ((org-get-x-clipboard (value) nil))
+    (apply func args)))
+
+(defun my-org-capture-task ()
+  (interactive)
+  (org-capture nil "x"))
+
+(defun my-org-agenda ()
+  (interactive)
+  (org-agenda nil ".")
+  ;; (when my-machine
+  ;;   ;; hide work tasks
+  ;;   (org-agenda-filter-by-tag '(4) ?w))
+  )
+
+(defun my-org-clock-jump ()
+  (interactive)
+  (push-mark (point))
+  (org-clock-jump-to-current-clock))
+
+(defun my-wrap-org-link ()
+  "With point at the start of a URL, turn it into [[url][title]]"
+  (interactive)
+  (let ((bounds (thing-at-point-bounds-of-url-at-point t)))
+    (when (and bounds (< (car bounds) (cdr bounds)))
+      (let* ((url (buffer-substring-no-properties (car bounds) (cdr bounds)))
+	     (title (my-www-get-page-title url)))
+	(save-excursion
+	  (goto-char (cdr bounds))
+	  (insert (format "][%s]]" title))
+	  (goto-char (car bounds))
+	  (insert "[["))))))
+
+(defun my-org-attach-save-file-list-to-property (dir)
+  "Save list of attachments to ORG_ATTACH_FILES property."
+  (when-let* ((files (org-attach-file-list dir)))
+    (org-set-property "ORG_ATTACH_FILES" (mapconcat #'identity files ", "))))
+
+(defun my-set-evil-local-mode-in-agenda-buffers (state)
+  "Enable/disable evil-local-mode in all org-agenda-files buffers"
+  (let ((state-func (if (and state
+			     (memq 'org-mode evil-emacs-state-modes))
+			#'evil-emacs-state
+		      #'evil-normal-state)))
+    (dolist (f (org-agenda-files))
+      (when-let ((b (get-file-buffer f)))
+	(with-current-buffer b
+	  (evil-local-mode state)
+	  (when state
+	    (funcall state-func)))))))
+
+(defun my-advise-org-agenda-todo (func &rest args)
+  "Switch off evil-local-mode in all org-agenda-files buffers before
+org-agenda-todo runs, and enable it again afterwards. This is a
+workaround for a bug where marking a habit task as DONE from the
+agenda doesn't correctly keep it in a repeating TODO state when
+the buffer the agenda was built from has evil-local-mode enabled."
+  (my-set-evil-local-mode-in-agenda-buffers 0)
+  (unwind-protect
+      (apply func args)
+    (my-set-evil-local-mode-in-agenda-buffers 1)))
+
+(defun my-advise-org-exec-src-block (func &rest args)
+  "Make raw results containing a table align correctly, since we
+defaulted the setting off."
+  (let ((org-table-automatic-realign t))
+    (apply func args)))
+
+(defun my-advise-org-fill-paragraph (func &rest args)
+  "When the region is active, revert to fill-paragraph behaviour."
+  (interactive (progn
+		 (barf-if-buffer-read-only)
+		 (list (when current-prefix-arg 'full) t)))
+  (if (region-active-p)
+      (fill-paragraph (car args) t)
+    (apply func args)))
+
+(defun my-update-inline-images ()
+  (when org-inline-image-overlays
+    (org-redisplay-inline-images)))
 
 (when my-machine
 
@@ -1275,7 +1437,21 @@ copy the basename."
       (with-current-buffer gcal
 	(revert-buffer t t))))
 
-  (add-hook 'org-agenda-mode-hook 'my-revert-gcal-before-agenda))
+  (add-hook 'org-agenda-mode-hook #'my-revert-gcal-before-agenda))
+
+(add-hook 'org-mode-hook		#'my-org-mode-hook)
+(add-hook 'org-capture-mode-hook	#'my-org-capture-hook)
+(add-hook 'org-attach-after-change-hook #'my-org-attach-save-file-list-to-property)
+
+(advice-add #'org-time-stamp-inactive	  :before #'my-forward-before-insert)
+(advice-add #'org-insert-last-stored-link :before #'my-forward-before-insert)
+(advice-add #'org-insert-link		  :before #'my-forward-before-insert)
+(advice-add #'org-agenda-todo		  :around #'my-advise-org-agenda-todo)
+(advice-add #'org-capture		  :around #'my-advise-org-capture)
+(advice-add #'org-babel-execute-src-block :around #'my-advise-org-exec-src-block)
+(advice-add #'org-fill-paragraph	  :around #'my-advise-org-fill-paragraph)
+
+
 
 (setq my-org-agenda-common-review-settings
       '((org-agenda-show-all-dates t)
@@ -1328,99 +1504,44 @@ copy the basename."
 		    (org-agenda-overriding-header "Last week in Review")))
 	 ("/tmp/lastweek.html"))))
 
+(setq org-capture-templates
+      `(("m" "Bookmark" entry (file+headline org-default-notes-file "Bookmarks")
+	 "* %?\n")
+	("x" "Task" entry ,(if my-machine
+			       '(file+headline org-default-notes-file "Tasks")
+			     '(file org-default-notes-file))
+	 "* TODO %?\nSCHEDULED: %t\n:PROPERTIES:\n:CREATED: %U\n:END:\n")))
+
+
+
+
 (when my-evil-emacs-state
   (push 'org-mode evil-emacs-state-modes))
-
-(defun my-org-mode-hook ()
-
-  (evil-local-mode 1)
-  (when my-olivetti-state
-    (olivetti-mode 1))
-
-  ;; (hl-line-mode)
-
-  ;; / is punctuation, so evil * works on path components
-  (modify-syntax-entry ?/ ".")
-  (auto-fill-mode 1)
-
-  (setq-local completion-at-point-functions '(my-complete-word-ispell))
-  (setq-local indent-tabs-mode nil)
-  (setq-local evil-shift-width 2)
-  (setq-local evil-move-beyond-eol t)
-
-  (if (and evil-local-mode
-	   (string= "*Org Note*" (buffer-name)))
-      (evil-emacs-state))
-
-  (cond
-   ((not (display-graphic-p))
-    ;; override the evil binding of C-i (jump forward), as C-i is the
-    ;; same as tab in the terminal, which we want in org mode for
-    ;; (un)collapsing headers
-    (evil-local-set-key 'motion (kbd "C-i") 'org-cycle))
-   (t
-    (evil-local-set-key 'normal (kbd "<tab>") 'org-cycle)))
-
-  (evil-local-set-key 'insert (kbd "<tab>") #'org-cycle)
-  (when (not (boundp 'corfu-mode))
-    (evil-local-set-key 'insert (kbd "<backtab>") #'fancy-dabbrev-backward)))
-
-(defun my-org-capture-hook ()
-  (interactive)
-  (when (and (eq major-mode 'org-mode)
-	     (evil-normal-state-p))
-   (evil-insert-state)))
-
-;;; https://www.youtube.com/watch?v=UpeKWYFe9fU
-(defun my-org-attach-save-file-list-to-property (dir)
-  "Save list of attachments to ORG_ATTACH_FILES property."
-  (when-let* ((files (org-attach-file-list dir)))
-    (org-set-property "ORG_ATTACH_FILES" (mapconcat #'identity files ", "))))
-
-(add-hook 'org-mode-hook 'my-org-mode-hook)
-(add-hook 'org-capture-mode-hook 'my-org-capture-hook)
-(add-hook 'org-attach-after-change-hook 'my-org-attach-save-file-list-to-property)
-
-(defun my-org-clock-jump ()
-  (interactive)
-  (push-mark (point))
-  (org-clock-jump-to-current-clock))
-
-(defun my-www-get-page-title (url)
-  (with-current-buffer (url-retrieve-synchronously url)
-    (goto-char (point-min))
-    (re-search-forward "<title[^>]*>\\([^<]*\\)</title>" nil t 1)
-    (let ((title (match-string 1)))
-      (goto-char (point-min))
-      (re-search-forward "charset=\\([-0-9a-zA-Z]*\\)" nil t 1)
-      (let* ((c (match-string 1))
-	     (coding (if (or (not c)
-			     (string= c "UTF-8")
-			     (string= c title))
-			 "utf-8" c)))
-	(decode-coding-string title (intern coding))))))
-
-(defun my-wrap-org-link ()
-  "With point at the start of a URL, turn it into [[url][title]]"
-  (interactive)
-  (let ((bounds (thing-at-point-bounds-of-url-at-point t)))
-    (when (and bounds (< (car bounds) (cdr bounds)))
-      (let* ((url (buffer-substring-no-properties (car bounds) (cdr bounds)))
-	     (title (my-www-get-page-title url)))
-	(save-excursion
-	  (goto-char (cdr bounds))
-	  (insert (format "][%s]]" title))
-	  (goto-char (car bounds))
-	  (insert "[["))))))
-
-(advice-add 'org-time-stamp-inactive :before #'my-forward-before-insert)
-(advice-add 'org-insert-last-stored-link :before #'my-forward-before-insert)
-(advice-add 'org-insert-link :before #'my-forward-before-insert)
 
 (with-eval-after-load 'org-agenda
   (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map))
 
 (with-eval-after-load 'org
+
+  (when (eq system-type 'darwin)
+    (setq org-download-screenshot-method "screencapture -i %s")
+    (setq org-babel-awk-command "gawk"))
+
+  (setq org-babel-python-command "python3")
+
+  (org-babel-do-load-languages 'org-babel-load-languages
+			       '((shell . t)
+				 (awk . t)
+				 (python .t)
+				 (emacs-lisp . t)
+				 (gnuplot . t)))
+
+  (add-hook 'org-babel-after-execute-hook 'my-update-inline-images)
+
+  ;; org to pdf export
+  (when (executable-find "pandoc")
+    (require 'ox-pandoc nil t))
+
   (define-key org-mode-map (kbd "C-,") nil)
   (define-key org-mode-map (kbd "C-'") nil)
   (define-key org-mode-map (kbd "C-j") nil)
@@ -1444,132 +1565,13 @@ copy the basename."
   (define-key org-mode-map (kbd "C-c o e") 'org-download-edit)
   (define-key org-mode-map (kbd "C-c o h") 'org-fold-hide-block-all)
   (define-key org-mode-map (kbd "M-[") 'org-backward-paragraph)
-  (define-key org-mode-map (kbd "M-]") 'org-forward-paragraph)
-
-  (when (eq system-type 'darwin)
-    (setq org-babel-awk-command "gawk"))
-
-  (org-babel-do-load-languages 'org-babel-load-languages
-			       '((shell . t)
-				 (awk . t)
-				 (python .t)
-				 (emacs-lisp . t)
-				 (gnuplot . t)))
-
-  (defun my-update-inline-images ()
-    (when org-inline-image-overlays
-      (org-redisplay-inline-images)))
-
-  (add-hook 'org-babel-after-execute-hook 'my-update-inline-images)
-
-  (setq org-babel-python-command "python3")
-
-  ;; org to pdf export
-  (when (executable-find "pandoc")
-    (require 'ox-pandoc nil t)))
-
-
-(defun my-set-evil-local-mode-in-agenda-buffers (state)
-  "Enable/disable evil-local-mode in all org-agenda-files buffers"
-  (let ((state-func (if (and state
-			     (memq 'org-mode evil-emacs-state-modes))
-			#'evil-emacs-state
-		      #'evil-normal-state)))
-    (dolist (f (org-agenda-files))
-      (when-let ((b (get-file-buffer f)))
-	(with-current-buffer b
-	  (evil-local-mode state)
-	  (when state
-	    (funcall state-func)))))))
-
-(defun my-advise-org-agenda-todo (func &rest args)
-  "Switch off evil-local-mode in all org-agenda-files buffers before
-org-agenda-todo runs, and enable it again afterwards. This is a
-workaround for a bug where marking a habit task as DONE from the
-agenda doesn't correctly keep it in a repeating TODO state when
-the buffer the agenda was built from has evil-local-mode enabled."
-  (my-set-evil-local-mode-in-agenda-buffers 0)
-  (unwind-protect
-      (apply func args)
-    (my-set-evil-local-mode-in-agenda-buffers 1)))
-
-(advice-add #'org-agenda-todo :around #'my-advise-org-agenda-todo)
-
-(defun my-merge-tables-by-date (a b &optional empty)
-  "'a' and 'b' are tables (lists where each element is a row). The first
-column of each is a date of the form YYYY-MM-DD. Merge the tables
-by date. Modifies the lists in 'a' and 'b'. 'empty' is used to
-fill empty cells when the rows don't match, and defaults to the
-empty string."
-  (let* ((blank (or empty ""))
-    	 (cols (if a (- (length (car a)) 1) 1))
-    	 res)
-    (while (and a b)
-      (let ((ta (date-to-time (caar a)))
-    	    (tb (date-to-time (caar b))))
-    	(cond
-    	 ((time-less-p ta tb)
-    	  (push (nconc (car a) (list blank)) res)
-    	  (setq a (cdr a)))
-    	 ((time-less-p tb ta)
-    	  (push (nconc (list (caar b)) (make-list cols blank) (cdar b)) res)
-    	  (setq b (cdr b)))
-    	 (t
-    	  (push (nconc (car a) (cdar b)) res)
-    	  (setq a (cdr a))
-    	  (setq b (cdr b))))))
-    (while a
-      (push (nconc (car a) (list blank)) res)
-      (setq a (cdr a)))
-    (while b
-      (push (nconc (list (caar b)) (make-list cols blank) (cdar b)) res)
-      (setq b (cdr b)))
-    (reverse res)))
-
-(defun my-org-capture-task ()
-  (interactive)
-  (org-capture nil "x"))
-
-(defun my-advise-org-capture (func &rest args)
-  "Workaround delay in opening capture buffer"
-  (cl-flet ((org-get-x-clipboard (value) nil))
-    (apply func args)))
-
-(advice-add 'org-capture :around 'my-advise-org-capture)
-
-(defun my-org-agenda ()
-  (interactive)
-  (org-agenda nil ".")
-  ;; (when my-machine
-  ;;   ;; hide work tasks
-  ;;   (org-agenda-filter-by-tag '(4) ?w))
-  )
-
-(defun my-advise-org-fill-paragraph (func &rest args)
-  "When the region is active, revert to fill-paragraph behaviour."
-  (interactive (progn
-		 (barf-if-buffer-read-only)
-		 (list (when current-prefix-arg 'full) t)))
-  (if (region-active-p)
-      (fill-paragraph (car args) t)
-    (apply func args)))
-
-(advice-add 'org-fill-paragraph :around 'my-advise-org-fill-paragraph)
-
-(defun my-advise-org-exec-src-block (func &rest args)
-  "Make raw results containing a table align correctly, since we
-defaulted the setting off."
-  (let ((org-table-automatic-realign t))
-    (apply func args)))
-
-(advice-add 'org-babel-execute-src-block :around 'my-advise-org-exec-src-block)
+  (define-key org-mode-map (kbd "M-]") 'org-forward-paragraph))
 
 
 (pcase system-type
   ('gnu/linux
    (global-set-key (kbd "C-`") 'my-org-capture-task))
   ('darwin
-   (setq org-download-screenshot-method "screencapture -i %s")
    (global-set-key (kbd "C-§") 'my-org-capture-task)))
 
 (global-set-key (kbd "C-c l") 'org-store-link)
