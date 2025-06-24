@@ -1343,6 +1343,7 @@ empty string."
 (defun my-org-capture-hook ()
   (interactive)
   (when (and (eq major-mode 'org-mode)
+	     (bound-and-true-p evil-local-mode)
 	     (evil-normal-state-p))
    (evil-insert-state)))
 
