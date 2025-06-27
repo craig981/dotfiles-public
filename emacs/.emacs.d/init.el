@@ -2212,15 +2212,20 @@ return the project path instead"
 
 (pcase system-type
   ('gnu/linux
-   (setq dired-guess-shell-alist-user `(("\\.exr\\'" "djv")
-					("\\.mp4\\'" "mpv")
-					("\\.mkv\\'" "mpv")
-					("\\.pdf\\'" "evince")
-					("\\.jp[e]?g\\'" ,(cond
-							   ((executable-find "feh")
-							    "feh -Zx *")
-							   (t "display")))
-					("" "open"))))
+   (let ((mplay (executable-find "mplay"))
+	 (djv   (executable-find "djv"))
+	 (feh   (executable-find "feh")))
+     (setq dired-guess-shell-alist-user `(("\\.exr\\'" ,(cond
+							 (mplay "mplay")
+							 (djv "djv")))
+					  ("\\.jp[e]?g\\'" ,(cond
+							     (mplay "mplay")
+							     (feh "feh -Zx *")
+							     (t "display")))
+					  ("\\.mp4\\'" "mpv")
+					  ("\\.mkv\\'" "mpv")
+					  ("\\.pdf\\'" "evince")
+					  ("" "open")))))
 
   ('darwin
    (setq dired-guess-shell-alist-user '(("" "open"))))
