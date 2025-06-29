@@ -1,13 +1,11 @@
 
-sudo apt install git make stow curl
+Ubuntu: sudo apt install git make stow curl
 
-curl may need: sudo apt update && sudo apt upgrade
-
-vim may need: libncurses-dev
+MacPorts: sudo port install stow curl
 
 
-git clone git@github.com:cseivad/dotfiles-public.git
-#git clone https://github.com/cseivad/dotfiles-public.git
+
+git clone URL_OF_THIS_REPO
 cd dotfiles-public
 make
 
@@ -19,15 +17,3 @@ Vim:     :PlugInstall
 Git:     Set name + email in ~/dotfiles/gitconfig_user
 
 
-Windows:
-
-- Run Powershell as administrator
-
-  powershell -Command Add-MpPreference -ExclusionPath "C:\cygwin64\"
-
-- GUI equivalent:
-  - Windows Settings
-  - Search "virus & threat protection"
-  - Under 'Virus & threat protection' settings, choose 'Manage settings'
-  - Scroll down, under 'Exclusions', choose 'Add or remove exclusions'
-  - Add "C:\Program Files\Emacs"
