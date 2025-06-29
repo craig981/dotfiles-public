@@ -1313,7 +1313,7 @@ empty string."
 
   (if (and (bound-and-true-p evil-local-mode)
 	   (string= "*Org Note*" (buffer-name)))
-      (evil-emacs-state))
+      (evil-insert-state))
 
   ;; / is punctuation, so evil * works on path components
   (modify-syntax-entry ?/ ".")
