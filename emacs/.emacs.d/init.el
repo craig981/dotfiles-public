@@ -2997,6 +2997,23 @@ make TAGS in that directory."
 (define-auto-insert "\\.h\\'" 'my-cpp-include-guard)
 (define-auto-insert "\\.c\\(pp\\|c\\)\\'" 'my-cpp-default)
 
+;; https://github.com/rexim/simpc-mode
+(let ((dir "~/dev/simpc-mode"))
+
+  (when (file-directory-p dir)
+    (add-to-list 'load-path dir)
+    (require 'simpc-mode)
+
+    (defun my-toggle-c-mode ()
+      (interactive)
+      (cond
+       ((memq major-mode '(c-mode c++-mode))
+	(simpc-mode))
+       ((eq major-mode 'simpc-mode)
+	(set-auto-mode))))
+
+    (global-set-key (kbd "C-c t c") 'my-toggle-c-mode)))
+
 ;; ----------------------------------------------------------------------------
 ;;| Maya, Houdini, Arnold
 ;; ----------------------------------------------------------------------------
