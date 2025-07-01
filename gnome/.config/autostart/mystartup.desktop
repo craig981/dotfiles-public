@@ -1,6 +1,6 @@
 [Desktop Entry]
 Type=Application
-Exec=/home/craig/dotfiles-public/bin/mystartup.sh
+Exec=sh -c "$HOME/dotfiles-public/bin/mystartup.sh"
 Hidden=false
 NoDisplay=false
 X-GNOME-Autostart-enabled=true

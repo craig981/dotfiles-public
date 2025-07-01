@@ -1,7 +1,13 @@
 
-Ubuntu: sudo apt install git make stow curl
+Ubuntu:
+	sudo apt install git make stow curl
 
-MacPorts: sudo port install stow curl
+	Install Menlo.ttc to ~/.fonts
+
+	fc-cache -v ~/.fonts
+
+MacPorts:
+	sudo port install stow curl
 
 
 
@@ -10,10 +16,22 @@ cd dotfiles-public
 make
 
 
-Emacs:   M-x package-install-selected-packages
 
-Vim:     :PlugInstall
+Apply settings once:
 
-Git:     Set name + email in ~/dotfiles/gitconfig_user
+	mystartup.sh
+
+Or on each login with gnome autostart:
+
+	make startup
+
+
+
+Emacs:  M-x package-refresh-contents
+	M-x package-install-selected-packages
+
+Vim:    :PlugInstall
+
+Git:    Set name + email in ~/dotfiles/gitconfig_user
 
 

@@ -9,7 +9,6 @@ all:
 
 ifeq ($(osuname),Linux)
 	stow -v emacs
-	stow -v gnome
 endif
 ifeq ($(osuname),Darwin)
 	stow -v emacs
@@ -30,6 +29,10 @@ endif
 
 	[ -d ~/.terminfo ] && find ~/.terminfo -name dumb-emacs-ansi | grep -q . || tic dumb-emacs-ansi.ti
 
+ifeq ($(osuname),Linux)
+startup:
+	stow -v gnome
+endif
 
 macports-install:
 	sudo port -N install \
