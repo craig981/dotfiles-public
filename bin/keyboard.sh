@@ -51,7 +51,7 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
 
     # launchers
     gsettings set org.gnome.settings-daemon.plugins.media-keys terminal "['<Super>Return']"
-    gsettings set org.gnome.settings-daemon.plugins.media-keys www "['<Super>w']"
+    gsettings set org.gnome.settings-daemon.plugins.media-keys www "['<Super>b']"
 
     # screenshots
     gsettings set org.gnome.shell.keybindings screenshot "['<Super>p']"
@@ -77,6 +77,8 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
 
     # windows
     gsettings set org.gnome.desktop.wm.keybindings activate-window-menu "['<Alt><Super>space']" # instead of alt+space
+    gsettings set org.gnome.desktop.wm.keybindings maximize "['<Super>Up']"
+    gsettings set org.gnome.desktop.wm.keybindings close "['<Super>w']"
 
     # gnome-terminal
     gsettings set org.gnome.Terminal.Legacy.Keybindings:/org/gnome/terminal/legacy/keybindings/ next-tab "'<Alt>braceright'"
