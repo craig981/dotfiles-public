@@ -159,12 +159,18 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
 fi
 
 if [[ "$XDG_CURRENT_DESKTOP" = "MATE" ]]; then
+
     gsettings set org.mate.interface gtk-key-theme Emacs
+
     # disable Super_L key opening menu
-    gsettings set org.mate.mate-menu hot-key ''
-    gsettings set com.solus-project.brisk-menu hot-key ''
+    # gsettings set org.mate.mate-menu hot-key ''
+    # gsettings set com.solus-project.brisk-menu hot-key ''
+
     # disable Super_L-E opening file explorer
     gsettings set org.mate.Marco.global-keybindings run-command-3 ''
+
+    # disable C-M-l screen lock, conflicts with Emacs
+    gsettings set org.mate.SettingsDaemon.plugins.media-keys screensaver ''
 
     gsettings set org.mate.Marco.global-keybindings run-command-terminal "'<Shift><Alt>t'"
 
