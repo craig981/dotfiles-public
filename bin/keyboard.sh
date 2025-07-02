@@ -166,6 +166,8 @@ if [[ "$XDG_CURRENT_DESKTOP" = "MATE" ]]; then
     # disable Super_L-E opening file explorer
     gsettings set org.mate.Marco.global-keybindings run-command-3 ''
 
+    gsettings set org.mate.Marco.global-keybindings run-command-terminal "'<Shift><Alt>t'"
+
     gsettings set org.mate.peripherals-keyboard-xkb.kbd options "['ctrl\tctrl:swapcaps', 'terminate\tterminate:ctrl_alt_bksp', 'ctrl\tctrl:ralt_rctrl']"
 fi
 
