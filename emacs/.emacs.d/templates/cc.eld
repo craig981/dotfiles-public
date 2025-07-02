@@ -24,7 +24,7 @@ c++-mode c-mode
   var "<"
   (p "n") "; ++" var ") {" n
   > q n
-  "\t}" n)
+  > "}" n)
 
 (for_stl
   "for (\t"
@@ -33,7 +33,7 @@ c++-mode c-mode
   "\t\t" (s it) "=" (s vec) ".begin(); " it "!=" vec ".end(); ++" it n
   "\t) {" n
   > q n
-  "\t}" n)
+  > "}" n)
 
 (print_vec
   "<<" n
