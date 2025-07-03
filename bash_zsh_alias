@@ -20,13 +20,10 @@ else
     export LS_COLORS='no=00:fi=00:di=1;34:ow=1;34:ln=01;33:pi=04;33:*.dylib=04;03;31:so=01;35:bd=03;32;03:cd=03;36;02:or=30;01;31:ex=01;32'
   fi
 
-  alias ls='/bin/ls --color=auto'
   alias l='/bin/ls -lrth --color=auto'
   alias ll='/bin/ls -lrth --color=auto'
   alias la='/bin/ls -lrthA --color=auto'
-
-  alias ke='killall -s 9 emacs'
-  alias km='killall -s 9 maya.bin'
+  alias ls='/bin/ls --color=auto'
 
 fi
 
@@ -36,19 +33,14 @@ fi
 
 export EDITOR=vim
 alias vi=vim
-alias e='emacs -nw'
 
 function lt() {
 	tree -C -a -I .git "$@" | less -R
 }
 
-# alias d='imf_disp'
-alias p='mplayer -really-quiet -loop 0 -fixed-vo'
-alias abcll='abcls -almrstv'
-alias t='tmux'
+# alias p='mplayer -really-quiet -loop 0 -fixed-vo'
 alias d='cd ~/dotfiles-public'
-
 alias g='git st'
-alias gl='git lo'
 alias gg='git log --patch -G'
+alias abcll='abcls -almrstv'
 
