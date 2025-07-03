@@ -3194,7 +3194,7 @@ to its default value. Leave it alone!"
 (defhydra my-jump-hydra (:hint nil)
   "
 _i_: init.el         _s_:   project shell     _b_: ibuffer      _SPC_: agenda               _g_: EMMS             _._: dotfiles-public
-_n_: notes           _S_:   shell             _c_: calc         _C_:   calc other window    _a_: Add playlist     _t_: term
+_n_: notes           _M-s_: shell             _c_: calc         _x_:   calc other window    _a_: Add playlist     _t_: term
 _w_: world clock     _e_:   jump to shell     _d_: calendar     _v_:   magit list repos     _p_: Playlist new
 _C-e_: choose shell  _M-e_: cycle shell       _r_: scratch      _f_:   ledger               _o_: olivetti
 "
@@ -3202,14 +3202,14 @@ _C-e_: choose shell  _M-e_: cycle shell       _r_: scratch      _f_:   ledger   
   ("e"	 #'my-jump-to-shell)
   ("M-e" #'my-cycle-shell)
   ("C-e" #'my-choose-shell       :exit t)
-  ("S"	 #'my-shell	         :exit t)
+  ("M-s" #'my-shell	         :exit t)
   ("s"	 #'my-project-shell      :exit t)
   ("t"	 #'my-term	         :exit t)
   ("v"	 #'my-magit-list-repos   :exit t)
   ("."	 (lambda () (interactive) (magit "~/dotfiles-public"))   :exit t)
   ("d"	 #'my-project-dired      :exit t)
   ("c"   (lambda () (interactive) (calc nil calc-full-mode t)) :exit t)
-  ("C"   (lambda () (interactive) (calc-other-window t))       :exit t)
+  ("x"   (lambda () (interactive) (calc-other-window t))       :exit t)
   ("d"   #'calendar              :exit t)
   ("b"   #'ibuffer               :exit t)
   ("n"   (lambda () (interactive) (find-file org-default-notes-file)) :exit t)
