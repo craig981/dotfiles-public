@@ -1,3 +1,4 @@
+makedir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 osuname := $(shell uname -s | cut -d- -f1)
 
@@ -142,3 +143,47 @@ update-chrome:
 
 ssp:
 	sudo btmgmt ssp on
+
+
+
+# download and build emacs
+
+
+emacs_version = 29.1
+emacs_prefix = $(HOME)/tools/emacs-$(emacs_version)
+
+build = /tmp/build
+emacs_src = $(build)/emacs-$(emacs_version)
+urls = \
+	https://ftp.gnu.org/gnu/gnu-keyring.gpg \
+	https://ftp.gnu.org/gnu/emacs/emacs-$(emacs_version).tar.xz \
+	https://ftp.gnu.org/gnu/emacs/emacs-$(emacs_version).tar.xz.sig
+
+local_file = $(addprefix $(build)/,$(notdir $(1)))
+define download
+$(call local_file,$(1)):
+	mkdir -p "$$(@D)"
+	curl -o "$$@" "$(1)"
+endef
+$(foreach url,$(urls),$(eval $(call download,$(url))))
+all_local_files = $(call local_file,$(urls))
+
+conf_args = --prefix "$(emacs_prefix)" \
+	--with-modules \
+	--with-imagemagick
+ifeq ($(XDG_SESSION_TYPE),wayland)
+  conf_args += --with-pgtk
+endif
+
+$(emacs_src): $(all_local_files)
+	cd "$(build)" && sha1sum -c "$(makedir)/hashes/emacs-$(emacs_version).sha1"
+	cd "$(build)" && gpg --verify --keyring ./gnu-keyring.gpg "emacs-$(emacs_version).tar.xz.sig"
+	cd "$(build)" && tar xfJ "emacs-$(emacs_version).tar.xz"
+
+.PHONY: emacs
+emacs: $(emacs_src)
+	[ ! -d "$(emacs_prefix)" ] || ( echo "Prefix dir already exists : $(emacs_prefix)" && exit 1 )
+	cd "$(emacs_src)" && ./autogen.sh
+	cd "$(emacs_src)" && ./configure $(conf_args)
+	$(MAKE) -C "$(emacs_src)" -j 4
+	$(MAKE) -C "$(emacs_src)" install
