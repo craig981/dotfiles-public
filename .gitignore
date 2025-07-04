@@ -4,4 +4,5 @@ vim/.vim/.netrwhist
 *.~undo-tree~
 emacs/.emacs.d/eshell/history
 emacs/.emacs.d/eshell/lastdir
+/build
 

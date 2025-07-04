@@ -1,3 +1,5 @@
+# -*- mode: makefile-gmake -*-
+
 makedir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
 osuname := $(shell uname -s | cut -d- -f1)
@@ -148,42 +150,56 @@ ssp:
 
 # download and build emacs
 
+downloads = $(HOME)/Downloads
+build = $(makedir)/build
 
 emacs_version = 29.1
 emacs_prefix = $(HOME)/tools/emacs-$(emacs_version)
 
-build = /tmp/build
 emacs_src = $(build)/emacs-$(emacs_version)
 urls = \
 	https://ftp.gnu.org/gnu/gnu-keyring.gpg \
 	https://ftp.gnu.org/gnu/emacs/emacs-$(emacs_version).tar.xz \
 	https://ftp.gnu.org/gnu/emacs/emacs-$(emacs_version).tar.xz.sig
 
-local_file = $(addprefix $(build)/,$(notdir $(1)))
+local_file = $(addprefix $(downloads)/,$(notdir $(1)))
 define download
 $(call local_file,$(1)):
 	mkdir -p "$$(@D)"
 	curl -o "$$@" "$(1)"
 endef
 $(foreach url,$(urls),$(eval $(call download,$(url))))
-all_local_files = $(call local_file,$(urls))
 
-conf_args = --prefix "$(emacs_prefix)" \
+$(emacs_src): $(call local_file,$(urls))
+	cd "$(downloads)" && sha1sum -c "$(makedir)/hashes/emacs-$(emacs_version).sha1"
+	gpg --verify --no-options --keyring "$(downloads)/gnu-keyring.gpg" "$(downloads)/emacs-$(emacs_version).tar.xz.sig"
+	mkdir -p "$(@D)"
+	cd "$(@D)" && tar xfJ "$(downloads)/emacs-$(emacs_version).tar.xz"
+
+conf_args = \
 	--with-modules \
 	--with-imagemagick
-ifeq ($(XDG_SESSION_TYPE),wayland)
-  conf_args += --with-pgtk
+ifeq ($(osuname),Linux)
+  conf_args += --prefix "$(emacs_prefix)"
+  ifeq ($(XDG_SESSION_TYPE),wayland)
+    conf_args += --with-pgtk
+  endif
 endif
 
-$(emacs_src): $(all_local_files)
-	cd "$(build)" && sha1sum -c "$(makedir)/hashes/emacs-$(emacs_version).sha1"
-	cd "$(build)" && gpg --verify --keyring ./gnu-keyring.gpg "emacs-$(emacs_version).tar.xz.sig"
-	cd "$(build)" && tar xfJ "emacs-$(emacs_version).tar.xz"
+.PHONY: emacs emacs-clean clean
 
-.PHONY: emacs
 emacs: $(emacs_src)
 	[ ! -d "$(emacs_prefix)" ] || ( echo "Prefix dir already exists : $(emacs_prefix)" && exit 1 )
 	cd "$(emacs_src)" && ./autogen.sh
 	cd "$(emacs_src)" && ./configure $(conf_args)
 	$(MAKE) -C "$(emacs_src)" -j 4
 	$(MAKE) -C "$(emacs_src)" install
+ifeq ($(osuname),Darwin)
+	ls -ld "$(emacs_src)/nextstep/Emacs.app"
+endif
+
+emacs-clean:
+	rm -r "$(emacs_src)"
+
+clean:
+	rm -r "$(build)"
