@@ -3305,9 +3305,11 @@ _C-e_: choose shell  _M-e_: cycle shell       _r_: scratch      _f_:   ledger   
       display-buffer-alist)
 
 
-;;; disable trackpad zoom
-(global-set-key (kbd "<C-wheel-up>") 'ignore)
-(global-set-key (kbd "<C-wheel-down>") 'ignore)
+;;; disable trackpad zoom or scroll when modifier held
+(dolist (key '("<C-wheel-up>" "<C-wheel-down>" "<C-wheel-left>" "<C-wheel-right>"
+	       "<S-wheel-up>" "<S-wheel-down>" "<S-wheel-left>" "<S-wheel-right>"
+	       "<M-wheel-up>" "<M-wheel-down>" "<M-wheel-left>" "<M-wheel-right>"))
+  (global-set-key (kbd key) 'ignore))
 (global-set-key (kbd "<pinch>") 'ignore)
 
 ;; ----------------------------------------------------------------------------
