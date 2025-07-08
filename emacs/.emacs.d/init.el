@@ -3222,7 +3222,9 @@ _C-e_: choose shell  _M-e_: cycle shell       _r_: scratch      _f_:   ledger   
   ("o"   #'olivetti-mode         :exit t)
   ("w"   #'world-clock           :exit t))
 
-(global-set-key (kbd "C-,") 'my-jump-hydra/body)
+(if (display-graphic-p)
+    (global-set-key (kbd "C-,") 'my-jump-hydra/body))
+(global-set-key (kbd "C-c j") 'my-jump-hydra/body)
 
 ;; ----------------------------------------------------------------------------
 ;;| Window setup
