@@ -19,7 +19,7 @@ if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
     gsettings set org.gnome.desktop.session idle-delay 1800
     # stop creating new workspaces automatically
     gsettings set org.gnome.mutter dynamic-workspaces false
-    gsettings set org.gnome.desktop.wm.preferences num-workspaces 3
+    gsettings set org.gnome.desktop.wm.preferences num-workspaces 4
     # show weekday
     gsettings set org.gnome.desktop.interface clock-show-weekday true
 fi
