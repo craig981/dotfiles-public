@@ -1296,7 +1296,7 @@ empty string."
 (setq org-element-use-cache nil)
 
 (setq org-default-notes-file
-      (or (my-optional-file "~/notes.org.gpg")
+      (or (my-optional-file "~/org/notes.org.gpg")
 	  (my-optional-file "~/org/work.org")
 	  "~/notes.org"))
 
