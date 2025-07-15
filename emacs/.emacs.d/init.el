@@ -1466,7 +1466,8 @@ defaulted the setting off."
 	(org-agenda-start-on-weekday 1)))
 
 (setq org-agenda-custom-commands
-      `(("p" "In progress" todo "PROGRESS")
+      `(("n" "Next" todo "NEXT")
+	("p" "In progress" todo "PROGRESS")
 	("w" "Waiting" todo "WAIT|BLOCK")
 	("d" "Done" todo "DONE|CANCELLED")
 	("l" "Read|Watch|Project"
