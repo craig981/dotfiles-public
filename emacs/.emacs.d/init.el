@@ -761,9 +761,9 @@ empty string."
 (global-set-key (kbd "C-M-'") #'evil-numbers/dec-at-pt)
 (global-set-key (kbd "C-M-y") #'my-duplicate-line)
 (global-set-key (kbd "C-o") #'my-open-line-above)
-(global-set-key (kbd "C-j") #'my-join-lines)
 (global-set-key (kbd "C-=") #'my-close-other-window)
 (global-set-key (kbd "C-;") #'goto-last-change)
+(evil-global-set-key 'insert (kbd "C-j") #'my-join-lines)
 (when (display-graphic-p)
  (global-set-key (kbd "C-<backspace>") #'my-delete-to-indent))
 
@@ -1901,6 +1901,7 @@ defaulted the setting off."
 (global-set-key (kbd "C-x k")		     'kill-current-buffer)
 
 (global-set-key (kbd "C-'")     'mode-line-other-buffer)
+(global-set-key (kbd "C-j")     'my-switch-buffer)
 (global-set-key (kbd "C-x C-b") 'my-switch-buffer)
 (global-set-key (kbd "C-x b")   'my-switch-buffer)
 (global-set-key (kbd "C-x 4 b") 'my-switch-buffer-other-window)
