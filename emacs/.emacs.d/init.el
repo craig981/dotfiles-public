@@ -371,8 +371,9 @@
   (when (and (bound-and-true-p git-commit-mode)
 	     (bound-and-true-p evil-local-mode)
 	     (evil-normal-state-p)
-	     (looking-at "^$"))
-    (evil-insert-state))
+	     ;; (looking-at "^$")
+	     )
+    (evil-emacs-state))
 
   (if my-input-method
       (set-input-method my-input-method)))
@@ -1995,7 +1996,7 @@ defaulted the setting off."
 
 (when (require 'ace-window nil t)
   (global-set-key (kbd "M-O") 'ace-window)
-  (setq aw-keys '(?f ?j ?k ?l ?\; ?')))
+  (setq aw-keys '(?f ?g ?h ?j ?k ?l ?\;)))
 
 ;; ----------------------------------------------------------------------------
 ;;| Projects
