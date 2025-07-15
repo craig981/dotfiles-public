@@ -761,7 +761,7 @@ empty string."
 (global-set-key (kbd "C-o") #'my-open-line-above)
 (global-set-key (kbd "C-=") #'my-close-other-window)
 (global-set-key (kbd "C-;") #'goto-last-change)
-;; (global-set-key (kbd "C-'") #'mode-line-other-buffer)
+(global-set-key (kbd "C-'") #'mode-line-other-buffer)
 (when (display-graphic-p)
  (global-set-key (kbd "C-<backspace>") #'my-delete-to-indent))
 
@@ -1994,7 +1994,7 @@ defaulted the setting off."
 ;; ----------------------------------------------------------------------------
 
 (when (require 'ace-window nil t)
-  (global-set-key (kbd "C-'") 'ace-window)
+  (global-set-key (kbd "M-O") 'ace-window)
   (setq aw-keys '(?f ?j ?k ?l ?\; ?')))
 
 ;; ----------------------------------------------------------------------------
