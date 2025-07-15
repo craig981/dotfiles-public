@@ -132,7 +132,7 @@
  '(org-startup-indented t)
  '(org-table-automatic-realign nil)
  '(org-todo-keywords
-   '((sequence "TODO(t)" "PROGRESS(p)" "WAIT(w@/@)" "BLOCK(b@/@)" "|" "DONE(d!/!)" "CANCELLED(c@/@)")))
+   '((sequence "TODO(t)" "NEXT(n)" "PROGRESS(p)" "WAIT(w@/@)" "BLOCK(b@/@)" "|" "DONE(d!/!)" "CANCELLED(c@/@)")))
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
    '(ace-window cape cmake-mode consult consult-dir doric-themes ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless org-download ox-pandoc paredit reykjavik-theme soft-morning-theme tempel terminal-here undo-tree vertico wgrep which-key yaml-mode))
