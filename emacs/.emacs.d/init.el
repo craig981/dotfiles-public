@@ -749,9 +749,10 @@ empty string."
 (global-set-key (kbd "M-l") #'downcase-dwim)
 (global-set-key (kbd "M-c") #'capitalize-dwim)
 (global-set-key (kbd "M-o") 'other-window)
-(global-set-key (kbd "M-j") #'my-join-lines)
-(global-set-key (kbd "M-p") #'evil-scroll-line-up)
-(global-set-key (kbd "M-n") #'evil-scroll-line-down)
+(global-set-key (kbd "M-i") #'evil-scroll-line-up)
+(global-set-key (kbd "M-j") #'evil-scroll-line-down)
+(global-set-key (kbd "M-p") #'evil-scroll-up)
+(global-set-key (kbd "M-n") #'evil-scroll-down)
 (global-set-key (kbd "M-[") (kbd "M-{"))
 (global-set-key (kbd "M-]") (kbd "M-}"))
 
@@ -760,9 +761,9 @@ empty string."
 (global-set-key (kbd "C-M-'") #'evil-numbers/dec-at-pt)
 (global-set-key (kbd "C-M-y") #'my-duplicate-line)
 (global-set-key (kbd "C-o") #'my-open-line-above)
+(global-set-key (kbd "C-j") #'my-join-lines)
 (global-set-key (kbd "C-=") #'my-close-other-window)
 (global-set-key (kbd "C-;") #'goto-last-change)
-(global-set-key (kbd "C-'") #'mode-line-other-buffer)
 (when (display-graphic-p)
  (global-set-key (kbd "C-<backspace>") #'my-delete-to-indent))
 
@@ -1899,7 +1900,7 @@ defaulted the setting off."
 (evil-global-set-key 'motion (kbd "C-w C-d") 'kill-current-buffer)
 (global-set-key (kbd "C-x k")		     'kill-current-buffer)
 
-(global-set-key (kbd "C-j")     'my-switch-buffer)
+(global-set-key (kbd "C-'")     'mode-line-other-buffer)
 (global-set-key (kbd "C-x C-b") 'my-switch-buffer)
 (global-set-key (kbd "C-x b")   'my-switch-buffer)
 (global-set-key (kbd "C-x 4 b") 'my-switch-buffer-other-window)
