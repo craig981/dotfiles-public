@@ -1564,6 +1564,7 @@ defaulted the setting off."
   (define-key org-mode-map (kbd "C-c o i") 'org-download-image)
   (define-key org-mode-map (kbd "C-c o e") 'org-download-edit)
   (define-key org-mode-map (kbd "C-c o h") 'org-fold-hide-block-all)
+  (define-key org-mode-map (kbd "C-c o w") 'embark-org-copy-link-target)
   (define-key org-mode-map (kbd "M-[") 'org-backward-paragraph)
   (define-key org-mode-map (kbd "M-]") 'org-forward-paragraph))
 
