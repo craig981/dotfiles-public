@@ -1439,25 +1439,13 @@ defaulted the setting off."
 
   (add-hook 'org-agenda-mode-hook #'my-revert-gcal-before-agenda))
 
-(defun my-advise-with-emacs-state (func &rest args)
-  "Run `func` in emacs state, e.g. to workaround org links not
-inserting on the last line of the buffer when in normal mode."
-  (if (bound-and-true-p evil-local-mode)
-      (let ((state evil-state))
-	(evil-emacs-state)
-	(unwind-protect
-	    (apply func args)
-	  (evil-change-state state)))
-    (apply func args)))
-
-
 (add-hook 'org-mode-hook		#'my-org-mode-hook)
 (add-hook 'org-capture-mode-hook	#'my-org-capture-hook)
 (add-hook 'org-attach-after-change-hook #'my-org-attach-save-file-list-to-property)
 
-(advice-add #'org-time-stamp-inactive	  :around #'my-advise-with-emacs-state)
-(advice-add #'org-insert-last-stored-link :around #'my-advise-with-emacs-state)
-(advice-add #'org-insert-link		  :around #'my-advise-with-emacs-state)
+(advice-add #'org-time-stamp-inactive	  :before #'my-forward-before-insert)
+(advice-add #'org-insert-last-stored-link :before #'my-forward-before-insert)
+(advice-add #'org-insert-link		  :before #'my-forward-before-insert)
 (advice-add #'org-agenda-todo		  :around #'my-advise-org-agenda-todo)
 (advice-add #'org-capture		  :around #'my-advise-org-capture)
 (advice-add #'org-babel-execute-src-block :around #'my-advise-org-exec-src-block)
