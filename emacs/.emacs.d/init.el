@@ -1528,7 +1528,7 @@ inserting on the last line of the buffer when in normal mode."
 
 
 
-(push 'org-mode evil-emacs-state-modes)
+;; (push 'org-mode evil-emacs-state-modes)
 
 (with-eval-after-load 'org-agenda
   (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map))
