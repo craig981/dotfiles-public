@@ -371,9 +371,8 @@
   (when (and (bound-and-true-p git-commit-mode)
 	     (bound-and-true-p evil-local-mode)
 	     (evil-normal-state-p)
-	     ;; (looking-at "^$")
-	     )
-    (evil-emacs-state))
+	     (looking-at "^$"))
+    (evil-insert-state))
 
   (if my-input-method
       (set-input-method my-input-method)))
