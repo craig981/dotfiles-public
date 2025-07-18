@@ -796,8 +796,10 @@ empty string."
 (advice-add 'evil-paste-after :after 'my-advise-paste)
 (advice-add 'evil-paste-after-cursor-after :after 'my-advise-paste)
 
-(define-key indent-rigidly-map (kbd ",") 'indent-rigidly-left-to-tab-stop)
-(define-key indent-rigidly-map (kbd ".") 'indent-rigidly-right-to-tab-stop)
+(define-key indent-rigidly-map (kbd ",") 'indent-rigidly-left)
+(define-key indent-rigidly-map (kbd ".") 'indent-rigidly-right)
+(define-key indent-rigidly-map (kbd "<") 'indent-rigidly-left)
+(define-key indent-rigidly-map (kbd ">") 'indent-rigidly-right)
 
 (define-key minibuffer-local-map (kbd "<escape>") 'abort-minibuffers)
 
