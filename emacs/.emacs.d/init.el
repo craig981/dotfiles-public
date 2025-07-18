@@ -717,6 +717,8 @@ empty string."
 
 (evil-global-set-key 'normal (kbd "C-]") (kbd "=i{"))
 (evil-global-set-key 'insert (kbd "C-d") 'my-delete-or-indent-left)
+(evil-global-set-key 'normal (kbd "DEL") 'my-delete-whitespace)
+(define-key evil-motion-state-map (kbd "RET") nil)
 
 (evil-leader/set-key "w" #'save-buffer)
 (evil-leader/set-key "d" #'pwd)
