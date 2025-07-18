@@ -735,7 +735,7 @@ empty string."
 (global-set-key (kbd "C-c m") #'my-mirror-buffer)
 (global-set-key (kbd "C-c q") #'my-kill-in-quotes)
 (global-set-key (kbd "C-c .") #'count-words-region)
-(global-set-key (kbd "C-c o") #'browse-url-at-point)
+(global-set-key (kbd "C-c b") #'browse-url-at-point)
 
 (define-key minibuffer-local-map (kbd "M-z") 'my-zap-up-to-char)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
@@ -1526,8 +1526,7 @@ inserting on the last line of the buffer when in normal mode."
 
 
 
-(when my-evil-emacs-state
-  (push 'org-mode evil-emacs-state-modes))
+(push 'org-mode evil-emacs-state-modes)
 
 (with-eval-after-load 'org-agenda
   (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map))
@@ -1570,12 +1569,12 @@ inserting on the last line of the buffer when in normal mode."
 	      (lambda ()
 		(interactive)
 		(org-toggle-checkbox '(4))))
-  (define-key org-mode-map (kbd "C-c o d") 'org-decrypt-entry)
-  (define-key org-mode-map (kbd "C-c o s") 'org-download-screenshot)
-  (define-key org-mode-map (kbd "C-c o i") 'org-download-image)
-  (define-key org-mode-map (kbd "C-c o e") 'org-download-edit)
-  (define-key org-mode-map (kbd "C-c o h") 'org-fold-hide-block-all)
-  (define-key org-mode-map (kbd "C-c o w") 'embark-org-copy-link-target)
+  (define-key org-mode-map (kbd "C-c j d") 'org-decrypt-entry)
+  (define-key org-mode-map (kbd "C-c j s") 'org-download-screenshot)
+  (define-key org-mode-map (kbd "C-c j i") 'org-download-image)
+  (define-key org-mode-map (kbd "C-c j e") 'org-download-edit)
+  (define-key org-mode-map (kbd "C-c j h") 'org-fold-hide-block-all)
+  (define-key org-mode-map (kbd "C-c j w") 'embark-org-copy-link-target)
   (define-key org-mode-map (kbd "M-[") 'org-backward-paragraph)
   (define-key org-mode-map (kbd "M-]") 'org-forward-paragraph))
 
@@ -2003,7 +2002,7 @@ inserting on the last line of the buffer when in normal mode."
 
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (evil-leader/set-key "o" 'helm-occur) ;; M-n grabs symbol under point
-(global-set-key (kbd "M-s M-o") 'helm-occur)
+(global-set-key (kbd "C-c o") 'helm-occur)
 
 ;; ----------------------------------------------------------------------------
 ;;| Ace window
@@ -3240,7 +3239,6 @@ _C-e_: choose shell  _M-e_: cycle shell       _r_: scratch      _f_:   ledger   
 
 (if (display-graphic-p)
     (global-set-key (kbd "C-,") 'my-jump-hydra/body))
-(global-set-key (kbd "C-c j") 'my-jump-hydra/body)
 
 ;; ----------------------------------------------------------------------------
 ;;| Window setup
