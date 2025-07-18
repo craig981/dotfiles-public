@@ -1428,6 +1428,18 @@ defaulted the setting off."
   (when org-inline-image-overlays
     (org-redisplay-inline-images)))
 
+(defun my-advise-with-emacs-state (func &rest args)
+  "Run `func` in emacs state, e.g. to workaround org links not
+inserting on the last line of the buffer when in normal mode."
+  (if (bound-and-true-p evil-local-mode)
+      (let ((state evil-state))
+	(evil-emacs-state)
+	(unwind-protect
+	    (apply func args)
+	  (evil-change-state state)))
+    (apply func args)))
+
+
 (when my-machine
 
   (defun my-revert-gcal-before-agenda ()
@@ -1443,7 +1455,7 @@ defaulted the setting off."
 (add-hook 'org-attach-after-change-hook #'my-org-attach-save-file-list-to-property)
 
 (advice-add #'org-time-stamp-inactive	  :before #'my-forward-before-insert)
-(advice-add #'org-insert-last-stored-link :before #'my-forward-before-insert)
+(advice-add #'org-insert-last-stored-link :around #'my-advise-with-emacs-state)
 (advice-add #'org-insert-link		  :before #'my-forward-before-insert)
 (advice-add #'org-agenda-todo		  :around #'my-advise-org-agenda-todo)
 (advice-add #'org-capture		  :around #'my-advise-org-capture)
