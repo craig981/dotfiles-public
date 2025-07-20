@@ -2774,8 +2774,8 @@ make TAGS in that directory."
 (add-hook 'lisp-interaction-mode-hook 'my-lisp-common-hook 'append)
 (add-hook 'scheme-mode-hook           'my-lisp-common-hook 'append)
 
-(push 'emacs-lisp-mode       evil-emacs-state-modes)
-(push 'lisp-interaction-mode evil-emacs-state-modes)
+;; (push 'emacs-lisp-mode       evil-emacs-state-modes)
+;; (push 'lisp-interaction-mode evil-emacs-state-modes)
 
 (advice-add 'paredit-comment-dwim :after 'my-advise-comment)
 
