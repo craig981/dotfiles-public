@@ -1614,12 +1614,7 @@ inserting on the last line of the buffer when in normal mode."
   (add-hook 'ledger-report-mode-hook 'my-ledger-report-hook)
 
   (define-key ledger-report-mode-map (kbd "M-p") nil)
-  (define-key ledger-report-mode-map (kbd "M-n") nil)
-
-  (add-to-list 'ledger-reports
-	       '("expenses this month" "%(binary) -f %(ledger-file) bal -S \"-abs(total)\" ^Expenses: --period 'this month'"))
-  (add-to-list 'ledger-reports
-	       '("expenses last month" "%(binary) -f %(ledger-file) bal -S \"-abs(total)\" ^Expenses: --period 'last month'")))
+  (define-key ledger-report-mode-map (kbd "M-n") nil))
 
 ;; ----------------------------------------------------------------------------
 ;;| Calc
