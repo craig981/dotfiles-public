@@ -3227,7 +3227,7 @@ _C-e_: choose shell  _M-e_: cycle shell       _r_: scratch      _f_:   ledger   
   ("d"   #'calendar              :exit t)
   ("b"   #'ibuffer               :exit t)
   ("n"   (lambda () (interactive) (find-file org-default-notes-file)) :exit t)
-  ("f"   (lambda () (interactive) (when (and (boundp 'my-ledger-file) my-ledger-file) (find-file my-ledger-file))) :exit t)
+  ("f"   (lambda () (interactive) (when (bound-and-true-p my-ledger-file) (find-file my-ledger-file))) :exit t)
   ("i"   #'my-find-init-file     :exit t)
   ("SPC" #'my-org-agenda	 :exit t)
   ("g"   #'emms-playlist-mode-go :exit t)
