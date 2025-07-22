@@ -160,6 +160,8 @@ fi
 
 if [[ "$XDG_CURRENT_DESKTOP" = "MATE" ]]; then
 
+    gsettings set org.mate.peripherals-keyboard-xkb.kbd layouts "['us', 'gb']"
+
     gsettings set org.mate.interface gtk-key-theme Emacs
 
     # disable Super_L key opening menu
