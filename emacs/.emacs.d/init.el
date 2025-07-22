@@ -754,8 +754,6 @@ empty string."
 (global-set-key (kbd "M-j") #'evil-scroll-line-down)
 (global-set-key (kbd "M-p") #'evil-scroll-up)
 (global-set-key (kbd "M-n") #'evil-scroll-down)
-(global-set-key (kbd "M-[") (kbd "M-{"))
-(global-set-key (kbd "M-]") (kbd "M-}"))
 
 (global-set-key (kbd "C-M-o") #'my-split-line)
 (global-set-key (kbd "C-M-;") #'evil-numbers/inc-at-pt)
@@ -1579,8 +1577,10 @@ inserting on the last line of the buffer when in normal mode."
   (define-key org-mode-map (kbd "C-c j e") 'org-download-edit)
   (define-key org-mode-map (kbd "C-c j h") 'org-fold-hide-block-all)
   (define-key org-mode-map (kbd "C-c j w") 'embark-org-copy-link-target)
-  (define-key org-mode-map (kbd "M-[") 'org-backward-paragraph)
-  (define-key org-mode-map (kbd "M-]") 'org-forward-paragraph))
+  (define-key org-mode-map (kbd "M-[") 'org-backward-element)
+  (define-key org-mode-map (kbd "M-]") 'org-forward-element)
+  (define-key org-mode-map (kbd "M-{") 'org-backward-paragraph)
+  (define-key org-mode-map (kbd "M-}") 'org-forward-paragraph))
 
 
 (pcase system-type
