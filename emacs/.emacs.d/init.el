@@ -2187,6 +2187,14 @@ return the project path instead"
 
 (add-hook 'isearch-mode-hook 'my-isearch-hook)
 
+(defun my-isearch-exit-beginning ()
+  (interactive)
+  (when isearch-forward
+    (goto-char isearch-other-end))
+  (isearch-exit))
+
+(define-key isearch-mode-map (kbd "C-<return>") 'my-isearch-exit-beginning)
+
 ;; ----------------------------------------------------------------------------
 ;;| Dired
 ;; ----------------------------------------------------------------------------
