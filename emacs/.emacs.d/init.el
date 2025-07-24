@@ -2193,7 +2193,7 @@ return the project path instead"
     (goto-char isearch-other-end))
   (isearch-exit))
 
-(define-key isearch-mode-map (kbd "C-<return>") 'my-isearch-exit-beginning)
+(define-key isearch-mode-map (kbd "M-<return>") 'my-isearch-exit-beginning)
 
 ;; ----------------------------------------------------------------------------
 ;;| Dired
