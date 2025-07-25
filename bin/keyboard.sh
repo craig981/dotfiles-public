@@ -2,7 +2,7 @@
 
 if [[ "$XDG_CURRENT_DESKTOP" = "ubuntu:GNOME" ]]; then
 
-    gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('xkb', 'gb')]"
+    gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us')]"
 
     # previously in /etc/default/keyboard; man keyboard; sudo dpkg-reconfigure keyboard-configuration
     # On hedgehog
@@ -162,7 +162,7 @@ fi
 
 if [[ "$XDG_CURRENT_DESKTOP" = "MATE" ]]; then
 
-    gsettings set org.mate.peripherals-keyboard-xkb.kbd layouts "['us', 'gb']"
+    gsettings set org.mate.peripherals-keyboard-xkb.kbd layouts "['us']"
     gsettings set org.mate.peripherals-keyboard-xkb.kbd options "['ctrl\tctrl:swapcaps', 'terminate\tterminate:ctrl_alt_bksp', 'ctrl\tctrl:ralt_rctrl']"
 
     gsettings set org.mate.interface gtk-key-theme Emacs
