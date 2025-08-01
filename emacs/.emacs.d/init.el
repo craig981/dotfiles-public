@@ -717,8 +717,6 @@ empty string."
 
 (evil-global-set-key 'normal (kbd "C-]") (kbd "=i{"))
 (evil-global-set-key 'insert (kbd "C-d") 'my-delete-or-indent-left)
-(evil-global-set-key 'normal (kbd "DEL") 'my-delete-whitespace)
-(define-key evil-motion-state-map (kbd "RET") nil)
 
 (evil-leader/set-key "w" #'save-buffer)
 (evil-leader/set-key "d" #'pwd)
@@ -1531,7 +1529,8 @@ inserting on the last line of the buffer when in normal mode."
 ;; (push 'org-mode evil-emacs-state-modes)
 
 (with-eval-after-load 'org-agenda
-  (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map))
+  (define-key org-agenda-mode-map (kbd "C-w") 'evil-window-map)
+  (define-key org-agenda-mode-map (kbd "C-o") 'org-agenda-recenter))
 
 (with-eval-after-load 'org
 
