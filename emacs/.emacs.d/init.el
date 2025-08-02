@@ -62,7 +62,7 @@
  '(electric-pair-mode nil)
  '(evil-flash-delay 60)
  '(evil-motion-state-modes
-   '(apropos-mode Buffer-menu-mode calendar-mode color-theme-mode command-history-mode dictionary-mode ert-results-mode help-mode Info-mode Man-mode speedbar-mode undo-tree-visualizer-mode view-mode woman-mode))
+   '(apropos-mode Buffer-menu-mode calendar-mode color-theme-mode command-history-mode dictionary-mode ert-results-mode help-mode Info-mode Man-mode speedbar-mode view-mode woman-mode))
  '(find-name-arg "-iname")
  '(gdb-debuginfod-enable-setting nil)
  '(gdb-many-windows t)
@@ -135,7 +135,7 @@
    '((sequence "TODO(t)" "NEXT(n)" "PROGRESS(p)" "WAIT(w@/@)" "BLOCK(b@/@)" "|" "DONE(d!/!)" "CANCELLED(c@/@)")))
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
-   '(ace-window cape cmake-mode consult consult-dir doric-themes ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless org-download ox-pandoc paredit reykjavik-theme soft-morning-theme tempel terminal-here undo-tree vertico wgrep which-key yaml-mode))
+   '(ace-window cape cmake-mode consult consult-dir doric-themes ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless org-download ox-pandoc paredit reykjavik-theme soft-morning-theme tempel terminal-here vertico wgrep which-key yaml-mode))
  '(package-vc-selected-packages
    '((sandcastle-theme :vc-backend Git :url "https://github.com/habamax/sandcastle-theme")))
  '(project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
@@ -169,7 +169,6 @@
  '(tramp-ssh-controlmaster-options
    "-o ControlMaster=auto -o ControlPath=tramp.%%C -o ControlPersist=60m" t)
  '(tramp-use-scp-direct-remote-copying t)
- '(undo-tree-auto-save-history nil)
  '(use-short-answers t)
  '(vc-follow-symlinks t)
  '(vertico-count 15)
@@ -309,13 +308,9 @@
 ;;| Undo
 ;; ----------------------------------------------------------------------------
 
-(require 'undo-tree)
-(global-undo-tree-mode)
-
 (setq amalgamating-undo-limit 4)
 
-(when (fboundp 'evil-set-undo-system)
-  (evil-set-undo-system 'undo-tree))
+(evil-set-undo-system 'undo-redo)
 
 (evil-declare-ignore-repeat 'evil-undo)
 
@@ -2595,7 +2590,6 @@ switch to it."
 	  (switch-to-buffer target))))))
 
 (defun my-shell-hook ()
-  (undo-tree-mode -1)			; don't shadow M-_
   (fancy-dabbrev-mode -1)
   (visual-line-mode 0)
   (toggle-truncate-lines 0)
