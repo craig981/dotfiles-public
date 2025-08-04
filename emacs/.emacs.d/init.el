@@ -1483,7 +1483,7 @@ inserting on the last line of the buffer when in normal mode."
 		 (org-agenda-sorting-strategy '(priority-down tag-up alpha-up))))))
 
 	("." "Agenda"
-	 ((agenda "")
+	 ((agenda "" ((org-agenda-sorting-strategy '(time-up ts-up habit-down priority-down category-keep))))
 	  (tags-todo "-read-watch-project-show"
 		     ((org-agenda-overriding-header "Unscheduled:")
 		      (org-agenda-skip-function '(org-agenda-skip-entry-if 'scheduled))
