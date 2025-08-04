@@ -3256,10 +3256,10 @@ _C-e_: choose shell  _M-e_: cycle shell       _r_: scratch      _f_:   ledger   
 	 (month (decoded-time-month time))
 	 (hour (decoded-time-hour time)))
     (cond
-     ((and my-auto-light-theme (> hour 7) (< hour 18))
-      (my-theme-light 'ef-cyprus))
      ((and (>= month 9) (<= month 11)) (my-theme-dark 'ef-autumn))
      ((or (= month 12) (<= month 2))   (my-theme-dark 'ef-winter))
+     ((and my-auto-light-theme (> hour 7) (< hour 14))
+      (my-theme-dark 'ef-owl))
      (t                                (my-theme-dark 'ef-night))))
 
   (when (display-graphic-p)
