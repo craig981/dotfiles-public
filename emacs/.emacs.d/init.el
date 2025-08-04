@@ -100,6 +100,7 @@
    '(magit-insert-error-header magit-insert-diff-filter-header magit-insert-repo-header magit-insert-head-branch-header magit-insert-upstream-branch-header magit-insert-push-branch-header magit-insert-tags-header))
  '(magit-status-show-hashes-in-headers t)
  '(message-auto-save-directory nil)
+ '(mouse-highlight nil)
  '(next-error-recenter '(4))
  '(olivetti-body-width 120)
  '(org-agenda-file-regexp "\\`[^.].*\\.org\\(\\.gpg\\)?\\'")
