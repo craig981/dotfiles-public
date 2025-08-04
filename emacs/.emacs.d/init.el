@@ -116,6 +116,7 @@
  '(org-directory "~/org")
  '(org-download-method 'attach)
  '(org-fold-catch-invisible-edits 'smart)
+ '(org-habit-graph-column 45)
  '(org-html-validation-link nil)
  '(org-image-max-width 'window)
  '(org-imenu-depth 3)
