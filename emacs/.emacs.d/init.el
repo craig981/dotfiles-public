@@ -115,7 +115,6 @@
  '(org-confirm-babel-evaluate nil)
  '(org-deadline-warning-days 7)
  '(org-directory "~/org")
- '(org-download-method 'attach)
  '(org-fold-catch-invisible-edits 'smart)
  '(org-habit-graph-column 45)
  '(org-html-validation-link nil)
@@ -137,7 +136,7 @@
    '((sequence "TODO(t)" "NEXT(n)" "PROGRESS(p)" "WAIT(w@/@)" "BLOCK(b@/@)" "|" "DONE(d!/!)" "CANCELLED(c@/@)")))
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
-   '(ace-window cape cmake-mode consult consult-dir doric-themes ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless org-download ox-pandoc paredit reykjavik-theme soft-morning-theme tempel terminal-here vertico wgrep which-key yaml-mode))
+   '(ace-window cape cmake-mode consult consult-dir doric-themes ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless ox-pandoc paredit reykjavik-theme soft-morning-theme tempel terminal-here vertico wgrep which-key yaml-mode))
  '(package-vc-selected-packages
    '((sandcastle-theme :vc-backend Git :url "https://github.com/habamax/sandcastle-theme")))
  '(project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
@@ -1287,7 +1286,6 @@ empty string."
 
 ;;; move slowdown to startup instead of when opening an org file
 (require 'org)
-(require 'org-download nil t)
 
 ;;; workaround org 9.6 flakey agenda display, randomly failing to display
 ;;; tasks scheduled for the current day.
@@ -1532,7 +1530,6 @@ inserting on the last line of the buffer when in normal mode."
 (with-eval-after-load 'org
 
   (when (eq system-type 'darwin)
-    (setq org-download-screenshot-method "screencapture -i %s")
     (setq org-babel-awk-command "gawk"))
 
   (setq org-babel-python-command "python3")
@@ -1568,9 +1565,6 @@ inserting on the last line of the buffer when in normal mode."
 		(interactive)
 		(org-toggle-checkbox '(4))))
   (define-key org-mode-map (kbd "C-c M-o d") 'org-decrypt-entry)
-  (define-key org-mode-map (kbd "C-c M-o s") 'org-download-screenshot)
-  (define-key org-mode-map (kbd "C-c M-o i") 'org-download-image)
-  (define-key org-mode-map (kbd "C-c M-o e") 'org-download-edit)
   (define-key org-mode-map (kbd "C-c M-o h") 'org-fold-hide-block-all)
   (define-key org-mode-map (kbd "C-c M-o w") 'embark-org-copy-link-target)
   (define-key org-mode-map (kbd "M-[") 'org-backward-element)
