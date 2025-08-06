@@ -5,6 +5,9 @@ export PATH=$HOME/tools/bin:$HOME/dotfiles-public/bin:$HOME/.local/bin:/usr/loca
 
 export LESSHISTFILE=/dev/null
 
+unset DEBUGINFOD_URLS
+
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;

@@ -13,6 +13,7 @@ set history save on
 set history filename ~/.gdb_history
 
 # emacs gets stuck asking for this
-set debuginfod enabled off
+# set debuginfod enabled off
+# gdb complaining, unsetting DEBUGINFOD_URLS instead
 
 
