@@ -136,7 +136,7 @@
    '((sequence "TODO(t)" "NEXT(n)" "PROGRESS(p)" "WAIT(w@/@)" "BLOCK(b@/@)" "|" "DONE(d!/!)" "CANCELLED(c@/@)")))
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
-   '(ace-window cape cmake-mode consult consult-dir doric-themes ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode nordic-night-theme olivetti orderless ox-pandoc paredit reykjavik-theme soft-morning-theme tempel terminal-here vertico wgrep which-key yaml-mode))
+   '(ace-window cape cmake-mode consult consult-dir doric-themes ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode olivetti orderless ox-pandoc paredit reykjavik-theme soft-morning-theme tempel terminal-here vertico wgrep which-key yaml-mode))
  '(package-vc-selected-packages
    '((sandcastle-theme :vc-backend Git :url "https://github.com/habamax/sandcastle-theme")))
  '(project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
@@ -405,11 +405,6 @@
 ;;| Convenience
 ;; ----------------------------------------------------------------------------
 
-(when (version< emacs-version "29.1")
-  (defalias 'yes-or-no-p 'y-or-n-p))
-
-;; (column-number-mode t)
-
 (show-paren-mode)
 
 (defun my-insert-enter-hook ()
@@ -439,13 +434,6 @@
 (winner-mode 1)
 
 (put 'narrow-to-region 'disabled nil)
-
-(when (display-graphic-p)
-  (tool-bar-mode -1)
-  (scroll-bar-mode -1))
-
-(when (not (eq system-type 'darwin))
-  (menu-bar-mode -1))
 
 (require 'thingatpt)
 
@@ -2006,10 +1994,8 @@ inserting on the last line of the buffer when in normal mode."
 ;; ----------------------------------------------------------------------------
 
 (defun my-find-project-root ()
-  (let* ((dir (if (version< emacs-version "28.1")
-		  (locate-dominating-file default-directory ".git")
-		(let ((project (project-current nil)))
-		  (and project (project-root project))))))
+  (let* ((project (project-current nil))
+	 (dir (and project (project-root project))))
     (or (and dir (expand-file-name (file-name-as-directory dir)))
 	default-directory)))
 
@@ -2368,7 +2354,6 @@ otherwise `project-compile'."
 (global-set-key (kbd "C-c C-SPC") 'my-compile)
 (global-set-key (kbd "C-c C-.") #'recompile)
 (global-set-key (kbd "C-c C-,") #'recompile)
-(global-set-key (kbd "C-c ,") #'recompile)
 (global-set-key (kbd "C-c g") #'my-jump-compilation)
 (define-key compilation-mode-map (kbd "SPC") evil-leader--default-map)
 (define-key compilation-mode-map (kbd "C-w") 'evil-window-map)
@@ -3239,6 +3224,13 @@ _C-e_: choose shell  _M-e_: cycle shell       _r_: scratch      _f_:   ledger   
 ;; ----------------------------------------------------------------------------
 ;;| Window setup
 ;; ----------------------------------------------------------------------------
+
+(when (display-graphic-p)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1))
+
+(when (not (eq system-type 'darwin))
+  (menu-bar-mode -1))
 
 (defvar my-auto-light-theme t)
 
