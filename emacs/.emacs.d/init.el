@@ -43,7 +43,6 @@
  '(compile-command "make ")
  '(compose-mail-user-agent-warnings nil)
  '(confirm-kill-emacs 'y-or-n-p)
- '(consult-find-args "find . -type f")
  '(consult-ripgrep-args
    "rg --null --line-buffered --color=never --max-columns=1000  --smart-case --no-heading --with-filename --line-number --no-search-zip --hidden -g !{.git,.svn,.hg}/ -g !TAGS -g !build/ --no-ignore")
  '(custom-safe-themes
@@ -720,6 +719,7 @@ empty string."
 (global-set-key (kbd "C-c q") #'my-kill-in-quotes)
 (global-set-key (kbd "C-c .") #'count-words-region)
 (global-set-key (kbd "C-c b") #'browse-url-at-point)
+(global-set-key (kbd "C-c r") #'recentf)
 
 (define-key minibuffer-local-map (kbd "M-z") 'my-zap-up-to-char)
 (global-set-key (kbd "M-z") 'zap-up-to-char)
@@ -1737,8 +1737,6 @@ inserting on the last line of the buffer when in normal mode."
   (my-ripgrep (read-directory-name "Directory: ") prefix))
 
 (setq consult-preview-key nil)
-(consult-customize consult-line :preview-key 'any)
-(consult-customize consult-theme :preview-key "C-l")
 (consult-customize my-imenu :preview-key 'any)
 
 (define-key consult-async-map (kbd "M-w")
@@ -1753,27 +1751,11 @@ inserting on the last line of the buffer when in normal mode."
 (global-set-key (kbd "M-s r") 'my-ripgrep-dir)
 (global-set-key (kbd "C-c i") 'my-imenu)
 
-(global-set-key (kbd "C-c r") 'consult-recent-file)
 (define-key minibuffer-local-map (kbd "M-r") 'consult-history)
 
 (when (require 'consult-dir nil t)
    (define-key minibuffer-local-map (kbd "C-x C-d") #'consult-dir)
    (define-key minibuffer-local-map (kbd "C-x C-j") #'consult-dir-jump-file))
-
-(defun my-consult-find-home ()
-  "Find files under home directory."
-  (interactive)
-  (let* ((exclude (append '("-name .svn"
-			    "-path \"*.git/objects\"")
-			  (pcase system-type
-			    ('gnu/linux '("-not -readable"))
-			    ('darwin '("-path \"./Pictures/Photos Library.photoslibrary\"")))))
-	 (consult-find-args
-	  (format "find . -type d ( %s ) -prune -false -o ( -type f -o -type l )"
-		  (string-join exclude " -o "))))
-    (consult-find "~")))
-
-(global-set-key (kbd "C-x f") #'my-consult-find-home)
 
 ;; ----------------------------------------------------------------------------
 ;;| Grep
@@ -1879,11 +1861,11 @@ inserting on the last line of the buffer when in normal mode."
 
 (defun my-switch-buffer ()
   (interactive)
-  (my-invoke-with-completion #'consult-buffer 1))
+  (my-invoke-with-completion #'switch-to-buffer 1))
 
 (defun my-switch-buffer-other-window ()
   (interactive)
-  (my-invoke-with-completion #'consult-buffer-other-window 1))
+  (my-invoke-with-completion #'switch-to-buffer-other-window 1))
 
 (evil-global-set-key 'motion (kbd "C-w d")   'kill-current-buffer)
 (evil-global-set-key 'motion (kbd "C-w C-d") 'kill-current-buffer)
