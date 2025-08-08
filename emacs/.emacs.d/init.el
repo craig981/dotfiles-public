@@ -1811,10 +1811,9 @@ inserting on the last line of the buffer when in normal mode."
 
 
 (setq icomplete-compute-delay 0.0)
-(setq icomplete-matches-format nil)
 (setq icomplete-show-matches-on-no-input t)
 ;; (setq completion-pcm-word-delimiters "-_./:|")
-;; (setq icomplete-scroll t)
+(setq icomplete-scroll t)
 ;; (icomplete-vertical-mode 1)
 
 (with-eval-after-load 'icomplete
@@ -1840,7 +1839,8 @@ inserting on the last line of the buffer when in normal mode."
     (icomplete-vertical-mode -1)
     (icomplete-mode icomplete)
     (unwind-protect
-	(call-interactively func)
+	(let ((icomplete-matches-format nil))
+	  (call-interactively func))
       (icomplete-mode -1)
       (when v (vertico-mode 1))
       (when m (marginalia-mode 1))
