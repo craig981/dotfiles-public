@@ -916,8 +916,6 @@ empty string."
 (when (require 'tempel nil t)
 
   (advice-add 'tempel-complete :before 'my-advise-enter-insert-state)
-  (with-eval-after-load 'corfu
-    (advice-add 'tempel-complete :around 'my-with-corfu))
 
   (global-set-key (kbd "M-'") 'tempel-complete)
   (define-key tempel-map (kbd "RET") 'tempel-next))
@@ -939,13 +937,12 @@ empty string."
 (add-hook 'prog-mode-hook #'my-prog-mode-hook)
 
 ;; ----------------------------------------------------------------------------
-;;| Fancy dabbrev, Corfu
+;;| Fancy dabbrev
 ;; ----------------------------------------------------------------------------
 
 (require 'fancy-dabbrev)
 
-(if (not (and (display-graphic-p)
-	      (require 'corfu nil t)))
+(if nil
 
     (progn
       (global-set-key (kbd "M-/") 'fancy-dabbrev-expand)
@@ -997,26 +994,6 @@ empty string."
       (setq my-completion-list (my-dabbrev-get-completions))
       (setq my-completion-start-position (point))
       (fancy-dabbrev--expand-first-time)))
-
-  (with-eval-after-load 'corfu
-    (define-key corfu-map (kbd "<backtab>") 'corfu-previous)
-    (define-key corfu-map (kbd "C-M-/") 'corfu-next)
-    (define-key corfu-map (kbd "M-/") 'corfu-next))
-
-  (setq corfu-sort-function nil)
-  (setq corfu-preselect 'first) 	; for filename completion
-
-  (defun my-with-corfu (func &rest args)
-    (let ((m corfu-mode))
-      (corfu-mode 1)
-      (unwind-protect
-	  (apply func args)
-	(corfu-mode (if m 1 -1))
-	(when (not m)
-	  ;; corfu overrides this, change it back
-	  (setq completion-in-region-function #'my-completion-in-region-function)))))
-
-  (advice-add 'my-dabbrev-complete :around 'my-with-corfu)
 
   ;; Have to use C-M-i instead for evil mode dot command, macros, or insert
   ;; on visual column selection, but we haven't set
@@ -1318,8 +1295,8 @@ empty string."
     (evil-local-set-key 'normal (kbd "<tab>") 'org-cycle)))
 
   (evil-local-set-key 'insert (kbd "<tab>") #'org-cycle)
-  (when (not (boundp 'corfu-mode))
-    (evil-local-set-key 'insert (kbd "<backtab>") #'fancy-dabbrev-backward)))
+  ;; (evil-local-set-key 'insert (kbd "<backtab>") #'fancy-dabbrev-backward)
+  )
 
 (defun my-org-capture-hook ()
   (interactive)
@@ -2460,12 +2437,7 @@ return key from pasting the whole lot back and executing it."
     (if (> (count-windows) 1)
 	(delete-window))))
 
-(defun my-comint-hook ()
-  (when (fboundp 'corfu-mode)
-    (corfu-mode -1)))
-
 (with-eval-after-load 'comint
-  (add-hook 'comint-mode-hook 'my-comint-hook)
   (define-key comint-mode-map (kbd "M-_") 'comint-insert-previous-argument)
   (define-key comint-mode-map (kbd "M-r") 'move-to-window-line-top-bottom)
   (define-key comint-mode-map (kbd "C-r") 'my-comint-ctrl-r)
