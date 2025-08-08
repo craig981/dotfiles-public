@@ -135,7 +135,7 @@
    '((sequence "TODO(t)" "NEXT(n)" "PROGRESS(p)" "WAIT(w@/@)" "BLOCK(b@/@)" "|" "DONE(d!/!)" "CANCELLED(c@/@)")))
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
-   '(ace-window cape cmake-mode consult consult-dir doric-themes ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode olivetti orderless ox-pandoc paredit reykjavik-theme soft-morning-theme tempel terminal-here vertico wgrep which-key yaml-mode))
+   '(ace-window cape cmake-mode consult consult-dir doric-themes ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode olivetti orderless ox-pandoc paredit reykjavik-theme soft-morning-theme tempel vertico wgrep which-key yaml-mode))
  '(package-vc-selected-packages
    '((sandcastle-theme :vc-backend Git :url "https://github.com/habamax/sandcastle-theme")))
  '(project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
@@ -2074,7 +2074,7 @@ return the project path instead"
 
 (defun my-choose-project-and-term ()
   (interactive)
-  (my-choose-project-and-invoke #'terminal-here-launch))
+  (my-choose-project-and-invoke #'my-ansi-term))
 
 (let ((map (define-keymap
 	     "e" #'my-choose-project-and-find-file
@@ -2574,25 +2574,6 @@ switch to it."
 (defun my-ansi-term ()
   (interactive)
   (ansi-term shell-file-name))
-
-(global-set-key (kbd "C-c t a") 'my-ansi-term)
-
-(when (require 'terminal-here nil t)
-  (pcase system-type
-    ('gnu/linux
-     (let ((desktop (getenv "XDG_CURRENT_DESKTOP")))
-       (cond
-	((string= desktop "MATE")
-	 (push '(mate-terminal "mate-terminal") terminal-here-terminal-command-table)
-	 (setq terminal-here-linux-terminal-command 'mate-terminal))
-	(t
-	 (setq terminal-here-linux-terminal-command 'gnome-terminal)))))))
-
-(defun my-term ()
-  (interactive)
-  (if (fboundp 'terminal-here-launch)
-      (terminal-here-launch)
-    (my-ansi-term)))
 
 ;; ----------------------------------------------------------------------------
 ;;| Tags
@@ -3154,7 +3135,7 @@ _C-e_: choose shell  _M-e_: cycle shell       _r_: scratch      _f_:   ledger   
   ("C-e" #'my-choose-shell       :exit t)
   ("M-s" #'my-shell	         :exit t)
   ("s"	 #'my-project-shell      :exit t)
-  ("t"	 #'my-term	         :exit t)
+  ("t"	 #'my-ansi-term	         :exit t)
   ("v"	 #'my-magit-list-repos   :exit t)
   ("."	 (lambda () (interactive) (magit "~/dotfiles-public"))   :exit t)
   ("d"	 #'my-project-dired      :exit t)
