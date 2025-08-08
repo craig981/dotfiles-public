@@ -986,8 +986,18 @@ empty string."
 	(progn
 	  (delete-region my-completion-start-position (point))
 	  (unwind-protect
-	      (let ((completion-at-point-functions '(my-dabbrev-completion-at-point)))
-		(completion-at-point))
+	      (let* ((completion-at-point-functions '(my-dabbrev-completion-at-point))
+		     (key-next (kbd "M-/"))
+		     (key-prev (kbd "<backtab>"))
+		     (bind-next (lookup-key vertico-map key-next))
+		     (bind-prev (lookup-key vertico-map key-prev)))
+		(unwind-protect
+		    (progn
+		      (define-key vertico-map key-next #'vertico-next)
+		      (define-key vertico-map key-prev #'vertico-previous)
+		      (completion-at-point))
+		  (define-key vertico-map key-next bind-next)
+		  (define-key vertico-map key-prev bind-prev)))
 	    (setq my-completion-list nil)))
 
       ;; first completion, use fancy-dabbrev
