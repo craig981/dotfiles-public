@@ -22,6 +22,9 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 
+(dolist (dir (directory-files "~/.emacs.d/lisp/" t ".*-[0-9]+"))
+  (add-to-list 'load-path dir))
+
 ;; ----------------------------------------------------------------------------
 ;;| Customs
 ;; ----------------------------------------------------------------------------
@@ -135,9 +138,7 @@
    '((sequence "TODO(t)" "NEXT(n)" "PROGRESS(p)" "WAIT(w@/@)" "BLOCK(b@/@)" "|" "DONE(d!/!)" "CANCELLED(c@/@)")))
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
-   '(ace-window cape cmake-mode consult consult-dir doric-themes ef-themes elfeed embark embark-consult emms evil evil-leader evil-collection evil-numbers fancy-dabbrev gnuplot helm hydra ibuffer-project ledger-mode magit marginalia markdown-mode olivetti orderless ox-pandoc paredit reykjavik-theme soft-morning-theme tempel vertico wgrep which-key yaml-mode))
- '(package-vc-selected-packages
-   '((sandcastle-theme :vc-backend Git :url "https://github.com/habamax/sandcastle-theme")))
+   '(ace-window cape consult consult-dir doric-themes ef-themes embark embark-consult emms evil evil-collection evil-numbers gnuplot helm hydra ledger-mode magit marginalia markdown-mode olivetti orderless ox-pandoc paredit tempel vertico wgrep which-key))
  '(project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
  '(read-buffer-completion-ignore-case t)
  '(read-quoted-char-radix 16)
