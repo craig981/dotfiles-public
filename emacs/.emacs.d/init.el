@@ -690,11 +690,11 @@ empty string."
     (evil-insert-state)))
 
 (dolist (cmd '(kill-word
-	       kill-line
-	       kill-sentence
-	       kill-sexp
-	       org-meta-return
-	       org-insert-todo-heading))
+	             kill-line
+	             kill-sentence
+	             kill-sexp
+	             org-meta-return
+	             org-insert-todo-heading))
   (advice-add cmd :after #'my-advise-enter-insert-state))
 
 
