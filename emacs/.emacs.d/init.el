@@ -712,12 +712,12 @@ empty string."
     (my-substitute ".,$")))
 
 (global-set-key (kbd "C-c d") #'pwd)
-(global-set-key (kbd "C-c c") #'my-copy-filename)
+(global-set-key (kbd "C-c %") #'my-copy-filename)
 (global-set-key (kbd "C-c n") #'toggle-truncate-lines)
 (global-set-key (kbd "C-c w") 'evil-window-map)
 (global-set-key (kbd "C-c m") #'my-mirror-buffer)
 (global-set-key (kbd "C-c q") #'my-kill-in-quotes)
-(global-set-key (kbd "C-c .") #'count-words-region)
+(global-set-key (kbd "C-c c") #'count-words-region)
 (global-set-key (kbd "C-c b") #'browse-url-at-point)
 (global-set-key (kbd "C-c r") #'recentf)
 
