@@ -138,7 +138,7 @@
    '((sequence "TODO(t)" "NEXT(n)" "PROGRESS(p)" "WAIT(w@/@)" "BLOCK(b@/@)" "|" "DONE(d!/!)" "CANCELLED(c@/@)")))
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
-   '(ace-window cape consult consult-dir doric-themes ef-themes embark embark-consult emms evil evil-collection evil-numbers gnuplot helm hydra ledger-mode magit marginalia markdown-mode olivetti orderless ox-pandoc paredit tempel vertico wgrep which-key))
+   '(ace-window cape consult consult-dir doric-themes ef-themes embark embark-consult emms evil evil-collection evil-numbers gnuplot helm hydra ledger-mode magit marginalia markdown-mode olivetti orderless ox-pandoc tempel vertico wgrep which-key))
  '(project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
  '(read-buffer-completion-ignore-case t)
  '(read-quoted-char-radix 16)
@@ -693,7 +693,6 @@ empty string."
 	       kill-line
 	       kill-sentence
 	       kill-sexp
-	       paredit-kill
 	       org-meta-return
 	       org-insert-todo-heading))
   (advice-add cmd :after #'my-advise-enter-insert-state))
@@ -2673,26 +2672,11 @@ make TAGS in that directory."
 ;;| Lisp
 ;; ----------------------------------------------------------------------------
 
-(require 'paredit)
-(autoload 'enable-paredit-mode "paredit" "Turn on pseudo-structural editing of Lisp code." t)
-
-(defun my-lisp-ctrl-j (&optional prefix)
-  (interactive "P")
-  (if prefix
-      ;; still works if cursor is on a blank line below
-      (pp-eval-last-sexp t)
-    (call-interactively (lookup-key (current-global-map) (kbd "C-j")))))
-
-(define-key paredit-mode-map (kbd "C-j") #'my-lisp-ctrl-j)
-(define-key paredit-mode-map (kbd "M-s") nil)
-(define-key paredit-mode-map (kbd "M-s s") 'paredit-splice-sexp)
-(define-key paredit-mode-map (kbd "M-s u") 'paredit-raise-sexp)
-(define-key paredit-mode-map (kbd "M-r") nil)
-(when (not (version< emacs-version "30"))
-  (define-key paredit-mode-map (kbd "M-q") nil))
-
 (defun my-lisp-common-hook ()
-  (enable-paredit-mode)
+  (electric-pair-local-mode)
+  (setq-local indent-tabs-mode nil)
+  (setq-local tab-width 2)
+  (setq-local evil-shift-width 2)
   (setq-local evil-move-beyond-eol t)
   (setq-local evil-symbol-word-search t))
 
@@ -2702,24 +2686,47 @@ make TAGS in that directory."
 (add-hook 'lisp-interaction-mode-hook 'my-lisp-common-hook 'append)
 (add-hook 'scheme-mode-hook           'my-lisp-common-hook 'append)
 
-;; (push 'emacs-lisp-mode       evil-emacs-state-modes)
-;; (push 'lisp-interaction-mode evil-emacs-state-modes)
-
-(advice-add 'paredit-comment-dwim :after 'my-advise-comment)
+(defun my-lisp-ctrl-j (&optional prefix)
+  (interactive "P")
+  (if prefix
+      ;; still works if cursor is on a blank line below
+      (pp-eval-last-sexp t)
+    (call-interactively (lookup-key (current-global-map) (kbd "C-j")))))
 
 (defun my-reindent-lisp-defun ()
   (interactive)
   (save-excursion
     (evil-previous-open-paren 20)
     (indent-sexp)))
-(define-key lisp-mode-shared-map (kbd "C-c C-q") 'my-reindent-lisp-defun)
 
-(defun my-advise-paredit-wrap (&rest args)
+(defun my-wrap-paren ()
+  (interactive)
+  (insert-parentheses 1)
   (when (evil-normal-state-p)
     (evil-insert 1)))
 
-(advice-add 'paredit-wrap-round :after 'my-advise-paredit-wrap)
-(advice-add 'paredit-meta-doublequote :after 'my-advise-paredit-wrap)
+(defun my-forward-slurp ()
+  (interactive)
+  (advice-remove 'kill-sexp #'my-advise-enter-insert-state)
+  (with-undo-amalgamate
+    (save-excursion
+      (backward-up-list)
+      (save-excursion
+        (forward-sexp)
+        (kill-sexp)
+        (backward-char)
+        (yank))
+      (indent-sexp)))
+  (advice-add 'kill-sexp :after #'my-advise-enter-insert-state))
+
+(define-key lisp-mode-shared-map (kbd "M-s u") 'raise-sexp)
+(define-key lisp-mode-shared-map (kbd "M-(") 'my-wrap-paren)
+(define-key lisp-mode-shared-map (kbd "C-)") 'my-forward-slurp)
+(define-key lisp-mode-shared-map (kbd "C-j") 'my-lisp-ctrl-j)
+(define-key lisp-mode-shared-map (kbd "C-c C-q") 'my-reindent-lisp-defun)
+
+;; (push 'emacs-lisp-mode       evil-emacs-state-modes)
+;; (push 'lisp-interaction-mode evil-emacs-state-modes)
 
 ;; ----------------------------------------------------------------------------
 ;;| Python
