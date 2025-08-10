@@ -1954,9 +1954,9 @@ inserting on the last line of the buffer when in normal mode."
 ;;| Ace window
 ;; ----------------------------------------------------------------------------
 
-(when (require 'ace-window nil t)
-  (global-set-key (kbd "M-O") 'ace-window)
-  (setq aw-keys '(?f ?g ?h ?j ?k ?l ?\;)))
+;; (when (require 'ace-window nil t)
+;;   (global-set-key (kbd "M-O") 'ace-window)
+;;   (setq aw-keys '(?f ?g ?h ?j ?k ?l ?\;)))
 
 ;; ----------------------------------------------------------------------------
 ;;| Projects
