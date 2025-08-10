@@ -138,7 +138,7 @@
    '((sequence "TODO(t)" "NEXT(n)" "PROGRESS(p)" "WAIT(w@/@)" "BLOCK(b@/@)" "|" "DONE(d!/!)" "CANCELLED(c@/@)")))
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
-   '(cape consult consult-dir doric-themes ef-themes embark embark-consult emms evil evil-collection evil-numbers gnuplot helm hydra ledger-mode magit marginalia markdown-mode olivetti orderless ox-pandoc tempel vertico which-key))
+   '(cape consult consult-dir doric-themes ef-themes embark embark-consult emms evil evil-collection evil-numbers gnuplot helm hydra ledger-mode magit marginalia olivetti orderless ox-pandoc tempel vertico which-key))
  '(project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
  '(read-buffer-completion-ignore-case t)
  '(read-quoted-char-radix 16)
@@ -2376,29 +2376,27 @@ otherwise `project-compile'."
 ;;| Markdown
 ;; ----------------------------------------------------------------------------
 
-(with-eval-after-load 'markdown-mode
-  (define-key markdown-mode-map (kbd "C-c M-l") 'my-insert-markdown-link)
-  (define-key markdown-mode-map (kbd "C-c C-c") nil)
-  (define-key markdown-mode-map (kbd "C-c C-v") markdown-mode-command-map)
-  (define-key markdown-mode-map (kbd "M-p") nil)
-  (define-key markdown-mode-map (kbd "M-n") nil))
-
-(defun my-markdown-hook ()
-  (setq-local indent-tabs-mode nil)
-  (setq-local evil-shift-width 2)
-  (setq-local tab-width 2)
-  (my-syntax-entry))
-
-(add-hook 'markdown-mode-hook 'my-markdown-hook)
-
 (defun my-insert-markdown-link ()
   (interactive)
   (let ((url (substring-no-properties (current-kill 0 t))))
     (cond
      ((string-match "^https://trello\\.com/[^/]+/[^/]+/\\([0-9]+\\)" url)
       (save-excursion
-	(insert (format "[Trello %s](%s)" (match-string 1 url) url))))
-     (t (call-interactively 'markdown-insert-link)))))
+	      (insert (format "[Trello %s](%s)" (match-string 1 url) url))))
+     (t (let* ((url (read-string "URL: "))
+               (desc (read-string "Description: ")))
+          (save-excursion
+            (insert (format "[%s](%s)" desc url))))))))
+
+(defun my-markdown-settings ()
+  (setq-local indent-tabs-mode nil)
+  (setq-local evil-shift-width 2)
+  (setq-local tab-width 2)
+  (my-evil-default)
+  (local-set-key (kbd "C-c C-l") 'my-insert-markdown-link)
+  (my-syntax-entry))
+
+(add-to-list 'auto-mode-alist '("\\.md\\'" . my-markdown-settings))
 
 ;; ----------------------------------------------------------------------------
 ;;| Yaml
