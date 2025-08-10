@@ -138,7 +138,7 @@
    '((sequence "TODO(t)" "NEXT(n)" "PROGRESS(p)" "WAIT(w@/@)" "BLOCK(b@/@)" "|" "DONE(d!/!)" "CANCELLED(c@/@)")))
  '(org-use-fast-todo-selection 'expert)
  '(package-selected-packages
-   '(ace-window cape consult consult-dir doric-themes ef-themes embark embark-consult emms evil evil-collection evil-numbers gnuplot helm hydra ledger-mode magit marginalia markdown-mode olivetti orderless ox-pandoc tempel vertico which-key))
+   '(cape consult consult-dir doric-themes ef-themes embark embark-consult emms evil evil-collection evil-numbers gnuplot helm hydra ledger-mode magit marginalia markdown-mode olivetti orderless ox-pandoc tempel vertico which-key))
  '(project-vc-ignores '("./build/" "build/" ".#*" "*~" "*.elc" "*.pyc" "*.pyo"))
  '(read-buffer-completion-ignore-case t)
  '(read-quoted-char-radix 16)
