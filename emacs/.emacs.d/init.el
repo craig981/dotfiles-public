@@ -1343,12 +1343,12 @@ empty string."
   (let ((bounds (thing-at-point-bounds-of-url-at-point t)))
     (when (and bounds (< (car bounds) (cdr bounds)))
       (let* ((url (buffer-substring-no-properties (car bounds) (cdr bounds)))
-	     (title (my-www-get-page-title url)))
-	(save-excursion
-	  (goto-char (cdr bounds))
-	  (insert (format "][%s]]" title))
-	  (goto-char (car bounds))
-	  (insert "[["))))))
+	           (title (my-www-get-page-title url)))
+	      (save-excursion
+	        (goto-char (cdr bounds))
+	        (insert (format "][%s]]" title))
+	        (goto-char (car bounds))
+	        (insert "[["))))))
 
 (defun my-org-attach-save-file-list-to-property (dir)
   "Save list of attachments to ORG_ATTACH_FILES property."
