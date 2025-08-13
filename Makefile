@@ -154,7 +154,6 @@ downloads = $(HOME)/Downloads
 build = $(makedir)/build
 
 emacs_version = 29.1
-emacs_prefix = $(HOME)/tools/emacs-$(emacs_version)
 
 emacs_src = $(build)/emacs-$(emacs_version)
 urls = \
@@ -180,6 +179,7 @@ conf_args = \
 	--with-modules \
 	--with-imagemagick
 ifeq ($(osuname),Linux)
+  emacs_prefix = $(HOME)/tools/emacs-$(emacs_version)
   conf_args += --prefix "$(emacs_prefix)"
   ifeq ($(XDG_SESSION_TYPE),wayland)
     conf_args += --with-pgtk
@@ -189,13 +189,16 @@ endif
 .PHONY: emacs emacs-clean clean
 
 emacs: $(emacs_src)
+ifeq ($(osuname),Linux)
 	[ ! -d "$(emacs_prefix)" ] || ( echo "Prefix dir already exists : $(emacs_prefix)" && exit 1 )
+endif
 	cd "$(emacs_src)" && ./autogen.sh
 	cd "$(emacs_src)" && ./configure $(conf_args)
 	$(MAKE) -C "$(emacs_src)" -j 4
 	$(MAKE) -C "$(emacs_src)" install
 ifeq ($(osuname),Darwin)
-	ls -ld "$(emacs_src)/nextstep/Emacs.app"
+	xattr -l "$(emacs_src)/nextstep/Emacs.app"
+	xattr -c "$(emacs_src)/nextstep/Emacs.app"
 endif
 
 emacs-clean:
