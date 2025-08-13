@@ -963,9 +963,9 @@ empty string."
     (fancy-dabbrev--get-first-expansion)
     (let ((expansion (fancy-dabbrev--get-first-expansion)))
       (when (not (null expansion))
-	(setq fancy-dabbrev--expansions (list expansion))
-	(fancy-dabbrev--init-expansions)
-	fancy-dabbrev--expansions)))
+        (setq fancy-dabbrev--expansions (list expansion))
+        (fancy-dabbrev--init-expansions)
+        fancy-dabbrev--expansions)))
 
   (defun my-dabbrev-completion-at-point ()
     (when-let ((bounds (bounds-of-thing-at-point 'symbol)))
@@ -973,8 +973,8 @@ empty string."
 
   (defun my-advise-completion-at-point (func &rest args)
     (if (memq 'my-dabbrev-completion-at-point completion-at-point-functions)
-	(let ((vertico-sort-function nil)) ; preserve fancy-dabbrev ordering
-	  (apply func args))
+        (let ((vertico-sort-function nil)) ; preserve fancy-dabbrev ordering
+          (apply func args))
       (apply func args)))
 
   (advice-add 'completion-at-point :around 'my-advise-completion-at-point)
@@ -982,23 +982,23 @@ empty string."
   (defun my-dabbrev-complete ()
     (interactive)
     (if (and (eq last-command 'my-dabbrev-complete) my-completion-list)
-	;; second completion, complete candidates
-	(progn
-	  (delete-region my-completion-start-position (point))
-	  (unwind-protect
-	      (let* ((completion-at-point-functions '(my-dabbrev-completion-at-point))
-		     (key-next (kbd "M-/"))
-		     (key-prev (kbd "<backtab>"))
-		     (bind-next (lookup-key vertico-map key-next))
-		     (bind-prev (lookup-key vertico-map key-prev)))
-		(unwind-protect
-		    (progn
-		      (define-key vertico-map key-next #'vertico-next)
-		      (define-key vertico-map key-prev #'vertico-previous)
-		      (completion-at-point))
-		  (define-key vertico-map key-next bind-next)
-		  (define-key vertico-map key-prev bind-prev)))
-	    (setq my-completion-list nil)))
+        ;; second completion, complete candidates
+        (progn
+          (delete-region my-completion-start-position (point))
+          (unwind-protect
+              (let* ((completion-at-point-functions '(my-dabbrev-completion-at-point))
+                     (key-next (kbd "M-/"))
+                     (key-prev (kbd "<backtab>"))
+                     (bind-next (lookup-key vertico-map key-next))
+                     (bind-prev (lookup-key vertico-map key-prev)))
+                (unwind-protect
+                    (progn
+                      (define-key vertico-map key-next #'vertico-next)
+                      (define-key vertico-map key-prev #'vertico-previous)
+                      (completion-at-point))
+                  (define-key vertico-map key-next bind-next)
+                  (define-key vertico-map key-prev bind-prev)))
+            (setq my-completion-list nil)))
 
       ;; first completion, use fancy-dabbrev
       (setq my-completion-list (my-dabbrev-get-completions))
